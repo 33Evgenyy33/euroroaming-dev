@@ -1,6 +1,7 @@
 // dropzoneWordpressForm is the configuration for the element that has an id attribute
 // with the value dropzone-wordpress-form (or dropzoneWordpressForm)
 var currentFile = null;
+var intro;
 
 Dropzone.options.dropzoneWordpressForm = {
     //acceptedFiles: "image/*", // all image mime types
@@ -105,3 +106,81 @@ Dropzone.options.dropzoneWordpressForm = {
 
      }*/
 };
+
+function startIntro(){
+    intro = introJs();
+    intro.setOptions({
+        steps: [
+            {
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Добро пожаловать в кабиент продаж!</h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Чтобы начать ознакомление нажмите кнопку <span style='text-align: center;font-weight: 500;'>'Вперед'</span></p>"
+            },
+            {
+                element: document.querySelector('#wc-pos-register-grids .tbc'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Блок <strong>Сим-карты</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете добавлять сим-карты в заказ.</p>" +
+                "<p style='text-align: center;font-weight: 300;'>После нажатия на картинку с сим-карой появляется окно, где необходимо выбрать опции сим-карты</p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('#bill_screen'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Блок <strong>Детали заказа</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете просмотреть информацию о добавленных сим-картах, а также конечную сумму заказа для Вас и для Клиента</p>",
+                position: 'right'
+            },
+            {
+                element: document.querySelector('#register_customer_dates'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Блок <strong>Детали клиента</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете добавить информацию о клиенте</p>",
+                position: 'right'
+            },
+            {
+                element: document.querySelector('#dropzone-wordpress'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Элемент <strong>Загрузка документов</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете загрузить загранпаспорт(а) клиента.</p>" +
+                "<p style='text-align: center;font-weight: 300;'>Чтобы загрузить документ перетащите его в эту область или нажмите на нее.</p>" +
+                "<p style='text-align: center;font-weight: 300;'>Доступные форматы: <strong>jpg, png, pdf, word</strong></p>",
+                position: 'right'
+            },
+            {
+                element: '#step5',
+                intro: 'Get it, use it.'
+            }
+        ],
+        disableInteraction: true,
+        prevLabel: 'назад',
+        nextLabel: 'вперед',
+        skipLabel: 'выйти',
+        showProgress: true,
+        showStepNumbers:false,
+        doneLabel: 'Начать продавать!'
+    });
+
+    intro.onexit(function() {
+        intro = null;
+    });
+
+    intro.start();
+}
+
+/*intro.oncomplete(function() {
+
+});*/
+
+
+jQuery(document).ready(function ($) {
+
+    /*$("#wc-pos-register-grids #grid_layout_cycle").click(function(){
+        console.log('stepppsss');
+        intro.goToStep(3).start();
+    });*/
+
+    /*$(".wc_pos_register_pay").click(function(){
+        console.log('stepppsss');
+        intro.goToStep(4).start();
+    });*/
+
+    $("#start_tour").click(function(){
+        startIntro();
+    });
+});

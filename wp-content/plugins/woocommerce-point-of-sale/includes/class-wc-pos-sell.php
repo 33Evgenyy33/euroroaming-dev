@@ -634,6 +634,8 @@ class WC_Pos_Sell
             'wc-pos-print' => WC_POS()->plugin_url() . '/assets/css/print.css',
             'dropzonecss' => 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.css',
             'sweetalert2css' => 'https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.5.5/sweetalert2.min.css',
+            'intro1css' => 'https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/introjs.min.css',
+
 
         );
         $styles = apply_filters('wc_pos_enqueue_styles', $styles);
@@ -740,6 +742,8 @@ class WC_Pos_Sell
 
         $scripts = apply_filters('wc_pos_enqueue_scripts', $scripts);
         $scripts['wc-pos-init'] = WC_POS()->plugin_url() . '/assets/js/register/app.js';
+        $scripts['intro1js'] = 'https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/intro.min.js';
+
         $scripts['dropzonejs'] = 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js';
         $scripts['customdropzonejs'] = WC_POS()->plugin_url() . '/assets/js/register/customize_dropzonejs.js';
         $scripts['sweetalert2js'] = 'https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.5.5/sweetalert2.min.js';

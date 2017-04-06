@@ -33,6 +33,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
                 ?>
                 <a class="button tips" href="#" id="retrieve_sales"
                    data-tip="<?php _e('Load Order', 'wc_point_of_sale'); ?>"><?php _e('Load', 'wc_point_of_sale'); ?></a>
+                <button class="button" id="start_tour" style="background: #4CAF50;color: #fff;">Ознакомиться с кабинетом</button>
                 <?php if (current_user_can('edit_private_shop_orders')) { ?>
                     <a class="button tips" href="<?php echo $admin_url; ?>edit.php?post_type=shop_order"
                        id="orders_page"
