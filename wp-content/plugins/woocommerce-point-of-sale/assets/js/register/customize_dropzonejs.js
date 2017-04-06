@@ -87,7 +87,6 @@ Dropzone.options.dropzoneWordpressForm = {
 
                             var _ref;
                             return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-
                         }
                     });
 
