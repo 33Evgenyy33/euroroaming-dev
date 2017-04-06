@@ -113,6 +113,8 @@ function startIntro(){
         steps: [
             {
                 intro: "<h3 style='text-align: center;font-weight: 400;'>Добро пожаловать в кабиент продаж!</h3>" +
+                "<p style='text-align: center;font-weight: 300;'><span style='text-align: center;font-weight: 500;'>Что нового:</span></p>" +
+                "<p style='text-align: center;font-weight: 300;'>Скидка высчитывается автоматически" +
                 "<p style='text-align: center;font-weight: 300;'>Чтобы начать ознакомление нажмите кнопку <span style='text-align: center;font-weight: 500;'>'Вперед'</span></p>"
             },
             {
