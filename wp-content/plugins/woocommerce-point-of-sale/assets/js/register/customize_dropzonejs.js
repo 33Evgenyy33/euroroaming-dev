@@ -4,7 +4,7 @@ var currentFile = null;
 
 Dropzone.options.dropzoneWordpressForm = {
     //acceptedFiles: "image/*", // all image mime types
-    acceptedFiles: ".jpg", // only .jpg files
+    acceptedFiles: ".jpg, .png, .pdf, .doc, .docx", // only .jpg files
     // maxFiles: 1,
     uploadMultiple: true,
     maxFilesize: 5, // 5 MB
@@ -37,17 +37,20 @@ Dropzone.options.dropzoneWordpressForm = {
     },
     removedfile: function (file) {
         //console.log(file);
-        if  (!order_is_created) {
+        if (!order_is_created) {
             jQuery(document).ready(function ($) {
 
+                if (fileList.length === 1)
+                    $('#dropzone-wordpress-form .needsclick').addClass('hide_needsclick');
+
                 swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Удалить загруженный файл?',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Да, удалить',
+                    cancelButtonText: 'Отмена'
                 }).then(function () {
 
                     var data = '';
@@ -78,12 +81,15 @@ Dropzone.options.dropzoneWordpressForm = {
                                 console.log(CUSTOMER);
                             });
 
-                            return false;
+                            if (fileList.length === 0) {
+                                $('#dropzone-wordpress-form .needsclick').removeClass('hide_needsclick');
+                            }
+
+                            var _ref;
+                            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+
                         }
                     });
-
-                    var _ref;
-                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
 
                 });
 
