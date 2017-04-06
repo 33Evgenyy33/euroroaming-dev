@@ -635,7 +635,7 @@ class WC_Pos_Sell
             'dropzonecss' => 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.css',
             'sweetalert2css' => 'https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.5.5/sweetalert2.min.css',
             'intro1css' => 'https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/introjs.min.css',
-
+            'materialicons' => 'https://fonts.googleapis.com/icon?family=Material+Icons',
 
         );
         $styles = apply_filters('wc_pos_enqueue_styles', $styles);
