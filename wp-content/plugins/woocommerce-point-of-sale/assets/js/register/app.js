@@ -2111,10 +2111,16 @@ jQuery(document).ready(function ($) {
                         }
                     }
                 });
+                if (!$('.select2-search-choice').length) {
+                    APP.showNotice(pos_i18n[15], 'error');
+                    err++;
+                }
+
+
                 if (err > 0) {
                     return;
                 }
-                ;
+
                 $('#customer_details .woocommerce-shipping-fields .validate-required input, #customer_details .woocommerce-shipping-fields .validate-required select').each(function (index, el) {
                     if (err == 0) {
                         if ($(this).hasClass('select2-offscreen')) {
