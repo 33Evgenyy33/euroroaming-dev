@@ -22,7 +22,7 @@ class WC_Pos_Sell
     protected static $_instance = null;
 
     public $data = null;
-    public $script_ver = '0.1.7';
+    public $script_ver = '0.1.9';
     public $id = null;
     public $active_plugins = array();
 
