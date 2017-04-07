@@ -1095,7 +1095,7 @@ div.introjs-tooltip {
     width: 70px;
     display: block;
     margin: 0 auto;
-    top: 6px;
+    top: 7px;
     position: relative;
 }
 .introjs-tooltipbuttons a.introjs-button {
@@ -1114,12 +1114,29 @@ div.introjs-tooltip {
 
 
 
-
+.introjs-showElement ~ .introjs-tooltipReferenceLayer .introjs-tooltip {
+    width: 770px;
+    max-width: 770px;
+    margin-left: -390px!important;
+}
 .material-icons{
     vertical-align: middle;
 }
 
 
+#wc-pos-register-buttons .tbr.introjs-showElement.introjs-relativePosition .button {
+    z-index: 9999999 !important;
+    position: relative;
+}
+
+a#retrieve_sales.introjs-showElement.introjs-relativePosition {
+    z-index: 9999999 !important;
+    position: relative;
+}
+
+#wc-pos-registers-edit .introjs-fixParent {
+    z-index: 9999999!important;
+}
 
 
 

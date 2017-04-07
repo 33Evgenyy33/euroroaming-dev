@@ -3035,6 +3035,10 @@ jQuery(document).ready(function ($) {
                     POS_TRANSIENT.save_order = true;
                 } else {
                     APP.createOrder(false);
+                    order_is_created = true;
+                    Dropzone.forElement("#dropzone-wordpress-form").removeAllFiles(true);
+                    order_is_created = false;
+                    fileList.length = 0;
                 }
             });
             /*$('#wc-pos-register-buttons').on('click', '.wc_pos_register_discount', function () {

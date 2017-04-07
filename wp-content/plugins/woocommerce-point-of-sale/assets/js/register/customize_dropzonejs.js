@@ -112,9 +112,12 @@ function startIntro(){
     intro.setOptions({
         steps: [
             {
-                intro: "<h3 style='text-align: center;font-weight: 400;'>Добро пожаловать в кабиент продаж!</h3>" +
-                "<p style='text-align: center;font-weight: 300;'><span style='text-align: center;font-weight: 500;'>Что нового:</span></p>" +
-                "<p style='text-align: center;font-weight: 300;'>Скидка высчитывается автоматически" +
+                intro: "<h3 style='text-align: center;font-weight: 400;    margin-bottom: 30px;'>Добро пожаловать в кабиент продаж!</h3>" +
+                "<p style='text-align: center;font-weight: 300;'><span style='text-align: center;font-weight: 500;'><i class='material-icons'>fiber_new</i> Что нового:</span></p>" +
+                "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Ваша коммисия теперь высчитывается автоматически" +
+                "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Добавилена возможность загрузить скан загранпаспорта (теперь можно не отправлять на почту)</p>" +
+                "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Добавилена возможность сохранить создаваемый заказ и загрузить его позднее</p>" +
+                "<p style='font-weight: 300;margin-bottom: 20px;'><i class='material-icons'>keyboard_arrow_right</i> В окне <span style='font-weight: 400'>'Информация о клиенте'</span> появилось поле выбора номера продаваемой сим-карты</p>" +
                 "<p style='text-align: center;font-weight: 300;'>Чтобы начать ознакомление нажмите кнопку <span style='text-align: center;font-weight: 500;'>'Вперед'</span></p>"
             },
             {
@@ -145,9 +148,64 @@ function startIntro(){
                 position: 'right'
             },
             {
-                element: '#step5',
-                intro: 'Get it, use it.'
-            }
+                element: document.querySelector('#add_customer'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Добавить клиента</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>После нажатия на кнопку появится всплывающее окно где вы сможете добавить данные о клиенте и выбрать номер продаваемой сим-карты</p>",
+                position: 'right'
+            },
+            {
+                element: document.querySelector('#wc-pos-register-buttons div.tbr'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Элемент <strong>Операции с заказом</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете совершать различные операции с заказом</p>"+
+                "<p style='text-align: center;font-weight: 300;'>Чтобы узнать подробнее нажмите <span style='font-weight:400;'>'Вперед'</span></p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('.wc_pos_register_void'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Аннулировать заказ</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>После нажатия на кнопку создаваемый заказ обнулится и Вы сможете начать все с чистого листа :)</p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('.wc_pos_register_save'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Сохранить заказ</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>После нажатия на кнопку заказ сохранится и кабинет обновится. Вы сможете загрузить заказ позднее и продолжить его заполнять</p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('.wc_pos_register_notes'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Добавить заметку</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>После нажати на кнопку появится всплывающее окно где Вы сможете оставить примечание к заказу в произвольной форме. Например: дополнительные данные о клиентах</p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('.wc_pos_register_pay'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Перейти к оплате</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>После нажати на кнопку появится всплывающее окно где Вы сможете выбрать способ оплаты и оплатить заказ</p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('#wc-pos-registers-edit #retrieve_sales'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Загрузить заказ</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>После нажати на кнопку появится всплывающее окно где Вы сможете просмотреть Ваши заказы и загрузить сохраненные (они отмечаются статусом 'Ожидание оплаты')</p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('#wc-pos-registers-edit #full_screen'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Во весь экран</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Вы можете развернуть кабинет на весь экран, нажав на эту кнопку</p>",
+                position: 'auto'
+            },
+            {
+                element: document.querySelector('#wc-pos-registers-edit #close_register'),
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Кнопка <strong>Выйти</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>Вы можете выйти из кабинета, нажав на эту кнопку</p>",
+                position: 'auto'
+            },
+            {
+                intro: "<h3 style='text-align: center;font-weight: 400;    margin-bottom: 30px;'><i class='material-icons'>check_circle</i> Теперь Вы можете смело перейти к продаже</h3>" +
+                "<p style='text-align: center;font-weight: 300;'><span style='text-align: center;font-weight: 500;'>Желаем Вам роста продаж!</span></p>",
+            },
         ],
         disableInteraction: true,
         prevLabel: 'назад',

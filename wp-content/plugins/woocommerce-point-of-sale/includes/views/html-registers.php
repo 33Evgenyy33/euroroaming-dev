@@ -19,7 +19,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <div class="wrap" id="wc-pos-registers-edit">
         <h2>
-            <div style="float: left;padding-left: 20px;">
+            <div id="bar_register_info" style="float: left;padding-left: 20px;">
                 <?php echo $data['name']; ?>
                 <?php
                 if (get_option('wc_pos_disable_connection_status', 'no') != 'yes') {
