@@ -78,14 +78,16 @@ if (!function_exists('mv_save_wc_order_other_fields')) {
     {
         global $woocommerce, $order, $post;
 
-        $meta_field_data = get_post_meta($post->ID, '_my_choice', true); //? get_post_meta( $post->ID, '_my_choice', true ) : '';
+        $meta_field_data = get_post_meta($post->ID, 'uploaded_files', true); //? get_post_meta( $post->ID, '_my_choice', true ) : '';
 
         if (empty($meta_field_data)) return;
+
+        echo get_post_meta($post->ID, 'uploaded_files', true);
 
         echo '<input type="hidden" name="mv_other_meta_field_nonce" value="' . wp_create_nonce() . '">';
 
         $html = '';
-        $urld = explode(",", $meta_field_data[0]);
+        $urld = explode(",", $meta_field_data);
         $i = 1;
         foreach ($urld as $datum) {
             $html .= '<p><a target="_blank" href="' . $datum . '">Скан ' . $i . '</a></p>';

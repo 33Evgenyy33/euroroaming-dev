@@ -63,3 +63,4 @@
 [05-Apr-2017 22:44:53 UTC] PHP Fatal error:  Call to undefined method WC_Pos_Registers::wc_pos_get_register() in D:\OpenServer\domains\euroroaming\wp-content\plugins\woocommerce-point-of-sale\includes\views\templates\modal.php on line 269
 [05-Apr-2017 22:45:04 UTC] PHP Fatal error:  Call to undefined method WC_Pos_Registers::wc_pos_get_register() in D:\OpenServer\domains\euroroaming\wp-content\plugins\woocommerce-point-of-sale\includes\views\templates\modal.php on line 269
 [06-Apr-2017 08:32:30 UTC] PHP Notice: This XML document is invalid, likely due to invalid characters. XML error: Undeclared entity error at line 11, column 24 in F:\OpenServer\domains\euroroaming\wp-includes\class-simplepie.php on line 1421
+[07-Apr-2017 08:56:16 UTC] PHP Notice: This XML document is invalid, likely due to invalid characters. XML error: Undeclared entity error at line 11, column 24 in F:\OpenServer\domains\euroroaming\wp-includes\class-simplepie.php on line 1421
