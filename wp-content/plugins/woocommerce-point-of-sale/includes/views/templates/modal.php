@@ -286,6 +286,8 @@ $tax_display_mode = get_option('woocommerce_tax_display_shop');
                 //echo "Ответ на Ваш запрос: ".$data;
 
                 $links = json_decode($data, TRUE);
+                unset($links['globalsim']);
+                unset($links['europasim']);
                 $simcard_options = array_reduce($links, 'array_merge', array());
                 //print_r($simcard_options);
                 /*********************/
