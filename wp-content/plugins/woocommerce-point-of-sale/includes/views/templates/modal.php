@@ -308,12 +308,7 @@ $tax_display_mode = get_option('woocommerce_tax_display_shop');
 //                echo 'email: ' . $current_user->user_email . '<br />';
                 $filling_fields_script = '<script>jQuery(document).ready(function($) {$("#billing_email").val("'.$current_user->user_email.'");});</script>';
                 echo $filling_fields_script;
-
-
-
-
             }
-
             ?>
         </div>
     </div>
