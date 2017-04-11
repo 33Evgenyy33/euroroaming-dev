@@ -2231,6 +2231,30 @@ div#modal-1.pos_logo {
     font-weight: 500;
 }
 
+.widefat .column-order_status {
+    width: 90px;
+    text-align: center;
+}
+
+.widefat .column-order_status mark {
+    display: inline;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1em;
+    margin: 0 auto;
+}
+
+th.manage-column.column-shipping_address {
+    display: none;
+}
+
+td.shipping_address.column-shipping_address {
+    display: none;
+}
+
 /* Basket - Search */
 div#wc-pos-registers-edit form#edit_wc_pos_registers .hndle {
     cursor: default;

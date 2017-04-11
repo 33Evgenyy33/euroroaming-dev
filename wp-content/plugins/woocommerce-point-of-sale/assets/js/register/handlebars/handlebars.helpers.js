@@ -52,7 +52,7 @@ Handlebars.registerHelper('displayOrderTitle', function() {
         }
 	}else{
         title += '<strong>#'+order_number+'</strong>';
-	    title += ' by ';
+	    title += ' от ';
 	    if(customer.id > 0){
 	        if(customer.first_name != '' || customer.last_name != ''){
 	        	title += customer.first_name + ' ' + customer.last_name;

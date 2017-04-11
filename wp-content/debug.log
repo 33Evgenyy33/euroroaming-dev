@@ -71,3 +71,4 @@
 [07-Apr-2017 14:29:04 UTC] PHP Fatal error:  Call to undefined function gravity_form() in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\templates\blog\single-post.php on line 254
 [07-Apr-2017 14:30:20 UTC] PHP Fatal error:  Call to undefined function gravity_form() in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\templates\blog\single-post.php on line 254
 [07-Apr-2017 14:32:34 UTC] PHP Fatal error:  Call to undefined function gravity_form() in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\templates\blog\single-post.php on line 254
+[11-Apr-2017 09:29:43 UTC] PHP Notice: This XML document is invalid, likely due to invalid characters. XML error: Undeclared entity error at line 11, column 24 in F:\OpenServer\domains\euroroaming\wp-includes\class-simplepie.php on line 1421
