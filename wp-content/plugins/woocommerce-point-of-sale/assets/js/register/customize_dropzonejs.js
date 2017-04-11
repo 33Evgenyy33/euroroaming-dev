@@ -115,34 +115,34 @@ function startIntro(){
                 intro: "<h3 style='text-align: center;font-weight: 400;    margin-bottom: 30px;'>Добро пожаловать в кабиент продаж!</h3>" +
                 "<p style='text-align: center;font-weight: 300;'><span style='text-align: center;font-weight: 500;'><i class='material-icons'>fiber_new</i> Что нового:</span></p>" +
                 "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Ваша коммисия теперь высчитывается автоматически" +
-                "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Добавилена возможность загрузить скан загранпаспорта (теперь можно не отправлять на почту)</p>" +
-                "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Добавилена возможность сохранить создаваемый заказ и загрузить его позднее</p>" +
+                "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Добавлена возможность загрузить скан загранпаспорта (теперь можно не отправлять на почту)</p>" +
+                "<p style='font-weight: 300;'><i class='material-icons'>keyboard_arrow_right</i> Добавлена возможность сохранить создаваемый заказ и загрузить его позднее</p>" +
                 "<p style='font-weight: 300;margin-bottom: 20px;'><i class='material-icons'>keyboard_arrow_right</i> В окне <span style='font-weight: 400'>'Информация о клиенте'</span> появилось поле выбора номера продаваемой сим-карты</p>" +
                 "<p style='text-align: center;font-weight: 300;'>Чтобы начать ознакомление нажмите кнопку <span style='text-align: center;font-weight: 500;'>'Вперед'</span></p>"
             },
             {
                 element: document.querySelector('#wc-pos-register-grids .tbc'),
                 intro: "<h3 style='text-align: center;font-weight: 400;'>Блок <strong>Сим-карты</strong></h3>" +
-                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете добавлять сим-карты в заказ.</p>" +
+                "<p style='text-align: center;font-weight: 300;'>В данном блоке Вы можете добавлять сим-карты в заказ.</p>" +
                 "<p style='text-align: center;font-weight: 300;'>После нажатия на картинку с сим-карой появляется окно, где необходимо выбрать опции сим-карты</p>",
                 position: 'auto'
             },
             {
                 element: document.querySelector('#bill_screen'),
                 intro: "<h3 style='text-align: center;font-weight: 400;'>Блок <strong>Детали заказа</strong></h3>" +
-                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете просмотреть информацию о добавленных сим-картах, а также конечную сумму заказа для Вас и для Клиента</p>",
+                "<p style='text-align: center;font-weight: 300;'>В данном блоке Вы можете просмотреть информацию о добавленных сим-картах, а также конечную сумму заказа для Вас и для Клиента</p>",
                 position: 'right'
             },
             {
                 element: document.querySelector('#register_customer_dates'),
                 intro: "<h3 style='text-align: center;font-weight: 400;'>Блок <strong>Детали клиента</strong></h3>" +
-                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете добавить информацию о клиенте</p>",
+                "<p style='text-align: center;font-weight: 300;'>В данном блоке Вы можете добавить информацию о клиенте</p>",
                 position: 'right'
             },
             {
                 element: document.querySelector('#dropzone-wordpress'),
                 intro: "<h3 style='text-align: center;font-weight: 400;'>Элемент <strong>Загрузка документов</strong></h3>" +
-                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете загрузить загранпаспорт(а) клиента.</p>" +
+                "<p style='text-align: center;font-weight: 300;'>В данном блоке Вы можете загрузить загранпаспорт(а) клиента.</p>" +
                 "<p style='text-align: center;font-weight: 300;'>Чтобы загрузить документ перетащите его в эту область или нажмите на нее.</p>" +
                 "<p style='text-align: center;font-weight: 300;'>Доступные форматы: <strong>jpg, png, pdf, word</strong></p>",
                 position: 'right'
@@ -155,8 +155,8 @@ function startIntro(){
             },
             {
                 element: document.querySelector('#wc-pos-register-buttons div.tbr'),
-                intro: "<h3 style='text-align: center;font-weight: 400;'>Элемент <strong>Операции с заказом</strong></h3>" +
-                "<p style='text-align: center;font-weight: 300;'>Здесь Вы можете совершать различные операции с заказом</p>"+
+                intro: "<h3 style='text-align: center;font-weight: 400;'>Блок <strong>Операции с заказом</strong></h3>" +
+                "<p style='text-align: center;font-weight: 300;'>В данном блоке Вы можете совершать различные операции с заказом</p>"+
                 "<p style='text-align: center;font-weight: 300;'>Чтобы узнать подробнее нажмите <span style='font-weight:400;'>'Вперед'</span></p>",
                 position: 'auto'
             },
