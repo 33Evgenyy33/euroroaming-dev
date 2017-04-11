@@ -1706,6 +1706,7 @@ div#modal-1.pos_logo {
 
 #tr_order_subtotal_label {
     font-size: 17px;
+    border-bottom: 1px solid #eee;
 }
 
 
@@ -2227,6 +2228,7 @@ div#modal-1.pos_logo {
 .wc_pos_register_subtotals table.woocommerce_order_items td {
     text-align: right;
     width: 20%;
+    font-weight: 500;
 }
 
 /* Basket - Search */
