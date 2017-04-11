@@ -217,19 +217,19 @@ class WC_Pos_Registers
             } ?>
             <div id="ajax-response"></div>
             <?php if (current_user_can('manage_wc_point_of_sale')) { ?>
-            <form method="get" action="" class="search-form">
+                <form method="get" action="" class="search-form">
 
-                <p class="search-box">
-                    <label for="register-search-input"
-                           class="screen-reader-text"><?php _e('Search Registers', 'wc_point_of_sale'); ?></label>
-                    <input type="hidden" value="wc_pos_registers" name="page">
-                    <input type="search" value="" name="s" id="register-search-input">
-                    <input type="submit" value="<?php _e('Search Registers', 'wc_point_of_sale'); ?>" class="button"
-                           id="search-submit" name="">
-                </p>
+                    <p class="search-box">
+                        <label for="register-search-input"
+                               class="screen-reader-text"><?php _e('Search Registers', 'wc_point_of_sale'); ?></label>
+                        <input type="hidden" value="wc_pos_registers" name="page">
+                        <input type="search" value="" name="s" id="register-search-input">
+                        <input type="submit" value="<?php _e('Search Registers', 'wc_point_of_sale'); ?>" class="button"
+                               id="search-submit" name="">
+                    </p>
 
-            </form>
-            <?php }?>
+                </form>
+            <?php } ?>
             <br class="clear">
             <?php if (current_user_can('manage_wc_point_of_sale')) { ?>
                 <div id="col-container">
@@ -368,14 +368,101 @@ class WC_Pos_Registers
         <div class="col-wrap">
             <form id="wc_pos_registers_table" action="" method="post">
                 <?php
-                $registers_table = WC_POS()->registers_table();
-                $registers_table->prepare_items();
-                $registers_table->display();
+                if (current_user_can('manage_wc_point_of_sale')) {
+                    $registers_table = WC_POS()->registers_table();
+                    $registers_table->prepare_items();
+                    $registers_table->display();
+                } else {
+                    $data = WC_POS()->register()->get_data();
+                    $custom_data = array();
+                    $i = 0;
+                    foreach ($data as $datum) {
+                        if (pos_check_user_can_open_register($datum['ID'])) { // Проверка. Привязан ли id кабинета(outlet) к user id
+                            array_push($custom_data, $datum);
+                            //self::$custom_data = array($datum);
+                            //break;
+                        }
+                    }
+
+                    if (pos_check_register_is_open($custom_data[0]['ID']) && WC_POS()->wc_api_is_active) {
+                        $btn_text = __('Открыт', 'wc_point_of_sale');
+                        $status = '<span class="register-status-open tips" data-tip=' . $btn_text . '></span>';
+                    } else {
+                        $btn_text = __('Закрыт', 'wc_point_of_sale');
+                        $status = '<span class="register-status-closed tips" data-tip=' . $btn_text . '></span>';
+                    }
+
+                    $outlets_name = WC_POS()->outlet()->get_data_names();
+
+                    //print_r($outlets_name);
+
+                    if (pos_check_user_can_open_register($custom_data[0]['ID']) && !pos_check_register_lock($custom_data[0]['ID']) && WC_POS()->wc_api_is_active) {
+
+                        $btn_text = __('Открыть', 'wc_point_of_sale');
+                        if (pos_check_register_is_open($custom_data[0]['ID'])) {
+                            $btn_text = __('Войти', 'wc_point_of_sale');
+                        }
+                        $outlet = sanitize_title($outlets_name[$custom_data[0]['outlet']]);
+                        $register = $custom_data[0]['slug'];
+
+                        if (class_exists('SitePress')) {
+                            $settings = get_option('icl_sitepress_settings');
+                            if ($settings['urls']['directory_for_default_language'] == 1) {
+                                $register_url = get_home_url() . '/' . ICL_LANGUAGE_CODE . "/point-of-sale/$outlet/$register";
+                            } else {
+                                $register_url = get_home_url() . "/point-of-sale/$outlet/$register";
+                            }
+                        } else {
+                            $register_url = get_home_url() . "/point-of-sale/$outlet/$register";
+                        }
+
+                        if (is_ssl() || get_option('woocommerce_pos_force_ssl_checkout') == 'yes') {
+                            $register_url = str_replace('http:', 'https:', $register_url);
+                        }
+                        $button = '<a class="button tips ' . $btn_text . '-register" href="' . $register_url . '" data-tip="' . $btn_text . ' Кабинет" >' . $btn_text . '</a>';
+
+                    } else {
+                        if (!WC_POS()->wc_api_is_active) {
+                            $btn_text = __('Open', 'wc_point_of_sale');
+                            $button = '<a class="button tips open-register" data-tip="' . __('The WooCommerce API is disabled on this site.', 'wc_point_of_sale') . '" disabled>' . $btn_text . '</button>';
+                        } else {
+                            $userid = pos_check_register_lock($custom_data[0]['ID']);
+                            $user = get_userdata($userid);
+                            $btn_text = __('Open', 'wc_point_of_sale');
+                            if ($user) {
+                                $name = trim($user->first_name . ' ' . $user->last_name);
+                                if ($name == '')
+                                    $name = $user->user_nicename;
+                                $button = '<a class="button tips open-register" data-tip="' . $name . ' уже работает в кабинете." disabled>Открыт</button>';
+                            } else {
+                                $button = '<a class="button tips open-register" data-tip="У Вас нет доступа к этому кабинету" disabled>Открыть</button>';
+                            }
+                        }
+                    }
+
+
+                    ?>
+                    <div class="md-card md-card-hover">
+                        <div class="md-card-head">
+                            <h3 class="md-card-head-text uk-text-center">
+                                <span class="uk-text-truncate"><?= $custom_data[0]['name'] ?></span>
+                            </h3>
+                            <?= $status ?>
+                        </div>
+                        <div class="md-card-content access column-access" style="text-align: center;">
+                            <?= $button ?>
+                        </div>
+                    </div>
+
+                    <?php
+
+                }
                 ?>
             </form>
         </div>
         <?php
     }
+
 
     public function display_register_form()
     {

@@ -55,7 +55,7 @@ class WC_Pos_Table_Registers extends WP_List_Table
                 default:
                     return print_r($item, true); //Show the whole array for troubleshooting purposes
             }
-        } else{
+        } else {
             switch ($column_name) {
                 case 'status_reg':
                 case 'name':
@@ -82,7 +82,7 @@ class WC_Pos_Table_Registers extends WP_List_Table
         if (current_user_can('manage_wc_point_of_sale')) {
             $columns = array(
                 'cb' => '<input type="checkbox" />',
-                'status_reg' => '<span class="status_head tips" data-tip="' . esc_attr__('Status', 'wc_point_of_sale') . '">' . esc_attr__('Status', 'wc_point_of_sale') . '</span>',
+                'status_reg' => '<span class="status_head tips" data-tip="' . esc_attr__('Статус', 'wc_point_of_sale') . '">' . esc_attr__('Status', 'wc_point_of_sale') . '</span>',
                 'name' => __('Register', 'wc_point_of_sale'),
                 'change_user' => '<span class="change_user_head tips" data-tip="' . esc_attr__('User Change', 'wc_point_of_sale') . '">' . esc_attr__('User Change', 'wc_point_of_sale') . '</span>',
                 'email_receipt' => '<span class="email_receipt_head tips" data-tip="' . esc_attr__('Email Receipt', 'wc_point_of_sale') . '">' . esc_attr__('Email Receipt', 'wc_point_of_sale') . '</span>',
@@ -95,7 +95,7 @@ class WC_Pos_Table_Registers extends WP_List_Table
         } else {
             $columns = array(
                 'cb' => '<input type="checkbox" />',
-                'status_reg' => '<span class="status_head tips" data-tip="' . esc_attr__('Status', 'wc_point_of_sale') . '">' . esc_attr__('Status', 'wc_point_of_sale') . '</span>',
+                'status_reg' => '<span class="status_head tips" data-tip="' . esc_attr__('Статус', 'wc_point_of_sale') . '">' . esc_attr__('Status', 'wc_point_of_sale') . '</span>',
                 'name' => __('ТА', 'wc_point_of_sale'),
                 'access' => __('Доступ', 'wc_point_of_sale')
             );
@@ -379,9 +379,9 @@ class WC_Pos_Table_Registers extends WP_List_Table
                         $name = trim($user->first_name . ' ' . $user->last_name);
                         if ($name == '')
                             $name = $user->user_nicename;
-                        return '<a class="button tips open-register" data-tip="' . $name . ' is currently logged on this register." disabled>' . $btn_text . '</button>';
+                        return '<a class="button tips open-register" data-tip="' . $name . ' уже работает в кабинете." disabled>Открыт</button>';
                     } else {
-                        return '<a class="button tips open-register" data-tip="You are not assigned to this outlet" disabled>' . $btn_text . '</button>';
+                        return '<a class="button tips open-register" data-tip="У Вас нет доступа к этому кабинету" disabled>Открыть</button>';
                     }
                 }
             }
@@ -414,10 +414,10 @@ class WC_Pos_Table_Registers extends WP_List_Table
     {
         if (current_user_can('manage_wc_point_of_sale') || pos_check_user_can_open_register($item['ID'])) {
             if (pos_check_register_is_open($item['ID']) && WC_POS()->wc_api_is_active) {
-                $btn_text = __('Open', 'wc_point_of_sale');
+                $btn_text = __('Открыт', 'wc_point_of_sale');
                 return '<span class="register-status-open tips" data-tip=' . $btn_text . '></span>';
             } else {
-                $btn_text = __('Closed', 'wc_point_of_sale');
+                $btn_text = __('Закрыт', 'wc_point_of_sale');
                 return '<span class="register-status-closed tips" data-tip=' . $btn_text . '></span>';
             }
         }
@@ -427,78 +427,79 @@ class WC_Pos_Table_Registers extends WP_List_Table
     {
 
 
+        $columns = $this->get_columns();
+        $hidden = array();
+        self::$data = WC_POS()->register()->get_data();
+        self::$custom_data = array();
+        $i = 0;
+        foreach (self::$data as $datum) {
+            if (pos_check_user_can_open_register($datum['ID'])) { // Проверка. Привязан ли id кабинета(outlet) к user id
+                array_push(self::$custom_data, $datum);
+                //self::$custom_data = array($datum);
+                //break;
+            }
+        }
 
-           $columns = $this->get_columns();
-           $hidden = array();
-           self::$data = WC_POS()->register()->get_data();
-           self::$custom_data = array();
-           $i = 0;
-           foreach (self::$data as $datum) {
-               if (pos_check_user_can_open_register($datum['ID'])) { // Проверка. Привязан ли id кабинета(outlet) к user id
-                   array_push(self::$custom_data, $datum);
-                   //self::$custom_data = array($datum);
-                   //break;
-               }
-           }
-           /*print_r(self::$custom_data);
-           echo '<br>';
-           echo get_current_user_id();
-           echo '<br>';*/
-           //print_r(WC_POS()->outlet()->get_data());
+        print_r(self::$custom_data);
+        /*print_r(self::$custom_data);
+        echo '<br>';
+        echo get_current_user_id();
+        echo '<br>';*/
+        //print_r(WC_POS()->outlet()->get_data());
 
-           $sortable = $this->get_sortable_columns();
-           $this->_column_headers = array($columns, $hidden, $sortable);
-           usort(self::$data, array(&$this, 'usort_reorder'));
 
-           $user = get_current_user_id();
-           $screen = get_current_screen();
-           $option = $screen->get_option('per_page', 'option');
-           $per_page = get_user_meta($user, $option, true);
-           if (empty ($per_page) || $per_page < 1) {
-               $per_page = $screen->get_option('per_page', 'default');
-           }
+        $sortable = $this->get_sortable_columns();
+        $this->_column_headers = array($columns, $hidden, $sortable);
+        usort(self::$data, array(&$this, 'usort_reorder'));
 
-           $current_page = $this->get_pagenum();
+        $user = get_current_user_id();
+        $screen = get_current_screen();
+        $option = $screen->get_option('per_page', 'option');
+        $per_page = get_user_meta($user, $option, true);
+        if (empty ($per_page) || $per_page < 1) {
+            $per_page = $screen->get_option('per_page', 'default');
+        }
 
-           if (current_user_can('manage_wc_point_of_sale')) {
-               $total_items = count(self::$data);
-           } else {
-               $total_items = count(self::$custom_data);
-           }
-           //echo $total_items;
+        $current_page = $this->get_pagenum();
 
-           /*********************************************
-            * Отображение одной точки продаж в списке
-            * *****************************************/
+        if (current_user_can('manage_wc_point_of_sale')) {
+            $total_items = count(self::$data);
+        } else {
+            $total_items = count(self::$custom_data);
+        }
+        //echo $total_items;
 
-           if (current_user_can('manage_wc_point_of_sale')) {
-               if ($_GET['page'] == WC_POS()->id_registers) {
-                   // only ncessary because we have sample data
-                   $this->items = array_slice(self::$data, (($current_page - 1) * $per_page), $per_page);
+        /*********************************************
+         * Отображение одной точки продаж в списке
+         * *****************************************/
 
-                   $this->set_pagination_args(array(
-                       'total_items' => $total_items,                  //WE have to calculate the total number of items
-                       'per_page' => $per_page                     //WE have to determine how many items to show on a page
-                   ));
+        if (current_user_can('manage_wc_point_of_sale')) {
+            if ($_GET['page'] == WC_POS()->id_registers) {
+                // only ncessary because we have sample data
+                $this->items = array_slice(self::$data, (($current_page - 1) * $per_page), $per_page);
 
-               } else {
-                   $this->items = self::$data;
-               }
-           } else {
-               /*if ($_GET['page'] == WC_POS()->id_registers) {
-                   // only ncessary because we have sample data
-                   $this->items = array_slice(self::$data, (($current_page - 1) * $per_page), $per_page);
+                $this->set_pagination_args(array(
+                    'total_items' => $total_items,                  //WE have to calculate the total number of items
+                    'per_page' => $per_page                     //WE have to determine how many items to show on a page
+                ));
 
-                   $this->set_pagination_args(array(
-                       'total_items' => $total_items,                  //WE have to calculate the total number of items
-                       'per_page' => $per_page                     //WE have to determine how many items to show on a page
-                   ));
+            } else {
+                $this->items = self::$data;
+            }
+        } else {
+            /*if ($_GET['page'] == WC_POS()->id_registers) {
+                // only ncessary because we have sample data
+                $this->items = array_slice(self::$data, (($current_page - 1) * $per_page), $per_page);
 
-               } else {*/
-               $this->items = self::$custom_data;
-               //}
-           }
+                $this->set_pagination_args(array(
+                    'total_items' => $total_items,                  //WE have to calculate the total number of items
+                    'per_page' => $per_page                     //WE have to determine how many items to show on a page
+                ));
 
+            } else {*/
+            $this->items = self::$custom_data;
+            //}
+        }
     }
 
 } //class
