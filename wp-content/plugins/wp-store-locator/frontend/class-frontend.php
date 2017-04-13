@@ -571,13 +571,21 @@ if ( !class_exists( 'WPSL_Frontend' ) ) {
 
 			if ( isset( $post->post_type ) && $post->post_type == 'wpsl_stores' && is_single() && in_the_loop() ) {
                 array_push( $this->load_scripts, 'wpsl_base' );
-               
-                $content .= '[wpsl_map]';
+
+                $content .= '<div class="wpsl_page_ta_content">';
+                $content .= '<div class="wpsl_page_ta_details">';
                 $content .= '[wpsl_address]';
-                
                 if ( !$wpsl_settings['hide_hours'] ) {
                     $content .= '[wpsl_hours]';
+                    $content .= '</div>';
+                } else {
+                    $content .= '</div>';
                 }
+                $content .= '<div class="wpsl_page_ta_map">';
+                $content .= '[wpsl_map]';
+                
+
+                $content .= '</div>';
             }
                         
             return $content;
@@ -728,52 +736,53 @@ if ( !class_exists( 'WPSL_Frontend' ) ) {
             
             $content = '<div class="wpsl-locations-details">';
             
-            if ( $atts['name'] && $store_name = get_the_title( $atts['id'] ) ) {
-                $content .= '<span><strong>' . esc_html( $store_name ) . '</strong></span>';
-            }
+//            if ( $atts['name'] && $store_name = get_the_title( $atts['id'] ) ) {
+//                $content .= '<span><strong>' . esc_html( $store_name ) . '</strong></span>';
+//            }
             
             $content .= '<div class="wpsl-location-address">';
-            
-            if ( $atts['address'] && $store_address = get_post_meta( $atts['id'], 'wpsl_address', true ) ) {
-                $content .= '<span>' . esc_html( $store_address ) . '</span><br/>';
-            }
-            
-            if ( $atts['address2'] && $store_address2 = get_post_meta( $atts['id'], 'wpsl_address2', true ) ) {
-                $content .= '<span>' . esc_html( $store_address2 ) . '</span><br/>';
-            }
-                        
+
             $address_format = explode( '_', $wpsl_settings['address_format'] );
             $count = count( $address_format );
             $i = 1;
 
             // Loop over the address parts to make sure they are shown in the right order.
             foreach ( $address_format as $address_part ) {
-                
+
                 // Make sure the shortcode attribute is set to true for the $address_part, and it's not the 'comma' part.
                 if ( $address_part != 'comma' && $atts[$address_part] ) {
                     $post_meta = get_post_meta( $atts['id'], 'wpsl_' . $address_part, true );
 
                     if ( $post_meta ) {
 
-                        /* 
-                         * Check if the next part of the address is set to 'comma'. 
-                         * If so add the, after the current address part, otherwise just show a space 
+                        /*
+                         * Check if the next part of the address is set to 'comma'.
+                         * If so add the, after the current address part, otherwise just show a space
                          */
                         if ( isset( $address_format[$i] ) && ( $address_format[$i] == 'comma' ) ) {
-                            $punctuation = ', ';   
+                            $punctuation = ', ';
                         } else {
-                            $punctuation = ' '; 
+                            $punctuation = ' ';
                         }
-                        
+
                         // If we have reached the last item add a <br /> behind it.
                         $br = ( $count == $i ) ? '<br />' : '';
-                        
-                        $content .= '<span>' . esc_html( $post_meta ) . $punctuation . '</span>' . $br; 
+
+                        $content .= '<span><span style="font-weight: 600">Город: </span>' . esc_html( $post_meta ) . $punctuation . '</span><br/>' . $br;
                     }
                 }
-                
+
                 $i++;
             }
+            
+            if ( $atts['address'] && $store_address = get_post_meta( $atts['id'], 'wpsl_address', true ) ) {
+                $content .= '<span><span style="font-weight: 600">Адрес: </span>' . esc_html( $store_address ) . '</span><br/>';
+            }
+            
+//            if ( $atts['address2'] && $store_address2 = get_post_meta( $atts['id'], 'wpsl_address2', true ) ) {
+//                $content .= '<span>' . esc_html( $store_address2 ) . '</span><br/>';
+//            }
+
             
             if ( $atts['country'] && $store_country = get_post_meta( $atts['id'], 'wpsl_country', true ) ) {
                 $content .= '<span>' . esc_html( $store_country ) . '</span>';
@@ -786,20 +795,20 @@ if ( !class_exists( 'WPSL_Frontend' ) ) {
                 $content .= '<div class="wpsl-contact-details">';
 
                 if ( $atts['phone'] && $store_phone = get_post_meta( $atts['id'], 'wpsl_phone', true ) ) {
-                    $content .= esc_html( $wpsl->i18n->get_translation( 'phone_label', __( 'Phone', 'wpsl' ) ) ) . ': <span>' . esc_html( $store_phone ) . '</span><br/>';
+                    $content .= '<span style="font-weight: 600">'.esc_html( $wpsl->i18n->get_translation( 'phone_label', __( 'Phone', 'wpsl' ) ) ) . '</span>: <span>' . esc_html( $store_phone ) . '</span><br/>';
                 }
 
                 if ( $atts['fax'] && $store_fax = get_post_meta( $atts['id'], 'wpsl_fax', true ) ) {
-                    $content .= esc_html( $wpsl->i18n->get_translation( 'fax_label', __( 'Fax', 'wpsl' ) ) ) . ': <span>' . esc_html( $store_fax ) . '</span><br/>';
+                    $content .= '<span style="font-weight: 600">'.esc_html( $wpsl->i18n->get_translation( 'fax_label', __( 'Fax', 'wpsl' ) ) ) . '</span>: <span>' . esc_html( $store_fax ) . '</span><br/>';
                 }
 
                 if ( $atts['email'] && $store_email = get_post_meta( $atts['id'], 'wpsl_email', true ) ) {
-                    $content .= esc_html( $wpsl->i18n->get_translation( 'email_label', __( 'Email', 'wpsl' ) ) ) . ': <span>' . sanitize_email( $store_email ) . '</span><br/>';
+                    $content .= '<span style="font-weight: 600">'.esc_html( $wpsl->i18n->get_translation( 'email_label', __( 'Email', 'wpsl' ) ) ) . '</span>: <span>' . sanitize_email( $store_email ) . '</span><br/>';
                 }
 
                 if ( $atts['url'] && $store_url = get_post_meta( $atts['id'], 'wpsl_url', true ) ) {
                     $new_window = ( $wpsl_settings['new_window'] ) ? 'target="_blank"' : '' ;
-                    $content   .= esc_html( $wpsl->i18n->get_translation( 'url_label', __( 'Url', 'wpsl' ) ) ) . ': <a ' . $new_window . ' href="' . esc_url( $store_url ) . '" rel="nofollow">' . esc_url( $store_url ) . '</a><br/>';
+                    $content   .= '<span style="font-weight: 600">'.esc_html( $wpsl->i18n->get_translation( 'url_label', __( 'Url', 'wpsl' ) ) ) . '</span>: <a ' . $new_window . ' href="' . esc_url( $store_url ) . '" rel="nofollow">' . esc_url( $store_url ) . '</a><br/>';
                 }
 
                 $content .= '</div>';
