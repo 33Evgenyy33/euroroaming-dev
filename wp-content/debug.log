@@ -79,3 +79,6 @@
 [13-Apr-2017 10:55:20 UTC] PHP Fatal error:  Call to undefined function gravity_form() in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\templates\blog\single-post.php on line 254
 [13-Apr-2017 10:58:46 UTC] PHP Fatal error:  Call to undefined function gravity_form() in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\templates\blog\single-post.php on line 254
 [13-Apr-2017 10:58:50 UTC] PHP Fatal error:  Call to undefined function gravity_form() in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\templates\blog\single-post.php on line 254
+[14-Apr-2017 10:50:32 UTC] PHP Parse error:  syntax error, unexpected ')' in F:\OpenServer\domains\euroroaming\wp-content\plugins\wp-store-locator\frontend\class-frontend.php on line 782
+[14-Apr-2017 11:50:28 UTC] PHP Parse error:  syntax error, unexpected '[' in F:\OpenServer\domains\euroroaming\wp-content\plugins\wp-store-locator\frontend\class-frontend.php on line 766
+[14-Apr-2017 11:50:30 UTC] PHP Parse error:  syntax error, unexpected '[' in F:\OpenServer\domains\euroroaming\wp-content\plugins\wp-store-locator\frontend\class-frontend.php on line 766
