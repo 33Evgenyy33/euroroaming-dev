@@ -106,6 +106,7 @@ perspective effects (not including the modals and the overlay).
     background: #ffffff;
     position: relative;
     margin: 0 auto;
+    height: 100%;
 }
 
 .popup_section > h3 {
