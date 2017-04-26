@@ -215,9 +215,7 @@ $tax_display_mode = get_option('woocommerce_tax_display_shop');
             unset($checkout->checkout_fields['order']['order_comments']);
             if (isset($checkout->checkout_fields['account'])) {
                 foreach ($checkout->checkout_fields['account'] as $key => $field) :
-                    if (($key == 'account_username' && $wc_reg_generate_username_opt == 'yes')
-                        || ($key == 'account_password' && $wc_reg_generate_pass_opt == 'yes')
-                    ) {
+                    if ($key == 'account_username') {
                         continue;
                     }
                     $value = str_replace('account_', 'billing_address.', $key);
@@ -225,7 +223,7 @@ $tax_display_mode = get_option('woocommerce_tax_display_shop');
                         $value = 'billing_address.' . $key;
                     }
                     if ($key == 'account_password') {
-                        $field['class'][] = 'form-row-first';
+                        continue;
                     }
                     woocommerce_form_field('billing_' . $key, $field, '{{' . $value . '}}');
                     if ($key == 'account_password') {
