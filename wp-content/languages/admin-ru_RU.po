@@ -935,7 +935,7 @@ msgstr "Всемирное координированное время (%1$s): %
 msgid "There is a pending change of the admin email to %s."
 msgstr "Ожидается подтверждение смены адреса e-mail администратора на %s."
 
-#: wp-admin/install.php:390
+#: wp-admin/install.php:376
 msgid "WordPress has been installed. Thank you, and enjoy!"
 msgstr "WordPress установлен. Желаем успешной работы!"
 
@@ -3751,19 +3751,19 @@ msgstr "Меню могут отображаться в областях, пре
 msgid "Your theme does not natively support menus, but you can use them in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href=\"%s\">Widgets</a> screen."
 msgstr "Ваша тема не поддерживает произвольные меню, однако вы можете использовать их в боковых колонках, добавив туда виджет &laquo;Произвольное меню&raquo; на экране <a href=\"%s\">&laquo;Виджеты&raquo;</a>."
 
-#: wp-admin/install.php:369
+#: wp-admin/install.php:365
 msgid "Sorry, that isn&#8217;t a valid email address. Email addresses look like <code>username@example.com</code>."
 msgstr "Извините, это некорректный адрес e-mail. Пример адреса: <code>username@example.com</code>."
 
-#: wp-admin/install.php:364
+#: wp-admin/install.php:361
 msgid "You must provide an email address."
 msgstr "Необходимо ввести адрес e-mail."
 
-#: wp-admin/install.php:359
+#: wp-admin/install.php:357
 msgid "Your passwords do not match. Please try again."
 msgstr "Пароли не совпадают. Пожалуйста, попробуйте ещё раз."
 
-#: wp-admin/install.php:354
+#: wp-admin/install.php:353
 msgid "The username you provided has invalid characters."
 msgstr "Введённое имя пользователя содержит недопустимые символы."
 
@@ -8801,7 +8801,7 @@ msgstr "Добавить новую"
 msgid "Add New Link"
 msgstr "Добавить новую ссылку"
 
-#: wp-admin/install.php:388
+#: wp-admin/install.php:374
 msgid "Success!"
 msgstr "Поздравляем!"
 

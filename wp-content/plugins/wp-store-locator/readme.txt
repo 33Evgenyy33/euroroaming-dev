@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/tijmensmit
 Tags: google maps, store locator, business locations, geocoding, stores, geo, zipcode locator, dealer locater, geocode, gmaps, google map, google map plugin, location finder, map tools, shop locator, wp google map
 Requires at least: 3.7
 Tested up to: 4.7
-Stable tag: 2.2.7
+Stable tag: 2.2.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -13,10 +13,10 @@ An easy to use location management system that enables users to search for nearb
 
 == Description ==
 
-WP Store Locator is a powerful and easy to use location management system. 
-You can customize the appearance of the map, and provide custom labels for entry fields. 
-Users can filter the results by radius, and see driving directions to the nearby stores in 
-the language that is set in the admin panel. 
+WP Store Locator is a powerful and easy to use location management system.
+You can customize the appearance of the map, and provide custom labels for entry fields.
+Users can filter the results by radius, and see driving directions to the nearby stores in
+the language that is set in the admin panel.
 
 = Features include: =
 
@@ -47,7 +47,7 @@ the language that is set in the admin panel.
 * [Filters](https://wpstorelocator.co/documentation/filters/)
 
 = Premium Add-ons =
- 
+
 **CSV Manager**
 
 The [CSV Manager](https://wpstorelocator.co/add-ons/csv-manager/) allows you to bulk import, export and update your locations using a CSV file.
@@ -125,6 +125,19 @@ If you find a plugin or theme that causes a conflict, please report it on the [s
 4. The plugin settings
 
 == Changelog ==
+
+= 2.2.8, April 30, 2017 =
+* Added: Support for [Polylang](https://wordpress.org/plugins/polylang/).
+* Added: A [wpsl_direction_travel_mode](https://wpstorelocator.co/document/wpsl_direction_travel_mode/) filter that enabled you to change the used [travel mode](https://developers.google.com/maps/documentation/javascript/directions#TravelModes) for the directions.
+* Added: A [wpsl_distance_unit](https://wpstorelocator.co/document/wpsl_distance_unit/) filter.
+* Added: A [wpsl_disable_welcome_pointer](https://wpstorelocator.co/document/wpsl_disable_welcome_pointer/) filter that enables you disable the newsletter signup on a multisite network.
+* Added: Support for custom alternateMarkerUrl and categoryMarkerUrl data in the JS file, this allows you to set a custom marker for [individual locations](https://wpstorelocator.co/document/use-different-marker-for-each-location/) and for [categories](https://wpstorelocator.co/document/set-unique-category-markers/).
+* Changed: Deprecated the [wpsl_draggable_map](https://wpstorelocator.co/document/wpsl_draggable_map/) filter and [replaced](https://wpstorelocator.co/document/wpsl_gesture_handling/) it with support for Google Maps [gestureHandling](https://developers.google.com/maps/documentation/javascript/interaction).
+* Changed: Made sure the supported map regions on the settings page match with the list of supported regions from [Google](https://developers.google.com/maps/coverage).
+* Changed: Included the latest version of the EDD_SL_Plugin_Updater class ( 1.6.12 ).
+* Fixed: A fatal call to undefined function error when the plugin is activated through WP-CLI.
+* Fixed: The controls in street view mode not having a background color, so the back button wasn't visible.
+* Fixed: Prevented two consecutive underscores from showing up in the generated transient names if no autoload limit is set.
 
 = 2.2.7, December 31, 2016 =
 * Changed: Included the latest version of the EDD_SL_Plugin_Updater class ( 1.6.8 ).

@@ -131,8 +131,12 @@ if (!class_exists('WPSL_Frontend')) {
 
             global $wpsl, $wpsl_settings;
 
+            $name_section = array();
+
             // Include the set autoload limit.
-            $name_section = array($wpsl_settings['autoload_limit']);
+            if ($wpsl_settings['autoload'] && $wpsl_settings['autoload_limit']) {
+                $name_section[] = absint($wpsl_settings['autoload_limit']);
+            }
 
             /* 
              * Check if we need to include the cat id(s) in the transient name.
@@ -162,10 +166,21 @@ if (!class_exists('WPSL_Frontend')) {
             $lang_code = $wpsl->i18n->check_multilingual_code();
 
             if ($lang_code) {
-                $name_section[] = '_' . $lang_code;
+                $name_section[] = $lang_code;
             }
 
             $transient_name = implode('_', $name_section);
+
+            /*
+            * If the distance unit filter ( wpsl_distance_unit ) is used to change the km / mi unit based on
+            * the location of the IP, then we include the km / mi in the transient name. This is done to
+            * prevent users from seeing the wrong distances from the cached data.
+            *
+            * This way one data set can include the distance in km, and the other one the distance in miles.
+            */
+            if (has_filter('wpsl_distance_unit')) {
+                $transient_name = $transient_name . '_' . wpsl_get_distance_unit();
+            }
 
             return $transient_name;
         }
@@ -191,7 +206,7 @@ if (!class_exists('WPSL_Frontend')) {
              * Set the correct earth radius in either km or miles. 
              * We need this to calculate the distance between two coordinates. 
              */
-            $radius = ($wpsl_settings['distance_unit'] == 'km') ? 6371 : 3959;
+            $radius = (wpsl_get_distance_unit() == 'km') ? 6371 : 3959;
 
             // The placeholder values for the prepared statement in the sql query.
             $placeholder_values = array(
@@ -1332,7 +1347,7 @@ if (!class_exists('WPSL_Frontend')) {
 
             // Only show the distance unit if we are dealing with the search radius.
             if ($list_type == 'search_radius') {
-                $distance_unit = ' ' . esc_attr($wpsl_settings['distance_unit']);
+                $distance_unit = ' ' . esc_attr(wpsl_get_distance_unit());
             } else {
                 $distance_unit = '';
             }
@@ -1614,14 +1629,14 @@ if (!class_exists('WPSL_Frontend')) {
         public function get_marker_props()
         {
 
-            $marker_props = apply_filters('wpsl_marker_props', array(
+            $marker_props = array(
                 'scaledSize' => '24,35', // 50% of the normal image to make it work on retina screens.
                 'origin' => '0,0',
                 'anchor' => '12,35'
-            ));
+            );
 
             /*
-             * If this is not defined, the url path will default to 
+             * If this is not defined, the url path will default to
              * the url path of the WPSL plugin folder + /img/markers/
              * in the wpsl-gmap.js.
              */
@@ -1629,24 +1644,8 @@ if (!class_exists('WPSL_Frontend')) {
                 $marker_props['url'] = WPSL_MARKER_URI;
             }
 
-            return $marker_props;
-        }
+            return apply_filters('wpsl_marker_props', $marker_props);
 
-        /**
-         * Check if the map is draggable.
-         *
-         * @since 2.1.0
-         * @return array $draggable The draggable options.
-         */
-        public function maybe_draggable()
-        {
-
-            $draggable = apply_filters('wpsl_draggable_map', array(
-                'enabled' => true,
-                'disableRes' => '675' // breakpoint where the dragging is disabled in px.
-            ));
-
-            return $draggable;
         }
 
         /**
@@ -1669,6 +1668,27 @@ if (!class_exists('WPSL_Frontend')) {
             $ajax_url = admin_url('admin-ajax.php' . $param);
 
             return $ajax_url;
+        }
+
+        /**
+         * Get the used travel direction mode.
+         *
+         * @since 2.2.8
+         * @return string $travel_mode The used travel mode for the travel direcions
+         */
+        public function get_directions_travel_mode()
+        {
+
+            $default = 'driving';
+
+            $travel_mode = apply_filters('wpsl_direction_travel_mode', $default);
+            $allowed_modes = array('driving', 'bicycling', 'transit', 'walking');
+
+            if (!in_array($travel_mode, $allowed_modes)) {
+                $travel_mode = $default;
+            }
+
+            return strtoupper($travel_mode);
         }
 
         /**
@@ -1714,12 +1734,13 @@ if (!class_exists('WPSL_Frontend')) {
                 'controlPosition' => $wpsl_settings['control_position'],
                 'url' => WPSL_URL,
                 'markerIconProps' => $this->get_marker_props(),
-                'draggable' => $this->maybe_draggable(),
                 'storeUrl' => $wpsl_settings['store_url'],
                 'maxDropdownHeight' => apply_filters('wpsl_max_dropdown_height', 300),
                 'enableStyledDropdowns' => apply_filters('wpsl_enable_styled_dropdowns', true),
                 'mapTabAnchor' => apply_filters('wpsl_map_tab_anchor', 'wpsl-map-tab'),
-                'mapTabAnchorReturn' => apply_filters('wpsl_map_tab_anchor_return', false)
+                'mapTabAnchorReturn' => apply_filters('wpsl_map_tab_anchor_return', false),
+                'gestureHandling' => apply_filters('wpsl_gesture_handling', 'auto'),
+                'directionsTravelMode' => $this->get_directions_travel_mode()
             );
 
             $locator_map_settings = array(
@@ -1741,7 +1762,7 @@ if (!class_exists('WPSL_Frontend')) {
                 'templateId' => $wpsl_settings['template_id'],
                 'maxResults' => $dropdown_defaults['max_results'],
                 'searchRadius' => $dropdown_defaults['search_radius'],
-                'distanceUnit' => $wpsl_settings['distance_unit'],
+                'distanceUnit' => wpsl_get_distance_unit(),
                 'geoLocationTimout' => apply_filters('wpsl_geolocation_timeout', 5000),
                 'ajaxurl' => $this->get_ajax_url(),
                 'mapControls' => $this->get_map_controls()
@@ -1760,7 +1781,7 @@ if (!class_exists('WPSL_Frontend')) {
 
             /*
              * If enabled, include the component filter settings.
-             * 
+             * @todo see https://developers.google.com/maps/documentation/javascript/releases#327
              * See https://developers.google.com/maps/documentation/javascript/geocoding#ComponentFiltering
              */
             if ($wpsl_settings['api_region'] && $wpsl_settings['api_geocode_component']) {
@@ -1790,7 +1811,7 @@ if (!class_exists('WPSL_Frontend')) {
                 $base_settings['mapStyle'] = strip_tags(stripslashes(json_decode($wpsl_settings['map_style'])));
             }
 
-            wp_enqueue_script('wpsl-js', WPSL_URL . 'js/wpsl-gmap' . $min . '.js', array('jquery'), WPSL_VERSION_NUM, true);
+            wp_enqueue_script('wpsl-js', apply_filters('wpsl_gmap_js', WPSL_URL . 'js/wpsl-gmap' . $min . '.js'), array('jquery'), WPSL_VERSION_NUM, true);
             wp_enqueue_script('underscore');
 
             // Check if we need to include all the settings and labels or just a part of them.

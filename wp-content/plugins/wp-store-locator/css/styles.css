@@ -2,16 +2,16 @@
     font-family: 'wpsl-fontello';
     src: url('../font/fontello.eot?28897909');
     src: url('../font/fontello.eot?28897909#iefix') format('embedded-opentype'),
-         url('../font/fontello.woff?28897909') format('woff'),
-         url('../font/fontello.ttf?28897909') format('truetype'),
-         url('../font/fontello.svg?28897909#fontello') format('svg');
+    url('../font/fontello.woff?28897909') format('woff'),
+    url('../font/fontello.ttf?28897909') format('truetype'),
+    url('../font/fontello.svg?28897909#fontello') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 #wpsl-gmap {
     float:right;
-    width:66.5%; 
+    width:66.5%;
     height:350px;
     margin-bottom:0;
 }
@@ -34,16 +34,18 @@
 /* Fix an overlay issue with the map style */
 .gmnoprint,
 .gm-style-mtc {
-    z-index: 9999 !important;    
+    z-index: 9999 !important;
 }
 
 /* 
 Some themes set a box-shadow or max-width for all image / 
 div elements, we disable it to prevent it from messing up the map
+
+The .gv-iv- class is used in streetview, and they should not be included.
 */
-#wpsl-gmap div, 
+#wpsl-gmap div:not[class^="gv-iv"],
 #wpsl-gmap img,
-.wpsl-gmap-canvas div, 
+.wpsl-gmap-canvas div:not[class^="gv-iv"],
 .wpsl-gmap-canvas img {
     box-shadow: none !important;
     max-width: none !important;
@@ -55,6 +57,21 @@ div elements, we disable it to prevent it from messing up the map
     display: inline !important;
     opacity: 1 !important;
     max-height: none !important;
+}
+
+/*
+Fix a problem where the background color used
+in street view mode doesn't cover the control area.
+*/
+#wpsl-gmap * {
+    box-sizing: content-box !important;
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+}
+
+#wpsl-gmap div.gm-iv-marker,
+.wpsl-gmap-canvas div.gm-iv-marker {
+    backgroud-image: inherit;
 }
 
 #wpsl-wrap {
@@ -107,8 +124,8 @@ div elements, we disable it to prevent it from messing up the map
 #wpsl-map-controls div:hover {
     cursor: pointer;
 }
- 
-#wpsl-wrap [class^="wpsl-icon-"], 
+
+#wpsl-wrap [class^="wpsl-icon-"],
 #wpsl-wrap [class*=" wpsl-icon-"] {
     position: relative;
     float: left;
@@ -129,7 +146,7 @@ div elements, we disable it to prevent it from messing up the map
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 
+/*
  * Make sure the CSS from a theme doesn't set a different font family, or font size
  * for the font icons. Otherwise the icons either don't show, or are to large.
  */
@@ -147,7 +164,7 @@ div elements, we disable it to prevent it from messing up the map
 /* Make the clickable area bigger for the buttons on mobile devices */
 #wpsl-wrap.wpsl-mobile [class^="wpsl-icon-"],
 #wpsl-wrap.wpsl-mobile [class*=" wpsl-icon-"] {
-   padding: 8px 10px;
+    padding: 8px 10px;
 }
 
 #wpsl-wrap .wpsl-icon-reset {
@@ -162,7 +179,7 @@ div elements, we disable it to prevent it from messing up the map
 }
 
 #wpsl-map-controls.wpsl-reset-exists .wpsl-icon-direction {
-    border-radius: 0 2px 2px 0;    
+    border-radius: 0 2px 2px 0;
 }
 
 #wpsl-wrap .wpsl-active-icon,
@@ -183,12 +200,12 @@ div elements, we disable it to prevent it from messing up the map
 
 /* Map reset button */
 #wpsl-gmap #wpsl-reset-map {
-    position: absolute; 
+    position: absolute;
     display: none;
-    right: 37px; 
-    top: 37px; 
-    padding: 6px 14px; 
-    background: #fff !important; 
+    right: 37px;
+    top: 37px;
+    padding: 6px 14px;
+    background: #fff !important;
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 2px;
@@ -280,7 +297,7 @@ div elements, we disable it to prevent it from messing up the map
     margin:12px 0 0 0;
 }
 
-#wpsl-stores, 
+#wpsl-stores,
 #wpsl-direction-details {
     height:350px;
     overflow-y:auto;
@@ -368,7 +385,7 @@ div elements, we disable it to prevent it from messing up the map
     border-bottom: 5px solid #000000;
     border-top:none;
     border-left: 6px solid rgba(0, 0, 0, 0);
-    border-right: 6px solid rgba(0, 0, 0, 0);   
+    border-right: 6px solid rgba(0, 0, 0, 0);
 }
 
 #wpsl-stores .wpsl-store-thumb {
@@ -379,26 +396,26 @@ div elements, we disable it to prevent it from messing up the map
     border:none;
 }
 .wpsl-direction-index {
-    float:left; 
-    width:8%; 
+    float:left;
+    width:8%;
     margin:0 5% 0 0;
 }
 .wpsl-direction-txt {
-    float:left; 
+    float:left;
     width:62%;
 }
 .wpsl-direction-distance {
-    float:left; 
-    width:20%; 
+    float:left;
+    width:20%;
     margin:0 0 0 5%;
 }
 .wpsl-direction-txt span {
-    display:block; 
+    display:block;
     margin-top:10px;
 }
 
-.wpsl-street, 
-.wpsl-country, 
+.wpsl-street,
+.wpsl-country,
 .wpsl-directions {
     display:block;
     border-bottom:none !important;
@@ -413,19 +430,19 @@ div elements, we disable it to prevent it from messing up the map
 
 .wpsl-preloader img {
     position: absolute;
-    left: 10px;    
+    left: 10px;
     top: 50%;
     margin-top: -8px;
-    box-shadow:none !important; 
+    box-shadow:none !important;
     border:none !important;
 }
 
 .wpsl-preloader span {
     float: left;
-    margin: -5px 0 0 11px;	
+    margin: -5px 0 0 11px;
 }
 
-#wpsl-search-wrap div, 
+#wpsl-search-wrap div,
 #wpsl-search-btn {
     margin-right: 10px;
     float: left;
@@ -443,7 +460,7 @@ div elements, we disable it to prevent it from messing up the map
 
 #wpsl-radius, #wpsl-results {
     float: left;
-    margin-right: 15px;	
+    margin-right: 15px;
 }
 
 #wpsl-category {
@@ -460,7 +477,7 @@ div elements, we disable it to prevent it from messing up the map
     left: -1px;
     right: -1px;
     border: 1px solid #ccc;
-    background: #fff;    
+    background: #fff;
     border-top: 1px solid #eee;
     border-radius: 0 0 3px 3px;
     opacity: 0;
@@ -490,7 +507,7 @@ div elements, we disable it to prevent it from messing up the map
     cursor: pointer;
 }
 
-#wpsl-search-wrap select, 
+#wpsl-search-wrap select,
 #wpsl-search select {
     display:none;
 }
@@ -502,7 +519,7 @@ div elements, we disable it to prevent it from messing up the map
 }
 
 #wpsl-results label {
-   width: auto;
+    width: auto;
 }
 
 #wpsl-result-list ul {
@@ -553,7 +570,7 @@ div elements, we disable it to prevent it from messing up the map
 
 #wpsl-gmap .wpsl-info-actions {
     display:block;
-    margin:10px 0 !important;   
+    margin:10px 0 !important;
 }
 
 .wpsl-info-actions a {
@@ -596,7 +613,7 @@ div elements, we disable it to prevent it from messing up the map
 }
 
 .wpsl-dropdown:hover {
-    box-shadow: 0 0 5px rgba( 0, 0, 0, 0.15 );	
+    box-shadow: 0 0 5px rgba( 0, 0, 0, 0.15 );
 }
 
 .wpsl-dropdown .wpsl-selected-item,
@@ -628,7 +645,7 @@ div elements, we disable it to prevent it from messing up the map
 .wpsl-active .wpsl-selected-item:after {
     margin-top: -10px;
     border: 6px solid transparent;
-    border-bottom: 8px solid #000;	
+    border-bottom: 8px solid #000;
 }
 
 .wpsl-dropdown li:hover {
@@ -643,30 +660,30 @@ div elements, we disable it to prevent it from messing up the map
 .wpsl-selected-item {
     list-style: none;
     padding: 9px 12px !important;
-    margin:0 !important;   
+    margin:0 !important;
 }
 
 .wpsl-selected-dropdown {
-    font-weight: bold;	
+    font-weight: bold;
 }
 
-.wpsl-clearfix:before,  
-.wpsl-clearfix:after {  
-    content: " ";  
-    display: table;  
-}  
+.wpsl-clearfix:before,
+.wpsl-clearfix:after {
+    content: " ";
+    display: table;
+}
 
-.wpsl-clearfix:after {  
-    clear: both;  
-} 
+.wpsl-clearfix:after {
+    clear: both;
+}
 
 #wpsl-wrap .wpsl-selected-item {
     position: static;
     padding-right: 35px !important;
 }
 
-#wpsl-category, 
-.wpsl-input, 
+#wpsl-category,
+.wpsl-input,
 .wpsl-select-wrap {
     position: relative;
     margin-bottom: 10px;
@@ -720,7 +737,7 @@ table.wpsl-opening-hours {
 
 table.wpsl-opening-hours,
 table.wpsl-opening-hours td {
-    border:none !important;    
+    border:none !important;
 }
 
 /* Custom Infobox */
@@ -738,26 +755,27 @@ table.wpsl-opening-hours td {
 .wpsl-gmap-canvas .wpsl-infobox:after,
 .wpsl-gmap-canvas .wpsl-infobox:before {
     position:absolute;
-    content:"";	
+    content:"";
     left:40px;
-    bottom:-11px;	
+    bottom:-11px;
 }
 
 .wpsl-gmap-canvas .wpsl-infobox:after {
     border-left:11px solid transparent;
     border-right:11px solid transparent;
-    border-top:11px solid #fff;	
+    border-top:11px solid #fff;
 }
 
 .wpsl-gmap-canvas .wpsl-infobox:before {
     border-left:13px solid transparent;
     border-right:13px solid transparent;
-    border-top:13px solid #ccc;	
+    border-top:13px solid #ccc;
     bottom:-13px;
     left:38px;
 }
 
-#wpsl-checkbox-filter {
+#wpsl-checkbox-filter,
+.wpsl-custom-checkboxes {
     display: block;
     float: left;
     margin: 5px 0 15px;
@@ -765,29 +783,35 @@ table.wpsl-opening-hours td {
     width: 100%;
 }
 
-#wpsl-checkbox-filter li {
+#wpsl-checkbox-filter li,
+.wpsl-custom-checkboxes li {
     float: left;
     list-style: none;
     margin: 0 1% 0 0;
 }
 
-#wpsl-checkbox-filter.wpsl-checkbox-1-columns li {
-    width: 99%;    
+#wpsl-checkbox-filter.wpsl-checkbox-1-columns li,
+.wpsl-custom-checkboxes.wpsl-checkbox-1-columns li {
+    width: 99%;
 }
 
-#wpsl-checkbox-filter.wpsl-checkbox-2-columns li {
-    width: 49%;    
+#wpsl-checkbox-filter.wpsl-checkbox-2-columns li,
+.wpsl-custom-checkboxes.wpsl-checkbox-2-columns li {
+    width: 49%;
 }
 
-#wpsl-checkbox-filter.wpsl-checkbox-3-columns li {
-    width: 32%;    
+#wpsl-checkbox-filter.wpsl-checkbox-3-columns li,
+.wpsl-custom-checkboxes.wpsl-checkbox-3-columns li {
+    width: 32%;
 }
 
-#wpsl-checkbox-filter.wpsl-checkbox-4-columns li {
-    width: 24%;    
+#wpsl-checkbox-filter.wpsl-checkbox-4-columns li,
+.wpsl-custom-checkboxes.wpsl-checkbox-4-columns li {
+    width: 24%;
 }
 
-#wpsl-checkbox-filter input {
+#wpsl-checkbox-filter input,
+.wpsl-custom-checkboxes input {
     margin-right: 5px;
 }
 
@@ -803,12 +827,12 @@ table.wpsl-opening-hours td {
     .wpsl-results-only #wpsl-search-wrap .wpsl-dropdown {
         width: 70px;
     }
-    
+
     #wpsl-search-wrap .wpsl-input {
         width: 100%;
         margin-bottom: 10px;
     }
-    
+
     .wpsl-input label,
     #wpsl-radius label,
     #wpsl-category label,
@@ -835,7 +859,7 @@ table.wpsl-opening-hours td {
     .wpsl-dropdown {
         width: 100%;
     }
-    
+
     .wpsl-search {
         padding: 2%;
     }
@@ -848,21 +872,21 @@ table.wpsl-opening-hours td {
     #wpsl-gmap {
         width:49.75%;
     }
-    
+
     #wpsl-result-list,
     #wpsl-gmap {
         float: none;
         width: 100%;
     }
-    
+
     .wpsl-direction-before {
         padding-left: 0;
     }
-    
+
     #wpsl-gmap {
         margin-bottom: 15px;
     }
-    
+
     .wpsl-cat-results-filter .wpsl-select-wrap,
     .wpsl-filter .wpsl-select-wrap,
     #wpsl-result-list {
@@ -873,11 +897,11 @@ table.wpsl-opening-hours td {
     #wpsl-wrap #wpsl-result-list li {
         padding-left: 0;
     }
-    
+
     #wpsl-wrap #wpsl-result-list li.wpsl-preloader {
         padding-left: 25px;
     }
-    
+
     .wpsl-preloader img {
         left: 0;
     }
@@ -892,7 +916,7 @@ table.wpsl-opening-hours td {
 
     #wpsl-gmap {
         margin-top: 10px;
-    } 
+    }
 
     .wpsl-no-filters #wpsl-search-wrap .wpsl-input,
     #wpsl-category, .wpsl-input, .wpsl-select-wrap,
@@ -906,7 +930,7 @@ table.wpsl-opening-hours td {
 
     #wpsl-checkbox-filter.wpsl-checkbox-3-columns li,
     #wpsl-checkbox-filter.wpsl-checkbox-4-columns li {
-        width: 49%;    
+        width: 49%;
     }
 }
 
@@ -918,27 +942,27 @@ table.wpsl-opening-hours td {
     .wpsl-search {
         padding: 4%;
     }
-    
+
     #wpsl-search-input {
         width: 98% !important;
     }
-    
+
     .wpsl-cat-results-filter #wpsl-search-wrap .wpsl-input,
     .wpsl-cat-results-filter #wpsl-search-input,
-    .wpsl-no-results #wpsl-search-input, 
+    .wpsl-no-results #wpsl-search-input,
     .wpsl-results-only #wpsl-search-input {
         width: 100% !important;
     }
-    
+
     .wpsl-search-btn-wrap {
         margin-top: 15px;
     }
-    
+
     .wpsl-checkboxes-enabled .wpsl-search-btn-wrap {
         margin-top: 0;
     }
-    
-    #wpsl-search-wrap div, 
+
+    #wpsl-search-wrap div,
     #wpsl-search-btn {
         margin-right: 0;
     }
@@ -951,20 +975,20 @@ table.wpsl-opening-hours td {
     #wpsl-results {
         width:auto;
     }
-    
+
     .wpsl-select-wrap {
         width: 100%;
     }
-    
-    #wpsl-radius, 
+
+    #wpsl-radius,
     #wpsl-results {
         width: 50%;
     }
-    
+
     #wpsl-radius {
         margin-right: 4%;
     }
-    
+
     #wpsl-search-wrap .wpsl-dropdown {
         width: 96% !important;
     }
@@ -983,11 +1007,11 @@ table.wpsl-opening-hours td {
     #wpsl-checkbox-filter li {
         margin: 0;
     }
-    
+
     #wpsl-checkbox-filter.wpsl-checkbox-1-columns li,
     #wpsl-checkbox-filter.wpsl-checkbox-2-columns li,
     #wpsl-checkbox-filter.wpsl-checkbox-3-columns li,
     #wpsl-checkbox-filter.wpsl-checkbox-4-columns li {
-        width: 100%;    
-    }    
+        width: 100%;
+    }
 }

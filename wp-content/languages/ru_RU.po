@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.7.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-03-03 06:09:17+0000\n"
+"PO-Revision-Date: 2017-04-20 10:13:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -9947,10 +9947,6 @@ msgstr "Редактировать"
 msgid "Tags: "
 msgstr "Метки: "
 
-#: wp-includes/post-template.php:859
-msgid "Pages:"
-msgstr "Страниц:"
-
 #: wp-includes/widgets/class-wp-widget-meta.php:59
 msgid "Comments <abbr title=\"Really Simple Syndication\">RSS</abbr>"
 msgstr "<abbr title=\"Really Simple Syndication\">RSS</abbr> комментариев"
@@ -10145,6 +10141,10 @@ msgstr "Комментарии (%s)"
 #: wp-includes/script-loader.php:625
 msgid "Plugin:"
 msgstr "Плагин:"
+
+#: wp-includes/post-template.php:859
+msgid "Pages:"
+msgstr "Страницы:"
 
 #: wp-includes/category-template.php:527
 #: wp-includes/theme-compat/sidebar.php:97

@@ -79,7 +79,7 @@ function wpsl_create_underscore_templates($template)
             $listing_template .= "\t\t" . '<div class="wpsl-direction-wrap">' . "\r\n";
 
             if (!$wpsl_settings['hide_distance']) {
-                $listing_template .= "\t\t\t" . '<%= distance %> ' . esc_html($wpsl_settings['distance_unit']) . '' . "\r\n";
+                $listing_template .= "\t\t\t" . '<%= distance %> ' . esc_html(wpsl_get_distance_unit()) . '' . "\r\n";
             }
 
             $listing_template .= "\t\t\t" . '<%= createDirectionUrl() %>' . "\r\n";

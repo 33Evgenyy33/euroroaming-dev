@@ -15,7 +15,7 @@ function wpsl_get_gmap_api_params( $api_key_type, $geocode_params = false ) {
 
     $api_params = '';
     $param_keys = array( 'language', 'region', 'key' );
-    
+
     /*
      * The geocode params are included after the address so we need to 
      * use a '&' as the first char, but when the maps script is included on 
@@ -25,7 +25,7 @@ function wpsl_get_gmap_api_params( $api_key_type, $geocode_params = false ) {
 
     foreach ( $param_keys as $param_key ) {
         $option_key = ( $param_key == 'key' ) ? $api_key_type : $param_key;
-        
+
         /*
          * Get the current language code if WPML or qTranslate-X is active. 
          * Otherwise get the param value from the settings var.
@@ -35,7 +35,7 @@ function wpsl_get_gmap_api_params( $api_key_type, $geocode_params = false ) {
         } else {
             $param_val = $wpsl_settings['api_' . $option_key];
         }
-        
+
         if ( !empty( $param_val ) ) {
             $api_params .= $param_key . '=' . $param_val . '&';
         }
@@ -44,7 +44,7 @@ function wpsl_get_gmap_api_params( $api_key_type, $geocode_params = false ) {
     if ( $api_params ) {
         $api_params = $first_sep . rtrim( $api_params, '&' );
     }
-    
+
     // Do we need to include the autocomplete library?
     if ( ( $wpsl_settings['autocomplete'] && $api_key_type == 'browser_key' ) || is_admin() ) {
         $api_params .= '&libraries=places';
@@ -149,20 +149,20 @@ function wpsl_get_default_settings() {
         'hours_label'             => __( 'Hours', 'wpsl' ),
         'category_label'          => __( 'Category filter', 'wpsl' ),
         'category_default_label'  => __( 'Any', 'wpsl' )
-    ); 
+    );
 
     return $default_settings;
 }
 
 /**
  * Get the current plugin settings.
- * 
+ *
  * @since 1.0.0
  * @return array $setting The current plugin settings
  */
 function wpsl_get_settings() {
 
-    $settings = get_option( 'wpsl_settings' );            
+    $settings = get_option( 'wpsl_settings' );
 
     if ( !$settings ) {
         update_option( 'wpsl_settings', wpsl_get_default_settings() );
@@ -170,11 +170,11 @@ function wpsl_get_settings() {
     }
 
     return $settings;
-} 
+}
 
 /**
  * Get a single value from the default settings.
- * 
+ *
  * @since 1.0.0
  * @param  string $setting               The value that should be restored
  * @return string $wpsl_default_settings The default setting value
@@ -188,7 +188,7 @@ function wpsl_get_default_setting( $setting ) {
 
 /**
  * Set the default plugin settings.
- * 
+ *
  * @since 1.0.0
  * @return void
  */
@@ -203,7 +203,7 @@ function wpsl_set_default_settings() {
 
 /**
  * Return a list of the store templates.
- * 
+ *
  * @since 1.2.20
  * @return array $templates The list of default store templates
  */
@@ -212,12 +212,12 @@ function wpsl_get_templates() {
     $templates = array(
         array(
             'id'   => 'default',
-            'name' => __( 'Default', 'wpsl' ), 
+            'name' => __( 'Default', 'wpsl' ),
             'path' => WPSL_PLUGIN_DIR . 'frontend/templates/default.php'
-        ), 
+        ),
         array(
             'id'   => 'below_map',
-            'name' => __( 'Show the store list below the map', 'wpsl' ), 
+            'name' => __( 'Show the store list below the map', 'wpsl' ),
             'path' => WPSL_PLUGIN_DIR . 'frontend/templates/store-listings-below.php'
         )
     );
@@ -233,20 +233,20 @@ function wpsl_get_templates() {
  */
 function wpsl_get_weekdays() {
 
-   $weekdays = array( 
-       'monday'    => __( 'Monday', 'wpsl' ), 
-       'tuesday'   => __( 'Tuesday', 'wpsl' ),  
-       'wednesday' => __( 'Wednesday', 'wpsl' ),  
-       'thursday'  => __( 'Thursday', 'wpsl' ),  
-       'friday'    => __( 'Friday', 'wpsl' ),  
-       'saturday'  => __( 'Saturday', 'wpsl' ),
-       'sunday'    => __( 'Sunday' , 'wpsl' )
-   );
+    $weekdays = array(
+        'monday'    => __( 'Monday', 'wpsl' ),
+        'tuesday'   => __( 'Tuesday', 'wpsl' ),
+        'wednesday' => __( 'Wednesday', 'wpsl' ),
+        'thursday'  => __( 'Thursday', 'wpsl' ),
+        'friday'    => __( 'Friday', 'wpsl' ),
+        'saturday'  => __( 'Saturday', 'wpsl' ),
+        'sunday'    => __( 'Sunday' , 'wpsl' )
+    );
 
-   return $weekdays;
+    return $weekdays;
 }
 
-/** 
+/**
  * Get the default opening hours.
  *
  * @since 2.0.0
@@ -254,54 +254,54 @@ function wpsl_get_weekdays() {
  */
 function wpsl_default_opening_hours() {
 
-   $current_version = get_option( 'wpsl_version' );
-     
-   $opening_hours = array(
-       'dropdown' => array(
-           'monday'    => array( '9:00 AM,5:00 PM' ),
-           'tuesday'   => array( '9:00 AM,5:00 PM' ),
-           'wednesday' => array( '9:00 AM,5:00 PM' ),
-           'thursday'  => array( '9:00 AM,5:00 PM' ),
-           'friday'    => array( '9:00 AM,5:00 PM' ),
-           'saturday'  => '',
-           'sunday'    => ''
+    $current_version = get_option( 'wpsl_version' );
+
+    $opening_hours = array(
+        'dropdown' => array(
+            'monday'    => array( '9:00 AM,5:00 PM' ),
+            'tuesday'   => array( '9:00 AM,5:00 PM' ),
+            'wednesday' => array( '9:00 AM,5:00 PM' ),
+            'thursday'  => array( '9:00 AM,5:00 PM' ),
+            'friday'    => array( '9:00 AM,5:00 PM' ),
+            'saturday'  => '',
+            'sunday'    => ''
         )
     );
-   
-   /* Only add the textarea defaults for users that upgraded from 1.x */
-   if ( version_compare( $current_version, '2.0', '<' ) ) {
-       $opening_hours['textarea'] = sprintf( __( 'Mon %sTue %sWed %sThu %sFri %sSat Closed %sSun Closed', 'wpsl' ), '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", "\n" ); //cleaner way without repeating it 5 times??
-   }
 
-   return $opening_hours;
+    /* Only add the textarea defaults for users that upgraded from 1.x */
+    if ( version_compare( $current_version, '2.0', '<' ) ) {
+        $opening_hours['textarea'] = sprintf( __( 'Mon %sTue %sWed %sThu %sFri %sSat Closed %sSun Closed', 'wpsl' ), '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", '9:00 AM - 5:00 PM' . "\n", "\n" ); //cleaner way without repeating it 5 times??
+    }
+
+    return $opening_hours;
 }
 
 /**
  * Get the available map types.
- * 
+ *
  * @since 2.0.0
- * @return array $map_types The available map types 
+ * @return array $map_types The available map types
  */
 function wpsl_get_map_types() {
-    
+
     $map_types = array(
-        'roadmap'   => __( 'Roadmap', 'wpsl' ), 
-        'satellite' => __( 'Satellite', 'wpsl' ),  
-        'hybrid'    => __( 'Hybrid', 'wpsl' ),  
+        'roadmap'   => __( 'Roadmap', 'wpsl' ),
+        'satellite' => __( 'Satellite', 'wpsl' ),
+        'hybrid'    => __( 'Hybrid', 'wpsl' ),
         'terrain'   => __( 'Terrain', 'wpsl' )
     );
-    
+
     return $map_types;
 }
 
 /**
  * Get the address formats.
- * 
+ *
  * @since 2.0.0
  * @return array $address_formats The address formats
  */
 function wpsl_get_address_formats() {
-    
+
     $address_formats = array(
         'city_state_zip'       => __( '(city) (state) (zip code)', 'wpsl' ),
         'city_comma_state_zip' => __( '(city), (state) (zip code)', 'wpsl' ),
@@ -310,45 +310,45 @@ function wpsl_get_address_formats() {
         'zip_city_state'       => __( '(zip code) (city) (state)', 'wpsl' ),
         'zip_city'             => __( '(zip code) (city)', 'wpsl' )
     );
-   
+
     return apply_filters( 'wpsl_address_formats', $address_formats );
 }
 
 /**
  * Make sure the provided map type is valid.
- * 
+ *
  * If the map type is invalid the default is used ( roadmap ).
- * 
+ *
  * @since 2.0.0
  * @param  string $map_type The provided map type
  * @return string $map_type A valid map type
  */
 function wpsl_valid_map_type( $map_type ) {
-    
+
     $allowed_map_types = wpsl_get_map_types();
-    
+
     if ( !array_key_exists( $map_type, $allowed_map_types ) ) {
         $map_type = wpsl_get_default_setting( 'map_type' );
     }
-    
+
     return $map_type;
 }
 
 /**
  * Make sure the provided zoom level is valid.
- * 
+ *
  * If the zoom level is invalid the default is used ( 3 ).
- * 
+ *
  * @since 2.0.0
- * @param  string $zoom_level The provided zoom level 
+ * @param  string $zoom_level The provided zoom level
  * @return string $zoom_level A valid zoom level
  */
 function wpsl_valid_zoom_level( $zoom_level ) {
-    
+
     $zoom_level = absint( $zoom_level );
-    
+
     if ( ( $zoom_level < 1 ) || ( $zoom_level > 21 ) ) {
-        $zoom_level = wpsl_get_default_setting( 'zoom_level' );	
+        $zoom_level = wpsl_get_default_setting( 'zoom_level' );
     }
 
     return $zoom_level;
@@ -356,37 +356,37 @@ function wpsl_valid_zoom_level( $zoom_level ) {
 
 /**
  * Get the max auto zoom levels for the map.
- * 
+ *
  * @since 2.0.0
  * @return array $max_zoom_levels The array holding the min - max zoom levels
  */
 function wpsl_get_max_zoom_levels() {
-    
+
     $max_zoom_levels = array();
     $zoom_level = array(
         'min' => 10,
         'max' => 21
     );
-    
+
     $i = $zoom_level['min'];
 
     while ( $i <= $zoom_level['max'] ) {
         $max_zoom_levels[$i] = $i;
         $i++;
-    } 
-    
+    }
+
     return $max_zoom_levels;
 }
 
 /**
  * The labels and the values that can be set through the settings page.
- * 
+ *
  * @since 2.0.0
  * @return array $labels The label names from the settings page.
  */
 function wpsl_labels() {
 
-    $labels = array( 
+    $labels = array(
         'search',
         'search_btn',
         'preloader',
@@ -424,7 +424,7 @@ function wpsl_labels() {
 function wpsl_sanitize_multi_array( &$item, $key ) {
     $item = sanitize_text_field( $item );
 }
-        
+
 /**
  * Check whether the array is multidimensional.
  *
@@ -450,19 +450,19 @@ function wpsl_call_geocode_api( $address ) {
 
     $url      = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address ) . wpsl_get_gmap_api_params( 'server_key', true );
     $response = wp_remote_get( $url );
-    
+
     return $response;
 }
 
 /**
  * Get the latlng for the provided address.
- * 
+ *
  * This is used to geocode the address set as the start point on
  * the settings page in case the autocomplete fails
  * ( only happens when there is a JS error on the page ),
  * or to get the latlng when the 'start_location' attr is set
  * on the wpsl shortcode.
- * 
+ *
  * @since 2.2
  * @param string      $address The address to geocode.
  * @return array|void $latlng  The returned latlng or nothing if there was an error.
@@ -476,15 +476,15 @@ function wpsl_get_address_latlng( $address ) {
         $response = json_decode( $response['body'], true );
 
         if ( $response['status'] == 'OK' ) {
-            $latlng = $response['results'][0]['geometry']['location']['lat'] . ',' . $response['results'][0]['geometry']['location']['lng'];    
+            $latlng = $response['results'][0]['geometry']['location']['lat'] . ',' . $response['results'][0]['geometry']['location']['lng'];
         }
     }
 
     return $latlng;
 }
-        
+
 /**
- * Make sure the shortcode attributes are booleans 
+ * Make sure the shortcode attributes are booleans
  * when they are expected to be.
  *
  * @since 2.0.4
@@ -502,17 +502,17 @@ function wpsl_bool_check( $atts ) {
     }
 
     return $atts;
-}  
+}
 
 /**
  * Create a string with random characters.
- * 
+ *
  * @since 2.2.4
  * @param  int    $length       Used length
  * @return string $random_chars Random characters
  */
 function wpsl_random_chars( $length = 5 ) {
-    
+
     $random_chars = substr( str_shuffle( "abcdefghijklmnopqrstuvwxyz" ), 0, $length );
 
     return $random_chars;
@@ -520,21 +520,34 @@ function wpsl_random_chars( $length = 5 ) {
 
 /**
  * Deregister other Google Maps scripts.
- * 
+ *
  * If plugins / themes also include the Google Maps library, then it can cause
  * problems with the autocomplete function on the settings page and break
  * the store locator on the front-end.
- * 
+ *
  * @since 2.2.4
  * @return void
  */
 function wpsl_deregister_other_gmaps() {
-                
+
     global $wp_scripts;
 
     foreach ( $wp_scripts->registered as $index => $script ) {
-        if ( ( strpos( $script->src, 'maps.google.com' ) !== false ) || ( strpos( $script->src, 'maps.googleapis.com' ) !== false ) && ( $script->handle !== 'wpsl-gmap' ) ) { 
+        if ( ( strpos( $script->src, 'maps.google.com' ) !== false ) || ( strpos( $script->src, 'maps.googleapis.com' ) !== false ) && ( $script->handle !== 'wpsl-gmap' ) ) {
             wp_deregister_script( $script->handle );
         }
     }
+}
+
+/**
+ * Return the used distance unit.
+ *
+ * @since 2.2.8
+ * @return string Either km or mi
+ */
+function wpsl_get_distance_unit() {
+
+    global $wpsl_settings;
+
+    return apply_filters( 'wpsl_distance_unit', $wpsl_settings['distance_unit'] );
 }
