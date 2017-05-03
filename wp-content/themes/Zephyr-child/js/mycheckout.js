@@ -246,6 +246,11 @@ jQuery(document).ready(function ($) {
     });
 
     var $city = $("#billing_city"), $street = $("#billing_address_1");
+
+    $city.keydown(function(){
+        $("#billing_address_2").val('');
+    });
+
     /*, $country = $("span#select2-chosen-1");*/
 
 
@@ -253,7 +258,7 @@ jQuery(document).ready(function ($) {
 
         //console.log($("span#select2-chosen-1").text());
 
-        if ($("span#select2-billing_country-container").text() != 'Россия') {
+        if ($("#s2id_billing_country #select2-chosen-1").text() != 'Россия') {
             $city.suggestions().disable();
             return;
         }

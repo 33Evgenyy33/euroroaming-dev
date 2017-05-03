@@ -7,33 +7,6 @@
  * Automatically move JavaScript code to page footer, speeding up page loading time.
  */
 
-/*    Код для Point of sale    */
-
-function mysite_woocommerce_payment_complete( $order_id ) {
-
-    //$order = get_post_custom( $order_id );
-    $key = '';
-    $order = get_post_meta( $order_id, $key, false );
-    echo 'test9';
-    print_r($order);
-
-    $key = 'uploaded_files';
-    $order = get_post_meta( $order_id, $key, false );
-    //$urls = implode("|",$order);
-    //$urls = implode("|",$order);
-    add_post_meta( $order_id, '_my_choice', $order );
-
-    /*$myfile = fopen("processing-".$order_id.".txt", "w") or die("Unable to open file!");
-    $txt = $order_id;
-    fwrite($myfile, $txt);
-    fclose($myfile);
-    file_put_contents("processing-".$order_id.".txt", print_r($order, true));*/
-    //error_log( "Payment has been received for order $order" );
-
-}
-add_action( 'woocommerce_order_status_processing', 'mysite_woocommerce_payment_complete');
-/*******************************/
-
 
 /* Отправление почты */
 add_action('phpmailer_init', 'tweak_mailer_ssl', 999);
@@ -145,65 +118,15 @@ function custom_woocommerce_states($states)
 /*********************************Woocommerce промокод************************************************/
 
 
-add_filter('woocommerce_available_payment_gateways', 'filter_gateways');
-function filter_gateways($gateways)
-{
-    $payment_NAME = 'cheque';
 
-    $chosen_methods = WC()->session->get('chosen_shipping_methods');
-    //var_dump($chosen_methods);
-    $chosen_shipping = $chosen_methods[0];
-
-    if ($chosen_shipping == '18616' || $chosen_shipping == 'local_pickup_plus' || $chosen_shipping == 'flat_rate:1' || $chosen_shipping == 'flat_rate:2') unset($gateways[$payment_NAME]);
-
-    if ($chosen_shipping == null) unset($gateways[$payment_NAME]);
-
-    return $gateways;
-}
-
-add_filter('woocommerce_package_rates', 'my_hide_shipping_when_free_is_available', 100);
-function my_hide_shipping_when_free_is_available($rates)
-{
-    global $woocommerce;
-
-    $free = array();
-
-    $items = $woocommerce->cart->get_cart();
-
-    foreach ($items as $item => $values) {
-
-        $_product = $values['data']->post;
-
-        if ($_product->ID == 25841) {
-            foreach ($rates as $rate_id => $rate) {
-                if ('advanced_shipping' == $rate->method_id) {
-                    $free[$rate_id] = $rate;
-                }
-            }
-            break;
-        }
-
-        /*if ($_product->ID == 18446 || $_product->ID == 28328 || $_product->ID == 18453 || $_product->ID == 18443) {
-            foreach ($rates as $rate_id => $rate) {
-                if ('local_pickup_plus' == $rate->method_id || '18616' == $rate->id) {
-                    $free[$rate_id] = $rate;
-                }
-            }
-            break;
-        }*/
-
-        /************Vodafone*************/
-        /*if ($_product->ID == 18438) {
-            foreach ($rates as $rate_id => $rate) {
-                if ('advanced_shipping' == $rate->method_id || '18616' == $rate->id) {
-                    $free[$rate_id] = $rate;
-                }
-            }
-            break;
-        }*/
-
+/* Загрузка скрипта для страницы CHECKOUT*/
+add_action( 'wp_enqueue_scripts', 'my_checkout_scripts' );
+function my_checkout_scripts() {
+    if ( is_page( 'checkout' ) ) {
+        wp_enqueue_style('suggestions-css', get_stylesheet_directory_uri() . '/css/suggestions.css');
+        wp_enqueue_script( 'suggestions-js', get_stylesheet_directory_uri() . '/js/jquery.suggestions.min.js' );
+        wp_enqueue_script( 'mycheckout', get_stylesheet_directory_uri() . '/js/mycheckout.js' );
     }
-    return !empty($free) ? $free : $rates;
 }
 
 add_filter('affwp_currencies', 'affwp_custom_add_currency');
@@ -225,14 +148,6 @@ function my_function_admin_bar()
 
 add_action('wp_logout', create_function('', 'wp_redirect(home_url());exit();'));
 
-add_action('init', 'my_insert_post_hook');
-function my_insert_post_hook($my_post)
-{
-    if ($_SERVER['REQUEST_URI'] == '/otzyvy/page/2/') {
-        wp_redirect('https://euroroaming.ru/category/otzyvy/', 301);
-        exit;
-    }
-}
 
 //add_action('woocommerce_before_checkout_form', 'action_woocommerce_before_checkout_form', 10, 2);
 //function action_woocommerce_before_checkout_form($woocommerce_checkout_login_form, $int)
@@ -355,19 +270,6 @@ function local_pickup_instructions()
     <?php
 }
 
-add_action('woocommerce_checkout_process', 'wdm_validate_custom_field', 10, 1);
-function wdm_validate_custom_field($args)
-{
-    global $wpdb;
-
-    if (isset($_POST['orange_replenishment'])) {
-        $o_id = $_POST['orange_replenishment'];
-        $track = $wpdb->get_row($wpdb->prepare("SELECT * FROM wp_orange_numbers WHERE numbers = %d", $o_id));
-
-        if (empty($track->numbers))
-            wc_add_notice('Данный номер Orange не принадлежит компании Евророуминг или номер введен некорректно', 'error');
-    }
-}
 
 add_filter('woocommerce_default_address_fields', 'bbloomer_override_postcode_validation');
 function bbloomer_override_postcode_validation($address_fields)
@@ -460,46 +362,3 @@ function redirect_so_15396771()
         exit;
     }
 }
-
-
-/*add_action('woocommerce_after_add_to_cart_button', 'cmk_additional_button');
-function cmk_additional_button()
-{
-    $productID = get_the_ID();
-    $terms = get_the_terms(get_the_ID(), 'product_cat');
-
-    //print_r($terms[0]->term_id);
-
-    global $product;
-    global $woocommerce;
-
-    echo $product_type = $product->get_categories();
-
-
-    //echo $productID;
-    $yourCustomLinkValue = get_post_meta($productID, 'custom_link_meta', true);
-
-    //echo '<a type="submit" href=' . $woocommerce->cart->get_checkout_url() . $product->add_to_cart_url() . ' class="single_add_to_cart_button button alt">Оформить</a>';
-
-    echo '<a type="submit" href=' . $product->add_to_cart_url() . ' class="single_add_to_cart_button button alt">Оформить</a>';
-}*/
-
-
-/*STEP 1 - REMOVE ADD TO CART BUTTON ON PRODUCT ARCHIVE (SHOP) */
-
-/*function remove_loop_button()
-{
-    remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
-}
-
-add_action('init', 'remove_loop_button');*/
-
-/*STEP 2 -ADD NEW BUTTON THAT LINKS TO PRODUCT PAGE FOR EACH PRODUCT */
-
-/*add_action('woocommerce_after_shop_loop_item', 'replace_add_to_cart');
-function replace_add_to_cart()
-{
-    global $product;
-    $link = $product->get_permalink();
-    echo do_shortcode('<a href="' . $link . '" class="button addtocartbutton">Skoða Vöru</a>');
-}*/
