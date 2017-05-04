@@ -29,6 +29,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         if (!class_exists('cse_Shipping_Method')) {
             class cse_Shipping_Method extends WC_Shipping_Method
             {
+
                 /**
                  * Constructor for your shipping class
                  *
@@ -104,6 +105,10 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                  */
                 public function calculate_shipping($package = array())
                 {
+
+                    //return;
+
+                    //return;
                     $country = $package['destination']['country'];
 
                     if ($country != 'RU') return;
@@ -180,13 +185,15 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             )
                         );
 
+                        ob_clean();
+
                         try {
                             $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl',
                                 array(
                                     'soap_version' => SOAP_1_2,
                                     'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP,
                                     /*'connection_timeout' => 15,*/
-                                    'trace' => true,
+                                    'trace' => 1,
                                     'encoding' => 'UTF-8',
                                     'exceptions' => true,
                                 ));
@@ -220,6 +227,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                         $calc_request['data']['List']['Fields'][1]['Value'] = $recipient;
 
+                        ob_clean();
+
                         try {
 
                             $calc_response = $client->Calc($calc_request);
@@ -238,6 +247,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         }
 
                         error_log("cost = " . $cost, 0);
+
+                        //$cost += $this->getTest1();
 
 
                         $rate = array(
