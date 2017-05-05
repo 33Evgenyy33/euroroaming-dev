@@ -14,9 +14,7 @@
  */
 
 if (!defined('WPINC')) {
-
     die;
-
 }
 
 /*
@@ -29,19 +27,16 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         if (!class_exists('cse_Shipping_Method')) {
             class cse_Shipping_Method extends WC_Shipping_Method
             {
-
                 /**
                  * Constructor for your shipping class
                  *
                  * @access public
-                 * @return void
                  */
                 public function __construct()
                 {
                     $this->id = 'cse_shipping_method';
                     $this->method_title = 'Курьерская служба КСЭ';
                     $this->method_description = 'Метод доставки на основе API CSE';
-
 
                     $this->init();
 
@@ -66,33 +61,130 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                 }
 
+                public $recipient_data;
+                public $calc_response;
+
                 /**
-                 * Define settings field for this shipping
-                 * @return void
+                 * @return mixed
                  */
-                /*function init_form_fields()
+                function getRecipientData()
                 {
+                    return $this->recipient_data;
+                }
 
-                    $this->form_fields = array(
+                /**
+                 * @param mixed $recipient_data
+                 */
+                public function setRecipientData($recipient_data)
+                {
+                    $this->recipient_data = $recipient_data;
+                }
 
-                        'enabled' => array(
-                            'title' => __('Enable', 'cse'),
-                            'type' => 'checkbox',
-                            'description' => __('Enable this shipping.', 'cse'),
-                            'default' => 'yes'
-                        ),
+                /**
+                 * @return mixed
+                 */
+                public function getCalcResponse()
+                {
+                    return $this->calc_response;
+                }
 
-                        'title' => array(
-                            'title' => __('Title', 'cse'),
-                            'type' => 'text',
-                            'description' => __('Title to be display on site', 'cse'),
-                            'default' => __('Курьером до двери', 'cse')
-                        ),
+                /**
+                 * @param mixed $calc_response
+                 */
+                public function setCalcResponse($calc_response)
+                {
+                    $this->calc_response = $calc_response;
+                }
 
+                function soapclient_GetReferenceData($fias = '')
+                {
+                    $ship_type_request = array(
+                        'login' => 'ЕВРОРОУМИНГ-ИМ',
+                        'password' => 'gnJkA6GwsLJ6',
+                        'parameters' => array(
+                            'Key' => 'Parameters',
+                            'List' => array(
+                                0 => array(
+                                    'Key' => 'Reference',
+                                    'Value' => 'Geography',
+                                    'ValueType' => 'string'
+                                ),
+                                1 => array(
+                                    'Key' => 'Search',
+                                    'Value' => $fias,
+                                    'ValueType' => 'string'
+                                )
+                            )
+                        )
                     );
 
-                }*/
+                    $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl', array(
+                        'trace' => 1,
+                        'features' => SOAP_WAIT_ONE_WAY_CALLS,
+                        'cache_wsdl' => WSDL_CACHE_NONE
+                    ));
 
+
+                    try {
+                        $this->setRecipientData($client->GetReferenceData($ship_type_request)); //данные получателя (GUID, КЛАДР и т.д.)
+                    } catch (Exception $e) {
+                        die($e->getMessage());
+                    }
+                }
+
+                function soapclient_calc($recipient)
+                {
+                    $calc_request = array(
+                        'login' => 'ЕВРОРОУМИНГ-ИМ',
+                        'password' => 'gnJkA6GwsLJ6',
+                        'data' => array(
+                            'Key' => 'Destinations',
+                            'List' => array(
+                                'Key' => 'Destination',
+                                'Fields' => array(
+                                    0 => array(
+                                        'Key' => 'SenderGeography',
+                                        'Value' => 'cf862f56-442d-11dc-9497-0015170f8c09',
+                                        'ValueType' => 'string'
+                                    ),
+                                    1 => array(
+                                        'Key' => 'RecipientGeography', //получатель
+                                        'Value' => $recipient,
+                                        'ValueType' => 'string'
+                                    ),
+                                    2 => array(
+                                        'Key' => 'TypeOfCargo',
+                                        'Value' => '81dd8a13-8235-494f-84fd-9c04c51d50ec',
+                                        'ValueType' => 'string'
+                                    ),
+                                    3 => array(
+                                        'Key' => 'Weight',
+                                        'Value' => 0.1,
+                                        'ValueType' => 'float'
+                                    ),
+                                    4 => array(
+                                        'Key' => 'Qty',
+                                        'Value' => 1,
+                                        'ValueType' => 'int'
+                                    )
+
+                                )
+                            )
+                        )
+                    );
+
+                    $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl', array(
+                        'trace' => 1,
+                        'features' => SOAP_WAIT_ONE_WAY_CALLS,
+                        'cache_wsdl' => WSDL_CACHE_NONE
+                    ));
+
+                    try {
+                        $this->setCalcResponse($client->Calc($calc_request));
+                    } catch (Exception $e) {
+                        die($e->getMessage());
+                    }
+                }
 
                 /**
                  * This function is used to calculate the shipping cost. Within this function we can check for weights, dimensions and other parameters.
@@ -105,109 +197,24 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                  */
                 public function calculate_shipping($package = array())
                 {
-
-                    //return;
-
-                    //return;
                     $country = $package['destination']['country'];
-
                     if ($country != 'RU') return;
 
                     $fias_num = $package['destination']['address_2'];
-
                     if ($fias_num == '') return;
 
                     $city = $package['destination']['city'];
-
                     if ($city != '') {
 
+                        $fias = 'fias-' . $fias_num;
+                        $recipient = ''; //получатель
                         $cost = 0;
 
-                        $fias = 'fias-' . $fias_num;
+                        $this->soapclient_GetReferenceData($fias);
 
-                        $ship_type_request = array(
-                            'login' => 'ЕВРОРОУМИНГ-ИМ',
-                            'password' => 'gnJkA6GwsLJ6',
-                            'parameters' => array(
-                                'Key' => 'Parameters',
-                                'List' => array(
-                                    0 => array(
-                                        'Key' => 'Reference',
-                                        'Value' => 'Geography',
-                                        'ValueType' => 'string'
-                                    ),
-                                    1 => array(
-                                        'Key' => 'Search',
-                                        'Value' => $fias,
-//                                        'Value'     => 'Москва г',
-                                        'ValueType' => 'string'
-                                    )
-                                )
-                            )
-                        );
+                        if (is_array($this->getRecipientData()->return->List)) {
 
-                        $calc_request = array(
-                            'login' => 'ЕВРОРОУМИНГ-ИМ',
-                            'password' => 'gnJkA6GwsLJ6',
-                            'data' => array(
-                                'Key' => 'Destinations',
-                                'List' => array(
-                                    'Key' => 'Destination',
-                                    'Fields' => array(
-                                        0 => array(
-                                            'Key' => 'SenderGeography',
-                                            'Value' => 'cf862f56-442d-11dc-9497-0015170f8c09',
-                                            'ValueType' => 'string'
-                                        ),
-                                        1 => array(
-                                            'Key' => 'RecipientGeography', //получатель
-                                            'Value' => '',
-                                            'ValueType' => 'string'
-                                        ),
-                                        2 => array(
-                                            'Key' => 'TypeOfCargo',
-                                            'Value' => '81dd8a13-8235-494f-84fd-9c04c51d50ec',
-                                            'ValueType' => 'string'
-                                        ),
-                                        3 => array(
-                                            'Key' => 'Weight',
-                                            'Value' => 0.1,
-                                            'ValueType' => 'float'
-                                        ),
-                                        4 => array(
-                                            'Key' => 'Qty',
-                                            'Value' => 1,
-                                            'ValueType' => 'int'
-                                        )
-
-                                    )
-                                )
-                            )
-                        );
-
-                        ob_clean();
-
-                        try {
-                            $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl',
-                                array(
-                                    'soap_version' => SOAP_1_2,
-                                    'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP,
-                                    /*'connection_timeout' => 15,*/
-                                    'trace' => 1,
-                                    'encoding' => 'UTF-8',
-                                    'exceptions' => true,
-                                ));
-                        } catch (Exception $e) {
-                            die($e->getMessage());
-                        }
-
-                        $recipient_data = $client->GetReferenceData($ship_type_request); //данные получателя (GUID, КЛАДР и т.д.)
-
-                        $recipient = ''; //получатель
-
-                        if (is_array($recipient_data->return->List)) {
-
-                            foreach ($recipient_data->return->List['Fields'] as $field_el) {
+                            foreach ($this->getRecipientData()->return->List['Fields'] as $field_el) {
                                 if ($field_el->Key == 'ID') {
                                     $recipient = $field_el->Value;
                                     break;
@@ -217,7 +224,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                         } else {
 
-                            foreach ($recipient_data->return->List->Fields as $field) {
+                            foreach ($this->getRecipientData()->return->List->Fields as $field) {
                                 if ($field->Key == 'ID') {
                                     $recipient = $field->Value;
                                     break;
@@ -225,31 +232,16 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             }
                         }
 
-                        $calc_request['data']['List']['Fields'][1]['Value'] = $recipient;
+                        $this->soapclient_calc($recipient);
 
-                        ob_clean();
+                        //echo '<pre>' . print_r($this->getCalcResponse(), true) . '</pre>';
 
-                        try {
-
-                            $calc_response = $client->Calc($calc_request);
-
-                        } catch (Exception $e) {
-                            die($e->getMessage());
-                        }
-
-                        echo '<pre>' . print_r($calc_response, true) . '</pre>';
-
-                        foreach ($calc_response->return->List->List as $field) {
+                        foreach ($this->getCalcResponse()->return->List->List as $field) {
                             if ($field->Fields[4]->Value == 'Срочная') {
                                 $cost = intval($field->Fields[0]->Value);
                                 break;
                             }
                         }
-
-                        error_log("cost = " . $cost, 0);
-
-                        //$cost += $this->getTest1();
-
 
                         $rate = array(
                             'id' => $this->id,
@@ -262,11 +254,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     } else {
                         return;
                     }
-
+                    error_log("Расчитано: " . $cost, 0);
                 }
             }
         }
     }
+
 
     add_action('woocommerce_shipping_init', 'cse_shipping_method');
 
