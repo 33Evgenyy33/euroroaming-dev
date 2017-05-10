@@ -118,17 +118,22 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         )
                     );
 
-                    $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl', array(
-                        'trace' => 1,
-                        'features' => SOAP_WAIT_ONE_WAY_CALLS,
-                        'cache_wsdl' => WSDL_CACHE_NONE
-                    ));
-
+                    try {
+                        $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl', array(
+                            'trace' => true,
+                            'features' => SOAP_WAIT_ONE_WAY_CALLS,
+                            'cache_wsdl' => WSDL_CACHE_NONE
+                        ));
+                    } catch (Exception $e) {
+                        //die($e->getMessage());
+                        return;
+                    }
 
                     try {
                         $this->setRecipientData($client->GetReferenceData($ship_type_request)); //данные получателя (GUID, КЛАДР и т.д.)
                     } catch (Exception $e) {
-                        die($e->getMessage());
+                        //die($e->getMessage());
+                        return;
                     }
                 }
 
@@ -173,16 +178,22 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         )
                     );
 
-                    $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl', array(
-                        'trace' => 1,
-                        'features' => SOAP_WAIT_ONE_WAY_CALLS,
-                        'cache_wsdl' => WSDL_CACHE_NONE
-                    ));
+                    try {
+                        $client = new SoapClient('http://web.cse.ru/1c/ws/Web1C.1cws?wsdl', array(
+                            'trace' => true,
+                            'features' => SOAP_WAIT_ONE_WAY_CALLS,
+                            'cache_wsdl' => WSDL_CACHE_NONE
+                        ));
+                    } catch (Exception $e) {
+                        //die($e->getMessage());
+                        return;
+                    }
 
                     try {
                         $this->setCalcResponse($client->Calc($calc_request));
                     } catch (Exception $e) {
-                        die($e->getMessage());
+                        //die($e->getMessage());
+                        return;
                     }
                 }
 
@@ -211,6 +222,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         $cost = 0;
 
                         $this->soapclient_GetReferenceData($fias);
+
+                        if ($this->getRecipientData() == null) return;
 
                         if (is_array($this->getRecipientData()->return->List)) {
 

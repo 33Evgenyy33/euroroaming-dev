@@ -763,47 +763,66 @@ if (!class_exists('WPSL_Frontend')) {
                 return __('If you use the [wpsl_simcards] shortcode outside a store page you need to set the ID attribute.', 'wpsl');
             }
 
-            $ta_id = intval(str_replace(" ", "", get_post_meta($atts['id'], 'wpsl_ta_id', true)));
+            $content = '<div class="wpsl_page_ta_simcards_grid">'; //Начало сетки сим-карт
 
-            $url = "http://seller.sgsim.ru/euroroaming_order_submit?operation=get_simcards&ta=$ta_id";
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Устанавливаем параметр, чтобы curl возвращал данные, вместо того, чтобы выводить их в браузер.
-            curl_setopt($ch, CURLOPT_URL, $url);
-
-            $data = curl_exec($ch);
-            curl_close($ch);
-
-            //print_r(json_decode ($data)->orange);
-
-            $content = '<div class="wpsl_page_ta_simcards_grid">';
-
-            $orange = json_decode($data)->orange;
-
-            //$content .= print("<pre>".print_r(json_decode($data),true)."</pre>");
-            $content .= '<pre>' . print_r(json_decode($data), true) . '</pre>';
-
-
-            $content .= '<div class="wpsl_page_ta_simcard">';
+            // Проверка на наличие id кабинета ТА (если есть на селлере)
             if ($atts['ta_id'] && $store_address = get_post_meta($atts['id'], 'wpsl_ta_id', true)) {
-                $content .= '<span><span style="font-weight: 600">Адрес: </span>' . $store_address . '</span><br/>';
+
+                $orange_combo_check = array("6050", "6051", "6052");
+                $orange_nano_check = array("615", "625", "692", "6053", "6054", "6055", "6056", "6057", "6058", "6059");
+
+                $ta_id = intval(str_replace(" ", "", get_post_meta($atts['id'], 'wpsl_ta_id', true)));
+
+                $url = "http://seller.sgsim.ru/euroroaming_order_submit?operation=get_simcards&ta=$ta_id";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Устанавливаем параметр, чтобы curl возвращал данные, вместо того, чтобы выводить их в браузер.
+                curl_setopt($ch, CURLOPT_URL, $url);
+
+                $data = curl_exec($ch);
+                curl_close($ch);
+
+                //$content .= '<pre>' . print_r(gettype(json_decode($data)->orange[0]), true) . '</pre>';
+                //$content .= '<pre>' . print_r((array)json_decode($data), true) . '</pre>';
+
+                $array_of_simcard = (array)json_decode($data);
+                krsort($array_of_simcard);
+
+                //$content .= '<pre>' . print_r($array_of_simcard, true) . '</pre>';
+
+                foreach ($array_of_simcard as $key => $oper) {
+                    $content .= '<div class="wpsl_page_ta_simcard">';
+                    $simcard = ($key != "_empty_") ? ucfirst($key) : "Vodafone Red";
+                    $content .= '<h4 style="font-weight: 500;text-align: center;margin-bottom: 0;">' . $simcard . '</h4>';
+                    if ($key == 'orange'){
+                        $content .= '123';
+                        $content .= '</div>';
+                        continue;
+                    }
+
+                    $content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;">';
+                    $content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Standard-n.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
+                    $content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Стандарт: '.count($oper).'</p>';
+                    $content .= '</div>';
+
+                    $content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;">';
+                    $content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Micro-n.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
+                    $content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Micro-SIM: '.count($oper).'</p>';
+                    $content .= '</div>';
+
+                    $content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;">';
+                    $content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Nano-n.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
+                    $content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Nano-SIM: '.count($oper).'</p>';
+                    $content .= '</div>';
+
+                    $content .= '</div>';
+                }
+
+            } else {
+                $content .= '<h4>Наличие сим-карт уточняйте по телефону: <span style="font-weight: 500">' . get_post_meta($atts['id'], 'wpsl_phone', true) . '</span></h4>';
             }
-            $content .= '</div>';
 
-            $content .= '<div class="wpsl_page_ta_simcard">';
-            if ($atts['ta_id'] && $store_address = get_post_meta($atts['id'], 'wpsl_ta_id', true)) {
-                $content .= '<span><span style="font-weight: 600">Адрес: </span>' . $store_address . '</span><br/>';
-            }
-            $content .= '</div>';
-
-            $content .= '<div class="wpsl_page_ta_simcard">';
-            if ($atts['ta_id'] && $store_address = get_post_meta($atts['id'], 'wpsl_ta_id', true)) {
-                $content .= '<span><span style="font-weight: 600">Адрес: </span>' . $store_address . '</span><br/>';
-            }
-            $content .= '</div>';
-
-
-            $content .= '</div>';
+            $content .= '</div>'; //Конец сетки сим-карт
 
             return $content;
         }
@@ -913,7 +932,7 @@ if (!class_exists('WPSL_Frontend')) {
                 }
 
                 if ($atts['fax'] && $store_fax = get_post_meta($atts['id'], 'wpsl_fax', true)) {
-                    $content .= '<span style="font-weight: 600">' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</span>: <span>' . esc_html($store_fax) . '</span><br/>';
+                    $content .= '<span style="font-weight: 600">' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</span>: <span>8-800-555-2834</span><br/>';
                 }
 
                 if ($atts['email'] && $store_email = get_post_meta($atts['id'], 'wpsl_email', true)) {

@@ -30,7 +30,7 @@ function wpsl_create_underscore_templates($template)
             $info_window_template .= "\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('phone_label', __('Phone', 'wpsl'))) . '</strong>: <%= formatPhoneNumber( phone ) %></span>' . "\r\n";
             $info_window_template .= "\t\t" . '<% } %>' . "\r\n";
             $info_window_template .= "\t\t" . '<% if ( fax ) { %>' . "\r\n";
-            $info_window_template .= "\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</strong>: <%= fax %></span>' . "\r\n";
+            $info_window_template .= "\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</strong>: 8-800-555-2834</span>' . "\r\n";
             $info_window_template .= "\t\t" . '<% } %>' . "\r\n";
             $info_window_template .= "\t\t" . '<% if ( email ) { %>' . "\r\n";
             $info_window_template .= "\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('email_label', __('Email', 'wpsl'))) . '</strong>: <%= email %></span>' . "\r\n";
@@ -66,7 +66,7 @@ function wpsl_create_underscore_templates($template)
                 $listing_template .= "\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('phone_label', __('Phone', 'wpsl'))) . '</strong>: <%= formatPhoneNumber( phone ) %></span>' . "\r\n";
                 $listing_template .= "\t\t\t" . '<% } %>' . "\r\n";
                 $listing_template .= "\t\t\t" . '<% if ( fax ) { %>' . "\r\n";
-                $listing_template .= "\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</strong>: <%= fax %></span>' . "\r\n";
+                $listing_template .= "\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</strong>: 8-800-555-2834</span>' . "\r\n";
                 $listing_template .= "\t\t\t" . '<% } %>' . "\r\n";
                 $listing_template .= "\t\t\t" . '<% if ( email ) { %>' . "\r\n";
                 $listing_template .= "\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('email_label', __('Email', 'wpsl'))) . '</strong>: <%= email %></span>' . "\r\n";
@@ -149,7 +149,7 @@ function wpsl_more_info_template()
                 $more_info_template .= "\t\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('phone_label', __('Phone', 'wpsl'))) . '</strong>: <%= formatPhoneNumber( phone ) %></span>' . "\r\n";
                 $more_info_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
                 $more_info_template .= "\t\t\t\t" . '<% if ( fax ) { %>' . "\r\n";
-                $more_info_template .= "\t\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</strong>: <%= fax %></span>' . "\r\n";
+                $more_info_template .= "\t\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('fax_label', __('Fax', 'wpsl'))) . '</strong>: 8-800-555-2834</span>' . "\r\n";
                 $more_info_template .= "\t\t\t\t" . '<% } %>' . "\r\n";
                 $more_info_template .= "\t\t\t\t" . '<% if ( email ) { %>' . "\r\n";
                 $more_info_template .= "\t\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('email_label', __('Email', 'wpsl'))) . '</strong>: <%= email %></span>' . "\r\n";
@@ -167,7 +167,9 @@ function wpsl_more_info_template()
             $more_info_template .= "\t\t\t" . '<% } %>';
 
         } else {
-            $more_info_template = '<p><a class="wpsl-store-details" href="' . $more_info_url . '">' . esc_html($wpsl->i18n->get_translation('more_label', __('More info', 'wpsl'))) . '</a></p>';
+            $more_info_template = '<div class="w-btn-wrapper align_left"><a class="w-btn style_raised color_primary icon_none" href="<%= permalink %>"><span class="w-btn-label">Подробнее</span><span class="ripple-container"></span></a></div>';
+            //$more_info_template = '<p><a href="<%= permalink %>" rel="nofollow">Подробнее</a></p>';
+            $more_info_template .= '<p><a class="wpsl-store-details" href="' . $more_info_url . '">Перейти к точке на карте</a></p>';
         }
 
         return apply_filters('wpsl_more_info_template', $more_info_template);
@@ -217,7 +219,7 @@ function wpsl_store_header_template($location = 'info_window')
             $header_template .= $tab . '<strong><%= store %></strong>' . "\r\n";
             $header_template .= $tab . '<% } %>';
         } else {
-            $header_template = '<strong><a' . $new_window . ' href="<%= permalink %>"><%= store %></a></strong>';
+            $header_template = '<strong><a' . $new_window . ' href="<%= permalink %>"><%= store %></a></strong><br>';
         }
     } else {
         $header_template = '<% if ( wpslSettings.storeUrl == 1 && url ) { %>' . "\r\n";

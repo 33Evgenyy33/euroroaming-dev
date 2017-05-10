@@ -96,7 +96,7 @@ if (!class_exists('WPSL_Metaboxes')) {
                         'label' => __('Tel', 'wpsl')
                     ),
                     'fax' => array(
-                        'label' => __('Fax', 'wpsl')
+                        'label' => __('Телефон поддержки', 'wpsl')
                     ),
                     'email' => array(
                         'label' => __('Email', 'wpsl')

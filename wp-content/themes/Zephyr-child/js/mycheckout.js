@@ -209,6 +209,11 @@ function join(arr /*, separator */) {
 
 jQuery(document).ready(function ($) {
 
+    $("form.woocommerce-checkout").on('submit', function() {
+        $('#billing_address_2').val('');
+        console.log('jgfjfgh');
+    });
+
     $("#billing_first_name").suggestions({
         serviceUrl: "https://suggestions.dadata.ru/suggestions/api/4_1/rs",
         token: "94efab2e13b37cf6fe0d782a4c3f685ca2bf7627",
