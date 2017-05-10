@@ -376,3 +376,4 @@
 [08-May-2017 00:06:09 UTC] Расчитано: 650
 [08-May-2017 00:06:38 UTC] Расчитано: 650
 [08-May-2017 00:25:47 UTC] Расчитано: 650
+[10-May-2017 14:17:26 UTC] PHP Fatal error:  Call to undefined function check_orange_format() in F:\OpenServer\domains\euroroaming\wp-content\plugins\wp-store-locator\frontend\class-frontend.php on line 811
