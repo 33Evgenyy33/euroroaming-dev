@@ -362,3 +362,227 @@ function redirect_so_15396771()
         exit;
     }
 }
+
+// Registering external jQuery/JS file
+function cfields_scripts() {
+
+    /* IMPORTANT NOTE: For a child theme replace get_template_directory_uri() by get_stylesheet_directory_uri()
+                       The external cfields.js file goes in a subfolder "js" of your active child theme or theme.*/
+
+    wp_enqueue_script( 'checkout_script', get_stylesheet_directory_uri().'/js/cfields.js', array('jquery'), '1.0', true );
+}
+add_action( 'wp_enqueue_scripts', 'cfields_scripts' );
+
+
+add_filter( 'woocommerce_checkout_fields', 'ba_custom_checkout_billing_fields' );
+function ba_custom_checkout_billing_fields( $fields ) {
+
+    // 1. Creating the additional custom billing fields
+
+    // The "status" selector
+    $fields['billing']['billing_status']['type'] = 'select';
+    $fields['billing']['billing_status']['class'] = array('form-row-wide, status-select');
+    $fields['billing']['billing_status']['required'] = true;
+    $fields['billing']['billing_status']['label'] = __('Statut Juridic', 'theme_domain');
+    $fields['billing']['billing_status']['placeholder'] = __('Alege statutul', 'theme_domain');
+    $fields['billing']['billing_status']['options'] = array(
+        '1' => __( 'Persoana Fizica', 'theme_domain' ),
+        '2' => __( 'Persoana Juridica', 'theme_domain' )
+    );
+
+    // The "Nr. registrul comertului" text field (this field is common)
+    $fields['billing']['billing_ser_id']['type'] = 'text';
+    $fields['billing']['billing_ser_id']['class'] = array('form-row-wide', 'status-group2');
+    $fields['billing']['billing_ser_id']['required'] = true; // <== HERE has to be "true" as it always be shown and need validation
+    $fields['billing']['billing_ser_id']['label'] = __('Nr. Reg. Comert', 'theme_domain');
+    $fields['billing']['billing_ser_id']['placeholder'] = __('Introdu numarul', 'theme_domain');
+
+    // The "Banca" text field
+    $fields['billing']['billing_bt_id']['type'] = 'text';
+    $fields['billing']['billing_bt_id']['class'] = array('form-row-wide', 'status-group2');
+    $fields['billing']['billing_bt_id']['required'] = false;
+    $fields['billing']['billing_bt_id']['label'] = __('Banca', 'theme_domain');
+    $fields['billing']['billing_bt_id']['placeholder'] = __('Adauga Banca', 'theme_domain');
+
+    // The "IBAN" text field
+    $fields['billing']['billing_ib_id']['type'] = 'text';
+    $fields['billing']['billing_ib_id']['class'] = array('form-row-wide', 'status-group2');
+    $fields['billing']['billing_ib_id']['required'] = false;
+    $fields['billing']['billing_ib_id']['label'] = __('IBAN', 'theme_domain');
+    $fields['billing']['billing_ib_id']['placeholder'] = __('Adauga IBAN-ul', 'theme_domain');
+
+    // The "CIF" text field
+    $fields['billing']['billing_cf_id']['type'] = 'text';
+    $fields['billing']['billing_cf_id']['class'] = array('form-row-wide', 'status-group2');
+    $fields['billing']['billing_cf_id']['required'] = false;
+    $fields['billing']['billing_cf_id']['label'] = __('Cod Fiscal', 'theme_domain');
+    $fields['billing']['billing_cf_id']['placeholder'] = __('Adauga CIF-ul', 'theme_domain');
+
+
+    // 2. Ordering the billing fields
+
+    $fields_order = array(
+        'billing_first_name', 'billing_last_name', 'billing_email',
+        'billing_phone',      'billing_address_1', 'billing_address_2',
+        'billing_postcode',   'billing_city',      'billing_country',
+        'billing_status',     'billing_company',   'billing_ser_id',
+        'billing_bt_id',      'billing_ib_id',     'billing_cf_id'
+    );
+
+    foreach($fields_order as $field)
+        $ordered_fields[$field] = $fields['billing'][$field];
+
+    $fields['billing'] = $ordered_fields;
+
+
+    // 4. Returning Checkout customized billing fields
+    return $fields;
+
+}
+
+
+// Process the checkout (Checking if required fields are not empty)
+add_action('woocommerce_checkout_process', 'ba_custom_checkout_field_process');
+function ba_custom_checkout_field_process() {
+
+    if ( ! $_POST['billing_ser_id'] )
+        wc_add_notice( __( '<strong>Nr. Reg. Comert</strong> is a required field.', 'theme_domain' ), 'error' );
+
+    if ( ! $_POST['billing_bt_id'] )
+        wc_add_notice( __( '<strong>Banca</strong> is a required field.', 'theme_domain' ), 'error' );
+
+    if ( ! $_POST['billing_ib_id'] )
+        wc_add_notice( __( '<strong>IBAN</strong> is a required field.', 'theme_domain' ), 'error' );
+
+    if ( ! $_POST['billing_cf_id'] )
+        wc_add_notice( __( '<strong>Cod Fiscal</strong> is a required field.', 'theme_domain' ), 'error' );
+}
+
+// Adding/Updating meta data to the order with the custom-fields values
+add_action( 'woocommerce_checkout_update_order_meta', 'ba_custom_checkout_field_update_order_meta' );
+function ba_custom_checkout_field_update_order_meta( $order_id ) {
+
+    $billing_company = $_POST['billing_company'];
+    $billing_ser_id  = $_POST['billing_ser_id'];
+    $billing_bt_id   = $_POST['billing_bt_id'];
+    $billing_ib_id   = $_POST['billing_ib_id'];
+    $billing_cf_id   = $_POST['billing_cf_id'];
+
+    // For Individual resetting billing company to "" (no value) instead of 'no'
+    if ( !empty($billing_company) && 'no' == $billing_company )
+        update_post_meta( $order_id, '_billing_company', '' );
+
+    if ( !empty($billing_ser_id) )
+        update_post_meta( $order_id, '_billing_ser_id', sanitize_text_field( $billing_ser_id ) );
+
+    // Adding/updating data only for companies
+    if ( !empty($billing_bt_id) && 'no' != $billing_bt_id )
+        update_post_meta( $order_id, '_billing_bt_id', sanitize_text_field( $billing_bt_id ) );
+
+    // Adding/updating data only for companies
+    if ( !empty($billing_ib_id) && 'no' != $billing_ib_id )
+        update_post_meta( $order_id, '_billing_ib_id', sanitize_text_field( $billing_ib_id ) );
+
+    // Adding/updating data only for companies
+    if ( !empty($billing_cf_id) && 'no' != $billing_cf_id )
+        update_post_meta( $order_id, '_billing_cf_id', sanitize_text_field( $billing_cf_id ) );
+}
+
+
+// Display custom-field Title/values on the order edit page
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'ba_custom_checkout_field_display_admin_order_meta', 10, 1 );
+function ba_custom_checkout_field_display_admin_order_meta( $order ){
+
+    $output = '';
+    $billing_ser_id = get_post_meta( $order->id, '_billing_ser_id', true );
+    $billing_bt_id  = get_post_meta( $order->id, '_billing_bt_id',  true );
+    $billing_ib_id  = get_post_meta( $order->id, '_billing_ib_id',  true );
+    $billing_cf_id  = get_post_meta( $order->id, '_billing_cf_id',  true );
+
+    if ( !empty($billing_ser_id) ){
+        $output .= '<p><strong>' . __( 'Nr. Reg. Comert', 'theme_domain' ) . ':</strong> ' . $billing_ser_id . '</p>';
+    }
+
+    if ( !empty($billing_bt_id) && 'no' != $billing_bt_id ){
+        $output .= '<p><strong>' . __( 'Banca', 'theme_domain' ) . ':</strong> ' . $billing_bt_id . '</p>';
+    }
+
+    if ( !empty($billing_ib_id) && 'no' != $billing_ib_id ){
+        $output .= '<p><strong>' . __( 'IBAN', 'theme_domain' ) . ':</strong> ' . $billing_ib_id . '</p>';
+    }
+
+    if ( !empty($billing_cf_id) && 'no' != $billing_cf_id ){
+        $output .= '<p><strong>' . __( 'Cod Fiscal', 'theme_domain' ) . ':</strong> ' . $billing_cf_id . '</p>';
+    }
+
+    echo $output;
+}
+
+
+// Displaying data on order view in "customer details" zone
+add_action('woocommerce_order_details_after_customer_details','ba_add_values_to_order_item_meta', 10, 1 );
+function ba_add_values_to_order_item_meta( $order ) {
+
+    $output = '';
+    $billing_ser_id = get_post_meta( $order->id, '_billing_ser_id', true );
+    $billing_bt_id  = get_post_meta( $order->id, '_billing_bt_id',  true );
+    $billing_ib_id  = get_post_meta( $order->id, '_billing_ib_id',  true );
+    $billing_cf_id  = get_post_meta( $order->id, '_billing_cf_id',  true );
+
+    if ( !empty($billing_ser_id) )
+        $output .= '
+        <tr>
+            <th>' . __( "Nr. Reg. Comert:", "woocommerce" ) . '</th>
+            <td>' . $billing_ser_id . '</td>
+        </tr>';
+
+    if ( !empty($billing_bt_id) && 'no' != $billing_bt_id )
+        $output .= '
+        <tr>
+            <th>' . __( "Banca:", "woocommerce" ) . '</th>
+            <td>' . $billing_bt_id . '</td>
+        </tr>';
+
+    if ( !empty($billing_ib_id) && 'no' != $billing_ib_id )
+        $output .= '
+        <tr>
+            <th>' . __( "IBAN:", "woocommerce" ) . '</th>
+            <td>' . $billing_ib_id . '</td>
+        </tr>';
+
+    if ( !empty($billing_cf_id) && 'no' != $billing_cf_id )
+        $output .= '
+        <tr>
+            <th>' . __( "Cod Fiscal:", "woocommerce" ) . '</th>
+            <td>' . $billing_cf_id . '</td>
+        </tr>';
+
+    echo $output;
+}
+
+
+// Displaying data on email notifications
+add_action('woocommerce_email_customer_details','ba_add_values_to_emails_notifications', 15, 4 );
+function ba_add_values_to_emails_notifications( $order, $sent_to_admin, $plain_text, $email ) {
+
+    $output = '<ul>';
+    $billing_ser_id = get_post_meta( $order->id, '_billing_ser_id', true );
+    $billing_bt_id  = get_post_meta( $order->id, '_billing_bt_id',  true );
+    $billing_ib_id  = get_post_meta( $order->id, '_billing_ib_id',  true );
+    $billing_cf_id  = get_post_meta( $order->id, '_billing_cf_id',  true );
+
+    if ( !empty($billing_ser_id) )
+        $output .= '<li><strong>' . __( "Nr. Reg. Comert:", "woocommerce" ) . '</strong> <span class="text">' . $billing_ser_id . '</span></li>';
+
+    if ( !empty($billing_bt_id) && 'no' != $billing_bt_id )
+        $output .= '<li><strong>' . __( "Banca:", "woocommerce" ) . '</strong> <span class="text">' . $billing_bt_id . '</span></li>';
+
+    if ( !empty($billing_ib_id) && 'no' != $billing_ib_id )
+        $output .= '<li><strong>' . __( "IBAN:", "woocommerce" ) . '</strong> <span class="text">' . $billing_ib_id . '</span></li>';
+
+    if ( !empty($billing_cf_id) && 'no' != $billing_cf_id )
+        $output .= '<li><strong>' . __( "Cod Fiscal:", "woocommerce" ) . '</strong> <span class="text">' . $billing_cf_id . '</span></li>';
+    $output .= '</ul>';
+
+    echo $output;
+}

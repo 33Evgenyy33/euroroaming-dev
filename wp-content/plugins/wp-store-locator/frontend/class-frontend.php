@@ -804,7 +804,7 @@ if (!class_exists('WPSL_Frontend')) {
                 foreach ($array_of_simcard as $key => $oper) {
                     $content .= '<div class="wpsl_page_ta_simcard">';
                     $simcard = ($key != "_empty_") ? ucfirst($key) : "Vodafone Red";
-                    $content .= '<h4 style="font-weight: 500;text-align: center;margin-bottom: 0px;padding-bottom: 7px;border-bottom: 1px solid #e1e1e1;display: block;">' . $simcard . '</h4>';
+                    $content .= '<h4 id="operator_label">' . $simcard . '</h4>';
                     if ($key == 'orange') {
                         $combo = 0;
                         $nano = 0;
@@ -815,26 +815,26 @@ if (!class_exists('WPSL_Frontend')) {
                                 $nano++;
                         }
 
-                        $content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;display: flex;justify-content: space-between;align-items: center;">';
-                        $content .= '<div style="max-width: 200px;display: block;">';
-                        $content .= '<p style="display: block;margin-bottom: -10px;">Комбо</p>';
-                        $content .= '<p style="font-size: 13px;">(стандарт+микро)</p>';
+                        $content .= '<div id="format_grid">';
+                        $content .= '<div id="format_grid_name">';
+                        $content .= '<p class="format_label">Комбо</p>';
+                        $content .= '<p class="format_description">(стандарт+микро)</p>';
                         $content .= '</div>';
-                        $content .= '<div>';
-                        $content .= '<p style="font-weight: 500;">' . $combo . ' шт.</p>';
+                        $content .= '<div id="format_grid_count">';
+                        $content .= '<p>' . $combo . ' шт.</p>';
                         $content .= '</div>';
 
                         //$content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Combo-1.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
                         //$content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Комбо(стандарт+микро): ' . $combo . ' шт.</p>';
                         $content .= '</div>';
 
-                        $content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;display: flex;justify-content: space-between;align-items: center;">';
-                        $content .= '<div style="max-width: 200px;display: block;">';
-                        $content .= '<p style="display: block;margin-bottom: -10px;">3 в 1</p>';
-                        $content .= '<p style="font-size: 13px;">(стандарт+микро+нано)</p>';
+                        $content .= '<div id="format_grid">';
+                        $content .= '<div id="format_grid_name">';
+                        $content .= '<p class="format_label">3 в 1</p>';
+                        $content .= '<p class="format_description">(стандарт+микро+нано)</p>';
                         $content .= '</div>';
-                        $content .= '<div>';
-                        $content .= '<p style="font-weight: 500;">' . $nano . ' шт.</p>';
+                        $content .= '<div id="format_grid_count">';
+                        $content .= '<p>' . $nano . ' шт.</p>';
                         $content .= '</div>';
                         //$content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Triple-1-1.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
                         //$content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">3 в 1(стандарт+микро+нано): ' . $nano . ' шт.</p>';
