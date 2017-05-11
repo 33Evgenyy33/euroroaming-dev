@@ -94,10 +94,4 @@ if ( ! vc_is_page_editable() ) {
 		),
 	)
 	);
-	vc_update_shortcode_param(
-		'vc_tta_section', array(
-		'param_name' => 'el_class',
-		'weight' => 10,
-	)
-	);
 }

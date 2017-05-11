@@ -15,7 +15,7 @@
  * @param $atts           ['nav'] string Additional navigation: 'none' / 'dots' / 'thumbs'
  * @param $atts           ['transition'] string Transition effect: 'slide' / 'crossfade'
  * @param $atts           ['autoplay'] bool Enable auto-rotation?
- * @param $atts           ['autoplay_period'] int Auto-rotation period (in milliseconds)
+ * @param $atts           ['autoplay_period'] int Auto Rotation Interval (in seconds)
  * @param $atts           ['fullscreen'] bool Allow fullscreen view?
  * @param $atts           ['orderby'] string Elements order: '' / 'rand'
  * @param $atts           ['img_size'] string Images size: 'large' / 'medium' / 'thumbnail' / 'full'
@@ -65,7 +65,7 @@ if ( $atts['autoplay'] AND $atts['autoplay_period'] ) {
 	$js_options['autoplay'] = array(
 		'enabled' => TRUE,
 		'pauseOnHover' => TRUE,
-		'delay' => intval( $atts['autoplay_period'] ),
+		'delay' => intval( $atts['autoplay_period'] * 1000 ) ,
 	);
 }
 

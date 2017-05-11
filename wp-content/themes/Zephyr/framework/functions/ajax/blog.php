@@ -13,17 +13,23 @@ function us_ajax_blog() {
 	$template_vars = shortcode_atts(
 		array(
 			'query_args' => array(),
-			'layout_type' => 'classic',
-			'masonry' => FALSE,
+			'layout' => 'classic',
+			'type' => 'grid',
 			'title_size' => '',
 			'metas' => array(),
 			'columns' => 2,
 			'content_type' => 'none',
 			'show_read_more' => FALSE,
 			'pagination' => 'regular',
+			'lang' => FALSE,
 			'el_class' => '',
 		), us_maybe_get_post_json( 'template_vars' )
 	);
+
+	if ( class_exists( 'SitePress' ) AND $template_vars['lang'] ) {
+		global $sitepress;
+		$sitepress->switch_lang( $template_vars['lang'] );
+	}
 
 	// Filtering query_args
 	if ( isset( $template_vars['query_args'] ) AND is_array( $template_vars['query_args'] ) ) {

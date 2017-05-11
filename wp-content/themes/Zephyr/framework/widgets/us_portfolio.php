@@ -3,7 +3,7 @@
 /**
  * UpSolution Widget: Portfolio
  *
- * Class US_Widget_Login
+ * Class US_Widget_Portfolio
  */
 class US_Widget_Portfolio extends US_Widget {
 
@@ -22,35 +22,37 @@ class US_Widget_Portfolio extends US_Widget {
 		$output = $args['before_widget'];
 
 		if ( $title ) {
-			$output .= '<h4>' . $title . '</h4>';
+			$output .= '<h3 class="widgettitle">' . $title . '</h3>';
 		}
-
 
 		$template_vars = array(
 			'categories' => ( isset( $instance['categories'] ) AND is_array( $instance['categories'] ) ) ? implode( ', ', $instance['categories'] ) : NULL,
-			'style_name' => 'style_1',
 			'columns' => ( isset( $instance['columns'] ) AND in_array(
 					$instance['columns'], array(
-					2,
-					3,
-					4,
-					5,
-				)
+						2,
+						3,
+						4,
+						5,
+					)
 				) ) ? $instance['columns'] : 3,
+			'orderby' => ( in_array(
+				$instance['orderby'], array(
+					'date',
+					'date_asc',
+					'alpha',
+					'rand',
+				)
+			) ) ? $instance['orderby'] : 'date',
+			'items_action' => 'default',
+			'type' => 'grid',
+			'style_name' => 'style_1',
+			'img_size' => 'thumbnail',
 			'ratio' => '1x1',
 			'metas' => array( 'title', ),
 			'align' => 'center',
 			'filter' => FALSE,
 			'with_indents' => FALSE,
 			'pagination' => 'none',
-			'orderby' => ( in_array(
-				$instance['orderby'], array(
-				'date',
-				'date_asc',
-				'alpha',
-				'rand',
-			)
-			) ) ? $instance['orderby'] : 'date',
 			'is_widget' => 'true',
 		);
 

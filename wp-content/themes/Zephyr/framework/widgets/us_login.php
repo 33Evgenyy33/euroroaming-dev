@@ -22,7 +22,7 @@ class US_Widget_Login extends US_Widget {
 		echo $args['before_widget'];
 
 		if ( $title ) {
-			echo '<h4>' . $title . '</h4>';
+			echo '<h3 class="widgettitle">' . $title . '</h3>';
 		}
 
 		$json_data = array(

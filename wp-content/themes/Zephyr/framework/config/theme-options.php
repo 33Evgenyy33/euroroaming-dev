@@ -91,14 +91,6 @@ return array(
 				'classes' => 'for_above',
 				'show_if' => array( 'preloader', '=', 'custom' ),
 			),
-			'page_sidebar_id' => array(
-				'title' => __( 'Sidebar Content by default', 'us' ),
-				'description' => sprintf( __( 'This dropdown list shows the Widget Areas, which you can populate on the %sWidgets%s page.', 'us' ), '<a target="_blank" href="' . admin_url() . 'widgets.php">', '</a>' ),
-				'type' => 'select',
-				'options' => $sidebars_options,
-				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
-			),
 			'page_sidebar' => array(
 				'title' => __( 'Sidebar Position by default', 'us' ),
 				'type' => 'radio',
@@ -109,13 +101,19 @@ return array(
 				),
 				'std' => 'none',
 			),
+			'page_sidebar_id' => array(
+				'title' => __( 'Sidebar Content by default', 'us' ),
+				'description' => sprintf( __( 'This dropdown list shows the Widget Areas, which you can populate on the %sWidgets%s page.', 'us' ), '<a target="_blank" href="' . admin_url() . 'widgets.php">', '</a>' ),
+				'type' => 'select',
+				'options' => $sidebars_options,
+				'std' => 'default_sidebar',
+			),
 			'footer_id' => array(
 				'title' => __( 'Footer Content by default', 'us' ),
 				'description' => sprintf( __( 'You can edit the default footer (or create a new one) on the %sFooters%s page.', 'us' ), '<a target="_blank" href="' . admin_url() . 'edit.php?post_type=us_footer">', '</a>' ),
 				'type' => 'select',
 				'options' => $footer_templates,
 				'std' => 'default-footer',
-				'classes' => 'desc_1',
 			),
 			'footer_layout' => array(
 				'title' => __( 'Footer Layout', 'us' ),
@@ -149,7 +147,6 @@ return array(
 				'description' => __( 'The API key is required for the domains created after June 22, 2016.', 'us' ) . ' <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">'  .  __( 'Get API key', 'us' ) . '</a>',
 				'type' => 'text',
 				'std' => '',
-				'classes' => 'desc_1',
 			),
 			'custom_post_types_support' => array(
 				'title' => __( 'Support of Custom Post Types', 'us' ),
@@ -1510,13 +1507,13 @@ return array(
 				'description' => __( 'Font Size', 'us' ),
 				'type' => 'text',
 				'std' => '14',
-				'classes' => 'for_font cols_2',
+				'classes' => 'inline cols_2',
 			),
 			'body_fontsize_mobile' => array(
 				'description' => __( 'Font Size on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '16',
-				'classes' => 'for_font cols_2',
+				'classes' => 'inline cols_2',
 			),
 			'body_fontsize_end' => array(
 				'type' => 'wrapper_end',
@@ -1528,13 +1525,13 @@ return array(
 				'description' => __( 'Line height', 'us' ),
 				'type' => 'text',
 				'std' => '24',
-				'classes' => 'for_font cols_2',
+				'classes' => 'inline cols_2',
 			),
 			'body_lineheight_mobile' => array(
 				'description' => __( 'Line height on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '28',
-				'classes' => 'for_font cols_2',
+				'classes' => 'inline cols_2',
 			),
 			'body_lineheight_end' => array(
 				'type' => 'wrapper_end',
@@ -1560,19 +1557,19 @@ return array(
 				'description' => __( 'Font Size', 'us' ),
 				'type' => 'text',
 				'std' => '40',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h1_fontsize_mobile' => array(
 				'description' => __( 'Font Size on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '30',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h1_letterspacing' => array(
 				'description' => __( 'Letter Spacing', 'us' ),
 				'type' => 'text',
 				'std' => '0',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h1_transform' => array(
 				'type' => 'checkboxes',
@@ -1580,7 +1577,7 @@ return array(
 					'uppercase' => __( 'Uppercase', 'us' ),
 				),
 				'std' => '',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h1_end' => array(
 				'type' => 'wrapper_end',
@@ -1593,19 +1590,19 @@ return array(
 				'description' => __( 'Font Size', 'us' ),
 				'type' => 'text',
 				'std' => '34',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h2_fontsize_mobile' => array(
 				'description' => __( 'Font Size on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '26',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h2_letterspacing' => array(
 				'description' => __( 'Letter Spacing', 'us' ),
 				'type' => 'text',
 				'std' => '0',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h2_transform' => array(
 				'type' => 'checkboxes',
@@ -1613,7 +1610,7 @@ return array(
 					'uppercase' => __( 'Uppercase', 'us' ),
 				),
 				'std' => '',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h2_end' => array(
 				'type' => 'wrapper_end',
@@ -1626,19 +1623,19 @@ return array(
 				'description' => __( 'Font Size', 'us' ),
 				'type' => 'text',
 				'std' => '28',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h3_fontsize_mobile' => array(
 				'description' => __( 'Font Size on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '24',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h3_letterspacing' => array(
 				'description' => __( 'Letter Spacing', 'us' ),
 				'type' => 'text',
 				'std' => '0',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h3_transform' => array(
 				'type' => 'checkboxes',
@@ -1646,7 +1643,7 @@ return array(
 					'uppercase' => __( 'Uppercase', 'us' ),
 				),
 				'std' => '',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h3_end' => array(
 				'type' => 'wrapper_end',
@@ -1659,19 +1656,19 @@ return array(
 				'description' => __( 'Font Size', 'us' ),
 				'type' => 'text',
 				'std' => '24',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h4_fontsize_mobile' => array(
 				'description' => __( 'Font Size on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '22',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h4_letterspacing' => array(
 				'description' => __( 'Letter Spacing', 'us' ),
 				'type' => 'text',
 				'std' => '0',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h4_transform' => array(
 				'type' => 'checkboxes',
@@ -1679,7 +1676,7 @@ return array(
 					'uppercase' => __( 'Uppercase', 'us' ),
 				),
 				'std' => '',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h4_end' => array(
 				'type' => 'wrapper_end',
@@ -1692,19 +1689,19 @@ return array(
 				'description' => __( 'Font Size', 'us' ),
 				'type' => 'text',
 				'std' => '20',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h5_fontsize_mobile' => array(
 				'description' => __( 'Font Size on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '20',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h5_letterspacing' => array(
 				'description' => __( 'Letter Spacing', 'us' ),
 				'type' => 'text',
 				'std' => '0',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h5_transform' => array(
 				'type' => 'checkboxes',
@@ -1712,7 +1709,7 @@ return array(
 					'uppercase' => __( 'Uppercase', 'us' ),
 				),
 				'std' => '',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h5_end' => array(
 				'type' => 'wrapper_end',
@@ -1725,19 +1722,19 @@ return array(
 				'description' => __( 'Font Size', 'us' ),
 				'type' => 'text',
 				'std' => '18',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h6_fontsize_mobile' => array(
 				'description' => __( 'Font Size on Mobiles', 'us' ),
 				'type' => 'text',
 				'std' => '18',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h6_letterspacing' => array(
 				'description' => __( 'Letter Spacing', 'us' ),
 				'type' => 'text',
 				'std' => '0',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h6_transform' => array(
 				'type' => 'checkboxes',
@@ -1745,7 +1742,7 @@ return array(
 					'uppercase' => __( 'Uppercase', 'us' ),
 				),
 				'std' => '',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'h6_end' => array(
 				'type' => 'wrapper_end',
@@ -1880,7 +1877,6 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
 			),
 			'portfolio_comments' => array(
 				'title' => __( 'Portfolio Comments', 'us' ),
@@ -1910,6 +1906,105 @@ return array(
 				'type' => 'text',
 				'std' => 'portfolio_category',
 			),
+			
+			// Portfolio Responsive Breakpoint 1
+			'portfolio_breakpoint_1_start' => array(
+				'title' => __( 'Portfolio Responsive Behavior', 'us' ),
+				'type' => 'wrapper_start',
+				'classes' => 'title_left',
+			),
+			'portfolio_breakpoint_1_width' => array(
+				'title' => __( 'Below screen width', 'us' ),
+				'description' => __( 'show', 'us' ),
+				'type' => 'slider',
+				'min' => 300,
+				'max' => 2000,
+				'std' => 1200,
+				'postfix' => 'px',
+				'classes' => 'inline',
+			),
+			'portfolio_breakpoint_1_cols' => array(
+				'type' => 'select',
+				'options' => array(
+					'6' => sprintf( us_translate_n( '%s column', '%s columns', 6 ), 6 ),
+					'5' => sprintf( us_translate_n( '%s column', '%s columns', 5 ), 5 ),
+					'4' => sprintf( us_translate_n( '%s column', '%s columns', 4 ), 4 ),
+					'3' => sprintf( us_translate_n( '%s column', '%s columns', 3 ), 3 ),
+					'2' => sprintf( us_translate_n( '%s column', '%s columns', 2 ), 2 ),
+					'1' => sprintf( us_translate_n( '%s column', '%s columns', 1 ), 1 ),
+				),
+				'std' => '3',
+				'classes' => 'inline',
+			),
+			'portfolio_breakpoint_1_end' => array(
+				'type' => 'wrapper_end',
+			),
+			
+			// Portfolio Responsive Breakpoint 2
+			'portfolio_breakpoint_2_start' => array(
+				'title' => ' ',
+				'type' => 'wrapper_start',
+				'classes' => 'title_left',
+			),
+			'portfolio_breakpoint_2_width' => array(
+				'title' => __( 'Below screen width', 'us' ),
+				'description' => __( 'show', 'us' ),
+				'type' => 'slider',
+				'min' => 300,
+				'max' => 2000,
+				'std' => 900,
+				'postfix' => 'px',
+				'classes' => 'inline',
+			),
+			'portfolio_breakpoint_2_cols' => array(
+				'type' => 'select',
+				'options' => array(
+					'6' => sprintf( us_translate_n( '%s column', '%s columns', 6 ), 6 ),
+					'5' => sprintf( us_translate_n( '%s column', '%s columns', 5 ), 5 ),
+					'4' => sprintf( us_translate_n( '%s column', '%s columns', 4 ), 4 ),
+					'3' => sprintf( us_translate_n( '%s column', '%s columns', 3 ), 3 ),
+					'2' => sprintf( us_translate_n( '%s column', '%s columns', 2 ), 2 ),
+					'1' => sprintf( us_translate_n( '%s column', '%s columns', 1 ), 1 ),
+				),
+				'std' => '2',
+				'classes' => 'inline',
+			),
+			'portfolio_breakpoint_2_end' => array(
+				'type' => 'wrapper_end',
+			),
+			
+			// Portfolio Responsive Breakpoint 3
+			'portfolio_breakpoint_3_start' => array(
+				'title' => ' ',
+				'type' => 'wrapper_start',
+				'classes' => 'title_left',
+			),
+			'portfolio_breakpoint_3_width' => array(
+				'title' => __( 'Below screen width', 'us' ),
+				'description' => __( 'show', 'us' ),
+				'type' => 'slider',
+				'min' => 300,
+				'max' => 2000,
+				'std' => 600,
+				'postfix' => 'px',
+				'classes' => 'inline',
+			),
+			'portfolio_breakpoint_3_cols' => array(
+				'type' => 'select',
+				'options' => array(
+					'6' => sprintf( us_translate_n( '%s column', '%s columns', 6 ), 6 ),
+					'5' => sprintf( us_translate_n( '%s column', '%s columns', 5 ), 5 ),
+					'4' => sprintf( us_translate_n( '%s column', '%s columns', 4 ), 4 ),
+					'3' => sprintf( us_translate_n( '%s column', '%s columns', 3 ), 3 ),
+					'2' => sprintf( us_translate_n( '%s column', '%s columns', 2 ), 2 ),
+					'1' => sprintf( us_translate_n( '%s column', '%s columns', 1 ), 1 ),
+				),
+				'std' => '1',
+				'classes' => 'inline',
+			),
+			'portfolio_breakpoint_3_end' => array(
+				'type' => 'wrapper_end',
+			),
 		),
 	),
 	'blogoptions' => array(
@@ -1937,7 +2032,6 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
 			),
 			'post_preview_layout' => array(
 				'title' => __( 'Featured Image Layout', 'us' ),
@@ -2051,7 +2145,7 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
+				'show_if' => array( 'blog_sidebar', '!=', 'none' ),
 			),
 			'blog_layout' => array(
 				'title' => __( 'Layout', 'us' ),
@@ -2068,12 +2162,14 @@ return array(
 				),
 				'std' => 'classic',
 			),
-			'blog_masonry' => array(
-				'type' => 'switch',
-				'text' => __( 'Enable Masonry layout mode', 'us' ),
-				'std' => 0,
-				'classes' => 'for_above',
-				'show_if' => array( 'blog_layout', 'in', array( 'classic', 'flat', 'tiles', 'cards' ) ),
+			'blog_type' => array(
+				'title' => __( 'Display Posts as', 'us' ),
+				'type' => 'select',
+				'options' => array(
+					'grid' => __( 'Grid', 'us' ),
+					'masonry' => __( 'Masonry', 'us' ),
+				),
+				'std' => 'grid',
 			),
 			'blog_cols' => array(
 				'title' => __( 'Posts Columns', 'us' ),
@@ -2142,7 +2238,7 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
+				'show_if' => array( 'archive_sidebar', '!=', 'none' ),
 			),
 			'archive_layout' => array(
 				'title' => __( 'Layout', 'us' ),
@@ -2159,12 +2255,14 @@ return array(
 				),
 				'std' => 'smallcircle',
 			),
-			'archive_masonry' => array(
-				'type' => 'switch',
-				'text' => __( 'Enable Masonry layout mode', 'us' ),
-				'std' => 0,
-				'classes' => 'for_above',
-				'show_if' => array( 'archive_layout', 'in', array( 'classic', 'flat', 'tiles', 'cards' ) ),
+			'archive_type' => array(
+				'title' => __( 'Display Posts as', 'us' ),
+				'type' => 'select',
+				'options' => array(
+					'grid' => __( 'Grid', 'us' ),
+					'masonry' => __( 'Masonry', 'us' ),
+				),
+				'std' => 'grid',
 			),
 			'archive_cols' => array(
 				'title' => __( 'Posts Columns', 'us' ),
@@ -2233,7 +2331,7 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
+				'show_if' => array( 'search_sidebar', '!=', 'none' ),
 			),
 			'search_layout' => array(
 				'title' => __( 'Layout', 'us' ),
@@ -2250,12 +2348,14 @@ return array(
 				),
 				'std' => 'compact',
 			),
-			'search_masonry' => array(
-				'type' => 'switch',
-				'text' => __( 'Enable Masonry layout mode', 'us' ),
-				'std' => 0,
-				'classes' => 'for_above',
-				'show_if' => array( 'search_layout', 'in', array( 'classic', 'flat', 'tiles', 'cards' ) ),
+			'search_type' => array(
+				'title' => __( 'Display Posts as', 'us' ),
+				'type' => 'select',
+				'options' => array(
+					'grid' => __( 'Grid', 'us' ),
+					'masonry' => __( 'Masonry', 'us' ),
+				),
+				'std' => 'grid',
 			),
 			'search_cols' => array(
 				'title' => __( 'Posts Columns', 'us' ),
@@ -2317,18 +2417,19 @@ return array(
 			'blog_img_size_start' => array(
 				'title' => __( 'Blog Images Size', 'us' ),
 				'type' => 'wrapper_start',
+				'classes' => 'title_left',
 			),
 			'blog_img_width' => array(
 				'description' => 'X',
 				'type' => 'text',
 				'std' => '600',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'blog_img_height' => array(
 				'description' => 'px',
 				'type' => 'text',
 				'std' => '400',
-				'classes' => 'for_font',
+				'classes' => 'inline',
 			),
 			'blog_img_size_end' => array(
 				'type' => 'wrapper_end',
@@ -2336,7 +2437,106 @@ return array(
 			'blog_img_size_info' => array(
 				'description' => sprintf( __( 'Set custom size for images which are used as posts previews in blog with Classic, Flat, Cards, Tiles layouts and in Related Posts. After changing the values you need to %sregenerate thumbnails%s.', 'us' ), '<a target="_blank" href="' . admin_url() . 'plugin-install.php?tab=search&s=Regenerate+Thumbnails">', '</a>' ),
 				'type' => 'message',
-				'classes' => 'for_img_size',
+				'classes' => 'for_img_size desc_3',
+			),
+			
+			// Blog Responsive Breakpoint 1
+			'blog_breakpoint_1_start' => array(
+				'title' => __( 'Blog Responsive Behavior', 'us' ),
+				'type' => 'wrapper_start',
+				'classes' => 'title_left',
+			),
+			'blog_breakpoint_1_width' => array(
+				'title' => __( 'Below screen width', 'us' ),
+				'description' => __( 'show', 'us' ),
+				'type' => 'slider',
+				'min' => 300,
+				'max' => 2000,
+				'std' => 1200,
+				'postfix' => 'px',
+				'classes' => 'inline',
+			),
+			'blog_breakpoint_1_cols' => array(
+				'type' => 'select',
+				'options' => array(
+					'6' => sprintf( us_translate_n( '%s column', '%s columns', 6 ), 6 ),
+					'5' => sprintf( us_translate_n( '%s column', '%s columns', 5 ), 5 ),
+					'4' => sprintf( us_translate_n( '%s column', '%s columns', 4 ), 4 ),
+					'3' => sprintf( us_translate_n( '%s column', '%s columns', 3 ), 3 ),
+					'2' => sprintf( us_translate_n( '%s column', '%s columns', 2 ), 2 ),
+					'1' => sprintf( us_translate_n( '%s column', '%s columns', 1 ), 1 ),
+				),
+				'std' => '3',
+				'classes' => 'inline',
+			),
+			'blog_breakpoint_1_end' => array(
+				'type' => 'wrapper_end',
+			),
+			
+			// Blog Responsive Breakpoint 2
+			'blog_breakpoint_2_start' => array(
+				'title' => ' ',
+				'type' => 'wrapper_start',
+				'classes' => 'title_left',
+			),
+			'blog_breakpoint_2_width' => array(
+				'title' => __( 'Below screen width', 'us' ),
+				'description' => __( 'show', 'us' ),
+				'type' => 'slider',
+				'min' => 300,
+				'max' => 2000,
+				'std' => 900,
+				'postfix' => 'px',
+				'classes' => 'inline',
+			),
+			'blog_breakpoint_2_cols' => array(
+				'type' => 'select',
+				'options' => array(
+					'6' => sprintf( us_translate_n( '%s column', '%s columns', 6 ), 6 ),
+					'5' => sprintf( us_translate_n( '%s column', '%s columns', 5 ), 5 ),
+					'4' => sprintf( us_translate_n( '%s column', '%s columns', 4 ), 4 ),
+					'3' => sprintf( us_translate_n( '%s column', '%s columns', 3 ), 3 ),
+					'2' => sprintf( us_translate_n( '%s column', '%s columns', 2 ), 2 ),
+					'1' => sprintf( us_translate_n( '%s column', '%s columns', 1 ), 1 ),
+				),
+				'std' => '2',
+				'classes' => 'inline',
+			),
+			'blog_breakpoint_2_end' => array(
+				'type' => 'wrapper_end',
+			),
+			
+			// Blog Responsive Breakpoint 3
+			'blog_breakpoint_3_start' => array(
+				'title' => ' ',
+				'type' => 'wrapper_start',
+				'classes' => 'title_left',
+			),
+			'blog_breakpoint_3_width' => array(
+				'title' => __( 'Below screen width', 'us' ),
+				'description' => __( 'show', 'us' ),
+				'type' => 'slider',
+				'min' => 300,
+				'max' => 2000,
+				'std' => 600,
+				'postfix' => 'px',
+				'classes' => 'inline',
+			),
+			'blog_breakpoint_3_cols' => array(
+				'type' => 'select',
+				'options' => array(
+					'6' => sprintf( us_translate_n( '%s column', '%s columns', 6 ), 6 ),
+					'5' => sprintf( us_translate_n( '%s column', '%s columns', 5 ), 5 ),
+					'4' => sprintf( us_translate_n( '%s column', '%s columns', 4 ), 4 ),
+					'3' => sprintf( us_translate_n( '%s column', '%s columns', 3 ), 3 ),
+					'2' => sprintf( us_translate_n( '%s column', '%s columns', 2 ), 2 ),
+					'1' => sprintf( us_translate_n( '%s column', '%s columns', 1 ), 1 ),
+				),
+				'std' => '1',
+				'classes' => 'inline',
+			),
+			'blog_breakpoint_3_end' => array(
+				'type' => 'wrapper_end',
 			),
 		),
 	),
@@ -2372,7 +2572,6 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
 			),
 			'product_sidebar' => array(
 				'title' => __( 'Sidebar Position on Product Pages', 'us' ),
@@ -2390,7 +2589,6 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
 			),
 			'shop_listing_style' => array(
 				'title' => __( 'Products Grid Style', 'us' ),
@@ -2469,7 +2667,6 @@ return array(
 				'type' => 'select',
 				'options' => $sidebars_options,
 				'std' => 'default_sidebar',
-				'classes' => 'desc_1',
 			),
 		),
 	),

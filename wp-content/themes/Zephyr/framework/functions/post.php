@@ -235,7 +235,7 @@ function us_the_password_form() {
 	return us_get_template( 'templates/form/form', $template_vars );
 }
 
-// Since WP 4.6. Fix previews for post/portfolio grid thumbs. Overrides _wp_preview_post_thumbnail_filter from wp-includes/revision.php
+// Since WP 4.6. Fix previews for post/portfolio thumbs. Overrides _wp_preview_post_thumbnail_filter from wp-includes/revision.php
 add_filter( 'get_post_metadata', 'us_preview_post_thumbnail_filter', 11, 3 );
 function us_preview_post_thumbnail_filter( $value, $post_id, $meta_key ) {
 	if ( '_thumbnail_id' == $meta_key ) {

@@ -14,7 +14,7 @@ return array(
 		'description' => __( 'Most popular drag & drop WordPress page builder. Save tons of time working on your website content.', 'us' ),
 		'slug' => 'js_composer',
 		'source' => $us_template_directory . '/vendor/plugins/js_composer.zip',
-		'version' => '5.0.1',
+		'version' => '5.1',
 		'changelog_url' => 'https://wpbakery.atlassian.net/wiki/display/VC/Release+Notes',
 	),
 	array(

@@ -17,6 +17,7 @@ function us_create_post_types() {
 			'labels' => array(
 				'name' => __( 'Portfolio Items', 'us' ),
 				'singular_name' => __( 'Portfolio Item', 'us' ),
+				'add_new' => __( 'Add Portfolio Item', 'us' ),
 				'add_new_item' => __( 'Add Portfolio Item', 'us' ),
 				'edit_item' => __( 'Edit Portfolio Item', 'us' ),
 			),
@@ -35,6 +36,7 @@ function us_create_post_types() {
 			'labels' => array(
 				'name' => __( 'Testimonials', 'us' ),
 				'singular_name' => __( 'Testimonial', 'us' ),
+				'add_new' => __( 'Add Testimonial', 'us' ),
 				'add_new_item' => __( 'Add Testimonial', 'us' ),
 				'edit_item' => __( 'Edit Testimonial', 'us' ),
 				'featured_image' => __( 'Author Photo', 'us' ),
@@ -67,10 +69,25 @@ function us_create_post_types() {
 	// Portfolio categories
 	register_taxonomy(
 		'us_portfolio_category', array( 'us_portfolio' ), array(
+			'labels' => array(
+				'name' => __( 'Portfolio Categories', 'us' ),
+				'menu_name' => us_translate( 'Categories' ),
+			),
 			'hierarchical' => TRUE,
-			'label' => __( 'Portfolio Categories', 'us' ),
-			'singular_label' => __( 'Portfolio Category', 'us' ),
 			'rewrite' => array( 'slug' => us_get_option( 'portfolio_category_slug', 'portfolio_category' ) ),
+		)
+	);
+	
+	// Testimonial categories
+	register_taxonomy(
+		'us_testimonial_category', array( 'us_testimonial' ), array(
+			'labels' => array(
+				'name' => __( 'Testimonial Categories', 'us' ),
+				'menu_name' => us_translate( 'Categories' ),
+			),
+			'public' => FALSE,
+			'show_ui' => TRUE,
+			'hierarchical' => TRUE,
 		)
 	);
 
@@ -107,6 +124,34 @@ function us_manage_portfolio_custom_column( $column_name, $post_id ) {
 			$termlist = array();
 			foreach ( $terms as $term ) {
 				$termlist[] = '<a href="' . admin_url( 'edit.php?' . $column_name . '=' . $term->slug . '&post_type=us_portfolio' ) . ' ">' . $term->name . '</a>';
+			}
+
+			echo implode( ', ', $termlist );
+		}
+	}
+}
+
+add_filter( 'manage_us_testimonial_posts_columns', 'us_manage_testimonial_columns' );
+function us_manage_testimonial_columns( $columns ) {
+	$columns['us_testimonial_category'] = us_translate( 'Categories' );
+	if ( isset( $columns['date'] ) ) {
+		$title = $columns['date'];
+		unset( $columns['date'] );
+		$columns['date'] = $title;
+	}
+
+	return $columns;
+}
+
+add_action( 'manage_us_testimonial_posts_custom_column', 'us_manage_testimonial_custom_column', 10, 2 );
+function us_manage_testimonial_custom_column( $column_name, $post_id ) {
+	if ( $column_name == 'us_testimonial_category' ) {
+		if ( ! $terms = get_the_terms( $post_id, $column_name ) ) {
+			echo '<span class="na">&ndash;</span>';
+		} else {
+			$termlist = array();
+			foreach ( $terms as $term ) {
+				$termlist[] = '<a href="' . admin_url( 'edit.php?' . $column_name . '=' . $term->slug . '&post_type=us_testimonial' ) . ' ">' . $term->name . '</a>';
 			}
 
 			echo implode( ', ', $termlist );

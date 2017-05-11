@@ -205,7 +205,7 @@ function us_media_templates() {
 			<input type="checkbox" data-setting="indents">
 		</label>
 		<label class="setting">
-			<span><?php _e( 'Enable Masonry layout mode', 'us' ) ?></span>
+			<span><?php _e( 'Display items as', 'us' ) ?> <?php _e( 'Masonry', 'us' ) ?></span>
 			<input type="checkbox" data-setting="masonry">
 		</label>
 		<label class="setting">

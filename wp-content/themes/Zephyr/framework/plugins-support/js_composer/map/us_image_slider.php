@@ -95,7 +95,7 @@ vc_map(
 			),
 			array(
 				'param_name' => 'autoplay_period',
-				'heading' => __( 'Auto Rotation Period (milliseconds)', 'us' ),
+				'heading' => __( 'Auto Rotation Interval (in seconds)', 'us' ),
 				'type' => 'textfield',
 				'std' => $config['atts']['autoplay_period'],
 				'dependency' => array( 'element' => 'autoplay', 'not_empty' => TRUE ),
@@ -148,4 +148,3 @@ vc_map(
 	)
 );
 vc_remove_element( 'vc_simple_slider' );
-

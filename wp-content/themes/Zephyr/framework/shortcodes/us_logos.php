@@ -11,21 +11,23 @@
  * @var   $atts           array Shortcode attributes
  *
  * @param $atts           ['items'] array of Logos
- * @param $atts           ['type'] string Type of displayed logos: 'carousel' / 'grid'
- * @param $atts           ['columns'] int Quantity of displayed logos
+ * @param $atts           ['type'] string layout type: 'grid' / 'carousel'
+ * @param $atts           ['columns'] int Columns quantity
  * @param $atts           ['with_indents'] bool Add indents between items?
  * @param $atts           ['style'] string Hover style: '1' / '2'
- * @param $atts           ['arrows'] bool Show navigation arrows?
- * @param $atts           ['dots'] bool Show navigation dots?
- * @param $atts           ['auto_scroll'] bool Enable auto rotation?
- * @param $atts           ['interval'] int Rotation interval
  * @param $atts           ['orderby'] string Items order: '' / 'rand'
  * @param $atts           ['el_class'] string Extra class name
+ * @param $atts           ['carousel_arrows'] bool used in Carousel type
+ * @param $atts           ['carousel_dots'] bool used in Carousel type
+ * @param $atts           ['carousel_center'] bool used in Carousel type
+ * @param $atts           ['carousel_autoplay'] bool used in Carousel type
+ * @param $atts           ['carousel_interval'] int used in Carousel type
+ * @param $atts           ['carousel_slideby'] bool used in Carousel type
  */
 
 $atts = us_shortcode_atts( $atts, 'us_logos' );
 
-$classes = '';
+$classes = $list_classes = '';
 
 $atts['columns'] = intval( $atts['columns'] );
 if ( $atts['columns'] < 1 OR $atts['columns'] > 8 ) {
@@ -38,13 +40,14 @@ if ( $atts['with_indents'] ) {
 	$classes .= ' with_indents';
 }
 
-if ( isset( $atts['type'] ) AND in_array( $atts['type'], array( 'grid', 'carousel' ) ) ) {
+if ( isset( $atts['type'] ) ) {
 	$classes .= ' type_' . $atts['type'];
-} else {
-	$classes .= ' type_carousel';
+}
+if ( $atts['type'] == 'carousel' ) {
+	$list_classes .= ' owl-carousel';
 }
 
-if ( isset( $atts['columns'] ) ) {
+if ( $atts['columns'] != 1 ) {
 	$classes .= ' cols_' . $atts['columns'];
 }
 
@@ -57,13 +60,19 @@ if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
 	wp_enqueue_script( 'us-owl' );
 }
 
-$output = '<div class="w-logos' . $classes . '"';
+$output = '<div class="w-logos' . $classes . '"><div class="w-logos-list' . $list_classes . '"';
 if ( isset( $atts['type'] ) AND $atts['type'] == 'carousel' ) {
 	$output .= ' data-items="' . $atts['columns'] . '"';
-	$output .= ' data-autoplay="' . intval( ! ! $atts['auto_scroll'] ) . '"';
-	$output .= ' data-timeout="' . intval( $atts['interval'] * 1000 ) . '"';
-	$output .= ' data-nav="' . intval( ! ! $atts['arrows'] ) . '"';
-	$output .= ' data-dots="' . intval( ! ! $atts['dots'] ) . '"';
+	$output .= ' data-nav="' . intval( ! ! $atts['carousel_arrows'] ) . '"';
+	$output .= ' data-dots="' . intval( ! ! $atts['carousel_dots'] ) . '"';
+	$output .= ' data-center="' . intval( ! ! $atts['carousel_center'] ) . '"';
+	$output .= ' data-autoplay="' . intval( ! ! $atts['carousel_autoplay'] ) . '"';
+	$output .= ' data-timeout="' . intval( $atts['carousel_interval'] * 1000 ) . '"';
+	if ( $atts['carousel_slideby'] ) {
+		$output .= ' data-slideby="page"';
+	} else {
+		$output .= ' data-slideby="1"';
+	}
 }
 $output .= '>';
 
@@ -100,11 +109,16 @@ foreach ( $atts['items'] as $index => $item ) {
 		$link_target = ( $link['target'] == '_blank' ) ? ' target="_blank"' : '';
 		$link_rel = ( $link['rel'] == 'nofollow' ) ? ' rel="nofollow"' : '';
 		$link_title = empty( $link['title'] ) ? '' : ( ' title="' . esc_attr( $link['title'] ) . '"' );
-		$output .= '<a class="w-logos-item' . $classes . '" href="' . esc_url( $link['url'] ) . '"' . $link_target . $link_rel . $link_title . '>';
+		$output .= '<a class="w-logos-item" href="' . esc_url( $link['url'] ) . '"' . $link_target . $link_rel . $link_title . '>';
 		$output .= $image_html . '</a>';
 	} else {
 		$output .= '<div class="w-logos-item">' . $image_html . '</div>';
 	}
+}
+$output .= '</div>';
+
+if ( $atts['type'] == 'carousel' ) {
+	$output .= '<div class="g-preloader type_1"></div>';
 }
 
 $output .= '</div>';

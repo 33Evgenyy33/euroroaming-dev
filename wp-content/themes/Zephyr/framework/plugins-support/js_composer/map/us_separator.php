@@ -199,5 +199,3 @@ vc_map(
 		),
 	)
 );
-vc_remove_element( 'vc_separator' );
-vc_remove_element( 'vc_text_separator' );

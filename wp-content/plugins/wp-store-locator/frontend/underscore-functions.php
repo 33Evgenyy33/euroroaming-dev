@@ -72,6 +72,7 @@ function wpsl_create_underscore_templates($template)
                 $listing_template .= "\t\t\t" . '<span><strong>' . esc_html($wpsl->i18n->get_translation('email_label', __('Email', 'wpsl'))) . '</strong>: <%= email %></span>' . "\r\n";
                 $listing_template .= "\t\t\t" . '<% } %>' . "\r\n";
                 $listing_template .= "\t\t\t" . '</p>' . "\r\n";
+                $listing_template .= "\t\t\t" . '<h4 style="margin-bottom: 1px;font-weight: 500;">Наличие сим-карт и график работы:</h4>' . "\r\n";
             }
 
             $listing_template .= "\t\t\t" . wpsl_more_info_template() . "\r\n"; // Check if we need to show the 'More Info' link and info

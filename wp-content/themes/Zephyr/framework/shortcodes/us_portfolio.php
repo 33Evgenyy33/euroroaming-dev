@@ -13,13 +13,14 @@
  * @var   $atts           array Shortcode attributes
  *
  * @param $atts           ['items_action'] string Items action on click 'default' / 'lightbox_page' / 'lightbox_image'
- * @param $atts           ['columns'] int Columns number: 2 / 3 / 4 / 5
+ * @param $atts           ['type'] string layout type: 'grid' / 'masonry' / 'carousel'
+ * @param $atts           ['columns'] int Columns quantity
  * @param $atts           ['pagination'] string Pagination type: 'none' / 'regular' / 'ajax' / 'infinite'
  * @param $atts           ['items'] int Number of items per page (left empty to display all the items)
  * @param $atts           ['popup_width'] string max width of portfolio page popup
  * @param $atts           ['style'] string Items style: 'style_1' / 'style_2' / ... / 'style_N'
  * @param $atts           ['align'] string Items text alignment: 'left' / 'center' / 'right'
- * @param $atts           ['ratio'] string Items ratio: '3x2' / '4x3' / '1x1' / '2x3' / '3x4' / 'initial'
+ * @param $atts           ['ratio'] string Items ratio: '3x2' / '4x3' / '1x1' / '2x3' / '3x4' / '16x9'
  * @param $atts           ['meta'] string Items meta: '' / 'date' / 'categories' / 'desc'
  * @param $atts           ['with_indents'] bool Add indents between items?
  * @param $atts           ['orderby'] string Posts order: 'date' / 'rand'
@@ -28,7 +29,14 @@
  * @param $atts           ['meta_size'] string Meta Font Size
  * @param $atts           ['text_color'] string
  * @param $atts           ['bg_color'] string
+ * @param $atts           ['img_size'] string Images size: 'large' / 'medium' / 'thumbnail' / 'full'
  * @param $atts           ['el_class'] string Extra class name
+ * @param $atts           ['carousel_arrows'] bool used in Carousel type
+ * @param $atts           ['carousel_dots'] bool used in Carousel type
+ * @param $atts           ['carousel_center'] bool used in Carousel type
+ * @param $atts           ['carousel_autoplay'] bool used in Carousel type
+ * @param $atts           ['carousel_interval'] int used in Carousel type
+ * @param $atts           ['carousel_slideby'] int used in Carousel type
  * @param $atts           ['filter'] string Filter type: 'none' / 'category'
  * @param $atts           ['filter_style'] string Filter Bar style: 'style_1' / 'style_2' / ... / 'style_N'
  */
@@ -39,10 +47,15 @@ if ( ! empty( $atts['popup_width'] ) AND  strpos( $atts['popup_width'], 'px' ) =
 	$atts['popup_width'] = $atts['popup_width'] . 'px';
 }
 
+if ( ! in_array( $atts['img_size'], get_intermediate_image_sizes() ) ) {
+	$atts['img_size'] = 'full';
+}
+
 $template_vars = array(
 	'items_action' => $atts['items_action'],
 	'popup_width' => $atts['popup_width'],
 	'categories' => $atts['categories'],
+	'type' => $atts['type'],
 	'style_name' => $atts['style'],
 	'columns' => $atts['columns'],
 	'ratio' => $atts['ratio'],
@@ -63,7 +76,14 @@ $template_vars = array(
 	'meta_size' => $atts['meta_size'],
 	'text_color' => $atts['text_color'],
 	'bg_color' => $atts['bg_color'],
+	'img_size' => $atts['img_size'],
 	'el_class' => $atts['el_class'],
+	'carousel_arrows' => $atts['carousel_arrows'],
+	'carousel_dots' => $atts['carousel_dots'],
+	'carousel_center' => $atts['carousel_center'],
+	'carousel_autoplay' => $atts['carousel_autoplay'],
+	'carousel_interval' => $atts['carousel_interval'],
+	'carousel_slideby' => $atts['carousel_slideby'],
 	'filter' => $atts['filter'],
 	'filter_style' => $atts['filter_style'],
 );

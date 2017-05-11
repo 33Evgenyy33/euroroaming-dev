@@ -6,8 +6,8 @@
  * (!) Should be called in WP_Query fetching loop only.
  * @link   https://codex.wordpress.org/Class_Reference/WP_Query#Standard_Loop
  *
- * @var $layout_type    string Blog layout: classic / flat / tiles / cards / smallcircle / smallsquare / compact / related / latest
- * @var $masonry        boolean Enable Masonry layout mode?
+ * @var $layout         string Blog layout: classic / flat / tiles / cards / smallcircle / smallsquare / compact / related / latest
+ * @var $type        	string layout type: 'grid' / 'masonry' / 'carousel'
  * @var $metas          array Meta data that should be shown: array('date', 'author', 'categories', 'tags', 'comments')
  * @var $title_size     string Posts Title Size
  * @var $columns        int Number of columns 1 / 2 / 3 / 4
@@ -36,7 +36,7 @@ $thumbnail_sizes = array(
 	'compact' => FALSE,
 	'latest' => FALSE,
 );
-$has_preview = ( ! isset( $thumbnail_sizes[$layout_type] ) OR $thumbnail_sizes[$layout_type] !== FALSE );
+$has_preview = ( ! isset( $thumbnail_sizes[$layout] ) OR $thumbnail_sizes[$layout] !== FALSE );
 
 $the_content = get_the_content();
 
@@ -46,12 +46,12 @@ $blog_listing_slider_size = 'tnail-3x2';
 $featured_image = '';
 $featured_html = '';
 if ( $has_preview AND ! post_password_required() ) {
-	$thumbnail_size = isset( $thumbnail_sizes[$layout_type] ) ? $thumbnail_sizes [$layout_type] : 'tnail-3x2';
-	if ( in_array( $layout_type, array( 'classic', 'flat', 'tiles', 'cards' ) ) AND $masonry ) {
+	$thumbnail_size = isset( $thumbnail_sizes[$layout] ) ? $thumbnail_sizes [$layout] : 'tnail-3x2';
+	if ( $type == 'masonry' AND ! in_array( $layout, array( 'smallcircle', 'smallsquare' ) ) ) {
 		$thumbnail_size = 'tnail-masonry';
 		$blog_listing_slider_size = 'tnail-masonry';
 	}
-	if ( $columns == 1 AND $layout_type == 'classic' ) {
+	if ( $columns == 1 AND $layout == 'classic' ) {
 		$thumbnail_size = 'large';
 		$blog_listing_slider_size = 'large';
 	}
@@ -76,19 +76,17 @@ if ( $has_preview AND ! post_password_required() ) {
 		}
 	}
 
-	if ( in_array(
-			$layout_type, array(
-			'classic',
-			'flat',
-		)
-		) || ( $layout_type == 'cards' AND $post_format == 'gallery' )
-	) {
+	if ( in_array( $layout, array( 'classic', 'flat' ) ) || ( $layout == 'cards' AND $post_format == 'gallery' ) ) {
 		$featured_html = us_get_post_preview( $the_content, TRUE );
+	}
+
+	if ( $type == 'carousel' AND $post_format == 'gallery' ) {
+		$featured_html = '';
 	}
 }
 
 // We need some special markup for quotes
-$use_special_quote_markup = ( $post_format == 'quote' AND ! in_array( $layout_type, array( 'compact', 'related' ) ) );
+$use_special_quote_markup = ( $post_format == 'quote' AND ! in_array( $layout, array( 'compact', 'related' ) ) );
 
 if ( $use_special_quote_markup ) {
 	// Always display content for normal quotes
@@ -114,7 +112,7 @@ if ( ! in_array( 'date', $metas ) ) {
 	$meta_html['date'] .= ' hidden';
 }
 $meta_html['date'] .= '">';
-if ( $layout_type == 'latest' ) {
+if ( $layout == 'latest' ) {
 	// Special date format for latest posts
 	$meta_html['date'] .= '<span class="w-blog-post-meta-date-month">' . get_the_date( 'M' ) . '</span>';
 	$meta_html['date'] .= '<span class="w-blog-post-meta-date-day">' . get_the_date( 'd' ) . '</span>';
@@ -151,7 +149,7 @@ if ( in_array( 'comments', $metas ) AND ! ( $comments_number == 0 AND ! comments
 	$meta_html['comments'] = '<span class="w-blog-post-meta-comments">';
 	// TODO Replace with get_comments_popup_link() when https://core.trac.wordpress.org/ticket/17763 is resolved
 	ob_start();
-	$comments_label = sprintf( _n( '%s comment', '%s comments', $comments_number, 'us' ), $comments_number );
+	$comments_label = sprintf( us_translate_n( '%s <span class="screen-reader-text">Comment</span>', '%s <span class="screen-reader-text">Comments</span>', $comments_number ), $comments_number );
 	comments_popup_link( us_translate( 'No Comments' ), $comments_label, $comments_label );
 	$meta_html['comments'] .= ob_get_clean();
 	$meta_html['comments'] .= '</span>';

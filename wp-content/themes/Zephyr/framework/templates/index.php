@@ -6,8 +6,8 @@ $us_layout = US_Layout::instance();
 get_header();
 
 $template_vars = array(
-	'layout_type' => us_get_option( 'blog_layout', 'classic' ),
-	'masonry' => us_get_option( 'blog_masonry', 0 ),
+	'layout' => us_get_option( 'blog_layout', 'classic' ),
+	'type' => us_get_option( 'blog_type', 'grid' ),
 	'columns' => us_get_option( 'blog_cols', 1 ),
 	'metas' => us_get_option( 'blog_meta', array() ),
 	'content_type' => us_get_option( 'blog_content_type', 'excerpt' ),

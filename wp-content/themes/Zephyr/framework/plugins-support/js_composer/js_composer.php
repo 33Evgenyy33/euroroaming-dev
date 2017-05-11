@@ -184,7 +184,7 @@ function us_vc_init_vendor_woocommerce() {
 function us_image_sizes_select_values( $size_names = NULL ) {
 	if ( $size_names === NULL ) {
 		$size_names = array_merge(
-			array( 'large' ), array_keys( us_config( 'image-sizes' ) ), array( 'medium', 'thumbnail', 'full' )
+			array( 'large', 'medium_large' ), array_keys( us_config( 'image-sizes' ) ), array( 'medium', 'thumbnail', 'full' )
 		);
 	}
 	$image_sizes = array();

@@ -29,9 +29,7 @@ unset( $config['styling']['fields']['color_alt_content_faded'] );
 unset( $config['headeroptions']['fields']['header_socials_custom_color'] );
 unset( $config['menuoptions']['fields']['menu_hover_effect'] );
 unset( $config['buttonoptions'] );
-unset( $config['footeroptions']['fields']['footer_layout'] );
 unset( $config['blogoptions']['fields']['post_sharing_type']['options']['outlined'] );
-
 unset( $config['blogoptions']['fields']['blog_layout']['options']['cards'] );
 unset( $config['blogoptions']['fields']['blog_layout']['options']['flat'] );
 unset( $config['blogoptions']['fields']['archive_layout']['options']['cards'] );

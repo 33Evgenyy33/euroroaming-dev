@@ -25,4 +25,5 @@ return array(
 	'3.9' => 'functions/migrations/us_migration_3_9.php',
 	'4.0' => 'functions/migrations/us_migration_4_0.php',
 	'4.0.2' => 'functions/migrations/us_migration_4_0_2.php',
+	'4.2' => 'functions/migrations/us_migration_4_2.php',
 );

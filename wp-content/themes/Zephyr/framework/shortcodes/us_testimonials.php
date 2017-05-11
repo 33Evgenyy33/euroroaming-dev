@@ -10,38 +10,44 @@
  * @var   $content        string Shortcode's inner content
  * @var   $atts           array Shortcode attributes
  *
- * @param $atts           ['type'] string Type of displayed items: 'carousel' / 'grid'
- * @param $atts           ['arrows'] bool Show navigation arrows?
- * @param $atts           ['dots'] bool Show navigation dots?
- * @param $atts           ['auto_scroll'] bool Enable auto rotation?
- * @param $atts           ['interval'] int Rotation interval
- * @param $atts           ['columns'] int Quantity of displayed items
+ * @param $atts           ['type'] string layout type: 'grid' / 'carousel'
+ * @param $atts           ['columns'] int Columns quantity
  * @param $atts           ['orderby'] string Items Order: 'date' / 'date_acs' / 'rand'
  * @param $atts           ['style'] string Items Style: '1' / '2' / '3' ...
  * @param $atts           ['text_size'] string Items Text Size
  * @param $atts           ['items'] int Number of items per page (left empty to display all the items)
  * @param $atts           ['ids'] IDs of wanted testimonials
+ * @param $atts           ['categories'] string Comma-separated list of categories slugs
  * @param $atts           ['el_class'] string Extra class name
+ * @param $atts           ['carousel_arrows'] bool used in Carousel type
+ * @param $atts           ['carousel_dots'] bool used in Carousel type
+ * @param $atts           ['carousel_center'] bool used in Carousel type
+ * @param $atts           ['carousel_autoplay'] bool used in Carousel type
+ * @param $atts           ['carousel_interval'] int used in Carousel type
+ * @param $atts           ['carousel_slideby'] bool used in Carousel type
  */
 
 $atts = us_shortcode_atts( $atts, 'us_testimonials' );
 
-$classes = '';
+$classes = $list_classes = '';
+
+$atts['columns'] = intval( $atts['columns'] );
+if ( $atts['columns'] < 1 OR $atts['columns'] > 6 ) {
+	$atts['columns'] = 3;
+}
 
 if ( $atts['style'] == '' ) {
 	$atts['style'] = '1';
 }
 $classes .= ' style_' . $atts['style'];
 
-if ( $atts['columns'] == '' ) {
-	$atts['columns'] = '3';
+if ( $atts['type'] == '' ) {
+	$atts['type'] = 'grid';
 }
-$classes .= ' cols_' . $atts['columns'];
+$classes .= ' type_' . $atts['type'];
 
-if ( isset( $atts['type'] ) AND in_array( $atts['type'], array( 'grid', 'carousel' ) ) ) {
-	$classes .= ' type_' . $atts['type'];
-} else {
-	$classes .= ' type_grid';
+if ( $atts['columns'] != 1 ) {
+	$classes .= ' cols_' . $atts['columns'];
 }
 
 if ( isset( $atts['type'] ) AND $atts['type'] == 'carousel' ) {
@@ -49,6 +55,7 @@ if ( isset( $atts['type'] ) AND $atts['type'] == 'carousel' ) {
 	if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
 		wp_enqueue_script( 'us-owl' );
 	}
+	$list_classes .= ' owl-carousel';
 }
 
 if ( isset( $atts['type'] ) AND $atts['type'] == 'masonry' AND $atts['columns'] != 1 ) {
@@ -56,7 +63,6 @@ if ( isset( $atts['type'] ) AND $atts['type'] == 'masonry' AND $atts['columns'] 
 	if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
 		wp_enqueue_script( 'us-isotope' );
 	}
-	$classes .= ' layout_masonry';
 }
 
 if ( $atts['el_class'] != '' ) {
@@ -69,14 +75,18 @@ if ( ! empty( $atts['text_size'] ) ) {
 	$inner_css .= 'font-size:' . $atts['text_size'] . ';';
 }
 
-$output = '<div class="w-testimonials' . $classes . '" style="' . $inner_css . '"';
+$output = '<div class="w-testimonials' . $classes . '" style="' . $inner_css . '"><div class="w-testimonials-list' . $list_classes . '"';
 if ( isset( $atts['type'] ) AND $atts['type'] == 'carousel' ) {
 	$output .= ' data-items="' . $atts['columns'] . '"';
-	$output .= ' data-autoplay="' . intval( ! ! $atts['auto_scroll'] ) . '"';
-	$output .= ' data-timeout="' . intval( $atts['interval'] * 1000 ) . '"';
-	$output .= ' data-nav="' . intval( ! ! $atts['arrows'] ) . '"';
-	$output .= ' data-dots="' . intval( ! ! $atts['dots'] ) . '"';
+	$output .= ' data-nav="' . intval( ! ! $atts['carousel_arrows'] ) . '"';
+	$output .= ' data-dots="' . intval( ! ! $atts['carousel_dots'] ) . '"';
+	$output .= ' data-center="' . intval( ! ! $atts['carousel_center'] ) . '"';
+	$output .= ' data-autoplay="' . intval( ! ! $atts['carousel_autoplay'] ) . '"';
+	$output .= ' data-timeout="' . intval( $atts['carousel_interval'] * 1000 ) . '"';
 	$output .= ' data-autoheight="' . intval( $atts['columns'] == 1 ) . '"';
+	if ( $atts['carousel_slideby'] ) {
+		$output .= ' data-slideby="page"';
+	}
 }
 $output .= '>';
 
@@ -104,6 +114,16 @@ if ( ! empty( $atts['ids'] ) ) {
 	$ids = explode( ',', $atts['ids'] );
 	$args['post__in'] = $ids;
 	$args['posts_per_page'] = count($ids);
+}
+
+if ( ! empty( $atts['categories'] ) ) {
+	$args['tax_query'] = array(
+		array(
+			'taxonomy' => 'us_testimonial_category',
+			'field'    => 'slug',
+			'terms'    => explode(',', $atts['categories']),
+		),
+	);
 }
 
 $testimonials = new WP_Query( $args );
@@ -150,6 +170,12 @@ while ( $testimonials->have_posts() ) {
 }
 
 us_close_wp_query_context();
+
+$output .= '</div>';
+
+if ( $atts['type'] == 'carousel' ) {
+	$output .= '<div class="g-preloader type_1"></div>';
+}
 
 $output .= '</div>';
 

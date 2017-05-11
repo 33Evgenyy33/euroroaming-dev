@@ -41,6 +41,7 @@ if ( ! vc_is_page_editable() ) {
 				us_translate( 'Right' ) => 'right',
 			),
 			'std' => $config['atts']['tab_position'],
+			'edit_field_class' => 'vc_col-sm-6',
 			'weight' => 30,
 		),
 		array(
@@ -53,6 +54,7 @@ if ( ! vc_is_page_editable() ) {
 				us_translate( 'Right' ) => 'right',
 			),
 			'std' => $config['atts']['c_align'],
+			'edit_field_class' => 'vc_col-sm-6',
 			'weight' => 20,
 		),
 		array(

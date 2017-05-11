@@ -152,8 +152,8 @@ return array(
 	),
 	'us_portfolio' => array(
 		'class' => 'US_Widget_Portfolio',
-		'name' => '(UpSolution) ' . __( 'Portfolio Grid', 'us' ),
-		'description' => __( 'Portfolio Grid', 'us' ),
+		'name' => '(UpSolution) ' . us_translate( 'Portfolio' ),
+		'description' => us_translate( 'Portfolio' ),
 		'params' => array(
 			'title' => array(
 				'type' => 'textfield',
@@ -162,7 +162,7 @@ return array(
 			),
 			'columns' => array(
 				'type' => 'dropdown',
-				'heading' => __( 'Columns', 'us' ),
+				'heading' => us_translate( 'Columns' ),
 				'value' => array(
 					'2' => '2',
 					'3' => '3',

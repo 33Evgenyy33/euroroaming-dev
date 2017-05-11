@@ -32,6 +32,7 @@
  * @param $atts           ['us_bg_video'] string Link to video file
  * @param $atts           ['us_bg_overlay_color'] string
  * @param $atts           ['sticky'] bool Fix this row at the top of a page during scroll
+ * @param $atts           ['sticky_disable_width'] int When screen width is less than this value, sticky row becomes not sticky
  * @param $atts           ['el_id'] string
  * @param $atts           ['el_class'] string
  * @param $atts           ['disable_element'] string
@@ -175,9 +176,11 @@ $output = '<section class="l-section wpb_row' . $classes . '"';
 if ( ! empty( $atts['el_id'] ) ) {
 	$output .= ' id="' . $atts['el_id'] . '"';
 }
-
 if ( ! empty( $inner_css ) ) {
 	$output .= ' style="' . $inner_css . '"';
+}
+if ( $atts['sticky'] == 1 AND ! empty( $atts['sticky_disable_width'] ) ) {
+	$output .= ' data-sticky-disable-width="' . intval( $atts['sticky_disable_width'] ) . '"';
 }
 $output .= '>' . $bg_image_html . $bg_video_html . $bg_overlay_html . '<div class="l-section-h i-cf">';
 

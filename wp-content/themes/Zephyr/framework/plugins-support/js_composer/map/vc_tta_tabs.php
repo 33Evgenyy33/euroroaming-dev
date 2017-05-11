@@ -60,12 +60,6 @@ if ( ! vc_is_page_editable() ) {
 		),
 	)
 	);
-	vc_update_shortcode_param(
-		'vc_tta_tabs', array(
-		'param_name' => 'el_class',
-		'weight' => 150,
-	)
-	);
 }
 
 // Setting proper shortcode order in VC shortcodes listing

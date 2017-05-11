@@ -32,7 +32,12 @@ global $us_cform_index;
 // Form indexes start from 1
 $us_cform_index = isset( $us_cform_index ) ? ( $us_cform_index + 1 ) : 1;
 
-$post_id = get_the_ID();
+global $us_is_in_footer, $us_footer_id;
+if ( isset( $us_is_in_footer ) AND $us_is_in_footer AND ! empty( $us_footer_id ) ) {
+	$post_id = $us_footer_id;
+} else {
+	$post_id = get_the_ID();
+}
 
 $classes = 'align_' . $atts['button_align'];
 

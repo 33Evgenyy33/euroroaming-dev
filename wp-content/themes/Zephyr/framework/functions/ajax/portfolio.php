@@ -40,6 +40,7 @@ function us_ajax_portfolio() {
 			'meta_size' => '',
 			'text_color' => '',
 			'bg_color' => '',
+			'img_size' => 'tnail-masonry',
 			'items_action' => '',
 		), us_maybe_get_post_json( 'template_vars' )
 	);

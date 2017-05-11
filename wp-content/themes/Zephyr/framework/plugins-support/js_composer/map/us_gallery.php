@@ -25,11 +25,11 @@ vc_map(
 			),
 			array(
 				'param_name' => 'layout',
-				'heading' => __( 'Layout', 'us' ),
+				'heading' => __( 'Display items as', 'us' ),
 				'type' => 'dropdown',
 				'value' => array(
-					__( 'Default (square thumbnails)', 'us' ) => 'default',
-					__( 'Masonry (thumbnails with initial proportions)', 'us' ) => 'masonry',
+					__( 'Grid', 'us' ) => 'default',
+					__( 'Masonry', 'us' ) => 'masonry',
 				),
 				'std' => $config['atts']['layout'],
 				'edit_field_class' => 'vc_col-sm-6',
@@ -37,7 +37,7 @@ vc_map(
 			),
 			array(
 				'param_name' => 'columns',
-				'heading' => __( 'Columns', 'us' ),
+				'heading' => us_translate( 'Columns' ),
 				'type' => 'dropdown',
 				'value' => array(
 					'1' => '1',

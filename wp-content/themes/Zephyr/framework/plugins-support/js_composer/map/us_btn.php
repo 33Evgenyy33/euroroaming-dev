@@ -129,5 +129,3 @@ vc_map(
 		'js_view' => 'VcButtonView',
 	)
 );
-vc_remove_element( 'vc_button' );
-vc_remove_element( 'vc_button2' );

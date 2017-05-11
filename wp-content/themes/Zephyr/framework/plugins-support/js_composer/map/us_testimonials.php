@@ -9,6 +9,21 @@
  * @param $config    ['atts'] array Shortcode's attributes and default values
  * @param $config    ['content'] string Shortcode's default content
  */
+
+$us_testimonial_categories = array();
+$us_testimonial_categories_raw = get_categories(
+	array(
+		'taxonomy' => 'us_testimonial_category',
+		'hierarchical' => 0,
+	)
+);
+if ( $us_testimonial_categories_raw ) {
+	foreach ( $us_testimonial_categories_raw as $testimonial_category_raw ) {
+		if ( is_object( $testimonial_category_raw ) ) {
+			$us_testimonial_categories[$testimonial_category_raw->name] = $testimonial_category_raw->slug;
+		}
+	}
+}
 vc_map(
 	array(
 		'base' => 'us_testimonials',
@@ -27,45 +42,12 @@ vc_map(
 				),
 				'std' => $config['atts']['type'],
 				'admin_label' => TRUE,
-				'weight' => 100,
-			),
-			array(
-				'param_name' => 'arrows',
-				'type' => 'checkbox',
-				'value' => array( __( 'Show Navigation Arrows', 'us' ) => TRUE ),
-				( ( $config['atts']['arrows'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['arrows'],
 				'edit_field_class' => 'vc_col-sm-6',
-				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
-				'weight' => 90,
-			),
-			array(
-				'param_name' => 'dots',
-				'type' => 'checkbox',
-				'value' => array( __( 'Show Navigation Dots', 'us' ) => TRUE ),
-				( ( $config['atts']['dots'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['dots'],
-				'edit_field_class' => 'vc_col-sm-6',
-				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
-				'weight' => 90,
-			),
-			array(
-				'param_name' => 'auto_scroll',
-				'type' => 'checkbox',
-				'value' => array( __( 'Enable Auto Rotation', 'us' ) => TRUE ),
-				( ( $config['atts']['auto_scroll'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['auto_scroll'],
-				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
-				'weight' => 80,
-			),
-			array(
-				'param_name' => 'interval',
-				'heading' => __( 'Auto Rotation Interval (in seconds)', 'us' ),
-				'type' => 'textfield',
-				'std' => $config['atts']['interval'],
-				'dependency' => array( 'element' => 'auto_scroll', 'not_empty' => TRUE ),
-				'weight' => 70,
+				'weight' => 130,
 			),
 			array(
 				'param_name' => 'columns',
-				'heading' => __( 'Columns', 'us' ),
+				'heading' => us_translate( 'Columns' ),
 				'type' => 'dropdown',
 				'value' => array(
 					'1' => '1',
@@ -73,11 +55,12 @@ vc_map(
 					'3' => '3',
 					'4' => '4',
 					'5' => '5',
+					'6' => '6',
 				),
 				'std' => $config['atts']['columns'],
 				'admin_label' => TRUE,
 				'edit_field_class' => 'vc_col-sm-6',
-				'weight' => 60,
+				'weight' => 120,
 			),
 			array(
 				'param_name' => 'orderby',
@@ -90,6 +73,28 @@ vc_map(
 				),
 				'std' => $config['atts']['orderby'],
 				'edit_field_class' => 'vc_col-sm-6',
+				'weight' => 70,
+			),
+			array(
+				'param_name' => 'items',
+				'heading' => __( 'Items Quantity', 'us' ),
+				'description' => __( 'If left blank, will output all the items', 'us' ),
+				'type' => 'textfield',
+				'std' => $config['atts']['items'],
+				'edit_field_class' => 'vc_col-sm-6',
+				'weight' => 60,
+			),
+			array(
+				'param_name' => 'ids',
+				'heading' => __( 'Items for display', 'us' ),
+				'description' => __( 'Select specific items which will be shown', 'us' ),
+				'type' => 'autocomplete',
+				'settings' => array(
+					'multiple' => TRUE,
+					'sortable' => FALSE,
+					'unique_values' => TRUE,
+				),
+				'save_always' => TRUE,
 				'weight' => 50,
 			),
 			array(
@@ -106,7 +111,8 @@ vc_map(
 				),
 				'std' => $config['atts']['style'],
 				'edit_field_class' => 'vc_col-sm-6',
-				'weight' => 40,
+				'admin_label' => TRUE,
+				'group' => us_translate( 'Appearance' ),
 			),
 			array(
 				'param_name' => 'text_size',
@@ -115,38 +121,76 @@ vc_map(
 				'type' => 'textfield',
 				'std' => $config['atts']['text_size'],
 				'edit_field_class' => 'vc_col-sm-6',
-				'weight' => 30,
-			),
-			array(
-				'param_name' => 'items',
-				'heading' => __( 'Items Quantity', 'us' ),
-				'description' => __( 'If left blank, will output all the items', 'us' ),
-				'type' => 'textfield',
-				'std' => $config['atts']['items'],
-				'edit_field_class' => 'vc_col-sm-6',
-				'weight' => 20,
-			),
-			array(
-				'param_name' => 'ids',
-				'heading' => __( 'Items for display', 'us' ),
-				'description' => __( 'Select specific items which will be shown', 'us' ),
-				'type' => 'autocomplete',
-				'settings' => array(
-					'multiple' => TRUE,
-					'sortable' => FALSE,
-					'unique_values' => TRUE,
-				),
-				'save_always' => TRUE,
-				'edit_field_class' => 'vc_col-sm-6',
-				'weight' => 15,
+				'group' => us_translate( 'Appearance' ),
 			),
 			array(
 				'param_name' => 'el_class',
 				'heading' => us_translate( 'Extra class name', 'js_composer' ),
 				'type' => 'textfield',
 				'std' => $config['atts']['el_class'],
-				'weight' => 10,
+				'group' => us_translate( 'Appearance' ),
+			),
+			array(
+				'param_name' => 'carousel_arrows',
+				'type' => 'checkbox',
+				'value' => array( __( 'Show Navigation Arrows', 'us' ) => TRUE ),
+				( ( $config['atts']['carousel_arrows'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['carousel_arrows'],
+				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
+				'group' => __( 'Carousel Settings', 'us' ),
+			),
+			array(
+				'param_name' => 'carousel_dots',
+				'type' => 'checkbox',
+				'value' => array( __( 'Show Navigation Dots', 'us' ) => TRUE ),
+				( ( $config['atts']['carousel_dots'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['carousel_dots'],
+				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
+				'group' => __( 'Carousel Settings', 'us' ),
+			),
+			array(
+				'param_name' => 'carousel_center',
+				'type' => 'checkbox',
+				'value' => array( __( 'Enable first item centering', 'us' ) => TRUE ),
+				( ( $config['atts']['carousel_center'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['carousel_center'],
+				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
+				'group' => __( 'Carousel Settings', 'us' ),
+			),
+			array(
+				'param_name' => 'carousel_slideby',
+				'type' => 'checkbox',
+				'value' => array( __( 'Slide by several items instead of one', 'us' ) => TRUE ),
+				( ( $config['atts']['carousel_slideby'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['carousel_slideby'],
+				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
+				'group' => __( 'Carousel Settings', 'us' ),
+			),
+			array(
+				'param_name' => 'carousel_autoplay',
+				'type' => 'checkbox',
+				'value' => array( __( 'Enable Auto Rotation', 'us' ) => TRUE ),
+				( ( $config['atts']['carousel_autoplay'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['carousel_autoplay'],
+				'dependency' => array( 'element' => 'type', 'value' => 'carousel' ),
+				'group' => __( 'Carousel Settings', 'us' ),
+			),
+			array(
+				'param_name' => 'carousel_interval',
+				'heading' => __( 'Auto Rotation Interval (in seconds)', 'us' ),
+				'type' => 'textfield',
+				'std' => $config['atts']['carousel_interval'],
+				'dependency' => array( 'element' => 'carousel_autoplay', 'not_empty' => TRUE ),
+				'group' => __( 'Carousel Settings', 'us' ),
 			),
 		),
 	)
 );
+
+if ( ! empty( $us_testimonial_categories ) ) {
+	vc_add_param(
+		'us_testimonials', array(
+			'param_name' => 'categories',
+			'heading' => __( 'Display Items of selected categories', 'us' ),
+			'type' => 'checkbox',
+			'value' => $us_testimonial_categories,
+			'std' => $config['atts']['categories'],
+			'weight' => 20,
+		)
+	);
+}

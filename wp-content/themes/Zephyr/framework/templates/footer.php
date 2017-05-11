@@ -43,7 +43,9 @@ if ( ! isset( $us_iframe ) OR ! $us_iframe ) {
 			if ( $translated_footer_id != $footer->ID ) {
 				$footer = get_post( $translated_footer_id );
 			}
-			global $wp_query, $vc_manager;
+			global $wp_query, $vc_manager, $us_is_in_footer, $us_footer_id;
+			$us_is_in_footer = TRUE;
+			$us_footer_id = $translated_footer_id;
 			$wp_query = new WP_Query( array(
 				'p' => $translated_footer_id,
 				'post_type' => 'any'
@@ -57,6 +59,8 @@ if ( ! isset( $us_iframe ) OR ! $us_iframe ) {
 		us_close_wp_query_context();
 		// Applying filters to footer content and echoing it ouside of us_open_wp_query_context so all WP widgets (like WP Nav Menu) would work as they should
 		echo apply_filters( 'us_footer_the_content', $footer_content );
+
+		$us_is_in_footer = FALSE;
 	}
 
 

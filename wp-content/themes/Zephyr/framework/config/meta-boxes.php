@@ -302,7 +302,7 @@ return array(
 		'fields' => array(
 			'us_tile_description' => array(
 				'title' => __( 'Item Tile Description', 'us' ),
-				'description' => __( 'This text will be shown in the relevant tile of Portfolio Grid', 'us' ),
+				'description' => __( 'This text will be shown in the relevant tile of Portfolio element', 'us' ),
 				'type' => 'text',
 				'std' => '',
 			),

@@ -17,12 +17,14 @@ $title = $nav_menu = $el_class = '';
 $output = '';
 $atts = us_shortcode_atts( $atts, $shortcode_base );
 
-$el_class = $this->getExtraClass( $atts['el_class'] );
-
 if ( ! empty( $atts['layout'] ) )  {
 	$el_class .= ' layout_' . $atts['layout'];
 }
 $el_class .= ' align_' . $atts['align'];
+
+if ( $atts['el_class'] != '' ) {
+	$el_class .= ' ' . $atts['el_class'];
+}
 
 $output = '<div class="vc_wp_custommenu ' . esc_attr( $el_class ) . '">';
 $type = 'WP_Nav_Menu_Widget';

@@ -508,6 +508,7 @@ return array(
 					'title' => __( 'Dropdown Effect', 'us' ),
 					'type' => 'select',
 					'options' => array(
+						'none' => us_translate( 'None' ),
 						'opacity' => __( 'FadeIn', 'us' ),
 						'height' => __( 'FadeIn + SlideDown', 'us' ),
 						'mdesign' => __( 'Material Design Effect', 'us' ),
@@ -734,7 +735,7 @@ return array(
 					'type' => 'text',
 					'std' => '',
 					'show_if' => array( 'source', '=', 'own' ),
-					'classes' => 'desc_1',
+					'classes' => 'desc_2',
 				),
 				'link_qty' => array(
 					'title' => __( 'Links Quantity', 'us' ),

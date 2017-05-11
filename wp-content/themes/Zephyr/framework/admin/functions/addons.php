@@ -143,7 +143,7 @@ function us_addons_page() {
 					} else {
 						$classes .= ' status_notinstalled';
 						$status = __( 'Available to Install', 'us' );
-						$action = __( 'Install Plugin', 'us' );
+						$action = us_translate( 'Install Now' );
 						$link = 'javascript:void(0);';
 						$link_classes .= ' button-primary action-button';
 						$link_atts = ' data-plugin="' . $plugin['slug'] . '" data-action="install"';
@@ -199,7 +199,7 @@ function us_addons_page() {
 				});
 				if (action == 'install') {
 					$tile.addClass('status_installing');
-					$status.html('<?php esc_js(  _e( 'Installing...', 'us' ) ); ?>');
+					$status.html('<?php echo esc_js( us_translate( 'Installing...' ) ); ?>');
 				} else {
 					$tile.addClass('status_activating');
 					$status.html('<?php esc_js( _e( 'Activating...', 'us' ) ); ?>');

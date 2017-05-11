@@ -6,24 +6,24 @@
  * (!) Should be called in WP_Query fetching loop only.
  * @link   https://codex.wordpress.org/Class_Reference/WP_Query#Standard_Loop
  *
+ * @var $type       string layout type: 'grid' / 'masonry' / 'carousel'
  * @var $metas      array Meta data that should be shown: array('title', 'date', 'categories', 'desc')
- * @var $ratio      string Items ratio: '3x2' / '4x3' / '1x1' / '2x3' / '3x4' / 'initial'
+ * @var $ratio      string Items ratio: '3x2' / '4x3' / '1x1' / '2x3' / '3x4' / '16x9'
  * @var $columns    int Columns number: 2 / 3 / 4 / 5
  * @var $is_widget  bool if used in widget
  * @var $title_size string Title Font Size
  * @var $meta_size  string Meta Font Size
  * @var $text_color string
  * @var $bg_color   string
+ * @var $img_size   string
  *
  * @action Before the template: 'us_before_template:templates/blog/listing-post'
  * @action After the template: 'us_after_template:templates/blog/listing-post'
  * @filter Template variables: 'us_template_vars:templates/blog/listing-post'
  */
 
-// .w-portfolio item additional classes
-$classes = '';
-$anchor_atts = '';
-$title_inner_css = $meta_inner_css = $anchor_inner_css = '';
+// portfolio item additional variables
+$classes = $anchor_atts = $title_inner_css = $meta_inner_css = $anchor_inner_css = '';
 
 $tile_size = '1x1';
 if ( usof_meta( 'us_tile_size' ) != '' ) {
@@ -37,17 +37,12 @@ $placeholder_url = $us_template_directory_uri . '/framework/img/us-placeholder-s
 
 $tnail_id = get_post_thumbnail_id();
 if ( $tnail_id ) {
-	$image = wp_get_attachment_image_src( $tnail_id, 'large' );
-	if ( $tile_size == '1x1' ) {
-		$image = wp_get_attachment_image_src( $tnail_id, 'tnail-masonry' );
+	$image = wp_get_attachment_image_src( $tnail_id, $img_size );
+	if ( $type != 'carousel' AND $tile_size != '1x1' AND $img_size != 'full' ) {
+		$image = wp_get_attachment_image_src( $tnail_id, 'large' );
 	}
 	if ( $is_widget ) {
-		if ( $columns > 2 ) {
-			$image = wp_get_attachment_image_src( $tnail_id, 'thumbnail' );
-		} else {
-			$image = wp_get_attachment_image_src( $tnail_id, 'tnail-1x1-small' );
-		}
-
+		$image = wp_get_attachment_image_src( $tnail_id, 'thumbnail' );
 	}
 }
 
@@ -79,6 +74,8 @@ if ( $items_action == 'lightbox_image' ) {
 	$link = $link_arr['url'];
 	if ( $link_arr['target'] == '_blank' ) {
 		$anchor_atts .= ' target="_blank"';
+	} elseif ( preg_match( "/\.(bmp|gif|jpeg|jpg|png)$/i", $link ) ) {
+		$anchor_atts .= ' ref="magnificPopup"';
 	}
 	$classes .= ' custom-link';
 } else {
@@ -112,27 +109,21 @@ if ( in_array( 'categories', $metas ) AND count( $categories ) > 0 ) {
 if ( in_array( 'desc', $metas ) ) {
 	$meta_html['desc'] = '<span class="w-portfolio-item-text"' . $meta_inner_css . '>' . usof_meta( 'us_tile_description' ) . '</span>';
 }
-
-if ( ! $is_widget ) {
+if ( ( ! $is_widget ) AND $type != 'carousel' ) {
 	$classes .= ' size_' . $tile_size;
 }
-
-
 if ( $bg_color != '' ) {
 	$anchor_inner_css .= 'background-color: ' . $bg_color . ';';
 }
 if ( usof_meta( 'us_tile_bg_color' ) != '' ) {
 	$anchor_inner_css .= 'background-color: ' . usof_meta( 'us_tile_bg_color' ) . ';';
 }
-
-
 if ( $text_color != '' ) {
 	$anchor_inner_css .= 'color: ' . $text_color . ';';
 }
 if ( usof_meta( 'us_tile_text_color' ) != '' ) {
 	$anchor_inner_css .= 'color: ' . usof_meta( 'us_tile_text_color' ) . ';';
 }
-
 if ( $anchor_inner_css != '' ) {
 	$anchor_inner_css = ' style="' . $anchor_inner_css . '"';
 }
@@ -148,9 +139,9 @@ $classes = apply_filters( 'us_portfolio_listing_item_classes', $classes );
 		<?php
 		$image2_id = intval( usof_meta( 'us_tile_additional_image' ) );
 		if ( $image2_id ) {
-			$image2 = wp_get_attachment_image_src( $image2_id, 'large' );
-			if ( $tile_size == '1x1' ) {
-				$image2 = wp_get_attachment_image_src( $image2_id, 'tnail-masonry' );
+			$image2 = wp_get_attachment_image_src( $image2_id, $img_size );
+			if ( $tile_size != '1x1' AND $img_size != 'full' ) {
+				$image2 = wp_get_attachment_image_src( $tnail_id, 'large' );
 			}
 		}
 		if ( $image2_id != '' AND is_array( $image2 ) ) {

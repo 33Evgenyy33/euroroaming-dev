@@ -727,7 +727,7 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 				if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
 				this.scrollTimeout = setTimeout(function () {
 					this.isScrolling = false;
-				}, 100);
+				}.bind(this), 100);
 			}
 		},
 
@@ -1124,6 +1124,10 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 			showFn = 'showMD';
 			hideFn = 'hideMD';
 		}
+		else if (this.animationType == 'none') {
+			showFn = 'show';
+			hideFn = 'hide';
+		}
 
 		// Mobile menu toggler
 		this.$control.on('click', function(){
@@ -1316,11 +1320,11 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 			/**
 			 * @param {Number} Duration of scroll animation
 			 */
-			animationDuration: 1200,
+			animationDuration: 1000,
 			/**
 			 * @param {String} Easing for scroll animation
 			 */
-			animationEasing: 'easeInOutQuint'
+			animationEasing: 'easeInOutExpo'
 		};
 		this.options = $.extend({}, defaults, options || {});
 
@@ -1413,9 +1417,18 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 		 * @private
 		 */
 		_countPosition: function(hash){
-			this.blocks[hash].top = Math.ceil(this.blocks[hash].target.offset().top - this._canvasTopOffset);
-			if ($us.header.headerTop === undefined || ($us.header.headerTop > 0 && this.blocks[hash].target.offset().top > $us.header.headerTop)) {
+			var targetTop = this.blocks[hash].target.offset().top;
+			if (this.blocks[hash].target.is('.l-section.sticky')) {
+				this.blocks[hash].target.removeClass('sticky');
+				targetTop = this.blocks[hash].target.offset().top;
+				this.blocks[hash].target.addClass('sticky');
+			}
+			this.blocks[hash].top = Math.ceil(targetTop - this._canvasTopOffset);
+			if ($us.header.headerTop === undefined || ($us.header.headerTop > 0 && targetTop > $us.header.headerTop)) {
 				this.blocks[hash].top = this.blocks[hash].top - $us.header.scrolledOccupiedHeight;
+			}
+			if ( this.stickyRows[0] !== undefined && window.innerWidth > this.stickyRows[0].disableWidth && targetTop > this.stickyRows[0].originalTop ) {
+				this.blocks[hash].top = this.blocks[hash].top - this.stickyRows[0].height;
 			}
 			this.blocks[hash].bottom = this.blocks[hash].top + this.blocks[hash].target.outerHeight(false);
 		},
@@ -1428,6 +1441,11 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 		_countAllPositions: function(){
 			// Take into account #wpadminbar (and others possible) offset
 			this._canvasTopOffset = $us.$canvas.offset().top;
+			// Counting stickyRows
+			for (var i = 0; i < this.stickyRows.length; i++) {
+				this._countStickyRow(this.stickyRows[i]);
+			}
+			// Counting blocks
 			for (var hash in this.blocks) {
 				if (!this.blocks.hasOwnProperty(hash)) continue;
 				this._countPosition(hash);
@@ -1435,10 +1453,6 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 			// Counting waypoints
 			for (var i = 0; i < this.waypoints.length; i++) {
 				this._countWaypoint(this.waypoints[i]);
-			}
-			// Counting stickyRows
-			for (var i = 0; i < this.stickyRows.length; i++) {
-				this._countStickyRow(this.stickyRows[i]);
 			}
 		},
 
@@ -1662,6 +1676,8 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 				isSticky = true;
 				stickyRow.$row.removeClass('sticky');
 			}
+			stickyRow.disableWidth = (stickyRow.$row.data('sticky-disable-width') !== undefined)?stickyRow.$row.data('sticky-disable-width'):900;
+			stickyRow.originalTop = stickyRow.$row.offset().top;
 			stickyRow.top = stickyRow.$row.offset().top - this._canvasTopOffset;
 			stickyRow.height = stickyRow.$row.outerHeight();
 			if ($us.header.headerTop === undefined || ($us.header.headerTop > 0 && stickyRow.top > $us.header.headerTop)) {
@@ -1690,7 +1706,7 @@ jQuery('html').toggleClass('no-touch', !jQuery.isMobile);
 			}
 			// Handling sticky rows
 			for (var i = 0; i < this.stickyRows.length; i++) {
-				if (this.stickyRows[i].top < scrollTop && window.innerWidth > 900) {
+				if (this.stickyRows[i].top < scrollTop && window.innerWidth > this.stickyRows[i].disableWidth) {
 					this.stickyRows[i].$row.addClass('sticky');
 					this.stickyRows[i].$rowGap.css('height', this.stickyRows[i].height);
 				} else {
@@ -1754,6 +1770,8 @@ jQuery(function($){
 
 			$('a[ref=magnificPopup][class!=direct-link]').magnificPopup({
 				type: 'image',
+				removalDelay: 300,
+				mainClass: 'mfp-fade',
 				fixedContentPos: false
 			});
 		});
@@ -2086,6 +2104,233 @@ jQuery(function($){
 }();
 
 /**
+ * UpSolution Page Scroller
+ */
+(function($){
+	"use strict";
+
+	$us.PageScroller = function(container, options){
+		this.init(container, options);
+	};
+
+	$us.PageScroller.prototype = {
+		init: function(container, options){
+			var defaults = {
+					cooldown: 100,
+					animationDuration: 1000,
+					animationEasing: 'easeInOutExpo'
+				},
+				scrollTop = parseInt($us.$window.scrollTop());
+
+			this.options = $.extend({}, defaults, options);
+
+			this.$container = $(container);
+			this._canvasTopOffset = $us.$canvas.offset().top;
+			this.activeSection = 0;
+			this.sections = [];
+			this.dots = [];
+			this.usingDots = false;
+			this.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
+			this.disableWidth = (this.$container.data('disablewidth') !== undefined)?this.$container.data('disablewidth'):768;
+
+			if (this.$container.data('speed') !== undefined) {
+				this.options.animationDuration = this.$container.data('speed');
+			}
+
+			// Adding canvas sections
+			$us.$canvas.find('.l-section').each(function(key, elm){
+				var $section = $(elm),
+					section = {
+						$section: $section
+					};
+				this._countPosition(section);
+				this.sections.push(section);
+			}.bind(this));
+
+			// Adding dots for canvas sections
+			this.$dotsContainer = this.$container.find('.w-scroller-dots');
+			if ( this.$dotsContainer.length ) {
+				this.usingDots = true;
+
+				this.$firstDot = this.$dotsContainer.find('.w-scroller-dot').first();
+				for (var i = 1; i < this.sections.length; i++) {
+					this.$firstDot.clone().appendTo(this.$dotsContainer);
+				}
+
+				this.$dots = this.$dotsContainer.find('.w-scroller-dot');
+				this.$dots.each(function(key, elm){
+					var $dot = $(elm);
+					this.dots[key] = $dot;
+					$dot.click(function(){
+						this.scrollTo(key);
+						this.$dots.removeClass('active');
+						$dot.addClass('active');
+					}.bind(this));
+				}.bind(this));
+
+				this.dots[this.activeSection].addClass('active');
+
+				this.$dotsContainer.addClass('show');
+			}
+
+			// Adding footer sections
+			$('.l-footer > .l-section').each(function(key, elm){
+				var $section = $(elm),
+					section = {
+						$section: $section
+					};
+				this._countPosition(section);
+				this.sections.push(section);
+			}.bind(this));
+
+			this._attachEvents();
+
+			// Boundable events
+			this._events = {
+				scroll: this.scroll.bind(this),
+				resize: this.resize.bind(this)
+			};
+
+			$us.$canvas.on('contentChange', this._events.resize);
+			$us.$window.on('resize load', this._events.resize);
+			$us.$window.on('scroll', this._events.scroll);
+			setTimeout(this._events.resize, 100);
+		},
+		_attachEvents: function(){
+
+			$us.$document.off('mousewheel DOMMouseScroll MozMousePixelScroll');
+			$us.$canvas.off('touchstart');
+			$us.$canvas.off('touchmove');
+			if ($us.$window.width() > this.disableWidth) {
+				$us.$document.on('mousewheel DOMMouseScroll MozMousePixelScroll', function(e) {
+					var target = this.activeSection;
+					e.preventDefault();
+					var direction = e.originalEvent.wheelDelta || -e.originalEvent.detail;
+					if (direction < 0) {
+						target++;
+					} else if (direction > 0) {
+						target--;
+					}
+					if (this.sections[target] == undefined) {
+						return;
+					}
+					this.scrollTo(target);
+				}.bind(this));
+
+				if ( $.isMobile || this.isTouch ) {
+					$us.$canvas.on('touchstart', function(event){
+						var e = event.originalEvent;
+						if ( typeof e.pointerType === 'undefined' || e.pointerType != 'mouse' ) {
+							this.touchStartY = e.touches[0].pageY;
+						}
+					}.bind(this));
+
+					$us.$canvas.on('touchmove', function(event){
+						event.preventDefault();
+
+						var e = event.originalEvent,
+							target = this.activeSection;
+						this.touchEndY = e.touches[0].pageY;
+
+						if (Math.abs(this.touchStartY - this.touchEndY) > ($us.$window.height() / 50)) {
+							if (this.touchStartY > this.touchEndY) {
+								target++;
+							} else if (this.touchEndY > this.touchStartY) {
+								target--;
+							}
+
+							if (this.sections[target] == undefined) {
+								return;
+							}
+							this.scrollTo(target);
+						}
+					}.bind(this));
+				}
+			}
+
+		},
+		_countPosition: function(section){
+			section.top = section.$section.offset().top - this._canvasTopOffset;
+			if ($us.header.headerTop === undefined || ($us.header.headerTop > 0 && section.top > $us.header.headerTop)) {
+				section.top = section.top - $us.header.scrolledOccupiedHeight;
+			}
+			section.bottom = section.top + section.$section.outerHeight(false);
+		},
+		_countAllPositions: function(){
+			for (var section in this.sections) {
+				if (this.sections[section].$section.length) {
+					this._countPosition(this.sections[section]);
+				}
+			}
+		},
+		scrollTo: function(target){
+			var currentTime = new Date().getTime();
+			if(this.previousScrollTime !== undefined && (currentTime - this.previousScrollTime < this.options.animationDuration + this.options.cooldown)) {
+				return;
+			}
+
+			if (this.usingDots) {
+				this.$dots.removeClass('active');
+				if (this.dots[target] !== undefined) {
+					this.dots[target].addClass('active');
+				}
+			}
+
+			$us.$htmlBody.stop(true, false).animate({
+				scrollTop: this.sections[target]['top'] + 'px'
+			}, {
+				duration: this.options.animationDuration,
+				easing: this.options.animationEasing,
+				always: function(){
+					this.activeSection = target;
+				}.bind(this)
+			});
+
+			this.previousScrollTime = currentTime;
+		},
+		resize: function(){
+			this._attachEvents();
+
+			// Delaying the resize event to prevent glitches
+			setTimeout(function(){
+				this._countAllPositions();
+				// this.scrollTo(this.activeSection);
+			}.bind(this), 150);
+			this._countAllPositions();
+			// this.scrollTo(this.activeSection);
+		},
+		scroll: function(){
+			if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
+			this.scrollTimeout = setTimeout(function () {
+				var scrollTop = parseInt($us.$window.scrollTop());
+				for (var section in this.sections) {
+					if (scrollTop >= (this.sections[section].top - 1) && scrollTop < (this.sections[section].bottom - 1)) {
+						this.activeSection = section;
+						break;
+					}
+				}
+				if (this.usingDots) {
+					this.$dots.removeClass('active');
+					if (this.dots[this.activeSection] !== undefined) {
+						this.dots[this.activeSection].addClass('active');
+					}
+				}
+			}.bind(this), 500);
+		}
+	};
+
+	$.fn.usPageScroller = function(options){
+		return this.each(function(){
+			$(this).data('usPageScroller', new $us.PageScroller(this, options));
+		});
+	};
+
+	$(function(){
+		$('.w-scroller').usPageScroller();
+	});
+})(jQuery);
+
+/**
  * UpSolution Shortcode: us_message
  */
 (function($){
@@ -2193,6 +2438,33 @@ jQuery(function($){
 			this.paginationType = this.$pagination.length ? 'regular' : (this.$loadmore.length ? 'ajax' : 'none');
 			this.items = [];
 			this.loading = false;
+
+			if (this.$list.hasClass('owl-carousel')) {
+				$us.getScript($us.templateDirectoryUri+'/framework/js/owl.carousel.min.js', function() {
+					var items = parseInt(this.$list.data('items')),
+						responsive = {};
+					responsive[0] = {items: Math.min(items, this.$list.data('breakpoint_3_cols')), autoHeight: true, autoplay: false};
+					responsive[this.$list.data('breakpoint_3_width')] = {items: Math.min(items, this.$list.data('breakpoint_2_cols'))};
+					responsive[this.$list.data('breakpoint_2_width')] = {items: Math.min(items, this.$list.data('breakpoint_1_cols'))};
+					responsive[this.$list.data('breakpoint_1_width')] = {items: items};
+					this.$list.owlCarousel({
+						items: items,
+						loop: true,
+						rtl: $('.l-body').hasClass('rtl'),
+						nav: this.$list.data('nav'),
+						dots: this.$list.data('dots'),
+						center: this.$list.data('center'),
+						autoplay: this.$list.data('autoplay'),
+						autoplayTimeout: this.$list.data('timeout'),
+						autoHeight: this.$list.data('autoheight'),
+						slideBy: this.$list.data('slideby'),
+						autoplayHoverPause: true,
+						responsive: responsive
+					});
+				}.bind(this));
+
+				return;
+			}
 
 			if (this.paginationType != 'none') {
 				var $jsonContainer = this.$container.find('.w-blog-json');
@@ -2815,19 +3087,21 @@ jQuery(function($){
 jQuery(function($){
 	$(".w-logos.type_carousel").each(function(){
 		$us.getScript($us.templateDirectoryUri+'/framework/js/owl.carousel.min.js', function() {
-			var $list = $(this),
+			var $list = $(this).find('.w-logos-list'),
 				items = parseInt($list.data('items'));
 			$list.owlCarousel({
 				items: items,
-				center: (items == 1),
 				loop: true,
 				rtl: $('.l-body').hasClass('rtl'),
 				nav: $list.data('nav'),
+				dots: $list.data('dots'),
+				center: $list.data('center'),
 				autoplay: $list.data('autoplay'),
 				autoplayTimeout: $list.data('timeout'),
 				autoplayHoverPause: true,
+				slideBy: $list.data('slideby'),
 				responsive: {
-					0: {items: 1, center: true},
+					0: {items: 1},
 					480: {items: Math.min(items, 2)},
 					768: {items: Math.min(items, 3)},
 					901: {items: Math.min(items, 4)},
@@ -2847,20 +3121,23 @@ jQuery(function($){
 jQuery(function($){
 	$(".w-testimonials.type_carousel").each(function(){
 		$us.getScript($us.templateDirectoryUri+'/framework/js/owl.carousel.min.js', function() {
-			var $list = $(this),
+			var $list = $(this).find('.w-testimonials-list'),
 				items = parseInt($list.data('items'));
 			$list.owlCarousel({
 				items: items,
 				loop: true,
 				rtl: $('.l-body').hasClass('rtl'),
 				nav: $list.data('nav'),
+				dots: $list.data('dots'),
+				center: $list.data('center'),
 				autoplay: $list.data('autoplay'),
 				autoplayTimeout: $list.data('timeout'),
 				autoHeight: $list.data('autoheight'),
+				slideBy: $list.data('slideby'),
 				autoplayHoverPause: true,
 				margin: 30,
 				responsive: {
-					0: {items: 1, autoHeight: true},
+					0: {items: 1, autoHeight: true, autoplay: false},
 					768: {items: Math.min(items, 2)},
 					1025: {items: Math.min(items, 3)},
 					1279: {items: items}
@@ -2871,11 +3148,10 @@ jQuery(function($){
 
 	});
 
-	$(".w-testimonials.type_grid.layout_masonry").each(function(){
-		if ($(this).hasClass('cols_1')) return; // TODO: check if we can replace this condition with CSS :not(.cols_1) selector
+	$(".w-testimonials.type_masonry").each(function(){
 
 		$us.getScript($us.templateDirectoryUri+'/framework/js/jquery.isotope.js', function() {
-			var $container = $(this),
+			var $container = $(this).find('.w-testimonials-list'),
 				isotopeOptions = {
 					layoutMode: 'masonry',
 					isOriginLeft: !$('body').hasClass('rtl')
@@ -3115,9 +3391,8 @@ jQuery(function($){
 
 
 	// Applying isotope to gallery
-	$('.w-gallery.layout_masonry').each(function(index, gallery){
+	$('.w-gallery.type_masonry').each(function(index, gallery){
 		$us.getScript($us.templateDirectoryUri+'/framework/js/jquery.isotope.js', function(){
-			if ($(gallery).hasClass('cols_1')) return; // TODO: check if we can replace this condition with CSS :not(.cols_1) selector
 
 			var $container = $($(gallery).find('.w-gallery-list')),
 				isotopeOptions = {
@@ -3278,7 +3553,34 @@ jQuery(function($){
 				}.bind(this));
 			}
 
-			if (this.$container.usMod('position') == 'isotope') {
+			if (this.$list.hasClass('owl-carousel')) {
+				$us.getScript($us.templateDirectoryUri+'/framework/js/owl.carousel.min.js', function() {
+					var items = parseInt(this.$list.data('items')),
+						responsive = {};
+					responsive[0] = {items: Math.min(items, this.$list.data('breakpoint_3_cols'))};
+					responsive[this.$list.data('breakpoint_3_width')] = {items: Math.min(items, this.$list.data('breakpoint_2_cols'))};
+					responsive[this.$list.data('breakpoint_2_width')] = {items: Math.min(items, this.$list.data('breakpoint_1_cols'))};
+					responsive[this.$list.data('breakpoint_1_width')] = {items: items};
+
+					this.$list.owlCarousel({
+						items: items,
+						loop: true,
+						rtl: $('.l-body').hasClass('rtl'),
+						nav: this.$list.data('nav'),
+						dots: this.$list.data('dots'),
+						center: this.$list.data('center'),
+						autoplay: this.$list.data('autoplay'),
+						autoplayTimeout: this.$list.data('timeout'),
+						slideBy: this.$list.data('slideby'),
+						autoplayHoverPause: true,
+						responsive: responsive
+					});
+				}.bind(this));
+
+				return;
+			}
+
+			if (this.$container.hasClass('with_isotope')) {
 				this.isotopeOptions = {
 					itemSelector: '.w-portfolio-item',
 					layoutMode: 'masonry',
@@ -3444,7 +3746,6 @@ jQuery(function($){
 		},
 		lightboxContentLoaded: function(){
 			this.$lightboxContentPreloader.css('display', 'none');
-			// this.$lightboxContentFrame.css('display', 'block');
 		},
 		showLightbox: function(){
 			clearTimeout(this.lightboxTimer);
@@ -3490,6 +3791,7 @@ jQuery(function($){
 			clearTimeout(this.lightboxTimer);
 			this.$lightboxOverlay.appendTo(this.$container).hide();
 			this.$lightboxWrap.appendTo(this.$container).hide();
+			this.$lightboxContentFrame.attr('src', 'about:blank');
 			if ( ! $.isMobile ) {
 				$us.$html.removeClass('usoverlay_fixed');
 				if (this.windowHasScrollbar) $us.$html.css('margin-right', '');
@@ -3540,7 +3842,6 @@ jQuery(function($){
 							var $item = $(item),
 								itemID = parseInt($item.data('id'));
 
-
 							$item.imagesLoaded(function(){
 								this.items[itemID].attr('class', $item.attr('class')).attr('style', $item.attr('style'));
 								this.itemLoaded(itemID, $item);
@@ -3557,13 +3858,10 @@ jQuery(function($){
 											if ($us.$window.width() > $us.canvasOptions.disableEffectsWidth ) {
 												e.stopPropagation();
 												e.preventDefault();
-
 												this.openLightboxItem(itemUrl, $loadedItem);
 											}
 										}.bind(this));
 									}
-
-
 								}
 
 								if ($insertedItems.length >= loadIds.length) {
@@ -3588,6 +3886,19 @@ jQuery(function($){
 									}
 
 									this.$list.isotope('layout');
+								}
+
+								if (this.items[itemID].find('a[ref=magnificPopup][class!=direct-link]').length != 0) {
+
+									$us.getScript($us.templateDirectoryUri+'/framework/js/jquery.magnific-popup.js', function(){
+										var $loadedItem = this.$container.find('.w-portfolio-item[data-id="'+itemID+'"]');
+										$loadedItem.find('a[ref=magnificPopup][class!=direct-link]').magnificPopup({
+											type: 'image',
+											removalDelay: 300,
+											mainClass: 'mfp-fade',
+											fixedContentPos: false
+										});
+									}.bind(this));
 								}
 							}.bind(this));
 

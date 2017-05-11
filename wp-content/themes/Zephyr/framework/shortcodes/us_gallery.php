@@ -112,9 +112,11 @@ if ( $atts['layout'] == 'masonry' AND $atts['columns'] > 1 ) {
 		$tnail_size = 'thumbnail';
 	}
 }
-$classes .= ' layout_' . $atts['layout'];
-$classes .= ' cols_' . $atts['columns'];
+$classes .= ' type_' . $atts['layout'];
 
+if ( $atts['columns'] != 1 ) {
+	$classes .= ' cols_' . $atts['columns'];
+}
 if ( $atts['indents'] ) {
 	$classes .= ' with_indents';
 }

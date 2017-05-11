@@ -28,7 +28,8 @@ $wp_query = new WP_Query( $query_args );
 
 if ( $wp_query->have_posts() ) {
 	$template_vars = array(
-		'layout_type' => us_get_option( 'post_related_layout', 'compact' ),
+		'layout' => us_get_option( 'post_related_layout', 'compact' ),
+		'type' => 'grid',
 		'columns' => 1,
 		'metas' => array( 'date' ),
 		'content_type' => 'none',

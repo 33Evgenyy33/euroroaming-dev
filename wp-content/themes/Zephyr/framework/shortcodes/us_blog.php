@@ -13,8 +13,8 @@
  * @var   $atts           array Shortcode attributes
  *
  * @param $atts           ['layout'] string Blog layout: 'classic' / 'smallcircle' / 'smallsquare' / 'flat' / 'compact' / 'latest'
- * @param $atts           ['columns'] int Number of columns: 1 / 2 / 3 / 4 / 5
- * @param $atts           ['masonry'] bool Enable Masonry layout mode?
+ * @param $atts           ['columns'] int Columns quantity
+ * @param $atts           ['type'] strubg layout type: 'grid' / 'masonry' / 'carousel'
  * @param $atts           ['content_type'] string Content type: 'excerpt' / 'content' / 'none'
  * @param $atts           ['pagination'] string Pagination type: 'none' / 'regular' / 'ajax' / 'infinite'
  * @param $atts           ['categories'] string Comma-separated list of categories slugs to filter the posts
@@ -29,6 +29,12 @@
  * @param $atts           ['title_size'] string Posts Title Size
  * @param $atts           ['title_size_mobiles'] string Posts Title Size on Mobiles
  * @param $atts           ['el_class'] string Extra class name
+ * @param $atts           ['carousel_arrows'] bool used in Carousel type
+ * @param $atts           ['carousel_dots'] bool used in Carousel type
+ * @param $atts           ['carousel_center'] bool used in Carousel type
+ * @param $atts           ['carousel_autoplay'] bool used in Carousel type
+ * @param $atts           ['carousel_interval'] int used in Carousel type
+ * @param $atts           ['carousel_slideby'] int used in Carousel type
  * @param $atts           ['filter'] string Filter type: 'none' / 'category'
  * @param $atts           ['filter_style'] string Filter Bar style: 'style_1' / 'style_2' / ... / 'style_N'
  */
@@ -100,8 +106,8 @@ if ( $atts['pagination'] == 'regular' ) {
 
 $template_vars = array(
 	'query_args' => $query_args,
-	'layout_type' => $atts['layout'],
-	'masonry' => $atts['masonry'],
+	'layout' => $atts['layout'],
+	'type' => $atts['type'],
 	'columns' => $atts['columns'],
 	'content_type' => $atts['content_type'],
 	'metas' => $metas,
@@ -109,6 +115,12 @@ $template_vars = array(
 	'pagination' => $atts['pagination'],
 	'title_size' => $atts['title_size'],
 	'el_class' => $atts['el_class'],
+	'carousel_arrows' => $atts['carousel_arrows'],
+	'carousel_dots' => $atts['carousel_dots'],
+	'carousel_center' => $atts['carousel_center'],
+	'carousel_autoplay' => $atts['carousel_autoplay'],
+	'carousel_interval' => $atts['carousel_interval'],
+	'carousel_slideby' => $atts['carousel_slideby'],
 	'filter' => $atts['filter'],
 	'filter_style' => $atts['filter_style'],
 	'categories' => $atts['categories'],

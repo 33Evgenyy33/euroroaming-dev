@@ -712,12 +712,12 @@ function us_get_header_design_options_css() {
 function us_admin_bar_theme_options_link( $wp_admin_bar ) {
 	$args = array(
 		'id' => 'us_theme_otions',
-		'title' => __( 'Theme Options', 'us' ),
+		'title' => us_translate( 'Theme Options' ),
 		'href' => admin_url( 'admin.php?page=us-theme-options' ),
 		'parent' => 'site-name',
 		'meta' => array(
 			'class' => 'us-theme-options',
-			'title' => __( 'Theme Options', 'us' ),
+			'title' => us_translate( 'Theme Options' ),
 		),
 	);
 	$wp_admin_bar->add_node( $args );

@@ -15,7 +15,7 @@ $comments_number = get_comments_number();
 		<h4 class="w-comments-title">
 			<?php
 			$comments_label = '<span>';
-			$comments_label .= sprintf( _n( '%s comment', '%s comments', $comments_number, 'us' ), $comments_number );
+			$comments_label .= sprintf( us_translate_n( '%s <span class="screen-reader-text">Comment</span>', '%s <span class="screen-reader-text">Comments</span>', $comments_number ), $comments_number );
 			$comments_label .= '.</span> ';
 			$comments_label .= '<a href="#respond">' . __( 'Leave new', 'us' ) . '</a>';
 			comments_number( us_translate( 'No Comments' ), $comments_label, $comments_label );

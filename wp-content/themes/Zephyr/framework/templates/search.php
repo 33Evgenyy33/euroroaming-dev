@@ -18,8 +18,8 @@ us_load_template(
 );
 
 $template_vars = array(
-	'layout_type' => us_get_option( 'search_layout', 'compact' ),
-	'masonry' => us_get_option( 'search_masonry', 0 ),
+	'layout' => us_get_option( 'search_layout', 'compact' ),
+	'type' => us_get_option( 'search_type', 'grid' ),
 	'columns' => us_get_option( 'search_cols', 1 ),
 	'metas' => (array) us_get_option( 'search_meta', array() ),
 	'content_type' => us_get_option( 'search_content_type', 'excerpt' ),

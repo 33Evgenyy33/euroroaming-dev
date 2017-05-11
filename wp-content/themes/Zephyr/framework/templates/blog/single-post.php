@@ -121,7 +121,7 @@ if ( in_array( 'comments', $metas ) AND ! ( $comments_number == 0 AND ! comments
 	$meta_html['comments'] .= '<span class="w-blog-post-meta-comments">';
 	// TODO Replace with get_comments_popup_link() when https://core.trac.wordpress.org/ticket/17763 is resolved
 	ob_start();
-	$comments_label = sprintf( _n( '%s comment', '%s comments', $comments_number, 'us' ), $comments_number );
+	$comments_label = sprintf( us_translate_n( '%s <span class="screen-reader-text">Comment</span>', '%s <span class="screen-reader-text">Comments</span>', $comments_number ), $comments_number );
 	comments_popup_link( us_translate( 'No Comments' ), $comments_label, $comments_label );
 	$meta_html['comments'] .= ob_get_clean();
 	$meta_html['comments'] .= '</span>';

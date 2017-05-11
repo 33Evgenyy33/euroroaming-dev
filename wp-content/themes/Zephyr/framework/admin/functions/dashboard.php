@@ -2,7 +2,7 @@
 
 add_action( 'admin_menu', 'us_add_info_home_page', 50 );
 function us_add_info_home_page() {
-	add_submenu_page( 'us-theme-options', US_THEMENAME . ': Home', __( 'About the Theme', 'us' ), 'manage_options', 'us-home', 'us_welcome_page', 11 );
+	add_submenu_page( 'us-theme-options', US_THEMENAME . ': Home', us_translate( 'About' ), 'manage_options', 'us-home', 'us_welcome_page', 11 );
 }
 
 function us_welcome_page() {
@@ -151,7 +151,7 @@ function us_welcome_page() {
 						</div>
 					</div>
 				</div>
-				<input class="button button-primary" type="submit" value="<?php _e( 'Activate', 'us' ) ?>" name="activate">
+				<input class="button button-primary" type="submit" value="<?php echo us_translate( 'Activate' ) ?>" name="activate">
 
 				<p class="description"><?php _e( 'Don\'t have valid license yet?', 'us' ) ?>
 					<a target="_blank" href="<?php echo $purchase_url; ?>"><?php echo sprintf( __( 'Purchase %s license', 'us' ), US_THEMENAME ); ?></a>

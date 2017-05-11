@@ -56,3 +56,11 @@ add_action( 'core_upgrade_preamble', 'us_ultimate_addons_core_upgrade_preamble' 
 function us_ultimate_addons_core_upgrade_preamble() {
 	remove_action( 'core_upgrade_preamble', 'list_bsf_products_updates', 999 );
 }
+
+add_filter( 'pre_set_site_transient_update_plugins', 'us_ultimate_addons_update_plugins_transient', 99 );
+function us_ultimate_addons_update_plugins_transient( $_transient_data ) {
+	if ( isset( $_transient_data->response[ 'Ultimate_VC_Addons/Ultimate_VC_Addons.php' ] ) AND empty( $_transient_data->response[ 'Ultimate_VC_Addons/Ultimate_VC_Addons.php' ]->package ) ) {
+		unset( $_transient_data->response[ 'Ultimate_VC_Addons/Ultimate_VC_Addons.php' ] );
+	}
+	return $_transient_data;
+}

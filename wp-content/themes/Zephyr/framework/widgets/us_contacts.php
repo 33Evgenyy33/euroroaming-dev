@@ -3,7 +3,7 @@
 /**
  * UpSolution Widget: Contacts
  *
- * Class US_Widget_Login
+ * Class US_Widget_Contacts
  */
 class US_Widget_Contacts extends US_Widget {
 
@@ -22,7 +22,7 @@ class US_Widget_Contacts extends US_Widget {
 		$output = $args['before_widget'];
 
 		if ( $title ) {
-			$output .= '<h4>' . $title . '</h4>';
+			$output .= '<h3 class="widgettitle">' . $title . '</h3>';
 		}
 
 		$output .= '<div class="w-contacts"><div class="w-contacts-list">';

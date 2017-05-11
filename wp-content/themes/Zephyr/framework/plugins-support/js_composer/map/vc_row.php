@@ -241,7 +241,16 @@ vc_add_params(
 		'type' => 'checkbox',
 		'value' => array( __( 'Fix this row at the top of a page during scroll', 'us' ) => TRUE ),
 		( ( $config['atts']['sticky'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['sticky'],
-		'weight' => 10,
+		'weight' => 30,
+	),
+	array(
+		'param_name' => 'sticky_disable_width',
+		'heading' => __( 'Disable Sticky Row at width', 'us' ),
+		'description' => __( 'When screen width is less than this value, sticky row becomes not sticky.', 'us' ),
+		'type' => 'textfield',
+		'std' => $config['atts']['sticky_disable_width'],
+		'dependency' => array( 'element' => 'sticky', 'not_empty' => TRUE ),
+		'weight' => 20,
 	),
 )
 );

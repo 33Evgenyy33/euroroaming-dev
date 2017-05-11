@@ -91,8 +91,7 @@ h4,
 	letter-spacing: <?php echo us_get_option( 'h4_letterspacing' ) ?>px;
 	<?php $h4_transform = us_get_option( 'h4_transform' ); if ( ! empty( $h4_transform[0] ) ) echo 'text-transform: ' .  $h4_transform[0] . ';'; ?>
 	}
-h5,
-.w-blog:not(.cols_1) .w-blog-list .w-blog-post-title {
+h5 {
 	font-size: <?php echo us_get_option( 'h5_fontsize' ) ?>px;
 	letter-spacing: <?php echo us_get_option( 'h5_letterspacing' ) ?>px;
 	<?php $h5_transform = us_get_option( 'h5_transform' ); if ( ! empty( $h5_transform[0] ) ) echo 'text-transform: ' .  $h5_transform[0] . ';'; ?>
@@ -172,25 +171,19 @@ body,
 .w-blog-post-body {
 	max-width: <?php echo us_get_option( 'site_content_width' ) ?>px;
 	}
-@media (max-width: <?php echo us_get_option( 'site_content_width' ) + 140 ?>px) {
-.owl-carousel[data-nav="1"] {
-	padding: 0 60px;
-	}
-.owl-carousel[data-nav="1"] .owl-prev {
-	left: 0;
-	}
-.rtl .owl-carousel[data-nav="1"] .owl-prev {
-	left: auto;
-	right: 0;
-	}
-.owl-carousel[data-nav="1"] .owl-next {
-	right: 0;
-	}
-.rtl .owl-carousel[data-nav="1"] .owl-next {
-	left: 0;
-	right: auto;
+	
+/* Hide carousel arrows before they cut by screen edges */
+@media (max-width: <?php echo us_get_option( 'site_content_width' ) + 150 ?>px) {
+.l-section:not(.width_full) .owl-nav {
+	display: none;
 	}
 }
+@media (max-width: <?php echo us_get_option( 'site_content_width' ) + 200 ?>px) {
+.l-section:not(.width_full) .w-blog .owl-nav {
+	display: none;
+	}
+}
+
 .l-sidebar {
 	width: <?php echo us_get_option( 'sidebar_width' ) ?>%;
 	}
@@ -209,8 +202,61 @@ body,
 	margin-bottom: 0;
 	}
 .vc_wp_custommenu.layout_hor,
-.align_center_xs {
+.align_center_xs,
+.align_center_xs .w-socials {
 	text-align: center;
+	}
+}
+
+/* Portfolio Grid Responsive Behavior */
+@media screen and (max-width: <?php echo us_get_option( 'portfolio_breakpoint_1_width' ) ?>px) {
+.w-portfolio[class*="cols_"] .w-portfolio-item {
+	width: <?php echo 100 / us_get_option( 'portfolio_breakpoint_1_cols' ) ?>%;
+	}
+<?php if ( us_get_option( 'portfolio_breakpoint_1_cols' ) != 100 ): ?>
+.w-portfolio[class*="cols_"] .w-portfolio-item.size_2x1,
+.w-portfolio[class*="cols_"] .w-portfolio-item.size_2x2 {
+	width: <?php echo 200 / us_get_option( 'portfolio_breakpoint_1_cols' ) ?>%;
+	}
+<?php endif; ?>
+}
+@media screen and (max-width: <?php echo us_get_option( 'portfolio_breakpoint_2_width' ) ?>px) {
+.w-portfolio[class*="cols_"] .w-portfolio-item {
+	width: <?php echo 100 / us_get_option( 'portfolio_breakpoint_2_cols' ) ?>%;
+	}
+<?php if ( us_get_option( 'portfolio_breakpoint_2_cols' ) != 100 ): ?>
+.w-portfolio[class*="cols_"] .w-portfolio-item.size_2x1,
+.w-portfolio[class*="cols_"] .w-portfolio-item.size_2x2 {
+	width: <?php echo 200 / us_get_option( 'portfolio_breakpoint_2_cols' ) ?>%;
+	}
+<?php endif; ?>
+}
+@media screen and (max-width: <?php echo us_get_option( 'portfolio_breakpoint_3_width' ) ?>px) {
+.w-portfolio[class*="cols_"] .w-portfolio-item {
+	width: <?php echo 100 / us_get_option( 'portfolio_breakpoint_3_cols' ) ?>%;
+	}
+<?php if ( us_get_option( 'portfolio_breakpoint_3_cols' ) != 100 ): ?>
+.w-portfolio[class*="cols_"] .w-portfolio-item.size_2x1,
+.w-portfolio[class*="cols_"] .w-portfolio-item.size_2x2 {
+	width: <?php echo 200 / us_get_option( 'portfolio_breakpoint_3_cols' ) ?>%;
+	}
+<?php endif; ?>
+}
+
+/* Blog Responsive Behavior */
+@media screen and (max-width: <?php echo us_get_option( 'blog_breakpoint_1_width' ) ?>px) {
+.w-blog[class*="cols_"] .w-blog-post {
+	width: <?php echo 100 / us_get_option( 'blog_breakpoint_1_cols' ) ?>%;
+	}
+}
+@media screen and (max-width: <?php echo us_get_option( 'blog_breakpoint_2_width' ) ?>px) {
+.w-blog[class*="cols_"] .w-blog-post {
+	width: <?php echo 100 / us_get_option( 'blog_breakpoint_2_cols' ) ?>%;
+	}
+}
+@media screen and (max-width: <?php echo us_get_option( 'blog_breakpoint_3_width' ) ?>px) {
+.w-blog[class*="cols_"] .w-blog-post {
+	width: <?php echo 100 / us_get_option( 'blog_breakpoint_3_cols' ) ?>%;
 	}
 }
 
@@ -264,6 +310,7 @@ body,
 		<?php endif; ?>
 		}
 		
+	/* Calculate top padding for content overlapped by sticky header */
 	.header_hor .l-header.pos_fixed ~ .l-titlebar,
 	.header_hor .titlebar_none.sidebar_left .l-header.pos_fixed ~ .l-main,
 	.header_hor .titlebar_none.sidebar_right .l-header.pos_fixed ~ .l-main,
@@ -286,6 +333,7 @@ body,
 	.header_hor.header_inpos_bottom .l-header.pos_fixed ~ .l-main .l-section:first-child {
 		padding-bottom: <?php echo $header_height ?>px;
 		}
+		
 	/* Fix vertical centering of first section when header is transparent */
 	.header_hor .l-header.bg_transparent ~ .l-main .l-section.valign_center:first-child > .l-section-h {
 		top: -<?php echo $header_height/2 ?>px;
@@ -294,6 +342,7 @@ body,
 		top: <?php echo $header_height/2 ?>px;
 		}
 	
+	/* Calculate height of "Full Screen" rows */
 	.header_hor .l-header.pos_fixed ~ .l-main .l-section.height_full:not(:first-child) {
 		<?php
 		$header_sticky_height = us_get_header_option( 'top_show' ) ? intval( us_get_header_option( 'top_sticky_height' ) ) : 0;
@@ -305,6 +354,8 @@ body,
 	.admin-bar.header_hor .l-header.pos_fixed ~ .l-main .l-section.height_full:not(:first-child) {
 		min-height: calc(100vh - <?php echo $header_sticky_height + 32 ?>px);
 		}
+		
+	/* Calculate position of "Sticky" rows */
 	.header_hor .l-header.pos_fixed ~ .l-main .l-section.sticky {
 		top: <?php echo $header_sticky_height ?>px;
 		}
@@ -325,6 +376,7 @@ body,
 	}
 	<?php endif; ?>
 	
+	/* Calculate layout of vertical header */
 	.header_ver {
 		padding-left: <?php echo us_get_header_option( 'width' ) ?>px;
 		position: relative;
@@ -402,14 +454,15 @@ body,
 		<?php endif; ?>
 		}
 		
+	/* Calculate top padding for content overlapped by sticky header */
 	.header_hor .l-header.pos_fixed ~ .l-titlebar,
-	.header_hor .l-canvas.titlebar_none.sidebar_left .l-header.pos_fixed ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_right .l-header.pos_fixed ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_none .l-header.pos_fixed ~ .l-main .l-section:first-child,
+	.header_hor .titlebar_none.sidebar_left .l-header.pos_fixed ~ .l-main,
+	.header_hor .titlebar_none.sidebar_right .l-header.pos_fixed ~ .l-main,
+	.header_hor .titlebar_none.sidebar_none .l-header.pos_fixed ~ .l-main .l-section:first-child,
 	.header_hor .l-header.pos_static.bg_transparent ~ .l-titlebar,
-	.header_hor .l-canvas.titlebar_none.sidebar_left .l-header.pos_static.bg_transparent ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_right .l-header.pos_static.bg_transparent ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_none .l-header.pos_static.bg_transparent ~ .l-main .l-section:first-child {
+	.header_hor .titlebar_none.sidebar_left .l-header.pos_static.bg_transparent ~ .l-main,
+	.header_hor .titlebar_none.sidebar_right .l-header.pos_static.bg_transparent ~ .l-main,
+	.header_hor .titlebar_none.sidebar_none .l-header.pos_static.bg_transparent ~ .l-main .l-section:first-child {
 		<?php
 		$header_height = us_get_header_option( 'top_show', 'tablets' ) ? intval( us_get_header_option( 'top_height', 'tablets' ) ) : 0;
 		$header_height += intval( us_get_header_option( 'middle_height', 'tablets' ) );
@@ -419,6 +472,22 @@ body,
 		}
 	.header_hor .l-header.pos_static.bg_solid + .l-main .l-section.preview_trendy .w-blog-post-preview {
 		top: -<?php echo $header_height ?>px;
+		}
+		
+	/* Calculate position of "Sticky" rows */
+	.header_hor .l-header.pos_fixed ~ .l-main .l-section.sticky {
+		<?php
+		$header_sticky_height = us_get_header_option( 'top_show', 'tablets' ) ? intval( us_get_header_option( 'top_sticky_height', 'tablets' ) ) : 0;
+		$header_sticky_height += intval( us_get_header_option( 'middle_sticky_height', 'tablets' ) );
+		$header_sticky_height += us_get_header_option( 'bottom_show', 'tablets' ) ? intval( us_get_header_option( 'bottom_sticky_height', 'tablets' ) ) : 0;
+		?>
+		top: <?php echo $header_sticky_height ?>px;
+		}
+	.admin-bar.header_hor .l-header.pos_fixed ~ .l-main .l-section.sticky {
+		top: <?php echo $header_sticky_height + 46 ?>px;
+		}
+	.header_hor .titlebar_none.sidebar_none .l-header.pos_fixed.sticky ~ .l-main .l-section.type_sticky:first-child {
+		padding-top: <?php echo $header_sticky_height ?>px;
 		}
 		
 	<?php if ( us_get_header_option( 'bg_img', 'tablets' ) AND $bg_image = usof_get_image_src( us_get_header_option( 'bg_img', 'tablets' ) ) ): ?>
@@ -483,14 +552,15 @@ body,
 		<?php endif; ?>
 		}
 		
+	/* Calculate top padding for content overlapped by sticky header */
 	.header_hor .l-header.pos_fixed ~ .l-titlebar,
-	.header_hor .l-canvas.titlebar_none.sidebar_left .l-header.pos_fixed ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_right .l-header.pos_fixed ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_none .l-header.pos_fixed ~ .l-main .l-section:first-child,
+	.header_hor .titlebar_none.sidebar_left .l-header.pos_fixed ~ .l-main,
+	.header_hor .titlebar_none.sidebar_right .l-header.pos_fixed ~ .l-main,
+	.header_hor .titlebar_none.sidebar_none .l-header.pos_fixed ~ .l-main .l-section:first-child,
 	.header_hor .l-header.pos_static.bg_transparent ~ .l-titlebar,
-	.header_hor .l-canvas.titlebar_none.sidebar_left .l-header.pos_static.bg_transparent ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_right .l-header.pos_static.bg_transparent ~ .l-main,
-	.header_hor .l-canvas.titlebar_none.sidebar_none .l-header.pos_static.bg_transparent ~ .l-main .l-section:first-child {
+	.header_hor .titlebar_none.sidebar_left .l-header.pos_static.bg_transparent ~ .l-main,
+	.header_hor .titlebar_none.sidebar_right .l-header.pos_static.bg_transparent ~ .l-main,
+	.header_hor .titlebar_none.sidebar_none .l-header.pos_static.bg_transparent ~ .l-main .l-section:first-child {
 		<?php
 		$header_height = us_get_header_option( 'top_show', 'mobiles' ) ? intval( us_get_header_option( 'top_height', 'mobiles' ) ) : 0;
 		$header_height += intval( us_get_header_option( 'middle_height', 'mobiles' ) );
@@ -500,6 +570,19 @@ body,
 		}
 	.header_hor .l-header.pos_static.bg_solid + .l-main .l-section.preview_trendy .w-blog-post-preview {
 		top: -<?php echo $header_height ?>px;
+		}
+		
+	/* Calculate position of "Sticky" rows */
+	.header_hor .l-header.pos_fixed ~ .l-main .l-section.sticky {
+		<?php
+		$header_sticky_height = us_get_header_option( 'top_show', 'mobiles' ) ? intval( us_get_header_option( 'top_sticky_height', 'mobiles' ) ) : 0;
+		$header_sticky_height += intval( us_get_header_option( 'middle_sticky_height', 'mobiles' ) );
+		$header_sticky_height += us_get_header_option( 'bottom_show', 'mobiles' ) ? intval( us_get_header_option( 'bottom_sticky_height', 'mobiles' ) ) : 0;
+		?>
+		top: <?php echo $header_sticky_height ?>px;
+		}
+	.header_hor .titlebar_none.sidebar_none .l-header.pos_fixed.sticky ~ .l-main .l-section.type_sticky:first-child {
+		padding-top: <?php echo $header_sticky_height ?>px;
 		}
 		
 	<?php if ( us_get_header_option( 'bg_img', 'mobiles' ) AND $bg_image = usof_get_image_src( us_get_header_option( 'bg_img', 'mobiles' ) ) ): ?>
@@ -1053,8 +1136,12 @@ a.w-btn.color_light.style_raised,
 button.w-btn.color_contrast.style_raised,
 a.w-btn.color_contrast.style_raised,
 .w-iconbox.style_circle.color_contrast .w-iconbox-icon,
-.w-progbar.color_text .w-progbar-bar-h {
+.w-progbar.color_text .w-progbar-bar-h,
+.w-scroller-dot span {
 	background-color: <?php echo us_get_option( 'color_content_text' ) ?>;
+	}
+.w-scroller-dot span {
+	box-shadow: 0 0 0 2px <?php echo us_get_option( 'color_content_text' ) ?>;
 	}
 	
 /* Link Color */

@@ -62,6 +62,25 @@ vc_map(
 				'weight' => 50,
 			),
 			array(
+				'param_name' => 'meta',
+				'type' => 'checkbox',
+				'value' => array( __( 'Show image title and description', 'us' ) => TRUE ),
+				( ( $config['atts']['meta'] !== FALSE ) ? 'std' : '_std' ) => $config['atts']['meta'],
+				'weight' => 49,
+			),
+			array(
+				'param_name' => 'meta_style',
+				'heading' => __( 'Title and Description Style', 'us' ),
+				'type' => 'dropdown',
+				'value' => array(
+					__( 'Simple', 'us' ) => 'simple',
+					__( 'Modern', 'us' ) => 'modern',
+				),
+				'std' => $config['atts']['meta_style'],
+				'dependency' => array( 'element' => 'meta', 'not_empty' => TRUE ),
+				'weight' => 48,
+			),
+			array(
 				'param_name' => 'frame',
 				'heading' => __( 'Image Frame Mockup', 'us' ),
 				'type' => 'dropdown',

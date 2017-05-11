@@ -562,6 +562,21 @@ function us_translate( $text, $domain = NULL ) {
 }
 
 /**
+ * Call _n language functuion with phrase existing in supported plugin using plugin text domain
+ * and prevent this phrase from going into our .po/.mo files
+ *
+ * @return string Translated text.
+ */
+function us_translate_n( $single, $plural, $number, $domain = NULL ) {
+	if ( $domain == NULL ) {
+		return _n( $single, $plural, $number );
+	} else {
+		return _n( $single, $plural, $number, $domain );
+	}
+
+}
+
+/**
  * Prepare a proper inline-css string from given css proper
  *
  * @param array $props

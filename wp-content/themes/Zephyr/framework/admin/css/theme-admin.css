@@ -1490,6 +1490,10 @@
 .wpb_us_progbar .vc_element-icon {
 	background: url(../img/vc_elements.png) 0 -320px;
 	}
+#us_scroller .vc_element-icon,
+.wpb_us_scroller .vc_element-icon {
+	background: url(../img/vc_elements.png) 0 -352px;
+	}
 
 /* Improving appearance for elements settings window */
 .vc_ui-panel-content {
@@ -1515,6 +1519,16 @@
 	}
 .wpb_edit_form_elements textarea {
 	height: auto;
+	}
+.vc_checkbox-label {
+	display: inline-block;
+	vertical-align: top;
+	}
+div[data-vc-shortcode-param-name="categories"] .vc_checkbox-label {
+	margin: 0 10px 5px 0;
+	}
+.rtl div[data-vc-shortcode-param-name="categories"] .vc_checkbox-label {
+	margin: 0 0 5px 10px;
 	}
 .vc_description {
 	margin-top: 4px;

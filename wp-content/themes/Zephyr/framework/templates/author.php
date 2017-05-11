@@ -17,7 +17,8 @@ $titlebar_vars = array(
 us_load_template( 'templates/titlebar', $titlebar_vars );
 
 $template_vars = array(
-	'layout_type' => us_get_option( 'archive_layout', 'smallcircle' ),
+	'layout' => us_get_option( 'archive_layout', 'smallcircle' ),
+	'type' => us_get_option( 'archive_type', 'grid' ),
 	'columns' => us_get_option( 'archive_cols', 1 ),
 	'metas' => (array) us_get_option( 'archive_meta', array() ),
 	'content_type' => us_get_option( 'archive_content_type', 'excerpt' ),
@@ -44,7 +45,7 @@ $author_comments_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) AS tot
 								<?php echo $author_avatar ?>
 							</div>
 							<div class="w-author-meta">
-								<?php echo sprintf( _n( '%s post', '%s posts', count_user_posts( $curauth->ID ), 'us' ), count_user_posts( $curauth->ID ) ) . ', ' . sprintf( _n( '%s comment', '%s comments', $author_comments_count, 'us' ), $author_comments_count ) ?>
+								<?php echo sprintf( _n( '%s post', '%s posts', count_user_posts( $curauth->ID ), 'us' ), count_user_posts( $curauth->ID ) ) . ', ' . sprintf( us_translate_n( '%s <span class="screen-reader-text">Comment</span>', '%s <span class="screen-reader-text">Comments</span>', $author_comments_count ), $author_comments_count ) ?>
 							</div>
 							<div class="w-author-url" itemprop="url">
 								<?php if ( get_the_author_meta( 'url' ) ) { ?>

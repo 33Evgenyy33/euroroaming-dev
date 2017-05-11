@@ -23,15 +23,13 @@ function us_demo_import() {
 	?>
 
 	<style>
-		.usof-hide-notices {
-			display: none !important;
-		}
+	.usof-hide-notices { display: none !important; }
 	</style>
 	<form class="w-importer" action="?page=us-demo-import" method="post">
 
 		<h1 class="w-importer-title"><?php _e( 'Choose the demo for import', 'us' ) ?></h1>
 
-		<p class="w-importer-note"><?php _e( 'The images used in live demos won\'t be imported due to copyright/license reasons.', 'us' ) ?></p>
+		<p class="w-importer-note"><?php _e( 'The images used in live demos will be replaced by placeholders due to copyright/license reasons.', 'us' ) ?></p>
 
 		<div class="w-importer-list">
 
@@ -90,7 +88,7 @@ function us_demo_import() {
 							<label class="usof-checkbox theme-options">
 								<input type="checkbox" value="ON" name="theme_options" checked>
 								<span class="usof-checkbox-icon"></span>
-								<span class="usof-checkbox-text"><?php _e( 'Theme Options', 'us' ) ?></span>
+								<span class="usof-checkbox-text"><?php echo us_translate( 'Theme Options' ) ?></span>
 							</label>
 
 							<?php if ( in_array( 'widgets', $import['content'] ) ) { ?>
@@ -914,7 +912,7 @@ function us_demo_import_options() {
 			wp_send_json(
 				array(
 					'success' => FALSE,
-					'error_title' => sprintf( __( 'Failed to import %s', 'us' ), __( 'Theme Options', 'us' ) ),
+					'error_title' => sprintf( __( 'Failed to import %s', 'us' ), us_translate( 'Theme Options' ) ),
 					'error_description' => __( 'Wrong path to the file or it is missing.', 'us' ),
 				)
 			);
@@ -928,7 +926,7 @@ function us_demo_import_options() {
 		wp_send_json(
 			array(
 				'success' => FALSE,
-				'error_title' => sprintf( __( 'Failed to import %s', 'us' ), __( 'Theme Options', 'us' ) ),
+				'error_title' => sprintf( __( 'Failed to import %s', 'us' ), us_translate( 'Theme Options' ) ),
 				'error_description' => __( 'Wrong path to the file or it is missing.', 'us' ),
 			)
 		);

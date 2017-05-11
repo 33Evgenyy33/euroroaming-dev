@@ -6,3 +6,187 @@ Author:	UpSolution
 Theme URI: http://zephyr.us-themes.com/
 Author URI: http://us-themes.com/
 */
+
+/****Не нужны***/
+.single-wpsl_stores .l-content > section:first-of-type .l-section-h.i-cf {
+    margin-top: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1), 0 3px 8px rgba(0, 0, 0, .1);
+}
+
+.single-wpsl_stores .l-main {
+    background-color: #ebedf3;
+}
+
+/**********Нужны*********/
+.single-wpsl_stores .l-section-h.i-cf > * {
+    margin: 0;
+    padding: 12px 0 0 20px;
+}
+
+.single-wpsl_stores .l-section-h.i-cf > * + .wpsl-page-ta-simcards {
+    margin-top: 10px;
+}
+
+/*.single-wpsl_stores .l-section-h.i-cf > *:not(.wpsl-page-ta-simcards):last-of-type {
+    margin-bottom: 12px;
+}*/
+
+.wpsl-page-ta-simcards-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wpsl-page-ta-simcard {
+    position: relative;
+    width: 285px;
+    margin-bottom: 17px;
+    margin-left: 17px;
+    background: #fff;
+    /*box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);*/
+    /*box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);*/
+    border-radius: 2px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+    -webkit-transition: box-shadow .1s ease-in-out;
+    transition: box-shadow .1s ease-in-out;
+}
+
+.wpsl-page-ta-simcard:hover {
+    background-color: #fff;
+    box-shadow: 0 14px 25px rgba(0,0,0,0.16);
+}
+
+div#wpsl-base-gmap_0 {
+    height: 100%;
+}
+
+.wpsl-page-ta-simcards {
+    /*margin-top: 12px !important;*/
+    padding: 20px !important;
+    border-top: 1px solid #ebedf3;
+    background: #fafafa;
+}
+
+.wpsl-page-ta-content {
+    display: flex;
+    padding: 0 !important;
+    border-top: 1px solid #ebedf3;
+    flex-wrap: wrap;
+}
+
+.wpsl-page-ta-details {
+    font-weight: 300;
+    width: 50%;
+    padding: 20px;
+    color: #000;
+}
+
+.wpsl-page-ta-map {
+    width: 50%;
+}
+
+.wpsl-page-ta-simcard .wpsl-operator-header {
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0;
+    padding: 7px 0 7px 0;
+    text-align: center;
+    color: #000;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    background: #fafafa;
+}
+
+.wpsl-operator-format_grid {
+    display: flex;
+    padding: 7px 12px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 57px;
+}
+
+.wpsl-operator-header + .wpsl-operator-format_grid {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.wpsl-operator-format-type {
+    display: block;
+    width: 160px;
+}
+
+.wpsl-operator-format-count {
+    font-weight: 500;
+    display: block;
+    width: 70px;
+    text-align: right;
+    color: #000;
+}
+
+.wpsl-operator-format-type_label {
+    font-weight: 400;
+    display: block;
+    margin-bottom: -10px;
+    color: #000;
+}
+
+.wpsl-operator-format-type_description {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.wpsl-location-address-label {
+    font-weight: 500;
+}
+
+.wpsl-operator-format_contact {
+    min-height: 57px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+table.wpsl-opening-hours {
+    font-weight: 400;
+    color: #303030;
+}
+
+/*@media only screen and (max-width: 723px) {
+    .wpsl-page-ta-simcard {
+        width: 230px;
+        margin-left: 7px;
+    }
+}*/
+
+@media only screen and (max-width: 690px) {
+    .wpsl-page-ta-details {
+        width: 100%;
+    }
+
+    .wpsl-page-ta-map {
+        width: 100%;
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 689px) {
+    .wpsl-page-ta-simcard {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .wpsl-operator-format-type {
+        text-align: center;
+        width: 100%;
+    }
+
+    .wpsl-operator-format-count {
+        width: 100%;
+        text-align: center;
+    }
+}
+

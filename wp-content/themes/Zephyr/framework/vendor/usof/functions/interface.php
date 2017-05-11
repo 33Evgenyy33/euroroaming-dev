@@ -2,8 +2,8 @@
 
 add_action( 'admin_menu', 'us_options_admin_menu', 9 );
 function us_options_admin_menu() {
-	add_menu_page( __( 'Theme Options', 'us' ), US_THEMENAME, 'manage_options', 'us-theme-options', 'us_theme_options_page', NULL, '59.001' );
-	$usof_page = add_submenu_page( 'us-theme-options', US_THEMENAME, __( 'Theme Options', 'us' ), 'edit_theme_options', 'us-theme-options', 'us_theme_options_page' );
+	add_menu_page( us_translate( 'Theme Options' ), US_THEMENAME, 'manage_options', 'us-theme-options', 'us_theme_options_page', NULL, '59.001' );
+	$usof_page = add_submenu_page( 'us-theme-options', US_THEMENAME, us_translate( 'Theme Options' ), 'edit_theme_options', 'us-theme-options', 'us_theme_options_page' );
 	add_action( 'admin_print_scripts-' . $usof_page, 'usof_print_scripts' );
 	add_action( 'admin_print_styles-' . $usof_page, 'usof_print_styles' );
 	add_action( 'admin_print_styles-' . $usof_page, 'usof_print_fonts' );

@@ -6,14 +6,20 @@
  * (!) $query_args should be filtered before passing to this template.
  *
  * @var $query_args     array Arguments for the new WP_Query. If not set, current global $wp_query will be used instead.
- * @var $layout_type    string Blog layout: classic / flat / tiles / cards / smallcircle / smallsquare / compact / related / latest
- * @var $columns        int Number of columns 1 / 2 / 3 / 4
- * @var $masonry        boolean Enable Masonry layout mode?
+ * @var $layout         string Blog layout: classic / flat / tiles / cards / smallcircle / smallsquare / compact / related / latest
+ * @var $columns        int Columns quantity
+ * @var $type           string layout type: 'grid' / 'masonry' / 'carousel'
  * @var $metas          array Meta data that should be shown: array('date', 'author', 'categories', 'tags', 'comments')
  * @var $title_size     string Posts Title Size
  * @var $content_type   string Content type: 'excerpt' / 'content' / 'none'
  * @var $show_read_more boolean Show "Read more" link after the excerpt?
  * @var $pagination     string Pagination type: regular / none / ajax / infinite
+ * @var $carousel_arrows       bool used in Carousel type
+ * @var $carousel_dots         bool used in Carousel type
+ * @var $carousel_center       bool used in Carousel type
+ * @var $carousel_autoplay     bool used in Carousel type
+ * @var $carousel_interval     bool used in Carousel type
+ * @var $carousel_slideby      bool used in Carousel type
  * @var $filter         string Filter type: 'none' / 'category'
  * @var $filter_style   string Filter Bar style: 'style_1' / 'style_2' / ... / 'style_N
  * @var $categories     string Comma-separated list of categories slugs to show
@@ -26,23 +32,15 @@
 
 
 // Variables defaults and filtering
-$layout_type = isset( $layout_type ) ? $layout_type : 'classic';
-$masonry = ( in_array(
-		$layout_type, array(
-		'classic',
-		'flat',
-		'tiles',
-		'cards',
-	)
-	) AND isset( $masonry ) ) ? $masonry : FALSE;
+$layout = isset( $layout ) ? $layout : 'classic';
+$type = isset( $type ) ? $type : 'grid';
 $columns = ( isset( $columns ) ) ? intval( $columns ) : 2;
 $default_metas = array( 'date', 'author', 'categories', 'tags', 'comments' );
 $metas = ( isset( $metas ) AND is_array( $metas ) ) ? array_intersect( $metas, $default_metas ) : $default_metas;
 $title_size = ( isset( $title_size ) ) ? $title_size : '';
 $content_type = isset( $content_type ) ? $content_type : 'excerpt';
 $show_read_more = isset( $show_read_more ) ? $show_read_more : TRUE;
-$pagination = isset( $pagination ) ? $pagination : 'regular';
-$has_pagination = ( $pagination != 'none' );
+$pagination = isset( $pagination ) ? $pagination : 'none';
 $el_class = isset( $el_class ) ? $el_class : '';
 
 if ( $pagination == 'infinite' ) {
@@ -50,9 +48,8 @@ if ( $pagination == 'infinite' ) {
 	$pagination = 'ajax';
 }
 
-// .w-blog container additional classes and inner CSS-styles
-$classes = '';
-$inner_css = '';
+// additional variables
+$classes = $list_classes = $data_atts = $inner_css = '';
 
 // Permalink for pagination render
 $blog_permalink = get_permalink();
@@ -75,15 +72,16 @@ if ( $use_custom_query ) {
 }
 
 if ( ! have_posts() ) {
-	// TODO Move to a separate variable
 	us_translate( 'No posts found.' );
-
 	return;
 }
 
-$classes .= ' layout_' . $layout_type;
+$classes .= ' layout_' . $layout;
+$classes .= ' type_' . $type;
 
-$classes .= ' cols_' . $columns;
+if ( $columns != 1 ) {
+	$classes .= ' cols_' . $columns;
+}
 
 if ( in_array( 'categories', $metas ) ) {
 	$classes .= ' with_categories';
@@ -101,14 +99,12 @@ if ( ! empty( $categories ) ) {
 	$categories_args['slug'] = explode( ',', $categories );
 }
 $filter_categories = get_categories( $categories_args );
-
-
 $available_filter_styles = array( 'style_1', 'style_2', 'style_3' );
 $filter_style = ( isset( $filter_style ) AND in_array( $filter_style, $available_filter_styles ) ) ? $filter_style : 'style_1';
 
 $filter_html = '';
 $filter = isset( $filter ) ? $filter : 'none';
-if ( $filter == 'category' ) {
+if ( $filter == 'category' AND $type != 'carousel' ) {
 	// $categories_names already contains only the used categories
 	if ( count( $filter_categories ) > 1 ) {
 		$classes .= ' with_filters';
@@ -121,24 +117,48 @@ if ( $filter == 'category' ) {
 	}
 }
 
-// We'll need the isotope script for masonry mode and for filtration
-if ( ( ! empty( $filter_html ) AND ( $pagination == 'none' OR $wp_query->max_num_pages == 1 ) ) OR ( $masonry AND $columns > 1 ) ) {
+// We'll need the isotope script for masonry type and for filtration
+if ( ( ! empty( $filter_html ) AND ( $pagination == 'none' OR $wp_query->max_num_pages == 1 ) ) OR ( $type == 'masonry' AND $columns > 1 ) ) {
 	if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
 		wp_enqueue_script( 'us-isotope' );
 	}
 	$classes .= ' with_isotope';
 
-	if ( ! $masonry ) {
+	if ( $type == 'grid' ) {
 		$classes .= ' isotope_fit_rows';
 	}
 }
 
-if ( $masonry ) {
-	$classes .= ' masonry';
+if ( $type == 'carousel' ) {
+	// We need owl script for this
+	if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
+		wp_enqueue_script( 'us-owl' );
+	}
+	$data_atts .= ' data-breakpoint_1_cols="' . us_get_option( 'blog_breakpoint_1_cols' ) . '"';
+	$data_atts .= ' data-breakpoint_1_width="' . us_get_option( 'blog_breakpoint_1_width' ) . '"';
+	$data_atts .= ' data-breakpoint_2_cols="' . us_get_option( 'blog_breakpoint_2_cols' ) . '"';
+	$data_atts .= ' data-breakpoint_2_width="' . us_get_option( 'blog_breakpoint_2_width' ) . '"';
+	$data_atts .= ' data-breakpoint_3_cols="' . us_get_option( 'blog_breakpoint_3_cols' ) . '"';
+	$data_atts .= ' data-breakpoint_3_width="' . us_get_option( 'blog_breakpoint_3_width' ) . '"';
+
+	$data_atts .= ' data-items="' . $columns . '"';
+	$data_atts .= ' data-nav="' . intval( ! ! $carousel_arrows ) . '"';
+	$data_atts .= ' data-dots="' . intval( ! ! $carousel_dots ) . '"';
+	$data_atts .= ' data-center="' . intval( ! ! $carousel_center ) . '"';
+	$data_atts .= ' data-autoplay="' . intval( ! ! $carousel_autoplay ) . '"';
+	$data_atts .= ' data-timeout="' . intval( $carousel_interval * 1000 ) . '"';
+	$data_atts .= ' data-autoheight="' . intval( $columns == 1 ) . '"';
+	if ( $carousel_slideby ) {
+		$data_atts .= ' data-slideby="page"';
+	} else {
+		$data_atts .= ' data-slideby="1"';
+	}
+
+	$list_classes = ' owl-carousel';
 }
 
 ?>
-	<div class="w-blog<?php echo $classes ?>" itemscope="itemscope" itemtype="https://schema.org/Blog"><?php
+	<div class="w-blog<?php echo $classes; ?>" itemscope="itemscope" itemtype="https://schema.org/Blog"><?php
 echo $filter_html;
 if ( ( $wp_query->max_num_pages > 1 ) AND ( $pagination == 'regular' OR $filter == 'category' ) ) {
 	?>
@@ -148,12 +168,12 @@ if ( ( $wp_query->max_num_pages > 1 ) AND ( $pagination == 'regular' OR $filter 
 	<?php
 }
 ?>
-	<div class="w-blog-list"><?php
+	<div class="w-blog-list<?php echo $list_classes; ?>"<?php echo $data_atts; ?>><?php
 
 // Preparing template settings for loop post template
 $template_vars = array(
-	'layout_type' => $layout_type,
-	'masonry' => $masonry,
+	'layout' => $layout,
+	'type' => $type,
 	'metas' => $metas,
 	'title_size' => $title_size,
 	'columns' => $columns,
@@ -170,7 +190,12 @@ while ( have_posts() ) {
 
 ?></div><?php
 
-if ( $wp_query->max_num_pages > 1 ) {
+if ( $type == 'carousel' ) {
+	?>
+	<div class="g-preloader type_1"></div><?php
+}
+
+if ( $wp_query->max_num_pages > 1 AND $type != 'carousel' ) {
 	// Next page elements may have sliders, so we preloading the needed assets now
 	// TODO On-demand ajax assets usage
 	if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
@@ -188,8 +213,8 @@ if ( $wp_query->max_num_pages > 1 ) {
 		// Blog listing template variables that will be passed to this file in the next call
 		'template_vars' => array(
 			'query_args' => $query_args,
-			'layout_type' => $layout_type,
-			'masonry' => $masonry,
+			'layout' => $layout,
+			'type' => $type,
 			'metas' => $metas,
 			'title_size' => $title_size,
 			'columns' => $columns,
@@ -198,6 +223,12 @@ if ( $wp_query->max_num_pages > 1 ) {
 			'is_shortcode' => isset( $is_shortcode ) AND $is_shortcode,
 		),
 	);
+	if ( class_exists( 'SitePress' ) ) {
+		global $sitepress;
+		if ( $sitepress->get_default_language() != $sitepress->get_current_language() ) {
+			$json_data['template_vars']['lang'] = $sitepress->get_current_language();
+		}
+	}
 	if ( $pagination != 'none' ) {
 		?>
 		<div class="w-blog-json hidden"<?php echo us_pass_data_to_js( $json_data ) ?>></div>
@@ -219,10 +250,10 @@ if ( $wp_query->max_num_pages > 1 ) {
 	} elseif ( $pagination == 'ajax' ) {
 		?>
 		<div class="g-loadmore">
-		<div class="g-loadmore-btn">
-			<span><?php _e( 'Load More', 'us' ) ?></span>
-		</div>
-		<div class="g-preloader type_1"></div>
+			<div class="g-loadmore-btn">
+				<span><?php _e( 'Load More', 'us' ) ?></span>
+			</div>
+			<div class="g-preloader type_1"></div>
 		</div><?php
 	}
 }

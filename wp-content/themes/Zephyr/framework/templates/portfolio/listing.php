@@ -4,12 +4,12 @@
  * Output a single us_portfolio listing. Universal template that is used by all the possible us_portfolio posts listings.
  *
  * @var $categories   string Comma-separated list of categories slugs to show
+ * @var $type         string layout type: 'grid' / 'masonry' / 'carousel'
  * @var $style_name   string Items style: 'style_1' / 'style_2' / ... / 'style_N'
- * @var $columns      int Columns number: 2 / 3 / 4 / 5
- * @var $ratio        string Items ratio: '3x2' / '4x3' / '1x1' / '2x3' / '3x4' / 'initial'
+ * @var $columns      int Columns quantity
+ * @var $ratio        string Items ratio: '3x2' / '4x3' / '1x1' / '2x3' / '3x4' / '16x9'
  * @var $metas        array Meta data that should be shown: array( 'title', 'date', 'categories' )
  * @var $align        string Content alignment: 'left' / 'center' / 'right'
- * @var $filter       string Filter type: 'none' / 'category'
  * @var $with_indents bool Items have indents?
  * @var $pagination   string Pagination type: 'regular' / 'none' / 'ajax' / 'infinite'
  * @var $orderby      string Order type: 'date' / 'rand'
@@ -21,6 +21,13 @@
  * @var $meta_size    string Meta Font Size
  * @var $text_color   string
  * @var $bg_color     string
+ * @var $img_size     string
+ * @var $carousel_arrows       bool used in Carousel type
+ * @var $carousel_dots         bool used in Carousel type
+ * @var $carousel_center       bool used in Carousel type
+ * @var $carousel_autoplay     bool used in Carousel type
+ * @var $carousel_interval     bool used in Carousel type
+ * @var $filter       string Filter type: 'none' / 'category'
  * @var $filter_style string Filter Bar style: 'style_1' / 'style_2' / ... / 'style_N'
  * @var $el_class     string Additional classes that will be appended to the main .w-portfolio container
  *
@@ -29,9 +36,11 @@
  * @filter Template variables: 'us_template_vars:templates/portfolio/listing'
  */
 
-// .w-portfolio container additional classes and inner CSS-styles
-$classes = '';
-$inner_css = '';
+// portfolio grid additional variables
+$classes = $list_classes = $data_atts = $inner_css = '';
+
+$type = isset( $type ) ? $type : 'grid';
+$classes .= ' type_' . $type;
 
 $is_widget = ( isset( $is_widget ) ) ? $is_widget : FALSE;
 
@@ -46,15 +55,17 @@ $text_color = isset( $text_color ) ? $text_color : NULL;
 $bg_color = isset( $bg_color ) ? $bg_color : NULL;
 
 $columns = isset( $columns ) ? intval( $columns ) : 3;
-if ( $columns < 2 OR $columns > 5 ) {
+if ( $columns < 1 OR $columns > 6 ) {
 	$columns = 3;
 }
-$classes .= ' cols_' . $columns;
+if ( $columns != 1 ) {
+	$classes .= ' cols_' . $columns;
+}
 
 $align = isset( $align ) ? $align : 'left';
 $classes .= ' align_' . $align;
 
-$available_ratios = array( '3x2', '4x3', '1x1', '2x3', '3x4', 'initial' );
+$available_ratios = array( '3x2', '4x3', '1x1', '2x3', '3x4', '16x9' );
 $ratio = ( isset( $ratio ) AND in_array( $ratio, $available_ratios ) ) ? $ratio : '3x2';
 $classes .= ' ratio_' . str_replace( ':', '-', $ratio );
 
@@ -220,9 +231,7 @@ us_open_wp_query_context();
 global $wp_query;
 $wp_query = new WP_Query( $query_args );
 if ( ! have_posts() ) {
-	// TODO Move to a separate variable
 	_e( 'No portfolio items were found.', 'us' );
-
 	return;
 }
 
@@ -231,7 +240,7 @@ $filter_style = ( isset( $filter_style ) AND in_array( $filter_style, $available
 
 $filter_html = '';
 $filter = isset( $filter ) ? $filter : 'none';
-if ( $filter == 'category' ) {
+if ( $filter == 'category' AND $type != 'carousel' ) {
 	// $categories_names already contains only the used categories
 	ksort( $categories_names );
 	if ( count( $categories_names ) > 1 ) {
@@ -245,12 +254,39 @@ if ( $filter == 'category' ) {
 	}
 }
 
-if ( ( ! $is_widget ) AND ( ! empty( $filter_html ) OR $has_pagination OR $ratio == 'initial' OR ! empty( $tile_sizes ) ) ) {
+if ( ( ! $is_widget ) AND ( ! empty( $filter_html ) OR $has_pagination OR $type == 'masonry' OR ! empty( $tile_sizes ) ) ) {
 	// We'll need the isotope script for any of the above cases
 	if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
 		wp_enqueue_script( 'us-isotope' );
 	}
-	$classes .= ' position_isotope';
+	$classes .= ' with_isotope';
+}
+
+if ( $type == 'carousel' ) {
+	// We need owl script for this
+	if ( us_get_option( 'ajax_load_js', 0 ) == 0 ) {
+		wp_enqueue_script( 'us-owl' );
+	}
+	$data_atts .= ' data-breakpoint_1_cols="' . us_get_option( 'portfolio_breakpoint_1_cols' ) . '"';
+	$data_atts .= ' data-breakpoint_1_width="' . us_get_option( 'portfolio_breakpoint_1_width' ) . '"';
+	$data_atts .= ' data-breakpoint_2_cols="' . us_get_option( 'portfolio_breakpoint_2_cols' ) . '"';
+	$data_atts .= ' data-breakpoint_2_width="' . us_get_option( 'portfolio_breakpoint_2_width' ) . '"';
+	$data_atts .= ' data-breakpoint_3_cols="' . us_get_option( 'portfolio_breakpoint_3_cols' ) . '"';
+	$data_atts .= ' data-breakpoint_3_width="' . us_get_option( 'portfolio_breakpoint_3_width' ) . '"';
+
+	$data_atts .= ' data-items="' . $columns . '"';
+	$data_atts .= ' data-nav="' . intval( ! ! $carousel_arrows ) . '"';
+	$data_atts .= ' data-dots="' . intval( ! ! $carousel_dots ) . '"';
+	$data_atts .= ' data-center="' . intval( ! ! $carousel_center ) . '"';
+	$data_atts .= ' data-autoplay="' . intval( ! ! $carousel_autoplay ) . '"';
+	$data_atts .= ' data-timeout="' . intval( $carousel_interval * 1000 ) . '"';
+	if ( $carousel_slideby ) {
+		$data_atts .= ' data-slideby="page"';
+	} else {
+		$data_atts .= ' data-slideby="1"';
+	}
+
+	$list_classes = ' owl-carousel';
 }
 
 $el_class = isset( $el_class ) ? $el_class : '';
@@ -262,10 +298,11 @@ $classes = apply_filters( 'us_portfolio_listing_classes', $classes );
 
 ?>
 	<div class="w-portfolio<?php echo $classes ?>"><?php echo $filter_html; ?>
-	<div class="w-portfolio-list"><?php
+	<div class="w-portfolio-list<?php echo $list_classes; ?>"<?php echo $data_atts; ?>><?php
 
 // Preparing template settings for loop post template
 $template_vars = array(
+	'type' => $type,
 	'metas' => $metas,
 	'ratio' => $ratio,
 	'is_widget' => $is_widget,
@@ -274,7 +311,7 @@ $template_vars = array(
 	'meta_size' => $meta_size,
 	'text_color' => $text_color,
 	'bg_color' => $bg_color,
-	'bg_color' => $bg_color,
+	'img_size' => $img_size,
 	'items_action' => $items_action,
 );
 // Start the loop.
@@ -286,7 +323,12 @@ while ( have_posts() ) {
 
 ?></div><?php
 
-if ( $has_pagination ) {
+if ( $type == 'carousel' ) {
+	?>
+	<div class="g-preloader type_1"></div><?php
+}
+
+if ( $has_pagination AND $type != 'carousel' ) {
 	$json_data = array(
 		// Controller options
 		'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -299,6 +341,7 @@ if ( $has_pagination ) {
 			'meta_size' => $meta_size,
 			'text_color' => $text_color,
 			'bg_color' => $bg_color,
+			'img_size' => $img_size,
 			'items_action' => $items_action,
 		),
 		'perpage' => $perpage,
@@ -326,10 +369,10 @@ if ( $has_pagination ) {
 		// Passing g-loadmore options to JavaScript via onclick event
 		?>
 		<div class="g-loadmore">
-		<div class="g-loadmore-btn">
-			<span><?php _e( 'Load More', 'us' ) ?></span>
-		</div>
-		<div class="g-preloader type_1"></div>
+			<div class="g-loadmore-btn">
+				<span><?php _e( 'Load More', 'us' ) ?></span>
+			</div>
+			<div class="g-preloader type_1"></div>
 		</div><?php
 	}
 }

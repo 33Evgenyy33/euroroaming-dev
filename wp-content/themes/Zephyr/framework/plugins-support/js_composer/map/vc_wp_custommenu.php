@@ -13,14 +13,6 @@ vc_update_shortcode_param(
 	'vc_wp_custommenu', array(
 		'param_name' => 'title',
 		'weight' => 50,
-	),
-	'vc_wp_custommenu', array(
-		'param_name' => 'nav_menu',
-		'weight' => 20,
-	),
-	'vc_wp_custommenu', array(
-		'param_name' => 'el_class',
-		'weight' => 10,
 	)
 );
 

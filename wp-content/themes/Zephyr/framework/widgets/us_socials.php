@@ -22,7 +22,7 @@ class US_Widget_Socials extends US_Widget {
 		$output = $args['before_widget'];
 
 		if ( $title ) {
-			$output .= '<h4>' . $title . '</h4>';
+			$output .= '<h3 class="widgettitle">' . $title . '</h3>';
 		}
 		$socials_inline_css = '';
 		if ( ! empty( $instance['size'] ) ) {

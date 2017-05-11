@@ -22,8 +22,8 @@ if ( is_category() OR is_tax() ) {
 us_load_template( 'templates/titlebar', $titlebar_vars );
 
 $template_vars = array(
-	'layout_type' => us_get_option( 'archive_layout', 'smallcircle' ),
-	'masonry' => us_get_option( 'archive_masonry', 0 ),
+	'layout' => us_get_option( 'archive_layout', 'smallcircle' ),
+	'type' => us_get_option( 'archive_type', 'grid' ),
 	'columns' => us_get_option( 'archive_cols', 1 ),
 	'metas' => (array) us_get_option( 'archive_meta', array() ),
 	'content_type' => us_get_option( 'archive_content_type', 'excerpt' ),

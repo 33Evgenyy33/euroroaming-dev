@@ -14,7 +14,7 @@ if ( ! defined( 'US_ACTIVATION_THEMENAME' ) ) {
 add_filter( 'us_portfolio_listing_classes', 'zephyr_listing_classes' );
 add_filter( 'us_gallery_listing_classes', 'zephyr_listing_classes' );
 function zephyr_listing_classes( $classes ) {
-	if ( strpos( $classes, 'ratio_initial' ) !== FALSE ) {
+	if ( strpos( $classes, 'type_masonry' ) !== FALSE ) {
 		return $classes;
 	} else {
 		return $classes . ' animate_revealgrid';
