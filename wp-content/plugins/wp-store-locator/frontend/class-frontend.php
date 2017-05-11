@@ -1023,9 +1023,9 @@ if (!class_exists('WPSL_Frontend')) {
                 $content .= '<span><span class="wpsl-location-address-label" >Адрес: </span>' . esc_html($store_address) . '</span><br/>';
             }
 
-            if ($atts['address2'] && $store_address2 = get_post_meta($atts['id'], 'wpsl_address2', true)) {
+            /*if ($atts['address2'] && $store_address2 = get_post_meta($atts['id'], 'wpsl_address2', true)) {
                 $content .= '<span><span class="wpsl-location-address-label" >Дополнительный адрес: </span>' . esc_html($store_address2) . '</span><br/>';
-            }
+            }*/
 
 
             /*if ($atts['country'] && $store_country = get_post_meta($atts['id'], 'wpsl_country', true)) {

@@ -22,7 +22,7 @@ function wpsl_create_underscore_templates($template)
             $info_window_template .= "\t\t\t" . wpsl_store_header_template() . "\r\n";  // Check which header format we use
             $info_window_template .= "\t\t\t" . '<span><%= address %></span>' . "\r\n";
             $info_window_template .= "\t\t\t" . '<% if ( address2 ) { %>' . "\r\n";
-            $info_window_template .= "\t\t\t" . '<span><%= address2 %></span>' . "\r\n";
+            //$info_window_template .= "\t\t\t" . '<span><%= address2 %></span>' . "\r\n";
             $info_window_template .= "\t\t\t" . '<% } %>' . "\r\n";
             $info_window_template .= "\t\t\t" . '<span>' . wpsl_address_format_placeholders() . '</span>' . "\r\n"; // Use the correct address format
             $info_window_template .= "\t\t" . '</p>' . "\r\n";
@@ -100,7 +100,7 @@ function wpsl_create_underscore_templates($template)
             $cpt_info_window_template .= "\t\t\t" . wpsl_store_header_template('wpsl_map') . "\r\n";
             $cpt_info_window_template .= "\t\t\t" . '<span><%= address %></span>' . "\r\n";
             $cpt_info_window_template .= "\t\t\t" . '<% if ( address2 ) { %>' . "\r\n";
-            $cpt_info_window_template .= "\t\t\t" . '<span><%= address2 %></span>' . "\r\n";
+            //$cpt_info_window_template .= "\t\t\t" . '<span><%= address2 %></span>' . "\r\n";
             $cpt_info_window_template .= "\t\t\t" . '<% } %>' . "\r\n";
             $cpt_info_window_template .= "\t\t\t" . '<span>' . wpsl_address_format_placeholders() . '</span>' . "\r\n"; // Use the correct address format
 
