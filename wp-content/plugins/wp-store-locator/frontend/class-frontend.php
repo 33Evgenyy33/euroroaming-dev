@@ -810,29 +810,43 @@ if (!class_exists('WPSL_Frontend')) {
 
                 foreach ($array_of_simcard as $key => $oper) {
                     $content .= '<div class="wpsl-page-ta-simcard">';
-                    $simcard = ($key != "_empty_") ? ucfirst($key) : "Vodafone Red";
 
                     switch ($key) {
                         case 'orange':
                             $content .= $orange_img;
+                            $simcard = "Orange";
                             break;
-                        case 'globalsim':
+                        case 'globalsim--classic':
                             $content .= $globalsim_img;
+                            $simcard = "Globalsim";
                             break;
-                        case 'europasim':
+                        case 'globalsim--gsim_internet':
+                            $content .= $globalsim_img;
+                            $simcard = "Globalsim «Internet»";
+                            break;
+                        case 'globalsim--tariff_usa':
+                            $content .= $globalsim_img;
+                            $simcard = "Globalsim «США»";
+                            break;
+                        case 'globalsim--europasim':
                             $content .= $europasim_img;
+                            $simcard = "Europasim";
                             break;
                         case 'ortel':
                             $content .= $ortel_img;
+                            $simcard = "Ortel Mobile";
                             break;
                         case 'vodafone':
                             $content .= $vodafone_img;
+                            $simcard = "Vodafone";
                             break;
-                        case '_empty_':
+                        case 'unknown':
                             $content .= $vodafone_img;
+                            $simcard = "Vodafone «Red»";
                             break;
-                        case 'travelchat':
+                        case 'globalsim--travelchat':
                             $content .= $travelchat_img;
+                            $simcard = "TravelChat";
                             break;
                     }
 
