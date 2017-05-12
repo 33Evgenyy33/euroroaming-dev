@@ -8,6 +8,68 @@
  */
 
 
+/*remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
+add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
+
+if ( ! function_exists( 'woocommerce_template_loop_product_thumbnail' ) ) {
+    function woocommerce_template_loop_product_thumbnail() {
+        echo woocommerce_get_product_thumbnail();
+    }
+}
+if ( ! function_exists( 'woocommerce_get_product_thumbnail' ) ) {
+    function woocommerce_get_product_thumbnail( $size = 'shop_catalog', $placeholder_width = 0, $placeholder_height = 0  ) {
+        global $post, $woocommerce;
+        $output = '<div class="col-lg-4">';
+
+        if ( has_post_thumbnail() ) {
+            $output .= get_the_post_thumbnail( $post->ID, $size );
+        } else {
+            $output .= wc_placeholder_img( $size );
+        }
+        $output .= '</div>';
+        return $output;
+    }
+}*/
+
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_product_price', 10);
+function woocommerce_template_loop_product_price($woocommerce_template_loop_price, $int) {
+    global $post;
+    $price = 0;
+
+    switch ($post->ID){
+        case 18402:
+            $price = 1340;
+            break;
+        case 18455:
+            $price = 750;
+            break;
+        case 28328:
+            $price = 750;
+            break;
+        case 18446:
+            $price = 1005;
+            break;
+        case 41120:
+            $price = 1000;
+            break;
+        case 18453:
+            $price = 1140;
+            break;
+        case 18438:
+            $price = 2345;
+            break;
+        case 48067:
+            $price = 750;
+            break;
+        case 18443:
+            $price = 1780;
+            break;
+    }
+    //echo '<h3 id="shop-plastic-price">'.$post->ID.'</h3>';
+    echo '<style>#shop-plastic-price {padding: 0;color: #838b08;font-weight: 500;}</style><h3 id="shop-plastic-price">'.$price.'₽</h3>';
+}
+
+
 /* Отправление почты */
 add_action('phpmailer_init', 'tweak_mailer_ssl', 999);
 function tweak_mailer_ssl($phpmailer)

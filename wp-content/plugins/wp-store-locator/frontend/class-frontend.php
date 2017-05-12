@@ -789,13 +789,8 @@ if (!class_exists('WPSL_Frontend')) {
                 curl_setopt($ch, CURLOPT_HEADER, 0);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Устанавливаем параметр, чтобы curl возвращал данные, вместо того, чтобы выводить их в браузер.
                 curl_setopt($ch, CURLOPT_URL, $url);
-
                 $data = curl_exec($ch);
                 curl_close($ch);
-
-                //$content .= '<pre>' . print_r(gettype(json_decode($data)->orange[0]), true) . '</pre>';
-                //$content .= '<pre>' . print_r((array)json_decode($data), true) . '</pre>';
-
                 $array_of_simcard = (array)json_decode($data);
                 krsort($array_of_simcard);
 
@@ -808,7 +803,53 @@ if (!class_exists('WPSL_Frontend')) {
                 $vodafone_img = '<div class="pricing-deco" style="background:url(data:image/png;base64,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) no-repeat center;height: 90px;"></div>';
                 $travelchat_img = '<div class="pricing-deco" style="background:url(data:image/png;base64,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) no-repeat center;height: 90px;"></div>';
 
+                $store_phone = get_post_meta($atts['id'], 'wpsl_phone', true);
+
                 foreach ($array_of_simcard as $key => $oper) {
+
+                    //Если Vodafone Red или TravelChat пропускаем
+                    if ($key == 'unknown' || $key == 'globalsim--travelchat') continue;
+
+                    //Если Globalsim Internet то делаем клон для TravelChat
+                    if ($key == 'globalsim--gsim_internet') {
+
+                        $content .= '<div class="wpsl-page-ta-simcard">';
+                        $content .= $globalsim_img;
+                        $content .= '<h4 class="wpsl-operator-header">Globalsim «Internet»</h4>';
+                        $content .= '<div class="wpsl-operator-format_grid">';
+                        $content .= '<div class="wpsl-operator-format-type">';
+                        $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format-count">';
+                        $content .= '<p>' . count($oper) . ' шт.</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format_contact">';
+                        $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Размер уточняйте по телефону:</p>';
+                        $content .= '<p style="color: #000;">' . $store_phone . '</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+
+                        $content .= '<div class="wpsl-page-ta-simcard">';
+                        $content .= $travelchat_img;
+                        $content .= '<h4 class="wpsl-operator-header">TravelChat</h4>';
+                        $content .= '<div class="wpsl-operator-format_grid">';
+                        $content .= '<div class="wpsl-operator-format-type">';
+                        $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format-count">';
+                        $content .= '<p>' . count($oper) . ' шт.</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format_contact">';
+                        $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Размер уточняйте по телефону:</p>';
+                        $content .= '<p style="color: #000;">' . $store_phone . '</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+
+                        continue;
+                    }
+
                     $content .= '<div class="wpsl-page-ta-simcard">';
 
                     switch ($key) {
@@ -819,10 +860,6 @@ if (!class_exists('WPSL_Frontend')) {
                         case 'globalsim--classic':
                             $content .= $globalsim_img;
                             $simcard = "Globalsim";
-                            break;
-                        case 'globalsim--gsim_internet':
-                            $content .= $globalsim_img;
-                            $simcard = "Globalsim «Internet»";
                             break;
                         case 'globalsim--tariff_usa':
                             $content .= $globalsim_img;
@@ -843,10 +880,6 @@ if (!class_exists('WPSL_Frontend')) {
                         case 'unknown':
                             $content .= $vodafone_img;
                             $simcard = "Vodafone «Red»";
-                            break;
-                        case 'globalsim--travelchat':
-                            $content .= $travelchat_img;
-                            $simcard = "TravelChat";
                             break;
                     }
 
@@ -870,9 +903,6 @@ if (!class_exists('WPSL_Frontend')) {
                         $content .= '<p>' . $combo . ' шт.</p>';
                         $content .= '</div>';
                         $content .= '</div>';
-                        //$content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Combo-1.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
-                        //$content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Комбо(стандарт+микро): ' . $combo . ' шт.</p>';
-
 
                         $content .= '<div class="wpsl-operator-format_grid">';
                         $content .= '<div class="wpsl-operator-format-type">';
@@ -883,15 +913,12 @@ if (!class_exists('WPSL_Frontend')) {
                         $content .= '<p>' . $nano . ' шт.</p>';
                         $content .= '</div>';
                         $content .= '</div>';
-                        //$content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Triple-1-1.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
-                        //$content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">3 в 1(стандарт+микро+нано): ' . $nano . ' шт.</p>';
-
 
                         $content .= '</div>';
                         continue;
                     }
 
-                    if($key == 'vodafone' || $key == 'ortel'){
+                    if ($key == 'vodafone' || $key == 'ortel') {
                         $content .= '<div class="wpsl-operator-format_grid">';
                         $content .= '<div class="wpsl-operator-format-type">';
                         $content .= '<p class="wpsl-operator-format-type_label">3 в 1</p>';
@@ -906,23 +933,6 @@ if (!class_exists('WPSL_Frontend')) {
                         continue;
                     }
 
-                    /*$content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;">';
-                    $content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Standard-24.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
-                    $content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Стандарт: ' . count($oper) . ' шт.</p>';
-                    $content .= '</div>';
-
-                    $content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;">';
-                    $content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Micro-24.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
-                    $content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Micro-SIM: ' . count($oper) . ' шт.</p>';
-                    $content .= '</div>';
-
-                    $content .= '<div style="border-bottom: 1px solid rgba(0,0,0,.12);padding: 6px;">';
-                    $content .= '<img src="http://euroroaming/wp-content/uploads/2017/05/Nano-24.png" style="position: relative;display: inline-block;vertical-align: bottom;">';
-                    $content .= '<p style="text-align: center;margin-bottom: 0;display: inline-block;padding-left: 6px;">Nano-SIM: ' . count($oper) . ' шт.</p>';
-                    $content .= '</div>';*/
-
-                    $store_phone = get_post_meta($atts['id'], 'wpsl_phone', true);
-
                     $content .= '<div class="wpsl-operator-format_grid">';
                     $content .= '<div class="wpsl-operator-format-type">';
                     $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
@@ -932,18 +942,17 @@ if (!class_exists('WPSL_Frontend')) {
                     $content .= '</div>';
                     $content .= '</div>';
                     $content .= '<div class="wpsl-operator-format_contact">';
-                    $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Формат уточняйте по телефону:</p>';
-                    $content .= '<p style="color: #000;">'.$store_phone.'</p>';
+                    $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Размер уточняйте по телефону:</p>';
+                    $content .= '<p style="color: #000;">' . $store_phone . '</p>';
                     $content .= '</div>';
 
                     $content .= '</div>';
                 }
-
             } else {
                 $content .= '<h4>Наличие сим-карт уточняйте по телефону: <span style="font-weight: 500">' . get_post_meta($atts['id'], 'wpsl_phone', true) . '</span></h4>';
             }
 
-            if (empty($array_of_simcard) && $store_address = get_post_meta($atts['id'], 'wpsl_ta_id', true)){
+            if (empty($array_of_simcard) && $store_address = get_post_meta($atts['id'], 'wpsl_ta_id', true)) {
                 $content .= '<h4>Сим-карт нет в наличие</h4>';
             }
 

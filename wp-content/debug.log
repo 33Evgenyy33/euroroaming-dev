@@ -377,3 +377,6 @@
 [08-May-2017 00:06:38 UTC] Расчитано: 650
 [08-May-2017 00:25:47 UTC] Расчитано: 650
 [10-May-2017 14:17:26 UTC] PHP Fatal error:  Call to undefined function check_orange_format() in F:\OpenServer\domains\euroroaming\wp-content\plugins\wp-store-locator\frontend\class-frontend.php on line 811
+[12-May-2017 09:23:57 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\functions.php on line 15
+[12-May-2017 09:23:58 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\functions.php on line 15
+[12-May-2017 09:24:01 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\functions.php on line 15
