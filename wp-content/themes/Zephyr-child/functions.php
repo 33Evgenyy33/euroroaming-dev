@@ -436,7 +436,7 @@ function cfields_scripts() {
 add_action( 'wp_enqueue_scripts', 'cfields_scripts' );
 
 
-add_filter( 'woocommerce_checkout_fields', 'ba_custom_checkout_billing_fields' );
+/*add_filter( 'woocommerce_checkout_fields', 'ba_custom_checkout_billing_fields' );
 function ba_custom_checkout_billing_fields( $fields ) {
 
     // 1. Creating the additional custom billing fields
@@ -647,4 +647,4 @@ function ba_add_values_to_emails_notifications( $order, $sent_to_admin, $plain_t
     $output .= '</ul>';
 
     echo $output;
-}
+}*/

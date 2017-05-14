@@ -380,3 +380,7 @@
 [12-May-2017 09:23:57 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\functions.php on line 15
 [12-May-2017 09:23:58 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\functions.php on line 15
 [12-May-2017 09:24:01 UTC] PHP Parse error:  syntax error, unexpected 'if' (T_IF) in F:\OpenServer\domains\euroroaming\wp-content\themes\Zephyr-child\functions.php on line 15
+[14-May-2017 19:20:12 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://web.cse.ru/1c/ws/Web1C.1cws?wsdl' : failed to load external entity "http://web.cse.ru/1c/ws/Web1C.1cws?wsdl"
+ in D:\OpenServer\domains\euroroaming\wp-content\plugins\cse-delivery-for-woocommerce\cse-delivery-for-woocommerce.php on line 126
+[14-May-2017 19:21:47 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://web.cse.ru/1c/ws/Web1C.1cws?wsdl' : failed to load external entity "http://web.cse.ru/1c/ws/Web1C.1cws?wsdl"
+ in D:\OpenServer\domains\euroroaming\wp-content\plugins\cse-delivery-for-woocommerce\cse-delivery-for-woocommerce.php on line 126
