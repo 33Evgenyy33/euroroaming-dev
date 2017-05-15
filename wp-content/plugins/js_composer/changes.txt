@@ -1,3 +1,26 @@
+09.03.2017 - ver 5.1
+   Added: Element Id for all elements
+   Added: Image size control for Grid Builder media elements
+   Update: Grid Builder Backend editor style user interface
+   Update: List of available Google Fonts
+   Fix: getJSON backward compatibility for jQuery
+   Fix: vcIcon font family
+   Fix: postDeactivate redirect url
+   Fix: Extra isset check in case if vc_remove_param
+   Fix: Not all child categories are displayed in the drop-down
+   Fix: Autocomplete param sorting
+   Fix: Shortcode mapper and shortcodes with dashes
+   Fix: Can not read property of 'IndexOf'
+   Fix: Custom CSS textarea height
+   Fix: Missing scrollbar for view preset
+   Fix: Fix vc_gitem_template_attribute_post_image_url warning for array_merge
+   Fix: Box-shadow and borders for twenty-seventeen
+   Fix: Media query for added css files
+   Fix: Increase gap in edit form for google fonts
+   Fix: Hiding all "Tabs" in tab module still displays active item
+   Fix: php 7.1 compatibility issues
+   Fix: Section save as template option
+
 17.11.2016 - ver 5.0.1
    Improved: Auto update process on hostings with wrong chmod on /tmp directory
    Fixed: CSS Animation "none" works differently on save

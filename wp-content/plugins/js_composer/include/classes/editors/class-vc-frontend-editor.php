@@ -775,7 +775,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 	}
 
 	public function registerCss() {
-		wp_register_style( 'ui-custom-theme', vc_asset_url( 'css/ui-custom-theme/jquery-ui-less.custom.min.css' ), false, WPB_VC_VERSION, false );
+		wp_register_style( 'ui-custom-theme', vc_asset_url( 'css/ui-custom-theme/jquery-ui-less.custom.min.css' ), false, WPB_VC_VERSION );
 		wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), false, WPB_VC_VERSION, 'screen' );
 		wp_register_style( 'font-awesome', vc_asset_url( 'lib/bower/font-awesome/css/font-awesome.min.css' ), false, WPB_VC_VERSION, 'screen' );
 
@@ -900,7 +900,7 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 			$shortcode = array(
 				'tag' => $s,
 				'attrs_query' => $found[3][ $index ],
-				'attrs' => shortcode_parse_atts( $found[3][ $index ] ),
+				'attrs' => (array) shortcode_parse_atts( $found[3][ $index ] ),
 				'id' => $id,
 				'parent_id' => $parent_id,
 			);

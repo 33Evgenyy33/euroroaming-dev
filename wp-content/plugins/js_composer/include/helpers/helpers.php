@@ -63,10 +63,11 @@ function wpb_getImageBySize( $params = array() ) {
 			preg_match_all( '/\d+/', $thumb_size, $thumb_matches );
 			if ( isset( $thumb_matches[0] ) ) {
 				$thumb_size = array();
-				if ( count( $thumb_matches[0] ) > 1 ) {
+				$count = count( $thumb_matches[0] );
+				if ( $count > 1 ) {
 					$thumb_size[] = $thumb_matches[0][0]; // width
 					$thumb_size[] = $thumb_matches[0][1]; // height
-				} elseif ( count( $thumb_matches[0] ) > 0 && count( $thumb_matches[0] ) < 2 ) {
+				} elseif ( 1 === $count ) {
 					$thumb_size[] = $thumb_matches[0][0]; // width
 					$thumb_size[] = $thumb_matches[0][0]; // height
 				} else {
@@ -111,6 +112,46 @@ function wpb_getImageBySize( $params = array() ) {
 		'thumbnail' => $thumbnail,
 		'p_img_large' => $p_img_large,
 	), $attach_id, $params );
+}
+
+function vc_get_image_by_size( $id, $size ) {
+	global $_wp_additional_image_sizes;
+
+	if ( is_string( $size ) && ( ( ! empty( $_wp_additional_image_sizes[ $size ] ) && is_array( $_wp_additional_image_sizes[ $size ] ) ) || in_array( $size, array(
+				'thumbnail',
+				'thumb',
+				'medium',
+				'large',
+				'full',
+			) ) )
+	) {
+		return wp_get_attachment_image_src( $id, $size );
+	} else {
+		if ( is_string( $size ) ) {
+			preg_match_all( '/\d+/', $size, $thumb_matches );
+			if ( isset( $thumb_matches[0] ) ) {
+				$size = array();
+				$count = count( $thumb_matches[0] );
+				if ( $count > 1 ) {
+					$size[] = $thumb_matches[0][0]; // width
+					$size[] = $thumb_matches[0][1]; // height
+				} elseif ( 1 === $count ) {
+					$size[] = $thumb_matches[0][0]; // width
+					$size[] = $thumb_matches[0][0]; // height
+				} else {
+					$size = false;
+				}
+			}
+		}
+		if ( is_array( $size ) ) {
+			// Resize image to custom size
+			$p_img = wpb_resize( $id, null, $size[0], $size[1], true );
+
+			return $p_img['url'];
+		}
+	}
+
+	return '';
 }
 
 /**
@@ -1165,22 +1206,22 @@ function vc_get_shortcode_regex( $tagregexp = '' ) {
 	}
 
 	return '\\['                              // Opening bracket
-	. '(\\[?)'                           // 1: Optional second opening bracket for escaping shortcodes: [[tag]]
-	. "($tagregexp)"                     // 2: Shortcode name
-	. '(?![\\w-])'                       // Not followed by word character or hyphen
-	. '('                                // 3: Unroll the loop: Inside the opening shortcode tag
-	. '[^\\]\\/]*'                   // Not a closing bracket or forward slash
-	. '(?:' . '\\/(?!\\])'               // A forward slash not followed by a closing bracket
-	. '[^\\]\\/]*'               // Not a closing bracket or forward slash
-	. ')*?' . ')' . '(?:' . '(\\/)'                        // 4: Self closing tag ...
-	. '\\]'                          // ... and closing bracket
-	. '|' . '\\]'                          // Closing bracket
-	. '(?:' . '('                        // 5: Unroll the loop: Optionally, anything between the opening and closing shortcode tags
-	. '[^\\[]*+'             // Not an opening bracket
-	. '(?:' . '\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
-	. '[^\\[]*+'         // Not an opening bracket
-	. ')*+' . ')' . '\\[\\/\\2\\]'             // Closing shortcode tag
-	. ')?' . ')' . '(\\]?)';
+		. '(\\[?)'                           // 1: Optional second opening bracket for escaping shortcodes: [[tag]]
+		. "($tagregexp)"                     // 2: Shortcode name
+		. '(?![\\w-])'                       // Not followed by word character or hyphen
+		. '('                                // 3: Unroll the loop: Inside the opening shortcode tag
+		. '[^\\]\\/]*'                   // Not a closing bracket or forward slash
+		. '(?:' . '\\/(?!\\])'               // A forward slash not followed by a closing bracket
+		. '[^\\]\\/]*'               // Not a closing bracket or forward slash
+		. ')*?' . ')' . '(?:' . '(\\/)'                        // 4: Self closing tag ...
+		. '\\]'                          // ... and closing bracket
+		. '|' . '\\]'                          // Closing bracket
+		. '(?:' . '('                        // 5: Unroll the loop: Optionally, anything between the opening and closing shortcode tags
+		. '[^\\[]*+'             // Not an opening bracket
+		. '(?:' . '\\[(?!\\/\\2\\])' // An opening bracket not followed by the closing shortcode tag
+		. '[^\\[]*+'         // Not an opening bracket
+		. ')*+' . ')' . '\\[\\/\\2\\]'             // Closing shortcode tag
+		. ')?' . ')' . '(\\]?)';
 }
 
 /**

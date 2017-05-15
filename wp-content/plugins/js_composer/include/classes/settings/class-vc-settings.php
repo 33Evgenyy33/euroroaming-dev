@@ -441,7 +441,7 @@ class Vc_Settings {
 
 	function adminLoad() {
 		wp_register_script( 'wpb_js_composer_settings', vc_asset_url( 'js/dist/settings.min.js' ), array(), WPB_VC_VERSION, true );
-		wp_enqueue_style( 'js_composer_settings', vc_asset_url( 'css/js_composer_settings.min.css' ), false, WPB_VC_VERSION, false );
+		wp_enqueue_style( 'js_composer_settings', vc_asset_url( 'css/js_composer_settings.min.css' ), false, WPB_VC_VERSION );
 		wp_enqueue_script( 'backbone' );
 		wp_enqueue_script( 'shortcode' );
 		wp_enqueue_script( 'underscore' );

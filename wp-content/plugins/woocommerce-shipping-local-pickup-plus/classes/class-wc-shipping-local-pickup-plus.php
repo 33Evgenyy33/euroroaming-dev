@@ -81,9 +81,9 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
         }
 
         $this->id = WC_Local_Pickup_Plus::METHOD_ID;
-        $this->method_title = __('Local Pickup Plus', 'woocommerce-shipping-local-pickup-plus');
+        $this->method_title = 'Пункты выдачи';
 
-        $this->admin_page_description = __('Local pickup is a simple method which allows the customer to pick up their order themselves at a specified pickup location.', 'woocommerce-shipping-local-pickup-plus');
+        $this->admin_page_description = 'Способ доставки "Самовывоз"';
 
         // Load the form fields.
         $this->init_form_fields();
@@ -270,54 +270,54 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
         $this->form_fields = array(
 
             'enabled' => array(
-                'title' => __('Enable', 'woocommerce-shipping-local-pickup-plus'),
+                'title' => 'Активировать',
                 'type' => 'checkbox',
-                'label' => __('Enable local pickup plus', 'woocommerce-shipping-local-pickup-plus'),
+                'label' => 'Активировать спосов доставки "Самовывоз"',
                 'default' => 'no',
             ),
 
             'title' => array(
-                'title' => __('Title', 'woocommerce-shipping-local-pickup-plus'),
+                'title' => 'Заголовок',
                 'type' => 'text',
-                'description' => __('This controls the title which the user sees during checkout.', 'woocommerce-shipping-local-pickup-plus'),
+                'description' => 'Заголовок способа доставки, отображаемый на странице формления заказа',
                 'default' => __('Local Pickup', 'woocommerce-shipping-local-pickup-plus'),
             ),
 
             'cost' => array(
-                'title' => __('Cost', 'woocommerce-shipping-local-pickup-plus'),
+                'title' => 'Коммисия',
                 'type' => 'amount',
-                'description' => __('Default cost excluding tax. Enter an amount, e.g. 2.50, or leave empty for no default cost.  The default cost can be overriden by setting a cost per pickup location below.', 'woocommerce-shipping-local-pickup-plus'),
+                'description' => 'Коммисия при выборе метода доставки "Самовывоз"',
                 'default' => '',
             ),
 
             'discount' => array(
-                'title' => __('Discount', 'woocommerce-shipping-local-pickup-plus'),
+                'title' => 'Скидка',
                 'type' => 'amount',
-                'description' => __('Discount for choosing Local Pickup as the shipping option.  Enter an amount, e.g. 2.50, or a percentage, e.g 5% to discount the order total (pre-tax) when this shipping method is used.', 'woocommerce-shipping-local-pickup-plus'),
+                'description' => 'Скидка при выборе метода доставки "Самовывоз"',
                 'default' => '',
             ),
 
             'categories' => array(
-                'title' => __('Categories', 'woocommerce-shipping-local-pickup-plus'),
+                'title' => 'Категории',
                 'type' => 'multiselect',
-                'description' => __('Optional, these categories of products may only be locally picked up.', 'woocommerce-shipping-local-pickup-plus'),
+                'description' => 'Категории товаров, доступные для выдачи',
                 'options' => $categories,
                 'class' => 'wc-enhanced-select',
             ),
 
             'categories_pickup_only' => array(
-                'title' => __('Categories Only', 'woocommerce-shipping-local-pickup-plus'),
+                'title' => 'Доступные категории',
                 'type' => 'checkbox',
-                'label' => __('Allow local pickup only for the product categories listed above, all other product categories must be shipped via another method', 'woocommerce-shipping-local-pickup-plus'),
+                'label' => 'Разрешить выдачу только дл категорий товаров, перечисленных выше',
                 'default' => 'no',
             ),
 
-            'apply_pickup_location_tax' => array(
+            /*'apply_pickup_location_tax' => array(
                 'title' => __('Pickup Location Tax', 'woocommerce-shipping-local-pickup-plus'),
                 'type' => 'checkbox',
                 'label' => __('When this shipping method is chosen, apply the tax rate based on the pickup location than for the customer\'s given address.', 'woocommerce-shipping-local-pickup-plus'),
                 'default' => 'no',
-            ),
+            ),*/
 
             'hide_shipping_address' => array(
                 'title' => __('Hide Shipping Address', 'woocommerce-shipping-local-pickup-plus'),
@@ -327,11 +327,11 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
             ),
 
             'checkout_pickup_location_styling' => array(
-                'title' => __('Pickup Location Styling', 'woocommerce-shipping-local-pickup-plus'),
+                'title' => 'Стиль отображение',
                 'type' => 'select',
                 'options' => array('select' => __('Dropdown', 'woocommerce-shipping-local-pickup-plus'), 'radio' => __('Radio Buttons', 'woocommerce-shipping-local-pickup-plus')),
                 'default' => 'select',
-                'desc_tip' => __('Styling of pickup location options on checkout.', 'woocommerce-shipping-local-pickup-plus'),
+                'desc_tip' => 'Отображение пунктов выдачи на странице оформления заказа',
             ),
 
         );
@@ -402,7 +402,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
             <?php $this->generate_settings_html(); ?>
             <tr valign="top">
                 <th scope="row"
-                    class="titledesc"><?php _e('Pickup Locations', 'woocommerce-shipping-local-pickup-plus'); ?>:
+                    class="titledesc">Пункты выдачи:
                 </th>
                 <td class="forminp" id="<?php echo esc_attr($this->id); ?>_pickup_locations">
                     <table class="shippingrows widefat" cellspacing="0">
@@ -431,9 +431,9 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                         <tfoot>
                         <tr>
                             <th colspan="<?php echo count($pickup_fields) + 3 ?>"><a href="#"
-                                                                                     class="add button"><?php _e('+ Add Pickup Location', 'woocommerce-shipping-local-pickup-plus'); ?></a>
+                                                                                     class="add button">Добавить ТА</a>
                                 <a href="#"
-                                   class="remove button"><?php _e('Delete Pickup Location', 'woocommerce-shipping-local-pickup-plus'); ?></a>
+                                   class="remove button">Удалить ТА</a>
                             </th>
                         </tr>
                         </tfoot>
@@ -466,13 +466,13 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                                     }
                                 } else {
                                     // all other fields
-                                    echo '<input type="text" name="' . $this->id . '_' . $key . '[]" value="' . $location[$key] . '" placeholder="' . (in_array($key, array('company', 'address_2', 'phone')) ? __('(Optional)', 'woocommerce-shipping-local-pickup-plus') : '') . '" />';
+                                    echo '<input type="text" name="' . $this->id . '_' . $key . '[]" value="' . $location[$key] . '" placeholder="' . (in_array($key, array('company', 'phone')) ? 'Если есть' : '') . '" />';
                                 }
 
                                 echo '</td>';
                             }
 //							echo '<td><input type="text" name="' . $this->id . '_cost[]" value="' . ( isset( $location['cost'] ) ? $location['cost'] : '' ) . '" placeholder="' . __( '(Optional)', 'woocommerce-shipping-local-pickup-plus' ) . '" /></td>';
-                            echo '<td><input type="text" name="' . $this->id . '_taid[]" value="' . (isset($location['taid']) ? $location['taid'] : '') . '" placeholder="' . __('(Optional)', 'woocommerce-shipping-local-pickup-plus') . '" /></td>';
+                            echo '<td><input type="text" name="' . $this->id . '_taid[]" value="' . (isset($location['taid']) ? $location['taid'] : '') . '" placeholder="' . 'Если есть' . '" /></td>';
                             echo '</tr>';
                         }
                         ?>
@@ -487,7 +487,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
 
                 $('#<?php echo $this->id; ?>_pickup_locations a.add').live('click', function () {
 
-                    var row = '<tr class="pickup_location"><td class="check-column" style="width:20px;"><input type="checkbox" name="select" /><input type="hidden" name="<?php echo $this->id ?>_id[]" value="" /><input type="hidden" name="<?php echo $this->id ?>_country[]" value="<?php echo $base_country; ?>" /></td><?php foreach ( $pickup_fields as $key => $field ) : ?><td><?php if ( 'state' === $key ) : ?><?php if ( $states = WC()->countries->get_states($base_country) ) : ?><select name="<?php echo $this->id . '_state[]'; ?>" class="select"><?php foreach ( $states as $key => $value ) : ?><option <?php echo $base_state === $key ? ' selected="selected"' : ''; echo 'value="' . $key . '">'; echo esc_js($value); ?></option><?php endforeach; ?><?php else : ?><input type="text" value="<?php echo $base_state; ?>" name="<?php echo $this->id . '_state[]'; ?>" /><?php endif; ?><?php else : ?><input type="text" name="<?php echo $this->id . '_' . $key . '[]'; ?>" value="" placeholder="<?php echo(in_array($key, array('company', 'address_2', 'phone')) ? __('(Optional)', 'woocommerce-shipping-local-pickup-plus') : ''); ?>" /><?php endif; ?></td><?php endforeach;?><td><input type="text" name="<?php echo $this->id ?>_cost[]" value="" placeholder="<?php _e('(Optional)', 'woocommerce-shipping-local-pickup-plus') ?>" /></td><td><textarea name="<?php echo $this->id ?>_taid[]" placeholder="<?php _e('(Optional)', 'woocommerce-shipping-local-pickup-plus') ?>"></textarea></td></tr>';
+                    var row = '<tr class="pickup_location"><td class="check-column" style="width:20px;"><input type="checkbox" name="select" /><input type="hidden" name="<?php echo $this->id ?>_id[]" value="" /><input type="hidden" name="<?php echo $this->id ?>_country[]" value="<?php echo $base_country; ?>" /></td><?php foreach ( $pickup_fields as $key => $field ) : ?><td><?php if ( 'state' === $key ) : ?><?php if ( $states = WC()->countries->get_states($base_country) ) : ?><select name="<?php echo $this->id . '_state[]'; ?>" class="select"><?php foreach ( $states as $key => $value ) : ?><option <?php echo $base_state === $key ? ' selected="selected"' : ''; echo 'value="' . $key . '">'; echo esc_js($value); ?></option><?php endforeach; ?><?php else : ?><input type="text" value="<?php echo $base_state; ?>" name="<?php echo $this->id . '_state[]'; ?>" /><?php endif; ?><?php else : ?><input type="text" name="<?php echo $this->id . '_' . $key . '[]'; ?>" value="" placeholder="<?php echo(in_array($key, array('company', 'phone')) ? __('(Optional)', 'woocommerce-shipping-local-pickup-plus') : ''); ?>" /><?php endif; ?></td><?php endforeach;?><td><input type="text" name="<?php echo $this->id ?>_cost[]" value="" placeholder="<?php _e('(Optional)', 'woocommerce-shipping-local-pickup-plus') ?>" /></td></tr>';
 
                     $('#<?php echo $this->id; ?>_pickup_locations table tbody.pickup_locations').append(row);
 
@@ -496,7 +496,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
 
                 // Remove row
                 $('#<?php echo $this->id; ?>_pickup_locations a.remove').live('click', function () {
-                    var answer = confirm("<?php _e('Delete the selected pickup locations?', 'woocommerce-shipping-local-pickup-plus'); ?>");
+                    var answer = confirm("Удалить выбранные пункты выдачи?");
                     if (answer) {
                         $('#<?php echo $this->id; ?>_pickup_locations table tbody tr td.check-column input:checked').each(function (i, el) {
                             $(el).closest('tr').remove();
@@ -2184,17 +2184,12 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
             if ((!isset($locale[$key]['hidden']) || !$locale[$key]['hidden']) && ('state' != $key || $use_state)) {
                 $pickup_fields[$key] = $value;
             }
-
-            // Address 2 label was removed in WC 2.0 for some reason, add it back in for now
-            if ('address_2' == $key) {
-                $pickup_fields[$key]['label'] = __('Address 2', 'woocommerce-shipping-local-pickup-plus');
-            }
         }
 
         // add a phone field if not already available
         if (!isset($pickup_fields['phone'])) {
             $pickup_fields['phone'] = array(
-                'label' => __('Phone', 'woocommerce-shipping-local-pickup-plus'),
+                'label' => 'Контактный телефон',
             );
         }
 

@@ -2,10 +2,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-
+$saveAsTemplateElements = apply_filters( 'vc_popup_save_as_template_elements', array(
+	'vc_row',
+	'vc_section',
+) );
 ?>
 <div class="vc_ui-list-bar-group">
-	<?php if ( in_array( $shortcode_name, array( 'vc_row' ) ) && vc_user_access()->part( 'templates' )->can()->get() ) : ?>
+	<?php if ( in_array( $shortcode_name, $saveAsTemplateElements ) && vc_user_access()->part( 'templates' )->can()->get() ) : ?>
 		<ul class="vc_ui-list-bar">
 			<li class="vc_ui-list-bar-item">
 				<button type="button" class="vc_ui-list-bar-item-trigger" data-vc-save-template>

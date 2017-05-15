@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div>
 			<img class="vc-featured-img" src="<?php echo vc_asset_url( 'vc/vc-welcome/screenshot.png' ); ?>"/>
 
-			<h3><?php _e( 'Visual Composer Template Library', 'js_composer' ); ?></h3>
+			<h3><?php _e( 'Grid Builder and Interface', 'js_composer' ); ?></h3>
 
-			<p><?php _e( 'Access library for different layout templates available for free download and updated regularly. Download the templates you like and use them to build your website within seconds.', 'js_composer' ); ?></p>
-			<p><?php _e( 'Each template of Template Library is a carefully crafted layout created by pro designers. You can modify every template if you wish or use it as-is. Template Library is aiming to become your number one resource to receive fresh layouts and ideas.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Experience new, enhanced Grid Builder to develop your custom Grid Items for post and media grids. Grid Builder is optimized for featured and Media Library images to provide you better performance.', 'js_composer' ); ?></p>
+			<p><?php _e( 'The Backend editor style user interface of Grid Builder allows you to easily jump into a development of your custom Grid Items or adjust our predefined templates.', 'js_composer' ); ?></p>
 		</div>
 	</div>
 
@@ -19,23 +19,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/01.png' ); ?>"/>
-			<h4><?php _e( 'Section Element', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Element ID', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'Combine rows into logic groups by using section element and apply design options to the whole section at once.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Add a custom id to any Visual Composer element to have a direct link or other referral.', 'js_composer' ); ?></p>
 		</div>
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/02.png' ); ?>"/>
-			<h4><?php _e( 'Editor UI Update', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Google Fonts Update', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'A new icon type controls offer you the best experience when working on retina devices.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Access updated list of Google Fonts to use on your website via Custom Heading element.', 'js_composer' ); ?></p>
 		</div>
 		<div class="vc_col-xs-4">
 			<img class="vc-img-center"
 			     src="<?php echo vc_asset_url( 'vc/vc-welcome/03.png' ); ?>"/>
-			<h4><?php _e( 'Row and Section Templates', 'js_composer' ); ?></h4>
+			<h4><?php _e( 'Grid Builder UI', 'js_composer' ); ?></h4>
 
-			<p><?php _e( 'Save row or section as a template directly from your page, post or custom post type layout.', 'js_composer' ); ?></p>
+			<p><?php _e( 'Use Backend editor style native UI to create your custom Grid Item.', 'js_composer' ); ?></p>
 		</div>
 	</div>
 

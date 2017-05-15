@@ -109,6 +109,7 @@ class Vc_Grid_Item_Editor extends Vc_Backend_Editor {
 	 * Rewrites validation for correct post_type of th post.
 	 *
 	 * @param string $type
+	 *
 	 * @return bool
 	 */
 	public function isValidPostType( $type = '' ) {
@@ -163,10 +164,10 @@ class Vc_Grid_Item_Editor extends Vc_Backend_Editor {
 			return;
 		}
 
-		add_filter( 'vc_wpbakery_shortcode_get_controls_list', array(
-			$this,
-			'shortcodesControls',
-		) );
+		//		add_filter( 'vc_wpbakery_shortcode_get_controls_list', array(
+		//			$this,
+		//			'shortcodesControls',
+		//		) );
 		require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/class-vc-grid-item.php' );
 		$this->post = $post;
 		vc_include_template( 'params/vc_grid_item/editor/vc_grid_item_editor.tpl.php', array(

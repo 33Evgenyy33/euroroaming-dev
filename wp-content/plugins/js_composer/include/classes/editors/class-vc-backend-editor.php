@@ -218,19 +218,19 @@ class Vc_Backend_Editor implements Vc_Editor_Interface {
 			/**
 			 * @deprecated, used for accordions/tabs/tours
 			 */
-			wp_register_style( 'ui-custom-theme', vc_asset_url( 'css/ui-custom-theme/jquery-ui-less.custom.min.css' ), array(), WPB_VC_VERSION, false );
+			wp_register_style( 'ui-custom-theme', vc_asset_url( 'css/ui-custom-theme/jquery-ui-less.custom.min.css' ), array(), WPB_VC_VERSION );
 
 			/**
 			 * @todo check vc_add-element-deprecated-warning for fa icon usage ( set to our font )
 			 * also used in vc_icon shortcode
 			 */
-			wp_register_style( 'font-awesome', vc_asset_url( 'lib/bower/font-awesome/css/font-awesome.min.css' ), array(), WPB_VC_VERSION, false );
+			wp_register_style( 'font-awesome', vc_asset_url( 'lib/bower/font-awesome/css/font-awesome.min.css' ), array(), WPB_VC_VERSION );
 
 			/**
 			 * @todo check for usages
 			 * definetelly used in edit form param: css_animation, but curreny vc_add_shortcode_param doesn't accept css [ @todo refactor that ]
 			 */
-			wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION, false );
+			wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION );
 		}
 	}
 

@@ -90,7 +90,7 @@ class Vc_Vendor_Woocommerce implements Vc_Vendor_Interface {
 			'type' => 'post',
 			'child_of' => 0,
 			'parent' => '',
-			'orderby' => 'id',
+			'orderby' => 'parent_id',
 			'order' => 'ASC',
 			'hide_empty' => false,
 			'hierarchical' => 1,
