@@ -384,3 +384,8 @@
  in D:\OpenServer\domains\euroroaming\wp-content\plugins\cse-delivery-for-woocommerce\cse-delivery-for-woocommerce.php on line 126
 [14-May-2017 19:21:47 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://web.cse.ru/1c/ws/Web1C.1cws?wsdl' : failed to load external entity "http://web.cse.ru/1c/ws/Web1C.1cws?wsdl"
  in D:\OpenServer\domains\euroroaming\wp-content\plugins\cse-delivery-for-woocommerce\cse-delivery-for-woocommerce.php on line 126
+[15-May-2017 20:09:27 UTC] Расчитано: 650
+[15-May-2017 20:10:56 UTC] Расчитано: 650
+[15-May-2017 20:11:17 UTC] Расчитано: 650
+[15-May-2017 20:11:43 UTC] Расчитано: 650
+[15-May-2017 21:16:41 UTC] База данных WordPress возвратила ошибку You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 в ответ на запрос DELETE FROM wp_wc_point_of_sale_sale_reports WHERE `id` IN (), выполненный require_once('D:\OpenServer\domains\euroroaming\wp-admin\admin.php'), do_action('admin_init'), WP_Hook->do_action, WP_Hook->apply_filters, call_user_func_array, WC_POS_Admin_Post_Actions->actions_session_reports, WC_Pos_Session_Reports->delete_session_report

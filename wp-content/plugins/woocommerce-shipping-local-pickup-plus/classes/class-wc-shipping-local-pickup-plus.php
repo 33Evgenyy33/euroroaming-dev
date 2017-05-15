@@ -418,7 +418,8 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                             <!--								--><?php
                             //								esc_html_e( 'Cost', 'woocommerce-shipping-local-pickup-plus' );
                             //								echo wc_help_tip( __( 'Cost for this pickup location, enter an amount, eg. 0 or 2.50, or leave empty to use the default cost configured above.', 'woocommerce-shipping-local-pickup-plus' ) );
-                            //								?>
+                            //
+                            ?>
                             <!--							</th>-->
                             <th>
                                 <?php
@@ -1221,6 +1222,14 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
     public function render_pickup_location_selection_row($package_index)
     {
 
+        foreach( WC()->cart->get_cart() as $cart_item ){
+            $product_id = $cart_item['product_id'];
+            //echo $product_id.'<br>';
+        }
+
+//        $state = WC()->customer->get_shipping_state();
+//        print_r($state);
+
         // yes, we already have the pickup locations, but hey, lets refresh them
         //  just in case something changed on the backend
         $this->load_pickup_locations();
@@ -1241,20 +1250,51 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
 
             $chosen_pickup_location_id = $this->get_chosen_pickup_location_id($package_index);
             $chosen_pickup_location = null;
+            $array_of_simcard = null;
 
             if ('select' === $this->get_checkout_pickup_location_styling()) {
-                echo '<select name="pickup_location[' . $package_index . ']" class="pickup_location" data-placeholder="' . __('Choose One', 'woocommerce-shipping-local-pickup-plus') . '" style="width: 100%;">';
+
+                echo '<select name="pickup_location[' . $package_index . ']" class="pickup_location" data-placeholder="Выберите один" style="width: 100%;">';
                 echo '<option value=""></option>';
                 foreach ($this->pickup_locations as $location) {
+
+                    $state = WC()->customer->get_shipping_state();
+                    $bolstate = 0;
+                    if ($location['state'] != $state) {
+                        if ($state == 'Московская обл' && $location['state'] == 'г Москва') {
+                            $bolstate = 1;
+                        } else if ($state == 'Ленинградская обл' && $location['state'] == 'г Санкт-Петербург') {
+                            $bolstate = 1;
+                        }
+                        if ($bolstate != 1) continue;
+                    }
+
                     // determine the chosen pickup location
                     if (is_numeric($chosen_pickup_location_id) && $location['id'] == $chosen_pickup_location_id) {
                         $chosen_pickup_location = $location;
                     }
+
+                    if ($chosen_pickup_location['taid'] != ''){
+                        $ta_id = intval(str_replace(" ", "", $chosen_pickup_location['taid']));
+
+                        $url = "http://seller.sgsim.ru/euroroaming_order_submit?operation=get_simcards&ta=$ta_id";
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Устанавливаем параметр, чтобы curl возвращал данные, вместо того, чтобы выводить их в браузер.
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        $data = curl_exec($ch);
+                        curl_close($ch);
+                        $array_of_simcard = (array)json_decode($data);
+
+
+                    }
+
                     echo '<option value="' . esc_attr($location['id']) . '" ' . selected($location['id'], $chosen_pickup_location_id, false) . '>';
                     echo $this->get_formatted_address_helper($location, true, true);
                     echo '</option>';
                 }
                 echo '</select>';
+
             } else {
                 // radio styling
                 echo '<ul style="list-style:none;margin-bottom:5px;">';
@@ -1274,7 +1314,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
 
         // show the note for the selected pickup location, if any
         if ($chosen_pickup_location && isset($chosen_pickup_location['taid']) && $chosen_pickup_location['taid']) {
-            echo '<div class="wc-pickup-location-note">' . $chosen_pickup_location['taid'] . '</div>';
+            echo '<pre style="text-align: left">' . print_r($array_of_simcard, true) . '</pre>';
         }
 
         echo '</td>';

@@ -31,7 +31,7 @@ if ( ! function_exists( 'woocommerce_get_product_thumbnail' ) ) {
     }
 }*/
 
-add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_product_price', 10);
+/*add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_product_price', 10);
 function woocommerce_template_loop_product_price($woocommerce_template_loop_price, $int) {
     global $post;
     $price = 0;
@@ -67,7 +67,7 @@ function woocommerce_template_loop_product_price($woocommerce_template_loop_pric
     }
     //echo '<h3 id="shop-plastic-price">'.$post->ID.'</h3>';
     echo '<style>#shop-plastic-price {padding: 0;color: #838b08;font-weight: 500;}</style><h3 id="shop-plastic-price">'.$price.'₽</h3>';
-}
+}*/
 
 
 /* Отправление почты */
