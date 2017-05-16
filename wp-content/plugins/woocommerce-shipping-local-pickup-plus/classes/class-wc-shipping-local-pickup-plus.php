@@ -1210,6 +1210,27 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
         }
     }
 
+    public function check_orange_format($num = '', $format_type = '')
+    {
+        $orange_combo_check = array("6050", "6051", "6052");
+        $orange_nano_check = array("615", "625", "692", "6053", "6054", "6055", "6056", "6057", "6058", "6059");
+        $format_array = array();
+
+        if ($format_type == 'combo') {
+            $format_array = $orange_combo_check;
+        } elseif ($format_type == 'nano') {
+            $format_array = $orange_nano_check;
+        }
+
+        $check_num = substr($num, 0, 4);
+        foreach ($format_array as $format) {
+            if (strpos($check_num, $format) || $check_num == $format) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Render the pickup location selection table row
@@ -1221,11 +1242,6 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
      */
     public function render_pickup_location_selection_row($package_index)
     {
-
-        foreach( WC()->cart->get_cart() as $cart_item ){
-            $product_id = $cart_item['product_id'];
-            //echo $product_id.'<br>';
-        }
 
 //        $state = WC()->customer->get_shipping_state();
 //        print_r($state);
@@ -1251,6 +1267,8 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
             $chosen_pickup_location_id = $this->get_chosen_pickup_location_id($package_index);
             $chosen_pickup_location = null;
             $array_of_simcard = null;
+            $orange_combo_variations = array(23083, 23082, 23080, 23079, 23077, 23076, 23074, 23073, 23071, 23070, 23068, 3067);
+            $orange_nano_variations = array(23083, 23082, 23081, 23080, 23079, 23078, 23077, 23076, 23075, 23074, 23073, 23072, 23071, 23070, 23069, 23068, 3067, 23066);
 
             if ('select' === $this->get_checkout_pickup_location_styling()) {
 
@@ -1258,6 +1276,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                 echo '<option value=""></option>';
                 foreach ($this->pickup_locations as $location) {
 
+                    //Вывод ТА привязанных к региону
                     $state = WC()->customer->get_shipping_state();
                     $bolstate = 0;
                     if ($location['state'] != $state) {
@@ -1269,14 +1288,14 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                         if ($bolstate != 1) continue;
                     }
 
-                    // determine the chosen pickup location
-                    if (is_numeric($chosen_pickup_location_id) && $location['id'] == $chosen_pickup_location_id) {
-                        $chosen_pickup_location = $location;
-                    }
+                    //Если есть ID ТА
+                    if ($location['taid'] != '') {
 
-                    if ($chosen_pickup_location['taid'] != ''){
-                        $ta_id = intval(str_replace(" ", "", $chosen_pickup_location['taid']));
+                        $ta_id = intval(str_replace(" ", "", $location['taid']));
 
+                        /*
+                         * Запрос к селлеру
+                         * */
                         $url = "http://seller.sgsim.ru/euroroaming_order_submit?operation=get_simcards&ta=$ta_id";
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -1286,7 +1305,78 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                         curl_close($ch);
                         $array_of_simcard = (array)json_decode($data);
 
+                        //Если вернулся пустой массив, то сим-карт нет в наличие, пункт не отображается
+                        if (empty($array_of_simcard)) continue;
 
+                        //Заполнения массива имен сим-карт, полученных с селлера
+                        $exist_operators = array();
+                        foreach ($array_of_simcard as $key => $numbers) {
+                            array_push($exist_operators, $key);
+                        }
+
+                        //Проверка сим-карт в корзине на наличие в ТА
+                        foreach (WC()->cart->get_cart() as $cart_item) {
+                            $product_id = $cart_item['product_id'];
+                            $variation_id = $cart_item['variation_id'];
+
+                            //orange
+                            $combo = 0;
+                            $nano = 0;
+                            $orange_validation = 0;
+                            if ($product_id == 23065) {
+                                if (!in_array('orange', $exist_operators)) continue 2;//Есть ли Orange на селлере
+
+                                //Подсчет кол-ва форматов
+                                foreach ($array_of_simcard['orange'] as $num) {
+                                    if ($this->check_orange_format($num, 'combo'))
+                                        $combo++;
+                                    if ($this->check_orange_format($num, 'nano'))
+                                        $nano++;
+                                }
+
+                                //Проверка вариации товара на
+                                if (in_array($variation_id, $orange_combo_variations)) {
+                                    if ($combo !== 0) $orange_validation++;
+                                } elseif (in_array($variation_id, $orange_nano_variations)) {
+                                    if ($combo !== 0) $orange_validation++;
+                                }
+
+                                if ($orange_validation == 0) continue 2;
+                            }
+                            if ($product_id == 23047) {
+                                if (!in_array('vodafone', $exist_operators)) continue 2;//Есть ли Vodafone на селлере
+                            }
+                            if ($product_id == 23090) {
+                                if (!in_array('ortel', $exist_operators)) continue 2;//Есть ли ortel на селлере
+                            }
+                            if ($product_id == 23042) {
+                                if (!in_array('globalsim--classic', $exist_operators)) continue 2;
+                            }
+                            if ($product_id == 23042) {
+                                if (!in_array('globalsim--classic', $exist_operators)) continue 2;
+                            }
+                            if ($product_id == 23085 || $product_id == 23031) {
+                                if (!in_array('globalsim--gsim_internet', $exist_operators)) continue 2;
+                            }
+                            if ($product_id == 23026) {
+                                if (!in_array('globalsim--tariff_usa', $exist_operators)) continue 2;
+                            }
+                            if ($product_id == 23037) {
+                                if (!in_array('globalsim--europasim', $exist_operators)) continue 2;
+                            }
+
+                            //Полкчение атрибутов вариации товара
+                            /*$_product = new WC_Product_Variation($variation_id);
+                            $variation_data = $_product->get_variation_attributes();
+                            echo $variation_data['attribute_format'];*/
+                            // echo '<pre style="text-align: left">' . print_r($variation_data, true) . '</pre>';
+                        }
+
+                    }
+
+                    // determine the chosen pickup location
+                    if (is_numeric($chosen_pickup_location_id) && $location['id'] == $chosen_pickup_location_id) {
+                        $chosen_pickup_location = $location;
                     }
 
                     echo '<option value="' . esc_attr($location['id']) . '" ' . selected($location['id'], $chosen_pickup_location_id, false) . '>';
@@ -1315,6 +1405,14 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
         // show the note for the selected pickup location, if any
         if ($chosen_pickup_location && isset($chosen_pickup_location['taid']) && $chosen_pickup_location['taid']) {
             echo '<pre style="text-align: left">' . print_r($array_of_simcard, true) . '</pre>';
+        } elseif ($chosen_pickup_location && !$chosen_pickup_location['taid']) {
+            echo '<div style="text-align: left;padding: 14px;background: #1E88E5;color: #fff;font-weight: 400;">';
+            echo '<h4 style="margin-bottom: 0;color: #fff;font-weight: 700;">По наличию сим-карт обращайте по телефону: '.$chosen_pickup_location['phone'].'</h4>';
+            echo '<span><span class="wpsl-location-address-label" >Пункт выдачи: </span>' . $chosen_pickup_location['company'] . '</span><br/>';
+            echo '<span><span class="wpsl-location-address-label" >Город: </span>' . $chosen_pickup_location['city'] . '</span><br/>';
+            echo '<span><span class="wpsl-location-address-label" >Адрес: </span>' . $chosen_pickup_location['address_1'] . '</span><br/>';
+            echo '<span><span class="wpsl-location-address-label" >Телефон: </span>' . $chosen_pickup_location['phone'] . '</span><br/>';
+            echo '</div>';
         }
 
         echo '</td>';

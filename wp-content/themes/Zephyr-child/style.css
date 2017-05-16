@@ -49,7 +49,7 @@ Author URI: http://us-themes.com/
     /*box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);*/
     border-radius: 2px;
     /*box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);*/
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
     -webkit-transition: box-shadow .1s ease-in-out;
     transition: box-shadow .1s ease-in-out;
 }
@@ -57,7 +57,7 @@ Author URI: http://us-themes.com/
 .wpsl-page-ta-simcard:hover {
     background-color: #fff;
     /*box-shadow: 0 14px 25px rgba(0,0,0,0.16);*/
-    box-shadow: 0 3px 8px -2px rgba(0,0,0,.2), 0 3px 14px 0 rgba(0,0,0,.14), 0 3px 13px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 8px -2px rgba(0, 0, 0, .2), 0 3px 14px 0 rgba(0, 0, 0, .14), 0 3px 13px 0 rgba(0, 0, 0, .12);
 }
 
 div#wpsl-base-gmap_0 {
@@ -137,6 +137,14 @@ div#wpsl-base-gmap_0 {
 .wpsl-operator-format-type_description {
     font-size: 13px;
     font-weight: 300;
+}
+
+.wpsl-sim-card-in_stock {
+    color: #2E7D32;
+}
+
+.wpsl-sim-card-out_of_stock {
+    color: #EF9A9A;
 }
 
 .wpsl-location-address-label {

@@ -185,8 +185,8 @@ function custom_woocommerce_states($states)
 add_action( 'wp_enqueue_scripts', 'my_checkout_scripts' );
 function my_checkout_scripts() {
     if ( is_page( 'checkout' ) ) {
-        wp_enqueue_style('suggestions-css', get_stylesheet_directory_uri() . '/css/suggestions.css');
-        wp_enqueue_script( 'suggestions-js', get_stylesheet_directory_uri() . '/js/jquery.suggestions.min.js' );
+        //wp_enqueue_style('suggestions-css', get_stylesheet_directory_uri() . '/css/suggestions.css');
+        //wp_enqueue_script( 'suggestions-js', get_stylesheet_directory_uri() . '/js/jquery.suggestions.min.js' );
         wp_enqueue_script( 'mycheckout', get_stylesheet_directory_uri() . '/js/mycheckout.js' );
     }
 }

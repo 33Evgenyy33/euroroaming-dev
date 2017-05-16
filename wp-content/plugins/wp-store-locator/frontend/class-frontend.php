@@ -733,8 +733,18 @@ if (!class_exists('WPSL_Frontend')) {
             return $output;
         }
 
-        public function check_orange_format($num = '', $format_array = array())
+        public function check_orange_format($num = '', $format_type = '')
         {
+            $orange_combo_check = array("6050", "6051", "6052");
+            $orange_nano_check = array("615", "625", "692", "6053", "6054", "6055", "6056", "6057", "6058", "6059");
+            $format_array = array();
+
+            if ($format_type == 'combo') {
+                $format_array = $orange_combo_check;
+            } elseif ($format_type == 'nano') {
+                $format_array = $orange_nano_check;
+            }
+
             $check_num = substr($num, 0, 4);
             foreach ($format_array as $format) {
                 if (strpos($check_num, $format) || $check_num == $format) {
@@ -779,8 +789,6 @@ if (!class_exists('WPSL_Frontend')) {
             // Проверка на наличие id кабинета ТА (если есть на селлере)
             if ($atts['ta_id'] && $store_address = get_post_meta($atts['id'], 'wpsl_ta_id', true)) {
 
-                $orange_combo_check = array("6050", "6051", "6052");
-                $orange_nano_check = array("615", "625", "692", "6053", "6054", "6055", "6056", "6057", "6058", "6059");
 
                 $ta_id = intval(str_replace(" ", "", get_post_meta($atts['id'], 'wpsl_ta_id', true)));
 
@@ -805,8 +813,13 @@ if (!class_exists('WPSL_Frontend')) {
 
                 $store_phone = get_post_meta($atts['id'], 'wpsl_phone', true);
 
+                $in_stock = "wpsl-sim-card-in_stock";
+                $out_of_stock = "wpsl-sim-card-out_of_stock";
+
                 // Если массив сим-карт не пуст, то выводим
                 if (!empty($array_of_simcard)) {
+
+
 
                     foreach ($array_of_simcard as $key => $oper) {
 
@@ -824,7 +837,7 @@ if (!class_exists('WPSL_Frontend')) {
                             $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
                             $content .= '</div>';
                             $content .= '<div class="wpsl-operator-format-count">';
-                            $content .= '<p>' . count($oper) . ' шт.</p>';
+                            $content .= '<p class="'.(count($oper) > 0 ? $in_stock: $out_of_stock).'">' . count($oper) . ' шт.</p>';
                             $content .= '</div>';
                             $content .= '</div>';
                             $content .= '<div class="wpsl-operator-format_contact">';
@@ -841,7 +854,7 @@ if (!class_exists('WPSL_Frontend')) {
                             $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
                             $content .= '</div>';
                             $content .= '<div class="wpsl-operator-format-count">';
-                            $content .= '<p>' . count($oper) . ' шт.</p>';
+                            $content .= '<p class="'.(count($oper) > 0 ? $in_stock: $out_of_stock).'">' . count($oper) . ' шт.</p>';
                             $content .= '</div>';
                             $content .= '</div>';
                             $content .= '<div class="wpsl-operator-format_contact">';
@@ -854,6 +867,8 @@ if (!class_exists('WPSL_Frontend')) {
                         }
 
                         $content .= '<div class="wpsl-page-ta-simcard">';
+
+                        $simcard = '';
 
                         switch ($key) {
                             case 'orange':
@@ -886,14 +901,15 @@ if (!class_exists('WPSL_Frontend')) {
                                 break;
                         }
 
+
                         $content .= '<h4 class="wpsl-operator-header">' . $simcard . '</h4>';
                         if ($key == 'orange') {
                             $combo = 0;
                             $nano = 0;
                             foreach ($oper as $num) {
-                                if ($this->check_orange_format($num, $orange_combo_check))
+                                if ($this->check_orange_format($num, 'combo'))
                                     $combo++;
-                                if ($this->check_orange_format($num, $orange_nano_check))
+                                if ($this->check_orange_format($num, 'nano'))
                                     $nano++;
                             }
 
@@ -903,7 +919,7 @@ if (!class_exists('WPSL_Frontend')) {
                             $content .= '<p class="wpsl-operator-format-type_description">(стандарт+микро)</p>';
                             $content .= '</div>';
                             $content .= '<div class="wpsl-operator-format-count">';
-                            $content .= '<p>' . $combo . ' шт.</p>';
+                            $content .= '<p class="'.($combo > 0 ? $in_stock: $out_of_stock).'">' . $combo . ' шт.</p>';
                             $content .= '</div>';
                             $content .= '</div>';
 
@@ -913,7 +929,7 @@ if (!class_exists('WPSL_Frontend')) {
                             $content .= '<p class="wpsl-operator-format-type_description">(стандарт+микро+нано)</p>';
                             $content .= '</div>';
                             $content .= '<div class="wpsl-operator-format-count">';
-                            $content .= '<p>' . $nano . ' шт.</p>';
+                            $content .= '<p class="'.($nano > 0 ? $in_stock: $out_of_stock).'">' . $nano . ' шт.</p>';
                             $content .= '</div>';
                             $content .= '</div>';
 
@@ -928,7 +944,7 @@ if (!class_exists('WPSL_Frontend')) {
                             $content .= '<p class="wpsl-operator-format-type_description">(стандарт+микро+нано)</p>';
                             $content .= '</div>';
                             $content .= '<div class="wpsl-operator-format-count">';
-                            $content .= '<p>' . count($oper) . ' шт.</p>';
+                            $content .= '<p class="'.(count($oper) > 0 ? $in_stock: $out_of_stock).'">' . count($oper) . ' шт.</p>';
                             $content .= '</div>';
                             $content .= '</div>';
 
@@ -941,7 +957,7 @@ if (!class_exists('WPSL_Frontend')) {
                         $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
                         $content .= '</div>';
                         $content .= '<div class="wpsl-operator-format-count">';
-                        $content .= '<p>' . count($oper) . ' шт.</p>';
+                        $content .= '<p class="'.(count($oper) > 0 ? $in_stock: $out_of_stock).'">' . count($oper) . ' шт.</p>';
                         $content .= '</div>';
                         $content .= '</div>';
                         $content .= '<div class="wpsl-operator-format_contact">';
