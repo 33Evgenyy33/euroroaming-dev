@@ -324,13 +324,13 @@ add_action('edit_user_profile_update', 'affwp_custom_save_extra_profile_fields')
 
 
 /*************************Описание точки выдачи при оформлении заказа*****************************/
-add_action('woocommerce_review_order_before_local_pickup_location', 'local_pickup_instructions');
+/*add_action('woocommerce_review_order_before_local_pickup_location', 'local_pickup_instructions');
 function local_pickup_instructions()
 {
     ?>
-    <p style="font-weight: 500;padding: 7px;margin-bottom: 0;">Выберите пункт самовывоза из выпадающего списка</p>
+    <p style="font-weight: 500;padding: 3px;margin-bottom: 16px;border-bottom: 1px solid #f19321;">Выберите пункт самовывоза из выпадающего списка</p>
     <?php
-}
+}*/
 
 
 add_filter('woocommerce_default_address_fields', 'bbloomer_override_postcode_validation');

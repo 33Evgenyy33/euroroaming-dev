@@ -1253,6 +1253,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
         echo '<tr class="pickup_location">';
         echo '<th colspan="1">' . (1 == count($this->pickup_locations) ? __('Your Pickup Location', 'woocommerce-shipping-local-pickup-plus') : __('Choose Pickup Location', 'woocommerce-shipping-local-pickup-plus') . ' <abbr class="required" title="required" style="border:none;">*</abbr>') . '</th>';
         echo '<td class="update_totals_on_change">';
+        echo '<p>Выберите пункт самовывоза из выпадающего списка</p>';
 
         do_action('woocommerce_review_order_before_local_pickup_location', $this->pickup_locations, array(), $package_index);
 
@@ -1402,12 +1403,243 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
             }
         }
 
-        // show the note for the selected pickup location, if any
+        $products_in_cart = array();
+        foreach (WC()->cart->get_cart() as $cart_item) {
+            $product_id = $cart_item['product_id'];
+
+            switch ($product_id) {
+                case 23065:
+                    if (!array_key_exists(23065, $products_in_cart))
+                        $products_in_cart[23065] = 'orange';
+                    break;
+                case 23047:
+                    if (!array_key_exists(23047, $products_in_cart))
+                        $products_in_cart[23047] = 'vodafone';
+                    break;
+                case 23090:
+                    if (!array_key_exists(23090, $products_in_cart))
+                        $products_in_cart[23090] = 'ortel';
+                    break;
+                case 23042:
+                    if (!array_key_exists(23042, $products_in_cart))
+                        $products_in_cart[23042] = 'globalsim--classic';
+                    break;
+                case 23085:
+                    if (!array_key_exists(23085, $products_in_cart))
+                        $products_in_cart[23085] = 'globalsim--gsim_internet';
+                    break;
+                case 23031: //TravelChat
+                    if (!array_key_exists(23031, $products_in_cart))
+                        $products_in_cart[23031] = 'globalsim--gsim_internet';
+                    break;
+                case 23026:
+                    if (!array_key_exists(23026, $products_in_cart))
+                        $products_in_cart[23026] = 'globalsim--tariff_usa';
+                    break;
+                case 23037:
+                    if (!array_key_exists(23037, $products_in_cart))
+                        $products_in_cart[23037] = 'globalsim--europasim';
+                    break;
+            }
+        }
+
+
+        // Если выбранный пункт выдачи имеет ID
         if ($chosen_pickup_location && isset($chosen_pickup_location['taid']) && $chosen_pickup_location['taid']) {
-            echo '<pre style="text-align: left">' . print_r($array_of_simcard, true) . '</pre>';
+
+            $ta_id = intval(str_replace(" ", "", $chosen_pickup_location['taid']));
+
+            $url = "http://seller.sgsim.ru/euroroaming_order_submit?operation=get_simcards&ta=$ta_id";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Устанавливаем параметр, чтобы curl возвращал данные, вместо того, чтобы выводить их в браузер.
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $data = curl_exec($ch);
+            curl_close($ch);
+            $array_of_simcard = (array)json_decode($data);
+            krsort($array_of_simcard);
+
+            //$content .= '<pre>' . print_r($array_of_simcard, true) . '</pre>';
+
+            $in_stock = "wpsl-sim-card-in_stock";
+            $out_of_stock = "wpsl-sim-card-out_of_stock";
+
+            $store_phone = $chosen_pickup_location['phone'];
+
+            echo '<p style="margin-bottom: 0;color:#fff;font-weight:600;font-size:17px;text-align:center;padding:12px 0;">Наличие сим-карт в пункте выдачи</p>';
+
+            $content = '<div class="wpsl-page-ta-simcards-grid" style="background:#656565;padding:20px 0 20px 0;">';
+
+            foreach ($array_of_simcard as $key => $oper) {
+
+                if (!in_array($key, $products_in_cart)) continue;
+
+
+                //Если Vodafone Red или TravelChat пропускаем
+                if ($key == 'unknown' || $key == 'globalsim--travelchat') continue;
+
+                //Если Globalsim Internet то делаем клон для TravelChat
+                if ($key == 'globalsim--gsim_internet') {
+
+                    if (array_key_exists(23085, $products_in_cart)) {
+
+                        $content .= '<div class="wpsl-page-ta-simcard">';
+                        //$content .= $globalsim_img;
+                        $content .= '<h4 class="wpsl-operator-header">Globalsim «Internet»</h4>';
+                        $content .= '<div class="wpsl-operator-format_grid">';
+                        $content .= '<div class="wpsl-operator-format-type">';
+                        $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format-count">';
+                        $content .= '<p class="' . (count($oper) > 0 ? $in_stock : $out_of_stock) . '">' . count($oper) . ' шт.</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format_contact">';
+                        $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Размер уточняйте по телефону:</p>';
+                        $content .= '<p style="color: #000;">' . $store_phone . '</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+                    }
+
+                    if (array_key_exists(23031, $products_in_cart)) {
+
+                        $content .= '<div class="wpsl-page-ta-simcard">';
+                        //$content .= $travelchat_img;
+                        $content .= '<h4 class="wpsl-operator-header">TravelChat</h4>';
+                        $content .= '<div class="wpsl-operator-format_grid">';
+                        $content .= '<div class="wpsl-operator-format-type">';
+                        $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format-count">';
+                        $content .= '<p class="' . (count($oper) > 0 ? $in_stock : $out_of_stock) . '">' . count($oper) . ' шт.</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+                        $content .= '<div class="wpsl-operator-format_contact">';
+                        $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Размер уточняйте по телефону:</p>';
+                        $content .= '<p style="color: #000;">' . $store_phone . '</p>';
+                        $content .= '</div>';
+                        $content .= '</div>';
+                    }
+
+                    continue;
+                }
+
+                $content .= '<div class="wpsl-page-ta-simcard">';
+
+                $simcard = '';
+
+                switch ($key) {
+                    case 'orange':
+                        //$content .= $orange_img;
+                        $simcard = "Orange";
+                        break;
+                    case 'globalsim--classic':
+                        //$content .= $globalsim_img;
+                        $simcard = "Globalsim";
+                        break;
+                    case 'globalsim--tariff_usa':
+                        //$content .= $globalsim_img;
+                        $simcard = "Globalsim «США»";
+                        break;
+                    case 'globalsim--europasim':
+                        //$content .= $europasim_img;
+                        $simcard = "Europasim";
+                        break;
+                    case 'ortel':
+                        //$content .= $ortel_img;
+                        $simcard = "Ortel Mobile";
+                        break;
+                    case 'vodafone':
+                        //$content .= $vodafone_img;
+                        $simcard = "Vodafone";
+                        break;
+                    case 'unknown':
+                        //$content .= $vodafone_img;
+                        $simcard = "Vodafone «Red»";
+                        break;
+                }
+
+
+                $content .= '<h4 class="wpsl-operator-header">' . $simcard . '</h4>';
+                if ($key == 'orange') {
+                    $combo = 0;
+                    $nano = 0;
+                    foreach ($oper as $num) {
+                        if ($this->check_orange_format($num, 'combo'))
+                            $combo++;
+                        if ($this->check_orange_format($num, 'nano'))
+                            $nano++;
+                    }
+
+                    $content .= '<div class="wpsl-operator-format_grid">';
+                    $content .= '<div class="wpsl-operator-format-type">';
+                    $content .= '<p class="wpsl-operator-format-type_label">Комбо</p>';
+                    $content .= '<p class="wpsl-operator-format-type_description">(стандарт+микро)</p>';
+                    $content .= '</div>';
+                    $content .= '<div class="wpsl-operator-format-count">';
+                    $content .= '<p class="' . ($combo > 0 ? $in_stock : $out_of_stock) . '">' . $combo . ' шт.</p>';
+                    $content .= '</div>';
+                    $content .= '</div>';
+
+                    $content .= '<div class="wpsl-operator-format_grid">';
+                    $content .= '<div class="wpsl-operator-format-type">';
+                    $content .= '<p class="wpsl-operator-format-type_label">3 в 1</p>';
+                    $content .= '<p class="wpsl-operator-format-type_description">(стандарт+микро+нано)</p>';
+                    $content .= '</div>';
+                    $content .= '<div class="wpsl-operator-format-count">';
+                    $content .= '<p class="' . ($nano > 0 ? $in_stock : $out_of_stock) . '">' . $nano . ' шт.</p>';
+                    $content .= '</div>';
+                    $content .= '</div>';
+
+                    $content .= '</div>';
+                    continue;
+                }
+
+                if ($key == 'vodafone' || $key == 'ortel') {
+                    $content .= '<div class="wpsl-operator-format_grid">';
+                    $content .= '<div class="wpsl-operator-format-type">';
+                    $content .= '<p class="wpsl-operator-format-type_label">3 в 1</p>';
+                    $content .= '<p class="wpsl-operator-format-type_description">(стандарт+микро+нано)</p>';
+                    $content .= '</div>';
+                    $content .= '<div class="wpsl-operator-format-count">';
+                    $content .= '<p class="' . (count($oper) > 0 ? $in_stock : $out_of_stock) . '">' . count($oper) . ' шт.</p>';
+                    $content .= '</div>';
+                    $content .= '</div>';
+
+                    $content .= '</div>';
+                    continue;
+                }
+
+                $content .= '<div class="wpsl-operator-format_grid">';
+                $content .= '<div class="wpsl-operator-format-type">';
+                $content .= '<p class="wpsl-operator-format-type_label">Кол-во:</p>';
+                $content .= '</div>';
+                $content .= '<div class="wpsl-operator-format-count">';
+                $content .= '<p class="' . (count($oper) > 0 ? $in_stock : $out_of_stock) . '">' . count($oper) . ' шт.</p>';
+                $content .= '</div>';
+                $content .= '</div>';
+                $content .= '<div class="wpsl-operator-format_contact">';
+                $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Размер уточняйте по телефону:</p>';
+                $content .= '<p style="color: #000;">' . $store_phone . '</p>';
+                $content .= '</div>';
+
+                $content .= '</div>';
+            }
+
+            $content .= '</div>';
+
+            echo $content;
+
+            echo '<div style="text-align: left;padding: 14px;color: #fff;font-weight: 400;">';
+            echo '<span><span class="wpsl-location-address-label" >Пункт выдачи: </span>' . $chosen_pickup_location['company'] . '</span><br/>';
+            echo '<span><span class="wpsl-location-address-label" >Город: </span>' . $chosen_pickup_location['city'] . '</span><br/>';
+            echo '<span><span class="wpsl-location-address-label" >Адрес: </span>' . $chosen_pickup_location['address_1'] . '</span><br/>';
+            echo '<span><span class="wpsl-location-address-label" >Телефон: </span>' . $chosen_pickup_location['phone'] . '</span><br/>';
+            echo '</div>';
+
         } elseif ($chosen_pickup_location && !$chosen_pickup_location['taid']) {
-            echo '<div style="text-align: left;padding: 14px;background: #1875d1;color: #fff;font-weight: 400;">';
-            echo '<p style="margin-bottom: 0;color: #fff;font-weight: 600;padding-bottom: 9px;font-size: 17px;text-align: center">По наличию сим-карт обращайтесь по телефону:<br> '.$chosen_pickup_location['phone'].'</p>';
+            echo '<div style="text-align: left;padding: 14px;color: #fff;font-weight: 400;">';
+            echo '<p style="margin-bottom: 0;color: #fff;font-weight: 600;padding-bottom: 9px;font-size: 17px;text-align: center">По наличию сим-карт обращайтесь по телефону:<br> ' . $chosen_pickup_location['phone'] . '</p>';
             echo '<span><span class="wpsl-location-address-label" >Пункт выдачи: </span>' . $chosen_pickup_location['company'] . '</span><br/>';
             echo '<span><span class="wpsl-location-address-label" >Город: </span>' . $chosen_pickup_location['city'] . '</span><br/>';
             echo '<span><span class="wpsl-location-address-label" >Адрес: </span>' . $chosen_pickup_location['address_1'] . '</span><br/>';

@@ -128,6 +128,7 @@ div#wpsl-base-gmap_0 {
 }
 
 .wpsl-operator-format-type_label {
+    text-align: left;
     font-weight: 400;
     display: block;
     margin-bottom: -10px;
