@@ -1406,8 +1406,8 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
         if ($chosen_pickup_location && isset($chosen_pickup_location['taid']) && $chosen_pickup_location['taid']) {
             echo '<pre style="text-align: left">' . print_r($array_of_simcard, true) . '</pre>';
         } elseif ($chosen_pickup_location && !$chosen_pickup_location['taid']) {
-            echo '<div style="text-align: left;padding: 14px;background: #1E88E5;color: #fff;font-weight: 400;">';
-            echo '<h4 style="margin-bottom: 0;color: #fff;font-weight: 700;">По наличию сим-карт обращайте по телефону: '.$chosen_pickup_location['phone'].'</h4>';
+            echo '<div style="text-align: left;padding: 14px;background: #1875d1;color: #fff;font-weight: 400;">';
+            echo '<p style="margin-bottom: 0;color: #fff;font-weight: 600;padding-bottom: 9px;font-size: 17px;text-align: center">По наличию сим-карт обращайтесь по телефону:<br> '.$chosen_pickup_location['phone'].'</p>';
             echo '<span><span class="wpsl-location-address-label" >Пункт выдачи: </span>' . $chosen_pickup_location['company'] . '</span><br/>';
             echo '<span><span class="wpsl-location-address-label" >Город: </span>' . $chosen_pickup_location['city'] . '</span><br/>';
             echo '<span><span class="wpsl-location-address-label" >Адрес: </span>' . $chosen_pickup_location['address_1'] . '</span><br/>';
