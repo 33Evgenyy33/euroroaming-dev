@@ -473,7 +473,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                                 echo '</td>';
                             }
 //							echo '<td><input type="text" name="' . $this->id . '_cost[]" value="' . ( isset( $location['cost'] ) ? $location['cost'] : '' ) . '" placeholder="' . __( '(Optional)', 'woocommerce-shipping-local-pickup-plus' ) . '" /></td>';
-                            echo '<td><input type="text" name="' . $this->id . '_taid[]" value="' . (isset($location['taid']) ? $location['taid'] : '') . '" placeholder="' . 'Если есть' . '" /></td>';
+                            echo '<td><input type="text" name="' . $this->id . '_taid[]" value="' . (isset($location['taid']) ? $location['taid'] : '') . '" placeholder="' . 'ID ТА' . '" /></td>';
                             echo '</tr>';
                         }
                         ?>
