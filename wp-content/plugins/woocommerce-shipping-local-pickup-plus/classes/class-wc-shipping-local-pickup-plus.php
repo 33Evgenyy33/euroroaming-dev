@@ -1213,7 +1213,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
     public function check_orange_format($num = '', $format_type = '')
     {
         $orange_combo_check = array("6050", "6051", "6052");
-        $orange_nano_check = array("615", "625", "692", "6053", "6054", "6055", "6056", "6057", "6058", "6059");
+        $orange_nano_check = array("615", "625", "635", "692", "6053", "6054", "6055", "6056", "6057", "6058", "6059");
         $format_array = array();
 
         if ($format_type == 'combo') {
