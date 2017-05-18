@@ -844,7 +844,7 @@ if (!class_exists('WPSL_Frontend')) {
                             $content .= '<p style="margin-bottom: 4px;font-weight: 300;color: #000;">Размер уточняйте по телефону:</p>';
                             $content .= '<p style="color: #000;">' . $store_phone . '</p>';
                             $content .= '</div>';
-                            $content .= '</div>';
+                            $content .= '</div>';//
 
                             $content .= '<div class="wpsl-page-ta-simcard">';
                             $content .= $travelchat_img;
