@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 17 2017 г., 17:41
+-- Время создания: Май 18 2017 г., 18:54
 -- Версия сервера: 5.5.53
 -- Версия PHP: 5.6.29
 
@@ -9577,7 +9577,7 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (10009, 22940, '_edit_last', '1'),
 (10013, 22944, '_vc_post_settings', 'a:1:{s:10:\"vc_grid_id\";a:0:{}}'),
 (10038, 22944, '_edit_lock', '1492417859:1'),
-(10039, 4758, '_edit_lock', '1495032086:1'),
+(10039, 4758, '_edit_lock', '1495033449:1'),
 (10040, 4758, '_wpb_vc_js_status', 'true'),
 (10041, 4758, '_edit_last', '1'),
 (10042, 4758, '_wp_page_template', 'default'),
@@ -17007,7 +17007,7 @@ ALTER TABLE `wp_affiliate_wp_visits`
 -- AUTO_INCREMENT для таблицы `wp_commentmeta`
 --
 ALTER TABLE `wp_commentmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `wp_comments`
 --
@@ -17022,7 +17022,7 @@ ALTER TABLE `wp_links`
 -- AUTO_INCREMENT для таблицы `wp_options`
 --
 ALTER TABLE `wp_options`
-  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2573;
+  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2567;
 --
 -- AUTO_INCREMENT для таблицы `wp_postmeta`
 --
