@@ -1335,12 +1335,19 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
                                         $nano++;
                                 }
 
+                                //echo $location['company'].': проверка combo = '.$combo.'<br>';
+                                //echo $location['company'].': проверка nano = '.$nano.'<br>';
+
                                 //Проверка вариации товара на
                                 if (in_array($variation_id, $orange_combo_variations)) {
+                                    //echo $location['company'].': в заказе комбо';
                                     if ($combo !== 0) $orange_validation++;
                                 } elseif (in_array($variation_id, $orange_nano_variations)) {
-                                    if ($combo !== 0) $orange_validation++;
+                                    //echo $location['company'].': в заказе нано';
+                                    if ($nano !== 0) $orange_validation++;
                                 }
+
+                                //echo $location['company'].': валидация = '.$orange_validation.'<br>';
 
                                 if ($orange_validation == 0) continue 2;
                             }
@@ -1704,7 +1711,7 @@ class WC_Shipping_Local_Pickup_Plus extends WC_Shipping_Method
 
                     // verify a pickup location is selected for this local pickup plus shipping package
                     if (!isset($pickup_location[$package_index]) || !is_numeric($pickup_location[$package_index])) {
-                        wc_add_notice(__('Please select a local pickup location', 'woocommerce-shipping-local-pickup-plus'), 'error');
+                        wc_add_notice('Пожалуйста, выберите пункт самовывоза', 'error');
                         return;
                     }
                 }
