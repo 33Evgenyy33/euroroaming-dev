@@ -18,7 +18,6 @@ class Affiliate_WP_Register {
 		add_action( 'added_existing_user', array( $this, 'process_add_as_affiliate' ) );
 		add_action( 'admin_footer', array( $this, 'scripts' ) );
 
-		add_filter( 'affwp_register_required_fields', array( $this, 'maybe_required_fields' ) );
 	}
 
 	/**
@@ -57,9 +56,6 @@ class Affiliate_WP_Register {
 			return;
 		}
 
-		/**
-		 * Fires immediately prior to processing an affiliate registration form.
-		 */
 		do_action( 'affwp_pre_process_register_form' );
 
 		if ( ! is_user_logged_in() ) {
@@ -104,7 +100,7 @@ class Affiliate_WP_Register {
 			}
 
 			if ( empty( $data['affwp_user_email'] ) || ! is_email( $data['affwp_user_email'] ) ) {
-				$this->add_error( 'email_invalid', __( 'Invalid account email', 'affiliate-wp' ) );
+				$this->add_error( 'email_invalid', __( 'Invalid email', 'affiliate-wp' ) );
 			}
 
 			if ( ! empty( $data['affwp_payment_email'] ) && $data['affwp_payment_email'] != $data['affwp_user_email'] && ! is_email( $data['affwp_payment_email'] ) ) {
@@ -150,9 +146,6 @@ class Affiliate_WP_Register {
 			$this->add_error( 'already_registered', __( 'You are already registered as an affiliate', 'affiliate-wp' ) );
 		}
 
-		/**
-		 * Fires after processing an affiliate registration form.
-		 */
 		do_action( 'affwp_process_register_form' );
 
 		// only log the user in if there are no errors
@@ -231,59 +224,6 @@ class Affiliate_WP_Register {
 		return apply_filters( 'affwp_register_required_fields', $required_fields );
 	}
 
-
-
-	/**
-	 * Makes fields required/not required, based on the "Required Registration Fields"
-	 * admin setting
-	 *
-	 * @access public
-	 * @since  2.0
-	 *
-	 * @param array $required_fields The required fields
-	 * @return array $required_fields The required fields
-	 */
-	public function maybe_required_fields( $required_fields ) {
-
-		// Get the required fields from the settings
-		$required_registration_fields = affiliate_wp()->settings->get( 'required_registration_fields' );
-
-		/**
-		 * Fields that are already required by default
-		 */
-
-		// Your Name
-		if ( ! isset( $required_registration_fields['your_name'] ) ) {
-			unset( $required_fields['affwp_user_name'] );
-		}
-
-		// Website URL
-		if ( ! isset( $required_registration_fields['website_url'] ) ) {
-			unset( $required_fields['affwp_user_url'] );
-		}
-
-		/**
-		 * Fields that are not required by default
-		 */
-
-		// Payment Email
-		if ( isset( $required_registration_fields['payment_email'] ) ) {
-			$required_fields['affwp_payment_email']['error_id']      = 'empty_payment_email';
-			$required_fields['affwp_payment_email']['error_message'] = __( 'Please enter your payment email', 'affiliate-wp' );
-			$required_fields['affwp_payment_email']['logged_out']    = true;
-		}
-
-		// How will you promote us?
-		if ( isset( $required_registration_fields['promotion_method'] ) ) {
-			$required_fields['affwp_promotion_method']['error_id']      = 'empty_promotion_method';
-			$required_fields['affwp_promotion_method']['error_message'] = __( 'Please tell us how you will promote us', 'affiliate-wp' );
-			$required_fields['affwp_promotion_method']['logged_out']    = true;
-		}
-
-		return $required_fields;
-
-	}
-
 	/**
 	 * Register the affiliate / user
 	 *
@@ -352,24 +292,13 @@ class Affiliate_WP_Register {
 		// Retrieve affiliate ID. Resolves issues with caching on some hosts, such as GoDaddy
 		$affiliate_id = affwp_get_affiliate_id( $user_id );
 
-		/**
-		 * Fires immediately after registering a user.
-		 *
-		 * @param int    $affiliate_id Affiliate ID.
-		 * @param string $status       Affiliate status.
-		 * @param array  $args         Data arguments used when registering the user.
-		 */
 		do_action( 'affwp_register_user', $affiliate_id, $status, $args );
 	}
 
 	/**
-	 * Logs the user in.
+	 * Log the user in
 	 *
 	 * @since 1.0
-	 *
-	 * @param  $user_id    The user ID.
-	 * @param  $user_login The `user_login` for the user.
-	 * @param  $remember   Whether or not the browser should remember the user login.
 	 */
 	private function log_user_in( $user_id = 0, $user_login = '', $remember = false ) {
 
@@ -379,14 +308,6 @@ class Affiliate_WP_Register {
 
 		wp_set_auth_cookie( $user_id, $remember );
 		wp_set_current_user( $user_id, $user_login );
-
-		/**
-		 * The `wp_login` action is fired here to maintain compatibility and stability of
-		 * any WordPress core features, plugins, or themes hooking onto it.
-		 *
-		 * @param  string   $user_login The `user_login` for the user.
-		 * @param  stdClass $user       The user object.
-		 */
 		do_action( 'wp_login', $user_login, $user );
 
 	}
@@ -394,10 +315,8 @@ class Affiliate_WP_Register {
 	/**
 	 * Register a user as an affiliate during user registration
 	 *
-	 * @since  1.1
+	 * @since 1.1
 	 * @return bool
-	 *
-	 * @param  $user_id The user ID.
 	 */
 	public function auto_register_user_as_affiliate( $user_id = 0 ) {
 
@@ -420,13 +339,12 @@ class Affiliate_WP_Register {
 		$args   = (array) $user['data'];
 
 		/**
-		 * Fires immediately after a new user has been auto-registered as an affiliate
+		 * Fires after a new user has been auto-registered as an affiliate
 		 *
 		 * @since  1.7
-		 *
-		 * @param int    $affiliate_id Affiliate ID.
-		 * @param string $status       The affiliate status.
-		 * @param array  $args         Affiliate data.
+		 * @param  int    $affiliate_id
+		 * @param  string $status
+		 * @param  array  $args
 		 */
 		do_action( 'affwp_auto_register_user', $affiliate_id, $status, $args );
 

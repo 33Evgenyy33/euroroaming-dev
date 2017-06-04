@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return array $links
  */
 function affwp_plugin_action_links( $links, $file ) {
-	$affwp_links = affwp_admin_link( 'settings', __( 'General Settings', 'affiliate-wp' ) );
+	$affwp_links = '<a href="' . admin_url( 'admin.php?page=affiliate-wp-settings' ) . '">' . esc_html__( 'General Settings', 'affiliate-wp' ) . '</a>';
 	if ( $file == 'affiliate-wp/affiliate-wp.php' ) {
 		array_unshift( $links, $affwp_links );
 	}

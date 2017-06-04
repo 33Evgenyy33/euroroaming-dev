@@ -7,31 +7,82 @@
  * Automatically move JavaScript code to page footer, speeding up page loading time.
  */
 
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('admin_print_scripts', 'print_emoji_detection_script');
+remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('admin_print_styles', 'print_emoji_styles');
+remove_filter('the_content_feed', 'wp_staticize_emoji');
+remove_filter('comment_text_rss', 'wp_staticize_emoji');
+remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
 
-/*remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
-add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
+/* Загрузка скрипта плавного скролла */
+add_action('wp_enqueue_scripts', 'my_scripts_method');
+function my_scripts_method()
+{
+    //wp_enqueue_script('smoothscroll', get_stylesheet_directory_uri() . '/js/smoothscroll.js', array('jquery'), '1.0', true);
 
-if ( ! function_exists( 'woocommerce_template_loop_product_thumbnail' ) ) {
-    function woocommerce_template_loop_product_thumbnail() {
-        echo woocommerce_get_product_thumbnail();
-    }
+    //wp_enqueue_style( 'fab',  get_stylesheet_directory_uri() . '/css/fab.css');
+    //wp_enqueue_script( 'clipboard', get_stylesheet_directory_uri() . '/js/clipboard.min.js', array('jquery'), '1.0', true);
+    wp_enqueue_script('fab', get_stylesheet_directory_uri() . '/js/fab.js', array('jquery'), '1.0', true);
 }
-if ( ! function_exists( 'woocommerce_get_product_thumbnail' ) ) {
-    function woocommerce_get_product_thumbnail( $size = 'shop_catalog', $placeholder_width = 0, $placeholder_height = 0  ) {
-        global $post, $woocommerce;
-        $output = '<div class="col-lg-4">';
 
-        if ( has_post_thumbnail() ) {
-            $output .= get_the_post_thumbnail( $post->ID, $size );
-        } else {
-            $output .= wc_placeholder_img( $size );
-        }
-        $output .= '</div>';
-        return $output;
+function hide_posts_media_by_other($query) {
+    global $pagenow;
+    if( ( 'edit.php' != $pagenow && 'upload.php' != $pagenow   ) || !$query->is_admin ){
+        return $query;
     }
+    if( !current_user_can( 'manage_options' ) ) {
+        global $user_ID;
+        $query->set('author', $user_ID );
+    }
+    return $query;
+}
+add_filter('pre_get_posts', 'hide_posts_media_by_other');
+
+add_filter( 'posts_where', 'hide_attachments_wpquery_where' );
+function hide_attachments_wpquery_where( $where ){
+    global $current_user;
+    if( !current_user_can( 'manage_options' ) ) {
+        if( is_user_logged_in() ){
+            if( isset( $_POST['action'] ) ){
+                // library query
+                if( $_POST['action'] == 'query-attachments' ){
+                    $where .= ' AND post_author='.$current_user->data->ID;
+                }
+            }
+        }
+    }
+    return $where;
+}
+
+
+/* Загрузка скрипта VKontakte в шапку сайта  */
+/*add_action('wp_head', 'my_custom_js');
+function my_custom_js()
+{
+    echo '<script type="text/javascript">(window.Image ? (new Image()) : document.createElement(\'img\')).src = location.protocol + \'//vk.com/rtrg?r=HdsKraxE8HWoxhJ9OdOoqg5IsYvCGO0MUyAtZPZSWnZjFqyBwsZwGSimf9a01GccFD*fVs8cOL/y33Qs1uNfJPOURuay/bk2uZXD*BcncsKrfhtGgL5i4hvdMr8*07HDKD*1BUTHOS*rTVsYrS8oATYONJXDHctGbr8JeWB0ffw-&pixel_id=1000021590\';</script><!-- Facebook Pixel Code --><script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version=\'2.0\';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,\'script\',\'https://connect.facebook.net/en_US/fbevents.js\');fbq(\'init\', \'392030000921269\');fbq(\'track\', "PageView");</script><noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=392030000921269&ev=PageView&noscript=1"/></noscript><!-- End Facebook Pixel Code -->';
 }*/
 
-/*add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_product_price', 10);
+/* Загрузка скрипта Scroll To ID */
+add_action('wp_enqueue_scripts', 'my_scrolltoid_scripts');
+function my_scrolltoid_scripts()
+{
+    if (is_single()) {
+        wp_enqueue_script('scrolltoid', get_stylesheet_directory_uri() . '/js/scrolltoid.js');
+    }
+}
+
+/* Загрузка скрипта для страницы CHECKOUT*/
+add_action('wp_enqueue_scripts', 'my_checkout_scripts');
+function my_checkout_scripts()
+{
+    if (is_page('checkout')) {
+        wp_enqueue_script('mycheckout', get_stylesheet_directory_uri() . '/js/mycheckout.js', '', '', true);
+    }
+}
+
+//Цена пластика на миниатюре товара на странице shop
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_product_price', 10);
 function woocommerce_template_loop_product_price($woocommerce_template_loop_price, $int) {
     global $post;
     $price = 0;
@@ -62,13 +113,67 @@ function woocommerce_template_loop_product_price($woocommerce_template_loop_pric
             $price = 750;
             break;
         case 18443:
-            $price = 1780;
-            break;
+            return;
     }
     //echo '<h3 id="shop-plastic-price">'.$post->ID.'</h3>';
     echo '<style>#shop-plastic-price {padding: 0;color: #838b08;font-weight: 500;}</style><h3 id="shop-plastic-price">'.$price.'₽</h3>';
-}*/
+}
 
+/******* Разрешение загрузки разных тапов файлов *******/
+/*function bodhi_svgs_disable_real_mime_check( $data, $file, $filename, $mimes ) {
+    $wp_filetype = wp_check_filetype( $filename, $mimes );
+
+    $ext = $wp_filetype['ext'];
+    $type = $wp_filetype['type'];
+    $proper_filename = $data['proper_filename'];
+
+    return compact( 'ext', 'type', 'proper_filename' );
+}
+add_filter( 'wp_check_filetype_and_ext', 'bodhi_svgs_disable_real_mime_check', 10, 4 );*/
+
+add_filter('upload_mimes', 'cc_mime_types');
+function cc_mime_types($mimes)
+{
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+
+/*********************************************/
+
+get_template_part('shortcodes');
+
+add_filter('wc_order_is_editable', 'wc_make_processing_orders_editable', 10, 2);
+function wc_make_processing_orders_editable($is_editable, $order)
+{
+    if ($order->get_status() == 'processing') {
+        $is_editable = true;
+    }
+
+    return $is_editable;
+}
+
+add_action('admin_menu', 'my_remove_menu_pages', 999);
+function my_remove_menu_pages()
+{
+    global $submenu;
+
+    if (!current_user_can('add_users')) {
+
+        remove_menu_page('users.php');
+        remove_menu_page('vc-welcome');
+
+        unset($submenu['wc_point_of_sale'][2]);
+    }
+
+}
+
+/* Шоткод таблица стран */
+add_shortcode('country_table', 'country_table_func');
+function country_table_func()
+{
+    $output = '<script>jQuery(document).ready(function(n){n(document).ready(function(){"use strict";n(".menu > ul > li:has( > ul)").addClass("menu-dropdown-icon"),n(".menu > ul > li > ul:not(:has(ul))").addClass("normal-sub"),n(".menu > ul > li").hover(function(u){n(window).width()>943&&(n(this).children("ul").stop(!0,!1).fadeToggle(150),u.preventDefault())}),n(".menu > ul > li").click(function(){n(window).width()<=943&&n(this).children("ul").fadeToggle(150)})})});</script><div class="menu-container"> <div class="menu"> <ul> <li><a class="btn-pricing-tabl"><i class="material-icons">public</i> <span class="country_table_rep_text">Сравнение тарифов по странам</span></a> <ul> <li><span>А-Д</span> <ul> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-avstrii/" target="_blank">Австрия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-albanii/" target="_blank">Албания</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-andorre/" target="_blank">Андорра</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-belgii/" target="_blank">Бельгия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-bolgarii/" target="_blank">Болгария</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-bosnii-i-gertsegovine/" target="_blank">Босния и Герцеговина</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-velikobritanii/" target="_blank">Великобритания</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-vengrii/" target="_blank">Венгрия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-gvadelupe/" target="_blank">Гваделупе</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-germanii/" target="_blank">Германия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-gernsi/" target="_blank">Гернси</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-gibraltare/" target="_blank">Гибралтар</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-gonkonge/" target="_blank">Гонконг</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-grenlandii/" target="_blank">Гренландия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-gretsii/" target="_blank">Греция</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-danii/" target="_blank">Дания</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-dzhersi/" target="_blank">Джерси</a></li> </ul> </li> <li><span>И-М</span> <ul> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-izraile/" target="_blank">Израиль</a></li><li><a href="https://euroroaming.ru/mobilnyj-internet-v-indii/" target="_blank">Индия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-irlandii/" target="_blank">Ирландия</a></li><li><a href="https://euroroaming.ru/mobilnyj-internet-v-islandii/" target="_blank">Исландия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-ispanii/" target="_blank">Испания</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-italii/" target="_blank">Италия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-kanarskih-ostrovah/" target="_blank">Канарские острова</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-kipre/" target="_blank">Кипр</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-kitae/" target="_blank">Китай</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-latvii/" target="_blank">Латвия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-litve/" target="_blank">Литва</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-lihtenshtejne/" target="_blank">Лихтенштейн</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-lyuksemburge/" target="_blank">Люксембург</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-makedonii/" target="_blank">Македония</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-malajzii/" target="_blank">Малайзия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-malte/" target="_blank">Мальта</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-marokko/" target="_blank">Марокко</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-martinike/" target="_blank">Мартиника</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-monako/" target="_blank">Монако</a></li> </ul> </li> <li><span>Н-Т</span> <ul> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-niderlandah/" target="_blank">Нидерланды</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-norvegii/" target="_blank">Норвегия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-ostrove-men/" target="_blank">Остров Мэн</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-polshe/" target="_blank">Польша</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-portugalii/" target="_blank">Португалия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-pribaltike/" target="_blank" rel="nofollow">Прибалтика</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-reyunone/" target="_blank">Реюньон</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-rumynii/" target="_blank">Румыния</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-san-marino/" target="_blank">Сан-Марино</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-sen-bartelemi/" target="_blank">Сен-Бартелеми</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-sen-martene/" target="_blank">Сен-Мартен</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-serbii/" target="_blank">Сербия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-singapure/" target="_blank">Сингапур</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-slovakii/" target="_blank">Словакия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-slovenii/" target="_blank">Словения</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-ssha/" target="_blank">США</a></li><li><a href="https://euroroaming.ru/mobilnyj-internet-v-tailande/" target="_blank">Таиланд</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-turtsii/" target="_blank">Турция</a></li></ul> </li> <li><span>Ф-Э</span> <ul> <li><a href="https://euroroaming.ru/mobilnyj-internet-na-farerskih-ostrovah/" target="_blank">Фарерские острова</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-finlyandii/" target="_blank">Финляндия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-vo-frantsii/" target="_blank">Франция</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-vo-frantsuzskoj-gviane/" target="_blank">Французская Гвиана</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-horvatii/" target="_blank">Хорватия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-chehii/" target="_blank">Чехия</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-chili/" target="_blank">Чили</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-shvejtsarii/" target="_blank">Швейцария</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-shvetsii/" target="_blank">Швеция</a></li> <li><a href="https://euroroaming.ru/mobilnyj-internet-v-estonii/" target="_blank">Эстония</a></li> </ul> </li> </ul> </li> </ul> </div> </div>';
+    return $output;
+}
 
 /* Отправление почты */
 add_action('phpmailer_init', 'tweak_mailer_ssl', 999);
@@ -178,27 +283,269 @@ function custom_woocommerce_states($states)
 }
 
 /*********************************Woocommerce промокод************************************************/
+add_action('woocommerce_applied_coupon', 'apply_product_on_coupon');
+function apply_product_on_coupon()
+{
+    global $woocommerce;
+
+    $coupons = $woocommerce->cart->get_applied_coupons();
+
+    $coupon_id = $coupons[0];
+
+    $coupon_code_vodafone = $coupon_id . '-vodafone';
+    $coupon_code_orange = $coupon_id . '-orange';
+    $coupon_code_ortel = $coupon_id . '-ortel';
+    $coupon_code_globalsim = $coupon_id . '-globalsim';
+    $coupon_code_globalsim_internet = $coupon_id . '-globalsim-internet';
+    $coupon_code_europasim = $coupon_id . '-europasim';
+    $coupon_code_travelchat = $coupon_id . '-travelchat';
+
+
+    $the_coupon_vodafone = new WC_Coupon($coupon_code_vodafone);
+    $the_coupon_orange = new WC_Coupon($coupon_code_orange);
+    $the_coupon_ortel = new WC_Coupon($coupon_code_ortel);
+    $the_coupon_globalsim = new WC_Coupon($coupon_code_globalsim);
+    $the_coupon_globalsim_internet = new WC_Coupon($coupon_code_globalsim_internet);
+    $the_coupon_europasim = new WC_Coupon($coupon_code_europasim);
+    $the_coupon_travelchat = new WC_Coupon($coupon_code_travelchat);
 
 
 
-/* Загрузка скрипта для страницы CHECKOUT*/
-add_action( 'wp_enqueue_scripts', 'my_checkout_scripts' );
-function my_checkout_scripts() {
-    if ( is_page( 'checkout' ) ) {
-        //wp_enqueue_style('suggestions-css', get_stylesheet_directory_uri() . '/css/suggestions.css');
-        //wp_enqueue_script( 'suggestions-js', get_stylesheet_directory_uri() . '/js/jquery.suggestions.min.js' );
-        wp_enqueue_script( 'mycheckout', get_stylesheet_directory_uri() . '/js/mycheckout.js' );
+    if (in_array($coupon_id, $woocommerce->cart->applied_coupons)) {
+        if ($the_coupon_vodafone->is_valid() && !in_array($coupon_code_vodafone, $woocommerce->cart->applied_coupons)) {
+            $the_coupon_vodafone->add_coupon_message('');
+
+            $woocommerce->cart->add_discount($coupon_code_vodafone);
+        }
+        if ($the_coupon_travelchat->is_valid() && !in_array($the_coupon_travelchat, $woocommerce->cart->applied_coupons)) {
+            $the_coupon_travelchat->add_coupon_message('');
+
+            $woocommerce->cart->add_discount($the_coupon_travelchat);
+        }
+        if ($the_coupon_orange->is_valid() && !in_array($coupon_code_orange, $woocommerce->cart->applied_coupons)) {
+            $the_coupon_orange->add_coupon_message('');
+
+            $woocommerce->cart->add_discount($coupon_code_orange);
+        }
+        if ($the_coupon_ortel->is_valid() && !in_array($coupon_code_ortel, $woocommerce->cart->applied_coupons)) {
+            $the_coupon_ortel->add_coupon_message('');
+
+            $woocommerce->cart->add_discount($coupon_code_ortel);
+        }
+        if ($the_coupon_globalsim->is_valid() && !in_array($coupon_code_globalsim, $woocommerce->cart->applied_coupons)) {
+            $the_coupon_globalsim->add_coupon_message('');
+
+            $woocommerce->cart->add_discount($coupon_code_globalsim);
+        }
+        if ($the_coupon_globalsim_internet->is_valid() && !in_array($coupon_code_globalsim_internet, $woocommerce->cart->applied_coupons)) {
+            $the_coupon_globalsim_internet->add_coupon_message('');
+
+            $woocommerce->cart->add_discount($coupon_code_globalsim_internet);
+        }
+        if ($the_coupon_europasim->is_valid() && !in_array($coupon_code_europasim, $woocommerce->cart->applied_coupons)) {
+            $the_coupon_europasim->add_coupon_message('');
+
+            $woocommerce->cart->add_discount($coupon_code_europasim);
+        }
+    }
+
+    //$coupons = $woocommerce->cart->get_coupons();
+    /*if (in_array($coupon_id, $woocommerce->cart->applied_coupons) && count($coupons) == 1) {
+        WC()->cart->remove_coupon($coupon_id);
+        echo '<style>.woocommerce-message{display: none;}</style>';
+        wc_add_notice(sprintf(__("Жаль, но этот промокод не может быть использован для товаров, которые находятся у вас в корзине.", "your-theme-language")), 'error');
+    } else {
+        echo '<style>.woocommerce div.woocommerce-message + div.woocommerce-message{display: none;}</style>';
+    }*/
+
+    $coupons = $woocommerce->cart->get_coupons();
+
+    if (count($coupons) >= 1) {
+        echo '<style>.woocommerce-info{display:none;}</style>';
     }
 }
 
-/*add_filter('affwp_currencies', 'affwp_custom_add_currency');
+/********************************************************************************************************************/
+
+/************Проверка на совместимость продуктов в корзине (баланс не может быть вместе с сим-картой в одном заказе)******************/
+add_filter( 'woocommerce_add_to_cart_validation', 'filter_woocommerce_add_to_cart_validation', 10, 3 );
+function filter_woocommerce_add_to_cart_validation( $true, $product_id, $quantity ) {
+    global $woocommerce;
+    $items = $woocommerce->cart->get_cart();
+
+    $add_product_cat = get_the_terms ( $product_id, 'product_cat' );
+
+    foreach ($items as $item){
+        $product_in_cart_cat = get_the_terms ( $item['product_id'], 'product_cat' );
+        if ($add_product_cat[0]->slug !== $product_in_cart_cat[0]->slug){
+            wc_add_notice( __( 'Добавляемый продукт не совместим с тем, что Вы уже добавили в корзину. Данные продукты оформляются по отдельности', 'woocommerce' ), 'error' );
+            return false;
+        }
+    }
+    //file_put_contents("processing-3.txt", print_r($add_product_cat[0]->slug, true));
+    return $true;
+};
+/***********************************************************************************************************************************/
+
+add_action('pre_get_posts', 'shop_filter_cat');
+function shop_filter_cat($query)
+{
+    if (!is_admin() && is_post_type_archive('product') && $query->is_main_query()) {
+        $query->set('tax_query', array(
+                array('taxonomy' => 'product_cat',
+                    'field' => 'slug',
+                    'terms' => 'sim-karty'
+                )
+            )
+        );
+    }
+}
+
+/**********************************************/
+/*function wc_ninja_remove_checkout_field($fields)
+{
+    $chosen_methods = WC()->session->get('chosen_shipping_methods');
+    //var_dump($chosen_methods);
+    $chosen_shipping = $chosen_methods[0];
+
+    echo 'test1';
+
+    if ($chosen_shipping == 'local_pickup_plus') {
+        echo 'test3';
+        unset($fields['billing']['billing_city']);
+        return $fields;
+    }
+    return $fields;
+}
+
+add_action('woocommerce_cart_calculate_fees', 'woocommerce_custom_surcharge');
+function woocommerce_custom_surcharge()
+{
+
+    add_filter('woocommerce_checkout_fields', 'wc_ninja_remove_checkout_field');
+}*/
+/**********************************************/
+
+add_filter('woocommerce_available_payment_gateways', 'filter_gateways');
+function filter_gateways($gateways)
+{
+    $payment_NAME = 'cheque';
+
+    $chosen_methods = WC()->session->get('chosen_shipping_methods');
+    //var_dump($chosen_methods);
+    $chosen_shipping = $chosen_methods[0];
+
+    if ($chosen_shipping == '18616' || $chosen_shipping == 'local_pickup_plus' || $chosen_shipping == 'flat_rate:1' || $chosen_shipping == 'flat_rate:2') unset($gateways[$payment_NAME]);
+
+    if ($chosen_shipping == null) unset($gateways[$payment_NAME]);
+
+    return $gateways;
+}
+
+/*
+ * Доступные способы доставки в зависимости от товара в корзине
+ *
+ * */
+add_filter('woocommerce_package_rates', 'my_hide_shipping_when_free_is_available', 100);
+function my_hide_shipping_when_free_is_available($rates)
+{
+    global $woocommerce;
+
+    $free = array();
+
+    $items = $woocommerce->cart->get_cart();
+
+    foreach ($items as $item => $values) {
+
+        $_product = $values['data']->post;
+        //print_r($values['variation_id']);
+
+        if ($_product->ID == 25841) {
+            foreach ($rates as $rate_id => $rate) {
+                if ('advanced_shipping' == $rate->method_id) {
+                    $free[$rate_id] = $rate;
+                }
+            }
+            break;
+        }
+
+        /*if ($_product->ID == 18446 || $_product->ID == 28328 || $_product->ID == 18453 || $_product->ID == 18443) {
+            foreach ($rates as $rate_id => $rate) {
+                if ('local_pickup_plus' == $rate->method_id || '18616' == $rate->id) {
+                    $free[$rate_id] = $rate;
+                }
+            }
+            break;
+        }*/
+
+        /************Vodafone*************/
+        /*if ($_product->ID == 18438) {
+            //print_r($_product);
+            foreach ($rates as $rate_id => $rate) {
+                if ('advanced_shipping' == $rate->method_id || '18616' == $rate->id) {
+                    $free[$rate_id] = $rate;
+                }
+            }
+            break;
+        }*/
+
+        /************Vodafone только выдача (все форматы)*************/
+        if ($_product->ID == 18438) {
+            //print_r($_product);
+            foreach ($rates as $rate_id => $rate) {
+                if ('local_pickup_plus' == $rate->method_id) {
+                    $free[$rate_id] = $rate;
+                }
+            }
+            break;
+        }
+
+        /************Orange только выдача (все форматы)*************/
+        /*if ($_product->ID == 18402) {
+            //print_r($_product);
+            foreach ($rates as $rate_id => $rate) {
+                if ('local_pickup_plus' == $rate->method_id) {
+                    $free[$rate_id] = $rate;
+                }
+            }
+            break;
+        }*/
+
+        /************Orange только выдача (nano)*************/
+        /*if ($_product->ID == 18402) {
+            //print_r($_product);
+            if ($values['variation_id'] == 24062 || $values['variation_id'] == 24059 || $values['variation_id'] == 24056
+                || $values['variation_id'] == 31083 || $values['variation_id'] == 30954 || $values['variation_id'] == 30955) {
+                foreach ($rates as $rate_id => $rate) {
+                    if ('local_pickup_plus' == $rate->method_id) {
+                        $free[$rate_id] = $rate;
+                    }
+                }
+                break;
+            }
+        }*/
+        /*
+        24062
+        24059
+        24056
+        31083
+        30954
+        30955
+        local_pickup_plus
+        */
+
+    }
+    return !empty($free) ? $free : $rates;
+}
+
+add_filter('affwp_currencies', 'affwp_custom_add_currency');
 function affwp_custom_add_currency($currencies)
 {
     $currencies['ye'] = 'YE';
     return $currencies;
-}*/
+}
 
-/*add_filter('show_admin_bar', 'my_function_admin_bar');
+add_filter('show_admin_bar', 'my_function_admin_bar');
 function my_function_admin_bar()
 {
     if (members_current_user_has_role('cashier') || members_current_user_has_role('editor') || members_current_user_has_role('administrator') || members_current_user_has_role('shop_manager')) {
@@ -206,34 +553,42 @@ function my_function_admin_bar()
     } else {
         return false;
     }
-}*/
+}
 
 add_action('wp_logout', create_function('', 'wp_redirect(home_url());exit();'));
 
+add_action('init', 'my_insert_post_hook');
+function my_insert_post_hook($my_post)
+{
+    if ($_SERVER['REQUEST_URI'] == '/otzyvy/page/2/') {
+        wp_redirect('https://euroroaming.ru/category/otzyvy/', 301);
+        exit;
+    }
+}
 
-//add_action('woocommerce_before_checkout_form', 'action_woocommerce_before_checkout_form', 10, 2);
-//function action_woocommerce_before_checkout_form($woocommerce_checkout_login_form, $int)
-//{
-//    global $woocommerce;
-//
-//    $product_in_cart = false;
-//
-//    foreach ($woocommerce->cart->get_cart() as $cart_item_key => $values) {
-//        $_product = $values['data'];
-//        $terms = get_the_terms($_product->id, 'product_cat');
-//        foreach ($terms as $term) {
-//            $_categoryid = $term->term_id;
-//            if ($_categoryid == 139) {
-//                //category is in cart!
-//                $product_in_cart = true;
-//            }
-//        }
-//    }
-//
-//    if ($product_in_cart == true) {
-//        echo '<p style="box-shadow: 0 1px 1px 0 rgba(0,0,0,0.05), 0 1px 3px 0 rgba(0,0,0,0.25);border-width: 1px 1px;background: #ffef74;padding: 20px;border-left: .618em solid rgba(0,0,0,.15);">Для выбора способа доставки или пункта самовывоза заполните все обязательные поля, отмеченные звездочкой <span style="color: #F60000;font-size: 18px;">*</span></p>';
-//    }
-//}
+/*add_action('woocommerce_before_checkout_form', 'action_woocommerce_before_checkout_form', 10, 2);
+function action_woocommerce_before_checkout_form($woocommerce_checkout_login_form, $int)
+{
+    global $woocommerce;
+
+    $product_in_cart = false;
+
+    foreach ($woocommerce->cart->get_cart() as $cart_item_key => $values) {
+        $_product = $values['data'];
+        $terms = get_the_terms($_product->id, 'product_cat');
+        foreach ($terms as $term) {
+            $_categoryid = $term->term_id;
+            if ($_categoryid == 52) {
+                //category is in cart!
+                $product_in_cart = true;
+            }
+        }
+    }
+
+    if ($product_in_cart == true) {
+        echo '<p style="box-shadow: 0 1px 1px 0 rgba(0,0,0,0.05), 0 1px 3px 0 rgba(0,0,0,0.25);border-width: 1px 1px;background: #ffef74;padding: 20px;border-left: .618em solid rgba(0,0,0,.15);">Для выбора способа доставки или пункта самовывоза заполните все обязательные поля, отмеченные звездочкой <span style="color: #F60000;font-size: 18px;">*</span></p>';
+    }
+}*/
 
 add_action('woocommerce_review_order_before_payment', 'action_woocommerce_checkout_before_order_review', 10, 0);
 function action_woocommerce_checkout_before_order_review()
@@ -328,10 +683,31 @@ add_action('edit_user_profile_update', 'affwp_custom_save_extra_profile_fields')
 function local_pickup_instructions()
 {
     ?>
-    <p style="font-weight: 500;padding: 3px;margin-bottom: 16px;border-bottom: 1px solid #f19321;">Выберите пункт самовывоза из выпадающего списка</p>
+    <p style="font-weight: 500;padding: 7px;margin-bottom: 0;">Выберите пункт самовывоза из выпадающего списка</p>
     <?php
 }*/
 
+add_action('woocommerce_checkout_process', 'wdm_validate_custom_field', 10, 1);
+function wdm_validate_custom_field($args)
+{
+    global $wpdb;
+    echo 'test11';
+    if (isset($_POST['orange_replenishment'])) {
+        $o_id = $_POST['orange_replenishment'];
+        $track_o = $wpdb->get_row($wpdb->prepare("SELECT * FROM wp_orange_numbers WHERE numbers = %d", $o_id));
+
+        if (empty($track_o->numbers))
+            wc_add_notice('Данный номер Orange не принадлежит компании Евророуминг или номер введен некорректно', 'error');
+    }
+
+    if (isset($_POST['vodafone_replenishment'])) {
+        $v_id = $_POST['vodafone_replenishment'];
+        $track_v = $wpdb->get_row($wpdb->prepare("SELECT * FROM wp_vodafone_numbers WHERE numbers = $v_id"));
+
+        if (empty($track_v->numbers))
+            wc_add_notice('Номер '.$v_id.' Vodafone не принадлежит компании Евророуминг или номер введен некорректно', 'error');
+    }
+}
 
 add_filter('woocommerce_default_address_fields', 'bbloomer_override_postcode_validation');
 function bbloomer_override_postcode_validation($address_fields)
@@ -390,9 +766,6 @@ function custom_templates($templates)
     return $templates;
 }
 
-
-
-
 add_action('admin_enqueue_scripts', 'wpdocs_enqueue_custom_admin_style');
 function wpdocs_enqueue_custom_admin_style()
 {
@@ -424,3 +797,30 @@ function redirect_so_15396771()
         exit;
     }
 }
+
+add_filter( 'comment_post', 'comment_notification' );
+
+function comment_notification( $comment_ID, $comment_approved ) {
+
+    // Send email only when it's not approved
+    if( $comment_approved == 0 ) {
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+
+        $comment = get_comment( $comment_ID );
+
+        $subject = "Проверьте комментарий к статье: ".get_the_title($comment->comment_post_ID);
+        $message = 'Ссылка на статью: '.get_permalink( $comment->comment_post_ID );
+        $message .= '<br>';
+        $message .= 'Текст комментария:';
+        $message .= '<br>';
+        $message .= get_comment_text( $comment_ID, array() );
+
+        wp_mail( 'o.koshkina@euroroaming.ru' , $subject, $message, $headers );
+        wp_mail( 'm.prohorova@euroroaming.ru' , $subject, $message, $headers );
+        wp_mail( 'e.simakova@euroroaming.ru' , $subject, $message, $headers );
+    }
+}
+
+
+

@@ -30,11 +30,6 @@ function affwp_creatives_screen_options() {
 	// Instantiate the list table to make the columns array available to screen options.
 	new AffWP_Creatives_Table;
 
-	/**
-	 * Fires within the screen options shown on the creatives screen.
-	 *
-	 * @param string $screen The current screen.
-	 */
 	do_action( 'affwp_creatives_screen_options', $screen );
 
 }

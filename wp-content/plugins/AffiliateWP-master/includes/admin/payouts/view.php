@@ -36,10 +36,11 @@ $payout = affwp_get_payout( absint( $_GET['payout_id'] ) );
 
 			<td>
 				<?php
-				$url = affwp_admin_url( 'affiliates', array(
+				$url = add_query_arg( array(
+					'page'         => 'affiliate-wp-affiliates',
 					'action'       => 'view_affiliate',
 					'affiliate_id' => $payout->affiliate_id
-				) );
+				), admin_url( 'admin.php' ) );
 
 				$name      = affiliate_wp()->affiliates->get_affiliate_name( $payout->affiliate_id );
 				$affiliate = affwp_get_affiliate( $payout->affiliate_id );

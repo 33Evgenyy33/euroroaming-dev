@@ -149,12 +149,12 @@ class Affiliate_WP_Migrate_Affiliates_Pro extends Affiliate_WP_Migrate_Base {
 
 			}
 
-			if ( ! $current_count = affiliate_wp()->utils->data->get( 'affwp_migrate_affiliates_pro_total_count' ) ) {
+			if ( ! $current_count = $this->get_stored_data( 'affwp_migrate_affiliates_pro_total_count' ) ) {
 				$current_count = 0;
 			}
 			$current_count = $current_count + count( $inserted );
 
-			affiliate_wp()->utils->data->write( 'affwp_migrate_affiliates_pro_total_count', $current_count );
+			$this->store_data( 'affwp_migrate_affiliates_pro_total_count', $current_count, array( '%s', '%d', '%s' ) );
 
 			return true;
 
@@ -247,7 +247,13 @@ class Affiliate_WP_Migrate_Affiliates_Pro extends Affiliate_WP_Migrate_Base {
 	public function finish() {
 		delete_option( 'affwp_migrate_direct_affiliates' );
 
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliates_pro_migrated' ) ) );
+		$redirect = add_query_arg( array(
+			'page'         => 'affiliate-wp-affiliates',
+			'affwp_notice' => 'affiliates_pro_migrated'
+		), admin_url( 'admin.php' ) );
+
+		wp_safe_redirect( $redirect );
+
 		exit;
 	}
 

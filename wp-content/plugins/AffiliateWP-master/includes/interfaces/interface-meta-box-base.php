@@ -1,11 +1,6 @@
 <?php
 namespace AffWP\Admin\Meta_Box;
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 interface Base {
 
 	/**

@@ -11,14 +11,7 @@ if ( ! empty( $_GET['creative_id'] ) && is_array( $_GET['creative_id'] ) ) {
 
 	<form method="post" id="affwp_delete_creative">
 
-		<?php
-		/**
-		 * Fires at the top of the delete-creatives admin screen.
-		 *
-		 * @param int $to_delete The ID of the creative.
-		 */
-		do_action( 'affwp_delete_creative_top', $to_delete );
-		?>
+		<?php do_action( 'affwp_delete_creative_top', $to_delete ); ?>
 
 		<p><?php _e( 'Are you sure you want to delete this creative?', 'affiliate-wp' ); ?></p>
 
@@ -28,18 +21,11 @@ if ( ! empty( $_GET['creative_id'] ) && is_array( $_GET['creative_id'] ) ) {
 			<li>
 				<?php printf( _x( 'Creative ID #%d: %s', 'Creative ID, creative name', 'affiliate-wp' ), $creative->ID, $creative->name ); ?>
 				<input type="hidden" name="affwp_creative_ids[]" value="<?php echo esc_attr( $creative->ID ); ?>"/>
-			</li>
+			</li> 
 		<?php endforeach; ?>
 		</ul>
 
-		<?php
-		/**
-		 * Fires at the bottom of the delete-creatives admin screen.
-		 *
-		 * @param int $to_delete The ID of the creative.
-		 */
-		do_action( 'affwp_delete_creative_bottom', $to_delete );
-		?>
+		<?php do_action( 'affwp_delete_creative_bottom', $to_delete ); ?>
 
 		<input type="hidden" name="affwp_action" value="delete_creatives" />
 		<?php echo wp_nonce_field( 'affwp_delete_creatives_nonce', 'affwp_delete_creatives_nonce' ); ?>

@@ -46,27 +46,9 @@ function affwp_user_profile_fields( $user ) {
 			<th><label><?php esc_attr_e( 'Affiliate Actions', 'affiliate-wp' ); ?></label></th>
 			<td>
 				<?php if( $affiliate ):
-					echo affwp_admin_link(
-						'affiliates',
-						__( 'Reports', 'affiliate-wp' ),
-						array(
-							'affwp_notice' => false,
-							'affiliate_id' => $affiliate->affiliate_id,
-							'action'       => 'view_affiliate'
-						),
-						array( 'class' => 'button' )
-					);
+					echo '<a href="' . esc_url( add_query_arg( array( 'affwp_notice' => false, 'affiliate_id' => $affiliate->affiliate_id, 'action' => 'view_affiliate' ), admin_url( 'admin.php?page=affiliate-wp-affiliates' ) ) ) . '" class="button">' . __( 'Reports', 'affiliate-wp' ) . '</a>';
 					echo ' ';
-					echo affwp_admin_link(
-						'affiliates',
-						__( 'Edit', 'affiliate-wp' ),
-						array(
-							'affwp_notice' => false,
-							'action'       => 'edit_affiliate',
-							'affiliate_id' => $affiliate->affiliate_id
-						),
-						array( 'class' => 'button' )
-					);
+					echo '<a href="' . esc_url( add_query_arg( array( 'affwp_notice' => false, 'action' => 'edit_affiliate', 'affiliate_id' => $affiliate->affiliate_id ), admin_url( 'admin.php?page=affiliate-wp-affiliates' ) ) ) . '" class="button">' . __( 'Edit', 'affiliate-wp' ) . '</a>';
 				else: ?>
 					<a href="<?php echo add_query_arg( array( 'user_id' => $user->ID, 'register_affiliate' => 1 ), admin_url( 'user-edit.php' ) ); ?>" class="button"><?php esc_attr_e( 'Register', 'affiliate-wp' ); ?></a>
 				<?php endif; ?>

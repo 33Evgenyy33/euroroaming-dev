@@ -30,7 +30,6 @@ class Sub_Commands extends Base {
 		'affiliate_name',
 		'affiliate_id',
 		'referral_id',
-		'context',
 		'campaign',
 		'ip',
 		'converted',
@@ -89,9 +88,6 @@ class Sub_Commands extends Base {
 	 * [--referrer=<URL>]
 	 * : The referring URL. Left empty, the referrer will be considered 'Direct Traffic'.
 	 *
-	 * [--context=<slug>]
-	 * : The context under which the visit is generated. Default empty.
-	 *
 	 * [--campaign=<campaign>]
 	 * : Campaign to associate the visit with.
 	 *
@@ -148,13 +144,6 @@ class Sub_Commands extends Base {
 			}
 		}
 
-		// Context.
-		$context = Utils\get_flag_value( $assoc_args, 'context' );
-
-		if ( $context ) {
-			$data['context'] = sanitize_key( substr( $context, 0, 50 ) );
-		}
-
 		// Date.
 		$_date = Utils\get_flag_value( $assoc_args, 'date' );
 
@@ -195,9 +184,6 @@ class Sub_Commands extends Base {
 	 *
 	 * [--referral_id=<referral_id>]
 	 * : Referral ID.
-	 *
-	 * [--context=<slug>]
-	 * : Visit context.
 	 *
 	 * [--visit_url=<URL>]
 	 * : The URL that generated the visit.
@@ -268,7 +254,6 @@ class Sub_Commands extends Base {
 		$data['url']         = Utils\get_flag_value( $assoc_args, 'visit_url',   $visit->url         );
 		$data['referrer']    = Utils\get_flag_value( $assoc_args, 'referrer',    $visit->referrer    );
 		$data['campaign']    = Utils\get_flag_value( $assoc_args, 'campaign',    $visit->campaign    );
-		$data['context']     = Utils\get_flag_value( $assoc_args, 'context',     $visit->context     );
 		$data['ip']          = Utils\get_flag_value( $assoc_args, 'ip',          $visit->ip          );
 
 		$updated = affiliate_wp()->visits->update_visit( $visit->visit_id, $data );
@@ -348,7 +333,6 @@ class Sub_Commands extends Base {
 	 * * affiliate_name
 	 * * affiliate_id
 	 * * referral_id
-	 * * context
 	 * * campaign
 	 * * ip (IP address)
 	 * * converted

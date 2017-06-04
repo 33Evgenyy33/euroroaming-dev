@@ -38,6 +38,8 @@ table.affwp-table th {
 .affwp-form input[type="password"],
 .affwp-form input[type="email"],
 .affwp-form input[type="url"] {
+	display: inline-block;
+	width: 200px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -60,6 +62,8 @@ table.affwp-table th {
 }
 
 .affwp-form label {
+	display: inline-block;
+	width: 200px;
 	cursor: pointer;
 }
 

@@ -17,10 +17,10 @@ function affwp_process_add_creative( $data ) {
 	}
 
 	if ( affwp_add_creative( $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'creatives', array( 'affwp_notice' => 'creative_added' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-creatives&affwp_notice=creative_added' ) ); 
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'creatives', array( 'affwp_notice' => 'creative_added_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-creatives&affwp_notice=creative_added_failed' ) ); 
 		exit;
 	}
 
@@ -58,7 +58,7 @@ function affwp_process_creative_deletion( $data ) {
 		affwp_delete_creative( $creative_id );
 	}
 
-	wp_safe_redirect( affwp_admin_url( 'creatives', array( 'affwp_notice' => 'creative_deleted' ) ) );
+	wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-creatives&affwp_notice=creative_deleted' ) ); 
 	exit;
 
 }
@@ -81,10 +81,10 @@ function affwp_process_update_creative( $data ) {
 	}
 
 	if ( affwp_update_creative( $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'creatives', array( 'action' => 'edit_creative', 'affwp_notice' => 'creative_updated', 'creative_id' => $data['creative_id'] ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-creatives&action=edit_creative&affwp_notice=creative_updated&creative_id=' . $data['creative_id'] ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'creatives', array( 'action' => 'edit_creative', 'affwp_notice' => 'creative_update_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-creatives&action=edit_creative&affwp_notice=creative_update_failed' ) );
 		exit;
 	}
 

@@ -414,8 +414,8 @@ class Affiliate_WP_LifterLMS extends Affiliate_WP_Base {
 
 		add_filter( 'affwp_is_admin_page', '__return_true' );
 		affwp_admin_scripts();
-
-
+		
+		
 		$user_id      = 0;
 		$user_name    = '';
 		$affiliate_id = get_post_meta( $post->ID, '_affwp_affiliate_id', true );
@@ -428,6 +428,7 @@ class Affiliate_WP_LifterLMS extends Affiliate_WP_Base {
 		$html = '
 			<span class="affwp-ajax-search-wrap">
 				<span class="affwp-llms-coupon-input-wrap">
+					<input type="hidden" name="_affwp_affiliate_user_id" id="user_id" value="' . esc_attr( $user_id ) . '" />
 					<input type="text" name="_affwp_affiliate_user_name" id="user_name" value="' . esc_attr( $user_name ) . '" class="affwp-user-search input-full" data-affwp-status="active" autocomplete="off" />
 					<img class="affwp-ajax waiting" src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" style="display: none;"/>
 				</span>
@@ -481,23 +482,28 @@ class Affiliate_WP_LifterLMS extends Affiliate_WP_Base {
 			return;
 		}
 
-		$data = affiliate_wp()->utils->process_request_data( $_POST, '_affwp_affiliate_user_name' );
+		// Locate the userid if we didn't get one from ajax methods
+		if ( empty( $_POST['_affwp_affiliate_user_id'] ) ) {
+
+			$user = get_user_by( 'login', $_POST['_affwp_affiliate_user_name'] );
+			if( $user ) {
+				$user_id = $user->ID;
+			}
+		}
+		// Use the posted user id
+		else {
+			$user_id = absint( $_POST['_affwp_affiliate_user_id'] );
+		}
 
 		/*
 		 * Locate an affiliate, looks like this returns null if the
 		 * user is not a valid affiliate.
 		 */
-		$affiliate_id = affwp_get_affiliate_id( $data['user_id'] );
+		$affiliate_id = affwp_get_affiliate_id( $user_id );
 
 		// $affiliate_id is null if none found so update regardless of the value
 		update_post_meta( $post_id, '_affwp_affiliate_id', $affiliate_id );
 
-		/**
-		 * Fires when processing LifterLMS coupon meta within the LifterLMS integration.
-		 *
-		 * @param int      $post_id The post ID.
-		 * @param stdClass $post    The post object.
-		 */
 		do_action( 'affwp_lifterlms_process_llms_coupon_meta', $post_id, $post );
 
 	}
@@ -670,12 +676,12 @@ class Affiliate_WP_LifterLMS extends Affiliate_WP_Base {
 
 				<div class="llms-metabox-field d-1of4">
 					<label><?php _e( 'Affiliate', 'affiliate-wp' ); ?></label>
-					<?php echo affwp_admin_link( 'referrals', $affiliate_name, array( 'affiliate_id' => $referral->affiliate_id ) ); ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=affiliate-wp-referrals&affiliate_id=' . $referral->affiliate_id ) ); ?>"><?php echo $affiliate_name; ?></a>
 				</div>
 
 				<div class="llms-metabox-field d-1of4">
 					<label><?php _e( 'Reference', 'affiliate-wp' ); ?></label>
-					<?php echo affwp_admin_link( 'referrals', $referral->referral_id, array('action' => 'edit_referral', 'referral_id' => $referral->referral_id ) ); ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=affiliate-wp-referrals&action=edit_referral&referral_id=' . $referral->referral_id ) ); ?>">#<?php echo $referral->referral_id; ?></a>
 				</div>
 
 			</div>
@@ -696,11 +702,11 @@ class Affiliate_WP_LifterLMS extends Affiliate_WP_Base {
 							</tr>
 							<tr>
 								<td><label><?php _e( 'Affiliate', 'affiliate-wp' ); ?></label></td>
-								<td><?php echo affwp_admin_link( 'referrals', $affiliate_name, array( 'affiliate_id' => $referral->affiliate_id ) ); ?></td>
+								<td><a href="<?php echo esc_url( admin_url( 'admin.php?page=affiliate-wp-referrals&affiliate_id=' . $referral->affiliate_id ) ); ?>"><?php echo $affiliate_name; ?></a></td>
 							</tr>
 							<tr>
 								<td><label><?php _e( 'Reference', 'affiliate-wp' ); ?></label></td>
-								<td><?php echo affwp_admin_link( 'referrals', $referral->referral_id, array( 'action' => 'edit_referral', 'referral_id' => $referral->referral_id ) ); ?></td>
+								<td><a href="<?php echo esc_url( admin_url( 'admin.php?page=affiliate-wp-referrals&action=edit_referral&referral_id=' . $referral->referral_id ) ); ?>">#<?php echo $referral->referral_id; ?></a></td>
 							</tr>
 						</table>
 					</td>

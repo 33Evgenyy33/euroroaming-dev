@@ -136,18 +136,7 @@ final class Affiliate_WP_Ninja_Forms_Add_Referral extends NF_Abstracts_Action {
             $sub->update_extra_values( $data['extra'] );
         }
 
-        /**
-         * Fires when saving a Ninja Forms submission in Ninja Forms 3.0 or greater.
-         *
-         * @param int $sub->get_id() The Ninja Forms form submission ID.
-         */
         do_action( 'nf_save_sub', $sub->get_id() );
-
-        /**
-         * Fires when saving a Ninja Forms submission in Ninja Forms versions lower than 3.0.
-         *
-         * @param int $sub->get_id() The Ninja Forms form submission ID.
-         */
         do_action( 'ninja_forms_save_sub', $sub->get_id() );
 
         $sub->save();
@@ -161,11 +150,6 @@ final class Affiliate_WP_Ninja_Forms_Add_Referral extends NF_Abstracts_Action {
 
         $args = $data[ 'extra' ][ 'affiliatewp' ] = compact( 'referral_total', 'reference', 'description', 'customer_email' );
 
-        /**
-         * Fires when adding a referral via Ninja Forms.
-         *
-         * @param array $args Referral arguments.
-         */
         do_action( 'nf_affiliatewp_add_referral', $args );
 
         return $data;

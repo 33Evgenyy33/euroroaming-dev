@@ -153,104 +153,6 @@ abstract class Controller {
 	}
 
 	/**
-	 * Retrieves an array of endpoint arguments from the item schema for the controller.
-	 *
-	 * Back-compat shim for WP_REST_Controller::get_endpoint_args_for_item_schema().
-	 *
-	 * @access public
-	 * @since  2.0
-	 *
-	 * @param string $method Optional. HTTP method of the request. The arguments for `CREATABLE` requests are
-	 *                       checked for required values and may fall-back to a given default, this is not done
-	 *                       on `EDITABLE` requests. Default WP_REST_Server::CREATABLE.
-	 * @return array Endpoint arguments.
-	 */
-	public function get_endpoint_args_for_item_schema( $method = WP_REST_Server::CREATABLE ) {
-
-		$schema            = $this->get_item_schema();
-		$schema_properties = ! empty( $schema['properties'] ) ? $schema['properties'] : array();
-		$endpoint_args     = array();
-
-		foreach ( $schema_properties as $field_id => $params ) {
-
-			// Arguments specified as `readonly` are not allowed to be set.
-			if ( ! empty( $params['readonly'] ) ) {
-				continue;
-			}
-
-			if ( isset( $params['validate_callback'] ) ) {
-				$endpoint_args[ $field_id ]['validate_callback'] = $params['validate_callback'];
-			}
-
-			if ( isset( $params['sanitize_callback'] ) ) {
-				$endpoint_args[ $field_id ]['sanitize_callback'] = $params['sanitize_callback'];
-			}
-
-			if ( isset( $params['description'] ) ) {
-				$endpoint_args[ $field_id ]['description'] = $params['description'];
-			}
-
-			if ( \WP_REST_Server::CREATABLE === $method && isset( $params['default'] ) ) {
-				$endpoint_args[ $field_id ]['default'] = $params['default'];
-			}
-
-			if ( \WP_REST_Server::CREATABLE === $method && ! empty( $params['required'] ) ) {
-				$endpoint_args[ $field_id ]['required'] = true;
-			}
-
-			foreach ( array( 'type', 'format', 'enum', 'items' ) as $schema_prop ) {
-				if ( isset( $params[ $schema_prop ] ) ) {
-					$endpoint_args[ $field_id ][ $schema_prop ] = $params[ $schema_prop ];
-				}
-			}
-
-			// Merge in any options provided by the schema property.
-			if ( isset( $params['arg_options'] ) ) {
-
-				// Only use required / default from arg_options on CREATABLE endpoints.
-				if ( \WP_REST_Server::CREATABLE !== $method ) {
-					$params['arg_options'] = array_diff_key( $params['arg_options'], array( 'required' => '', 'default' => '' ) );
-				}
-
-				$endpoint_args[ $field_id ] = array_merge( $endpoint_args[ $field_id ], $params['arg_options'] );
-			}
-		}
-
-		return $endpoint_args;
-	}
-
-	/**
-	 * Retrieves the item's schema, conforming to JSON Schema.
-	 *
-	 * @access public
-	 * @since  2.0
-	 *
-	 * @return array Item schema data.
-	 */
-	public function get_item_schema() {
-		return $this->add_additional_fields_schema( array() );
-	}
-
-	/**
-	 * Retrieves the item's schema for display / public consumption purposes.
-	 *
-	 * @access public
-	 * @since  2.0
-	 *
-	 * @return array Public item schema data.
-	 */
-	public function get_public_item_schema() {
-
-		$schema = $this->get_item_schema();
-
-		foreach ( $schema['properties'] as &$property ) {
-			unset( $property['arg_options'] );
-		}
-
-		return $schema;
-	}
-
-	/**
 	 * Retrieves the object type for the current endpoints.
 	 *
 	 * @since 1.9.5
@@ -341,7 +243,7 @@ abstract class Controller {
 		if ( method_exists( '\WP_REST_Controller', 'get_additional_fields' ) ) {
 			global $wp_rest_additional_fields;
 
-			if ( isset( $wp_rest_additional_fields[ $object_type ] ) ) {
+			if ( $wp_rest_additional_fields[ $object_type ] ) {
 				$core_fields = $wp_rest_additional_fields[ $object_type ];
 			}
 		}
@@ -354,39 +256,4 @@ abstract class Controller {
 
 		return array_merge( $fields, $core_fields );
 	}
-
-	/**
-	 * Adds the schema from additional fields to a schema array.
-	 *
-	 * Back-compat shim for WP_REST_Controller::get_endpoint_args_for_item_schema().
-	 *
-	 * The type of object is inferred from the passed schema.
-	 *
-	 * @access protected
-	 * @since  2.0
-	 *
-	 * @param array $schema Schema array.
-	 * @return array Modified Schema array.
-	 */
-	protected function add_additional_fields_schema( $schema ) {
-		if ( empty( $schema['title'] ) ) {
-			return $schema;
-		}
-
-		// Can't use $this->get_object_type otherwise we cause an inf loop.
-		$object_type = $schema['title'];
-
-		$additional_fields = $this->get_additional_fields( $object_type );
-
-		foreach ( $additional_fields as $field_name => $field_options ) {
-			if ( ! $field_options['schema'] ) {
-				continue;
-			}
-
-			$schema['properties'][ $field_name ] = $field_options['schema'];
-		}
-
-		return $schema;
-	}
-
 }

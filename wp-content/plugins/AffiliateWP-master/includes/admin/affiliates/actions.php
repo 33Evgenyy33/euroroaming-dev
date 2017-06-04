@@ -4,11 +4,11 @@
  * Process the add affiliate request
  *
  * @since 1.2
- * @return void|false
+ * @return void
  */
 function affwp_process_add_affiliate( $data ) {
 
-	if ( empty( $data['user_id'] ) && empty( $data['user_name'] ) ) {
+	if ( empty( $data['user_id'] ) ) {
 		return false;
 	}
 
@@ -24,33 +24,16 @@ function affwp_process_add_affiliate( $data ) {
 
 	if ( $affiliate_id ) {
 
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_added' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-affiliates&affwp_notice=affiliate_added' ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_added_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-affiliates&affwp_notice=affiliate_added_failed' ) );
 		exit;
 	}
 
 }
 add_action( 'affwp_add_affiliate', 'affwp_process_add_affiliate' );
 
-/**
- * Add affiliate meta
- *
- * @since 2.0
- * @return void
- */
-function affwp_process_add_affiliate_meta( $affiliate_id, $args ) {
-
-	// add notes against affiliate
-	$notes = ! empty( $args['notes'] ) ? wp_kses_post( $args['notes'] ) : '';
-
-	if ( $notes ) {
-		affwp_update_affiliate_meta( $affiliate_id, 'notes', $notes );
-	}
-
-}
-add_action( 'affwp_insert_affiliate', 'affwp_process_add_affiliate_meta', 10, 2 );
 
 /**
  * Process affiliate deletion requests
@@ -98,7 +81,7 @@ function affwp_process_affiliate_deletion( $data ) {
 
 	}
 
-	wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_deleted' ) ) );
+	wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-affiliates&affwp_notice=affiliate_deleted' ) );
 	exit;
 
 }
@@ -125,10 +108,10 @@ function affwp_process_update_affiliate( $data ) {
 	}
 
 	if ( affwp_update_affiliate( $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'action' => 'edit_affiliate', 'affwp_notice' => 'affiliate_updated', 'affiliate_id' => $data['affiliate_id'] ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-affiliates&action=edit_affiliate&affwp_notice=affiliate_updated&affiliate_id=' . $data['affiliate_id'] ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_update_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-affiliates&affwp_notice=affiliate_update_failed' ) );
 		exit;
 	}
 
@@ -176,10 +159,10 @@ function affwp_process_affiliate_moderation( $data ) {
 	}
 
 	if ( affwp_set_affiliate_status( $data['affiliate_id'], $status ) ) {
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => $notice, 'affiliate_id' => $data['affiliate_id'] ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-affiliates&affwp_notice=' . $notice . '&affiliate_id=' . $data['affiliate_id'] ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'affiliates', array( 'affwp_notice' => 'affiliate_update_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-affiliates&affwp_notice=affiliate_update_failed' ) );
 		exit;
 	}
 

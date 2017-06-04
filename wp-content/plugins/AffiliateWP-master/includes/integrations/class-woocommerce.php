@@ -24,6 +24,16 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 
 		// There should be an option to choose which of these is used
 		add_action( 'woocommerce_order_status_completed', array( $this, 'mark_referral_complete' ), 10 );
+		
+		add_action( 'woocommerce_order_status_ortel-completed', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_vodafone-complete', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_orange-completed', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_instructions-comp', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_internet-passport', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_waiting-for-passp', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_pending-activatio', array( $this, 'mark_referral_complete' ), 10 );
+		add_action( 'woocommerce_order_status_activating-by-dat', array( $this, 'mark_referral_complete' ), 10 );
+
 		add_action( 'woocommerce_order_status_processing', array( $this, 'mark_referral_complete' ), 10 );
 		add_action( 'woocommerce_order_status_completed_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
 		add_action( 'woocommerce_order_status_on-hold_to_refunded', array( $this, 'revoke_referral_on_refund' ), 10 );
@@ -132,11 +142,9 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 					continue;
 				}
 
-				$product_id_for_rate = $product['product_id'];
-				if( ! empty( $product['variation_id'] ) && $this->get_product_rate( $product['variation_id'] ) ) {
-					$product_id_for_rate = $product['variation_id'];
+				for ($i = 1; $i <= $product['qty']; $i++) {
+					$amount += $this->calculate_referral_amount($product_total, $order_id, $product['product_id'], $affiliate_id);
 				}
-				$amount += $this->calculate_referral_amount( $product_total, $order_id, $product_id_for_rate, $affiliate_id );
 
 			}
 
@@ -272,15 +280,14 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	 * Marks a referral as complete when payment is completed.
 	 *
 	 * @since 1.0
-	 * @since 2.0 Orders that are COD and transitioning from `wc-processing` to `wc-complete` stati are now able to be completed.
+	 * @since 1.8 Orders that are COD and 'wc-processing' status are now skipped from "completion".
 	 * @access public
 	 */
 	public function mark_referral_complete( $order_id = 0 ) {
-
-		$this->order = apply_filters( 'affwp_get_woocommerce_order', new WC_Order( $order_id ) );
-
 		// If the WC status is 'wc-processing' and a COD order, leave as 'pending'.
-		if ( 'wc-processing' == $this->order->post_status && 'cod' === get_post_meta( $order_id, '_payment_method', true ) ) {
+		if ( current_action( 'woocommerce_order_status_processing' )
+		     && 'cod' === get_post_meta( $order_id, '_payment_method', true )
+		) {
 			return;
 		}
 
@@ -356,6 +363,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			<label for="user_name"><?php _e( 'Affiliate Discount?', 'affiliate-wp' ); ?></label>
 			<span class="affwp-ajax-search-wrap">
 				<span class="affwp-woo-coupon-input-wrap">
+					<input type="hidden" name="user_id" id="user_id" value="<?php echo esc_attr( $user_id ); ?>" />
 					<input type="text" name="user_name" id="user_name" value="<?php echo esc_attr( $user_name ); ?>" class="affwp-user-search" data-affwp-status="active" autocomplete="off" />
 				</span>
 				<img class="help_tip" data-tip='<?php _e( 'If you would like to connect this discount to an affiliate, enter the name of the affiliate it belongs to.', 'affiliate-wp' ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" />
@@ -383,9 +391,16 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			return;
 		}
 
-		$data = affiliate_wp()->utils->process_request_data( $_POST, 'user_name' );
+		if( empty( $_POST['user_id'] ) ) {
+			$user = get_user_by( 'login', $_POST['user_name'] );
+			if( $user ) {
+				$user_id = $user->ID;
+			}
+		} else {
+			$user_id = absint( $_POST['user_id'] );
+		}
 
-		$affiliate_id = affwp_get_affiliate_id( $data['user_id'] );
+		$affiliate_id = affwp_get_affiliate_id( $user_id );
 
 		update_post_meta( $coupon_id, 'affwp_discount_affiliate', $affiliate_id );
 	}
@@ -441,19 +456,11 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 				continue; // Referrals are disabled on this product
 			}
 
-			if( ! empty( $item['variation_id'] ) && get_post_meta( $item['variation_id'], '_affwp_' . $this->context . '_referrals_disabled', true ) ) {
-				continue; // Referrals are disabled on this variation
-			}
-
-			if( ! empty( $item['variation_id'] ) ) {
-				$item['name'] .= ' ' . sprintf( __( '(Variation ID %d)', 'affiliate-wp' ), $item['variation_id'] );
-			}
-
-			$description[] = $item['name'];
+			$description[] = $item['name']." - [".$item['qty']." шт.] ";
 
 		}
 
-		$description = implode( ', ', $description );
+		$description = implode( '', $description );
 
 		return $description;
 
@@ -612,7 +619,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 	 * @since   1.9
 	*/
 	public function save_variation_data( $product_id = 0 ) {
-
+	
 		if( ! empty( $_POST['variable_post_id'] ) && is_array( $_POST['variable_post_id'] ) ) {
 
 			foreach( $_POST['variable_post_id'] as $variation_id ) {
@@ -643,7 +650,7 @@ class Affiliate_WP_WooCommerce extends Affiliate_WP_Base {
 			}
 
 		}
-
+	
 	}
 
 	/**

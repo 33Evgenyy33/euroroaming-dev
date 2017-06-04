@@ -1,10 +1,14 @@
 <?php
-$referral  = affwp_get_referral( absint( $_GET['referral_id'] ) );
-$payout    = affwp_get_payout( $referral->payout_id );
-$visit     = affwp_get_visit( $referral->visit_id );
-$affiliate = affwp_get_affiliate( $referral->affiliate_id );
+$referral = affwp_get_referral( absint( $_GET['referral_id'] ) );
 
-$disabled = disabled( (bool) $payout, true, false );
+$payout = affwp_get_payout( $referral->payout_id );
+
+$disabled    = disabled( (bool) $payout, true, false );
+$payout_link = add_query_arg( array(
+	'page'      => 'affiliate-wp-payouts',
+	'action'    => 'view_payout',
+	'payout_id' => $payout ? $payout->ID : 0
+), admin_url( 'admin.php' ) );
 
 ?>
 <div class="wrap">
@@ -13,14 +17,7 @@ $disabled = disabled( (bool) $payout, true, false );
 
 	<form method="post" id="affwp_edit_referral">
 
-		<?php
-		/**
-		 * Fires at the top of the edit-referral admin screen.
-		 *
-		 * @param \AffWP\Referral $referral The referral object.
-		 */
-		do_action( 'affwp_edit_referral_top', $referral );
-		?>
+		<?php do_action( 'affwp_edit_referral_top', $referral ); ?>
 
 		<table class="form-table">
 
@@ -28,101 +25,39 @@ $disabled = disabled( (bool) $payout, true, false );
 			<tr class="form-row form-required">
 
 				<th scope="row">
-					<label for="referral_id"><?php _e( 'Referral ID', 'affiliate-wp' ); ?></label>
+					<label for="affiliate_id"><?php _e( 'Affiliate ID', 'affiliate-wp' ); ?></label>
 				</th>
 
 				<td>
-					<input class="small-text" type="text" name="referral_id" id="referral_id" value="<?php echo esc_attr( $referral->ID ); ?>" disabled="disabled"/>
-					<p class="description"><?php _e( 'The referral ID. This cannot be changed.', 'affiliate-wp' ); ?></p>
+					<input class="small-text" type="text" name="affiliate_id" id="affiliate_id" value="<?php echo esc_attr( $referral->affiliate_id ); ?>" disabled="disabled"/>
+					<p class="description"><?php _e( 'The affiliate&#8217;s ID this referral belongs to. This value cannot be changed.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
 
-			<tr class="form-row form-required">
+			<?php if ( $payout ) : ?>
+				<tr class="form-row form-required">
 
-				<th scope="row">
-					<label for="affiliate"><?php _e( 'Affiliate', 'affiliate-wp' ); ?></label>
-				</th>
+					<th scope="row">
+						<label for="payout_id"><?php _e( 'Payout ID', 'affiliate-wp' ); ?></label>
+					</th>
 
-				<td>
-					<p>
+					<td>
+						<input class="small-text" type="text" name="payout_id" id="affiliate_id" value="<?php echo esc_attr( $payout->ID ); ?>" disabled="disabled"/>
 						<?php
-						$affiliate_name = affiliate_wp()->affiliates->get_affiliate_name( $affiliate->ID );
-
-						if ( $affiliate && $affiliate_name ) {
-							/* translators: 1: Affiliate link, 2: Affiliate ID */
-							printf( __( '%1$s (ID: #%2$s)', 'affiliate-wp' ),
-								affwp_admin_link( 'affiliates', $affiliate_name, array(
-									'action'       => 'view_affiliate',
-									'affiliate_id' => $affiliate->ID
-								) ),
-								esc_html( $affiliate->ID )
-							);
-						} else {
-							esc_html_e( '(user deleted)', 'affiliate-wp' );
-						}
-
+						/* translators: 1: View payout link, 2: payout amount */
+						printf( __( '%1$s | Total: %2$s', 'affiliate-wp'),
+							sprintf( '<a href="%1$s">%2$s</a>',
+								esc_url( $payout_link ),
+								esc_html_x( 'View', 'payout', 'affiliate-wp' )
+							),
+							affwp_currency_filter( affwp_format_amount( $payout->amount ) )
+						)
 						?>
-					</p>
-					<p class="description"><?php _e( 'The name and ID of the affiliate who generated this referral. This association cannot be changed.', 'affiliate-wp' ); ?></p>
-				</td>
+					</td>
 
-			</tr>
-
-			<tr class="form-row form-required">
-
-				<th scope="row">
-					<label for="payout"><?php _e( 'Payout', 'affiliate-wp' ); ?></label>
-				</th>
-
-				<td>
-					<?php if ( $payout ) : ?>
-
-						<p>
-							<?php
-							/* translators: 1: Payout total amount with view link */
-							$payout_total_link = sprintf( __( 'Total: %1$s', 'affiliate-wp' ),
-								affwp_admin_link( 'payouts', affwp_currency_filter( affwp_format_amount( $payout->amount ) ), array(
-									'action'    => 'view_payout',
-									'payout_id' => $payout->ID
-								) )
-							);
-
-							/* translators: 1: Payout link with total, 2: Payout ID */
-							printf( __( '%1$s (ID: #%2$s)', 'affiliate-wp' ),
-								$payout_total_link,
-								esc_html( $payout->ID )
-							);
-							?>
-						</p>
-
-					<?php else : ?>
-
-						<p>
-							<?php
-							if ( in_array( $referral->status, array( 'pending', 'unpaid' ), true ) ) {
-
-								/* translators: 1: Pay Out action link */
-								printf( __( 'None | %1$s', 'affiliate-wp' ),
-									affwp_admin_link( 'referrals', __( 'Pay Out', 'affiliate-wp' ), array(
-										'referral_id'  => $referral->ID,
-										'action'       => 'mark_as_paid',
-										'_wpnonce'     => wp_create_nonce( 'referral-nonce' ),
-										'affwp_notice' => 'payout_created',
-									) )
-								);
-
-							} else {
-								esc_html_e( 'None', 'affiliate-wp' );
-							}
-							?>
-						</p>
-
-					<?php endif; ?>
-
-				</td>
-
-			</tr>
+				</tr>
+			<?php endif; ?>
 
 			<tr class="form-row form-required">
 
@@ -149,50 +84,6 @@ $disabled = disabled( (bool) $payout, true, false );
 
 				<td>
 					<input type="text" name="date" id="date" value="<?php echo esc_attr( date_i18n( get_option( 'date_format' ), strtotime( $referral->date ) ) ); ?>" disabled="disabled" />
-				</td>
-
-			</tr>
-
-			<tr class="form-row form-required">
-
-				<th scope="row">
-					<label for="visit"><?php _e( 'Visit', 'affiliate-wp' ); ?></label>
-				</th>
-
-				<td>
-					<?php if ( $visit ) : ?>
-
-						<p>
-							<?php
-							if ( empty( $visit->url ) ) {
-								$visit_link = __( 'None', 'affiliate-wp' );
-							} else {
-								$visit_link = make_clickable( esc_url( $visit->url ) );
-							}
-
-							/* translators: 1: Visit link, 2: Visit ID */
-							printf( __( 'URL: %1$s (ID: #%2$s)', 'affiliate-wp' ),
-								$visit_link,
-								esc_html( $visit->ID )
-							);
-							?>
-						</p>
-
-						<p>
-							<?php
-							/* translators: 1: Visit date */
-							printf( _x( 'Date: %1$s (%2$s)', 'visit', 'affiliate-wp' ),
-								date_i18n( get_option( 'date_format' ), strtotime( $visit->date ) ),
-								date_i18n( get_option( 'time_format' ), strtotime( $visit->date ) )
-							);
-							?>
-						</p>
-
-					<?php else : ?>
-
-						<?php _ex( 'None', 'visit', 'affiliate-wp' ); ?>
-
-					<?php endif; ?>
 				</td>
 
 			</tr>
@@ -231,20 +122,7 @@ $disabled = disabled( (bool) $payout, true, false );
 
 				<td>
 					<input type="text" name="context" id="context" value="<?php echo esc_attr( $referral->context ); ?>" <?php echo $readonly; ?> />
-					<p class="description"><?php _e( 'Context for this referral (optional). Usually this is used to identify the payment system or integration that was used for the transaction.', 'affiliate-wp' ); ?></p>
-				</td>
-
-			</tr>
-
-			<tr class="form-row form-required">
-				<?php $readonly = __checked_selected_helper( true, ! empty( $referral->custom ), false, 'readonly' ); ?>
-				<th scope="row">
-					<label for="context"><?php _e( 'Custom', 'affiliate-wp' ); ?></label>
-				</th>
-
-				<td>
-					<input type="text" name="custom" id="custom" value="<?php echo esc_attr( $referral->custom ); ?>" <?php echo $readonly; ?> />
-					<p class="description"><?php _e( 'Custom data stored for this referral (optional).', 'affiliate-wp' ); ?></p>
+					<p class="description"><?php _e( 'Context for this referral (optional). Usually this is used to help identify the payment system that was used for the transaction.', 'affiliate-wp' ); ?></p>
 				</td>
 
 			</tr>
@@ -273,14 +151,7 @@ $disabled = disabled( (bool) $payout, true, false );
 
 		</table>
 
-		<?php
-		/**
-		 * Fires at the bottom of the edit-referral admin screen (inside the form element).
-		 *
-		 * @param \AffWP\Referral $referral The referral object.
-		 */
-		do_action( 'affwp_edit_referral_bottom', $referral );
-		?>
+		<?php do_action( 'affwp_edit_referral_bottom', $referral ); ?>
 
 		<?php echo wp_nonce_field( 'affwp_edit_referral_nonce', 'affwp_edit_referral_nonce' ); ?>
 		<input type="hidden" name="referral_id" value="<?php echo absint( $referral->referral_id ); ?>" />

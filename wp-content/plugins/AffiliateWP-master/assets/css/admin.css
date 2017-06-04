@@ -58,11 +58,6 @@ table.affwp_table td a {
     padding-top: 8px;
     padding-bottom: 8px;
 }
-
-#affwp-dashboard-widgets-wrap p:last-child:not( .affwp-batch-success ) {
-	margin-bottom: 0px;
-}
-
 #affwp-dashboard-widgets-wrap .muted {
 	color: #999;
 }
@@ -107,15 +102,6 @@ table.affiliates #unpaid {
     max-width: 100%;
 }
 
-.affiliates_page_affiliate-wp-creatives td {
-	vertical-align: middle;
-}
-
-.affiliates_page_affiliate-wp-creatives .column-image img {
-	max-width: 100%;
-	height: auto;
-}
-
 /* Review page */
 #affwp_review_affiliate .button + .button {
 	margin-left: 8px;
@@ -135,17 +121,14 @@ table.affiliates #unpaid {
 	background-image:      -o-linear-gradient(bottom, #f5f5f5, #fafafa);
 	background-image: linear-gradient(to top, #f5f5f5, #fafafa);
 	border-color: #dfdfdf;
+	overflow: auto;
 	margin: 8px 0;
-	padding: 12px 12px 22px;
+	padding: 12px;
 	border-width: 1px;
 	border-style: solid;
 	border-radius: 3px;
 	font-size: 13px;
 	line-height: 2.1em;
-}
-
-#affwp-referrals-export-wrap h2 {
-	margin-top: 0em;
 }
 
 .affwp-status.pending i,
@@ -361,57 +344,6 @@ table.affiliates #unpaid {
 	overflow: auto;
 	white-space: pre;
 	width: 800px;
-}
-
-/* Batch Processor */
-
-.affwp-batch-progress {
-	background: #ddd;
-	height: 15px;
-}
-.affiliates_page_affiliate-wp-referrals .affwp-batch-progress {
-	position: relative;
-}
-.affwp-batch-progress div {
-	background: #ccc;
-	height: 100%;
-	width: 0;
-}
-.notice-wrap {
-	border-style: solid;
-	border-width: 1px 0;
-	border-color: #eae9e9;
-	padding: 12px 12px 12px 0;
-	overflow: auto;
-}
-.notice-wrap #affwp-batch-success {
-	margin: 5px 0;
-}
-form .spinner {
-	margin: 4px 10px 8px;
-	position: relative;
-	float: none;
-}
-.admin-color-fresh .affwp-batch-progress div {
-	background: #0073aa;
-}
-.admin-color-light .affwp-batch-progress div {
-	background: #888;
-}
-.admin-color-blue .affwp-batch-progress div {
-	background: #096484;
-}
-.admin-color-coffee .affwp-batch-progress div {
-	background: #c7a589;
-}
-.admin-color-ectoplasm .affwp-batch-progress div {
-	background: #a3b745;
-}
-.admin-color-midnight .affwp-batch-progress div {
-	background: #e14d43;
-}
-.admin-color-sunrise .affwp-batch-progress div {
-	background: #dd823b;
 }
 
 /* Media Queries */

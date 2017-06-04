@@ -213,16 +213,13 @@ class Command extends \WP_CLI_Command {
 	 * @subcommand debug
 	 */
 	public function debug_log( $_, $assoc_args ) {
-		// Retain the logger instance for back-compat.
-		$logger = affiliate_wp()->utils->logs;
-
+		$logger = new \Affiliate_WP_Logging();
 		$clear  = \WP_CLI\Utils\get_flag_value( $assoc_args, 'clear', false );
 
 		if ( $clear ) {
 			\WP_CLI::confirm( __( 'Are you sure you want to clear the debug log?', 'affiliate-wp' ), $assoc_args );
 
-			// Clear the log.
-			affiliate_wp()->utils->logs->clear_log();
+			$logger->clear_log();
 
 			\WP_CLI::success( __( 'The debug log has been cleared.', 'affiliate-wp' ) );
 		}

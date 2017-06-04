@@ -22,10 +22,6 @@ function affwp_get_referral( $referral = null ) {
 		$referral->products = maybe_unserialize( maybe_unserialize( $referral->products ) );
 	}
 
-	if ( ! empty( $referral->custom ) ) {
-		$referral->custom = maybe_unserialize( maybe_unserialize( $referral->custom ) );
-	}
-
 	return $referral;
 }
 
@@ -111,41 +107,23 @@ function affwp_set_referral_status( $referral, $new_status = '' ) {
 
 	if( affiliate_wp()->referrals->update( $referral->ID, array( 'status' => $new_status ), '', 'referral' ) ) {
 
-		// Old status cleanup.
-		if ( 'paid' === $old_status ) {
-
-			// Reverse the effect of a paid referral.
-			affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
-			affwp_decrease_affiliate_referral_count( $referral->affiliate_id );
-
-		} elseif ( 'unpaid' === $old_status ) {
-
-			affwp_decrease_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount );
-
-		}
-
-		// New status.
-		if( 'paid' === $new_status ) {
+		if( 'paid' == $new_status ) {
 
 			affwp_increase_affiliate_earnings( $referral->affiliate_id, $referral->amount );
 			affwp_increase_affiliate_referral_count( $referral->affiliate_id );
 
-		} elseif ( 'unpaid' === $new_status ) {
+		} elseif ( 'unpaid' == $new_status && ( 'pending' == $old_status || 'rejected' == $old_status ) ) {
 
-			affwp_increase_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount );
+			// Update the visit ID that spawned this referral
+			affiliate_wp()->visits->update( $referral->visit_id, array( 'referral_id' => $referral->ID ), '', 'visit' );
 
-			if ( 'pending' === $old_status || 'rejected' === $old_status ) {
-				// Update the visit ID that spawned this referral
-				affiliate_wp()->visits->update( $referral->visit_id, array( 'referral_id' => $referral->ID ), '', 'visit' );
+			do_action( 'affwp_referral_accepted', $referral->affiliate_id, $referral );
 
-				/**
-				 * Fires when a referral is marked as accepted.
-				 *
-				 * @param int             $affiliate_id Referral affiliate ID.
-				 * @param \AffWP\Referral $referral     The referral object.
-				 */
-				do_action( 'affwp_referral_accepted', $referral->affiliate_id, $referral );
-			}
+		} elseif( 'paid' != $new_status && 'paid' == $old_status ) {
+
+			affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
+			affwp_decrease_affiliate_referral_count( $referral->affiliate_id );
+
 		}
 
 		/**
@@ -178,27 +156,21 @@ function affwp_set_referral_status( $referral, $new_status = '' ) {
  * @param array $data {
  *     Optional. Arguments for adding a new referral. Default empty array.
  *
- *     @type int          $user_id      User ID. Used to retrieve the affiliate ID if `affiliate_id` not given.
- *     @type int          $affiliate_id Affiliate ID.
- *     @type string       $user_name    User login. Used to retrieve the affiliate ID if `affiliate_id` not given.
- *     @type float        $amount       Referral amount. Default empty.
- *     @type string       $description  Description. Default empty.
- *     @type string       $reference    Referral reference (usually product information). Default empty.
- *     @type string       $context      Referral context (usually the integration it was generated from).
- *                                      Default empty.
- *     @type string|array $custom       Any custom data that can be passed to and stored with the referral. Accepts
- *                                      an array or string, and will be serialized when stored. Default empty.
- *     @type string       $status       Status to update the referral too. Default 'pending'.
+ *     @type int    $affiliate_id Affiliate ID.
+ *     @type float  $amount       Referral amount. Default empty.
+ *     @type string $description  Description. Default empty.
+ *     @type string $reference    Referral reference (usually product information). Default empty.
+ *     @type string $context      Referral context (usually the integration it was generated from).
+ *                                Default empty.
+ *     @type string $status       Status to update the referral too. Default 'pending'.
  * }
  * @return int|bool 0|false if no referral was added, referral ID if it was successfully added.
  */
 function affwp_add_referral( $data = array() ) {
-
-	if ( empty( $data['user_id'] ) && empty( $data['affiliate_id'] ) && empty( $data['user_name'] ) ) {
+	
+	if ( empty( $data['user_id'] ) && empty( $data['affiliate_id'] ) ) {
 		return 0;
 	}
-
-	$data = affiliate_wp()->utils->process_request_data( $data, 'user_name' );
 
 	if ( empty( $data['affiliate_id'] ) ) {
 
@@ -217,27 +189,14 @@ function affwp_add_referral( $data = array() ) {
 
 	}
 
-	if ( ! empty( $data['custom'] ) ) {
-		if ( is_array( $data['custom'] ) ) {
-			$data['custom'] = array_map( 'sanitize_text_field', $data['custom'] );
-		} else {
-			$data['custom'] = sanitize_text_field( $data['custom'] );
-		}
-	}
-
 	$args = array(
 		'affiliate_id' => absint( $data['affiliate_id'] ),
 		'amount'       => ! empty( $data['amount'] )      ? sanitize_text_field( $data['amount'] )      : '',
 		'description'  => ! empty( $data['description'] ) ? sanitize_text_field( $data['description'] ) : '',
 		'reference'    => ! empty( $data['reference'] )   ? sanitize_text_field( $data['reference'] )   : '',
 		'context'      => ! empty( $data['context'] )     ? sanitize_text_field( $data['context'] )     : '',
-		'custom'       => ! empty( $data['custom'] )      ? $data['custom']                             : '',
 		'status'       => 'pending',
 	);
-
-	if ( ! empty( $data['visit_id'] ) && ! affiliate_wp()->referrals->get_by( 'visit_id', $data['visit_id'] ) ) {
-		$args['visit_id'] = absint( $data['visit_id'] );
-	}
 
 	if ( ! empty( $data['date'] ) ) {
 		$args['date'] = date_i18n( 'Y-m-d H:i:s', strtotime( $data['date'] ) );
@@ -274,20 +233,14 @@ function affwp_delete_referral( $referral ) {
 		return false;
 	}
 
-	if ( $referral ) {
-		if ( 'paid' === $referral->status ) {
-			// This referral has already been paid, so decrease the affiliate's earnings
-			affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
+	if( $referral && 'paid' == $referral->status ) {
 
-			// Decrease the referral count
-			affwp_decrease_affiliate_referral_count( $referral->affiliate_id );
+		// This referral has already been paid, so decrease the affiliate's earnings
+		affwp_decrease_affiliate_earnings( $referral->affiliate_id, $referral->amount );
 
-		} elseif ( 'unpaid' === $referral->status ) {
+		// Decrease the referral count
+		affwp_decrease_affiliate_referral_count( $referral->affiliate_id );
 
-			// Decrease the unpaid earnings.
-			affwp_decrease_affiliate_unpaid_earnings( $referral->affiliate_id, $referral->amount );
-
-		}
 	}
 
 	if( affiliate_wp()->referrals->delete( $referral->ID, 'referral' ) ) {
@@ -361,65 +314,4 @@ function affwp_count_referrals( $affiliate_id = 0, $status = array(), $date = ar
 	}
 
 	return affiliate_wp()->referrals->count( $args );
-}
-
-/**
- * Retrieves an array of banned URLs.
- *
- * @since 2.0
- *
- * @return array The array of banned URLs
- */
-function affwp_get_banned_urls() {
-	$urls = affiliate_wp()->settings->get( 'referral_url_blacklist', array() );
-
-	if ( ! empty( $urls ) ) {
-		$urls = array_map( 'trim', explode( "\n", $urls ) );
-		$urls = array_unique( $urls );
-		$urls = array_map( 'sanitize_text_field', $urls );
-	}
-
-	/**
-	 * Filters the list of banned URLs.
-	 *
-	 * @since 2.0
-	 *
-	 * @param array $url Banned URLs.
-	 */
-	return apply_filters( 'affwp_get_banned_urls', $urls );
-}
-
-/**
- * Determines if a URL is banned.
- *
- * @since 2.0
- *
- * @param string $url The URL to check against the black list.
- * @return bool True if banned, otherwise false.
- */
-function affwp_is_url_banned( $url ) {
-	$banned_urls = affwp_get_banned_urls();
-
-	if( ! is_array( $banned_urls ) || empty( $banned_urls ) ) {
-		$banned = false;
-	}
-
-	foreach( $banned_urls as $banned_url ) {
-
-		$banned = ( stristr( trim( $url ), $banned_url ) ? true : false );
-
-		if ( true === $banned ) {
-			break;
-		}
-	}
-
-	/**
-	 * Filters whether the given URL is considered 'banned'.
-	 *
-	 * @since 2.0
-	 *
-	 * @param bool   $banned Whether the given URL is banned.
-	 * @param string $url    The URL check for ban status.
-	 */
-	return apply_filters( 'affwp_is_url_banned', $banned, $url );
 }

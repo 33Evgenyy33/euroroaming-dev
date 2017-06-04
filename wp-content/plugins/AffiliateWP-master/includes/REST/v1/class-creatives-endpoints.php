@@ -38,26 +38,28 @@ class Endpoints extends Controller {
 	 */
 	public function register_routes() {
 		register_rest_route( $this->namespace, '/' . $this->rest_base, array(
-			array(
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_items' ),
-				'args'                => $this->get_collection_params(),
-				'permission_callback' => function( $request ) {
-					return current_user_can( 'manage_creatives' );
-				}
-			),
-			'schema' => array( $this, 'get_public_item_schema' ),
+			'methods'  => \WP_REST_Server::READABLE,
+			'callback' => array( $this, 'get_items' ),
+			'args'     => $this->get_collection_params(),
+			'permission_callback' => function( $request ) {
+				return current_user_can( 'manage_affiliates' );
+			}
 		) );
 
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>\d+)', array(
-			array(
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_item' ),
-				'permission_callback' => function( $request ) {
-					return current_user_can( 'manage_creatives' );
-				}
+			'methods'  => \WP_REST_Server::READABLE,
+			'callback' => array( $this, 'get_item' ),
+			'args'     => array(
+				'id' => array(
+					'required'          => true,
+					'validate_callback' => function( $param, $request, $key ) {
+						return is_numeric( $param );
+					}
+				)
 			),
-			'schema' => array( $this, 'get_public_item_schema' ),
+			'permission_callback' => function( $request ) {
+				return current_user_can( 'manage_affiliates' );
+			}
 		) );
 
 		$this->register_field( 'id', array(
@@ -193,60 +195,6 @@ class Endpoints extends Controller {
 		);
 
 		return $params;
-	}
-
-	/**
-	 * Retrieves the schema for a single creative, conforming to JSON Schema.
-	 *
-	 * @access public
-	 * @since  2.0
-	 *
-	 * @return array Item schema data.
-	 */
-	public function get_item_schema() {
-
-		$schema = array(
-			'$schema'    => 'http://json-schema.org/schema#',
-			'title'      => $this->get_object_type(),
-			'type'       => 'object',
-			// Base properties for every creative.
-			'properties' => array(
-				'creative_id' => array(
-					'description' => __( 'The unique creative ID.', 'affiliate-wp' ),
-					'type'        => 'integer',
-				),
-				'name'        => array(
-					'description' => __( 'Name of the creative.', 'affiliate-wp' ),
-					'type'        => 'string',
-				),
-				'description' => array(
-					'description' => __( 'Description for the creative.', 'affiliate-wp' ),
-					'type'        => 'string',
-				),
-				'url'         => array(
-					'description' => __( 'URL the creative points to.', 'affiliate-wp' ),
-					'type'        => 'string',
-				),
-				'text'        => array(
-					'description' => __( 'Text for the creative.', 'affiliatewp-rest-api' ),
-					'type'        => 'string',
-				),
-				'image'       => array(
-					'description' => __( 'ID of the media library image associated with the creative', 'affiliate-wp' ),
-					'type'        => 'integer',
-				),
-				'status'      => array(
-					'description' => __( 'The creative status.', 'affiliate-wp' ),
-					'type'        => 'string',
-				),
-				'date'        => array(
-					'description' => __( 'The date the creative was created.', 'affiliate-wp' ),
-					'type'        => 'string',
-				),
-			),
-		);
-
-		return $this->add_additional_fields_schema( $schema );
 	}
 
 }

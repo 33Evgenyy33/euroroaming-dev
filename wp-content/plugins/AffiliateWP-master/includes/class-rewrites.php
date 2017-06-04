@@ -61,16 +61,10 @@ class Affiliate_WP_Rewrites {
 	 */
 	public function flush_rewrites() {
 
-		/**
-		 * Fires immediately prior to flushing rewrite rules.
-		 */
 		do_action( 'affwp_pre_flush_rewrites' );
 
 		flush_rewrite_rules();
 
-		/**
-		 * Fires immediately after flushing rewrite rules.
-		 */
 		do_action( 'affwp_post_flush_rewrites' );
 	}
 

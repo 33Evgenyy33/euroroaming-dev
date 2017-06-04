@@ -1,5 +1,4 @@
 <?php
-use \AffWP\Utils\Importer;
 
 /**
  * Process a settings import from a json file
@@ -15,7 +14,7 @@ function affwp_process_settings_import() {
 	if( ! wp_verify_nonce( $_POST['affwp_import_nonce'], 'affwp_import_nonce' ) )
 		return;
 
-	if( ! current_user_can( 'manage_affiliate_options' ) )
+	if( ! current_user_can( 'manage_options' ) )
 		return;
 
 	$extension = end( explode( '.', $_FILES['import_file']['name'] ) );
@@ -31,13 +30,12 @@ function affwp_process_settings_import() {
 	}
 
 	// Retrieve the settings from the file and convert the json object to an array
-	$settings = new Importer\Settings( $import_file );
+	$settings = affwp_object_to_array( json_decode( file_get_contents( $import_file ) ) );
 
-	// Run the import.
-	$settings->import();
+	// Update settings.
+	affiliate_wp()->settings->set( $settings, $save = true );
 
-	wp_safe_redirect( affwp_admin_url( 'tools', array( 'tab' => 'export_import', 'affwp_notice' => 'settings-imported' ) ) );
-	exit;
+	wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-tools&tab=export_import&affwp_notice=settings-imported' ) ); exit;
 
 }
 add_action( 'affwp_import_settings', 'affwp_process_settings_import' );

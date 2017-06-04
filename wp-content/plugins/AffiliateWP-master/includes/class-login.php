@@ -50,9 +50,6 @@ class Affiliate_WP_Login {
 			return;
 		}
 
-		/**
-		 * Fires immediately prior to processing the affiliate login form.
-		 */
 		do_action( 'affwp_pre_process_login_form' );
 
 		if ( empty( $data['affwp_user_login'] ) ) {
@@ -69,28 +66,16 @@ class Affiliate_WP_Login {
 			$this->add_error( 'no_such_user', __( 'No such user', 'affiliate-wp' ) );
 		}
 
-		/**
-		 * Filters whether to perform the password check on affiliate login.
-		 *
-		 * @since 2.0.6
-		 *
-		 * @param bool     $check Whether to check the password or not.
-		 * @param \WP_User $user  The WordPress user whose password is being checked.
-		 */
-		if ( true === apply_filters( 'affwp_login_check_password', true, $user ) ) {
-			
-			if ( empty( $_POST['affwp_user_pass'] ) ) {
-				$this->add_error( 'empty_password', __( 'Please enter a password', 'affiliate-wp' ) );
-			}
+		if ( empty( $_POST['affwp_user_pass'] ) ) {
+			$this->add_error( 'empty_password', __( 'Please enter a password', 'affiliate-wp' ) );
+		}
 
-			if ( $user ) {
-				// check the user's login with their password
-				if ( ! wp_check_password( $_POST['affwp_user_pass'], $user->user_pass, $user->ID ) ) {
-					// if the password is incorrect for the specified user
-					$this->add_error( 'password_incorrect', __( 'Incorrect username or password', 'affiliate-wp' ) );
-				}
+		if ( $user ) {
+			// check the user's login with their password
+			if ( ! wp_check_password( $_POST['affwp_user_pass'], $user->user_pass, $user->ID ) ) {
+				// if the password is incorrect for the specified user
+				$this->add_error( 'password_incorrect', __( 'Incorrect username or password', 'affiliate-wp' ) );
 			}
-			
 		}
 
 		if ( function_exists( 'is_limit_login_ok' ) && ! is_limit_login_ok() ) {
@@ -99,9 +84,6 @@ class Affiliate_WP_Login {
 
 		}
 
-		/**
-		 * Fires immediately after processing an affiliate login form.
-		 */
 		do_action( 'affwp_process_login_form' );
 
 
@@ -140,10 +122,6 @@ class Affiliate_WP_Login {
 
 		wp_set_auth_cookie( $user_id, $remember );
 		wp_set_current_user( $user_id, $user_login );
-		/**
-		 * The `wp_login` action is fired here to maintain compatibility and stability of
-		 * any WordPress core features, plugins, or themes hooking onto it.
-		 */
 		do_action( 'wp_login', $user_login, $user );
 
 	}

@@ -87,7 +87,7 @@ class AffWP_Creatives_Table extends List_Table {
 	 * @return array $views All the views available
 	 */
 	public function get_views() {
-		$base           = affwp_admin_url( 'creatives' );
+		$base           = admin_url( 'admin.php?page=affiliate-wp-creatives' );
 
 		$current        = isset( $_GET['status'] ) ? $_GET['status'] : '';
 		$total_count    = '&nbsp;<span class="count">(' . $this->total_count    . ')</span>';
@@ -112,22 +112,14 @@ class AffWP_Creatives_Table extends List_Table {
 	 */
 	public function get_columns() {
 		$columns = array(
-			'name'      => __( 'Name', 'affiliate-wp' ),
-			'url'       => __( 'URL', 'affiliate-wp' ),
-			'shortcode' => __( 'Shortcode', 'affiliate-wp' ),
-			'status'    => __( 'Status', 'affiliate-wp' ),
-			'image'     => __( 'Image Preview', 'affiliate-wp' ),
-			'actions'   => __( 'Actions', 'affiliate-wp' ),
+			'name'       => __( 'Name', 'affiliate-wp' ),
+			'url'        => __( 'URL', 'affiliate-wp' ),
+			'shortcode'  => __( 'Shortcode', 'affiliate-wp' ),
+			'status'     => __( 'Status', 'affiliate-wp' ),
+			'actions'    => __( 'Actions', 'affiliate-wp' ),
 		);
 
-		/**
-		 * Filters the creatives list table columns.
-		 *
-		 * @param function               $prepared_columns Prepared columns.
-		 * @param array                  $columns          The columns for this list table.
-		 * @param \AffWP_Creatives_Table $this             List table instance.
-		 */
-		return apply_filters( 'affwp_creative_table_columns', $this->prepare_columns( $columns ), $columns, $this );
+		return $this->prepare_columns( $columns );
 	}
 
 	/**
@@ -174,23 +166,6 @@ class AffWP_Creatives_Table extends List_Table {
 	 */
 	function column_url( $creative ) {
 		return $creative->url;
-	}
-
-	/**
-	 * Render the image column
-	 *
-	 * @access public
-	 * @since 2.0
-	 * @return string image src of creative
-	 */
-	function column_image( $creative ) {
-		global $wpdb;
-
-		// Get the creative's attachment ID based on the image URL
-		$attachment_id = attachment_url_to_postid( $creative->image );
-
-		return affwp_admin_link( 'creatives', wp_get_attachment_image( $attachment_id, 'thumbnail' ), array( 'creative_id' => $creative->ID, 'action' => 'edit_creative' ) );
-
 	}
 
 	/**

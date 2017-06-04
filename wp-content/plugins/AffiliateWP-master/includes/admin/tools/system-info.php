@@ -72,25 +72,6 @@ function affwp_tools_system_info_report() {
 	$return .= 'Show Pretty URLs:                 ' . ( $settings->get( 'referral_pretty_urls' ) ? "True" . "\n" : "False\n" );
 	$return .= 'Referral Rate Type:               ' . ( $settings->get( 'referral_rate_type' ) ? $settings->get( 'referral_rate_type' ) . "\n" : "Default\n" );
 	$return .= 'Referral Rate:                    ' . ( $settings->get( 'referral_rate' ) ? $settings->get( 'referral_rate' ) . "\n" : "Default\n" );
-	$return .= 'Credit Last Referrer:             ' . ( $settings->get( 'referral_credit_last' ) ? "True\n" : "False\n" );
-
-	// Registration Fields
-	$return .= "\n" . '-- AffiliateWP Registration Settings' . "\n\n";
-	$return .= 'Allow Affiliate Registrations:    ' . ( $settings->get( 'allow_affiliate_registration' ) ? "True\n" : "False\n" );
-	$return .= 'Require Approval:                 ' . ( $settings->get( 'require_approval' )  ? "True\n" : "False\n" );
-	$return .= 'Auto Register New Users:          ' . ( $settings->get( 'auto_register' ) ? "True\n" : "False\n" );
-	$return .= 'Affiliate Area Forms              ' . ( $settings->get( 'affiliate_area_forms' ) ? $settings->get( 'affiliate_area_forms' ) . "\n" : "Default\n" );
-	$return .= 'Required Registration Fields:     ' . ( $settings->get( 'required_registration_fields' ) ? implode( ', ', array_values( $settings->get( 'required_registration_fields', array() ) ) ) . "\n" : "None\n" );
-
-	// Object counts.
-	$return .= "\n" . '-- AffiliateWP Object Counts' . "\n\n";
-	$return .= 'Affiliates:                       ' . affwp_format_amount( affiliate_wp()->affiliates->count(), false ) . "\n";
-	$return .= 'Campaigns:                        ' . affwp_format_amount( affiliate_wp()->campaigns->count(), false ) . "\n";
-	$return .= 'Creatives:                        ' . affwp_format_amount( affiliate_wp()->creatives->count(), false ) . "\n";
-	$return .= 'Payouts:                          ' . affwp_format_amount( affiliate_wp()->affiliates->payouts->count(), false ) . "\n";
-	$return .= 'Referrals:                        ' . affwp_format_amount( affiliate_wp()->referrals->count(), false ) . "\n";
-	$return .= 'REST Consumers:                   ' . affwp_format_amount( affiliate_wp()->REST->consumers->count(), false ) . "\n";
-	$return .= 'Visits:                           ' . affwp_format_amount( affiliate_wp()->visits->count(), false ) . "\n";
 
 	// Integrations
 	$return .= "\n" . '-- AffiliateWP Integrations' . "\n\n";
@@ -100,6 +81,9 @@ function affwp_tools_system_info_report() {
 
 	// Misc Settings
 	$return .= "\n" . '-- AffiliateWP Misc Settings' . "\n\n";
+	$return .= 'Allow Affiliate Registrations:    ' . ( $settings->get( 'allow_affiliate_registration' ) ? "True\n" : "False\n" );
+	$return .= 'Require Approval:                 ' . ( $settings->get( 'require_approval' )  ? "True\n" : "False\n" );
+	$return .= 'Auto Register New Users:          ' . ( $settings->get( 'auto_register' ) ? "True\n" : "False\n" );
 	$return .= 'Enable reCaptcha:                 ' . ( $settings->get( 'recaptcha_enabled' ) ? "True\n" : "False\n" );
 	$return .= 'reCaptcha Site Key:               ' . ( $settings->get( 'recaptcha_site_key' ) ? "Set\n" : "Unset\n" );
 	$return .= 'reCaptcha Secret Key:             ' . ( $settings->get( 'recaptcha_secret_key' ) ? "Set\n" : "Unset\n" );
@@ -183,6 +167,7 @@ function affwp_tools_system_info_report() {
 
 	// PHP configuration
 	$return .= "\n" . '-- PHP Configuration' . "\n\n";
+	$return .= 'Safe Mode:                ' . ( ini_get( 'safe_mode' ) ? 'Enabled' : 'Disabled' . "\n" );
 	$return .= 'Memory Limit:             ' . ini_get( 'memory_limit' ) . "\n";
 	$return .= 'Upload Max Size:          ' . ini_get( 'upload_max_filesize' ) . "\n";
 	$return .= 'Post Max Size:            ' . ini_get( 'post_max_size' ) . "\n";

@@ -112,13 +112,13 @@ function affwp_email_tag_promo_method( $affiliate_id = 0 ) {
  * Email template tag: affwp_email_tag_rejection_reason
  * The affiliate rejection reason
  *
- * @param int $affiliate_id Affiliate ID.
+ * @param int $affiliate_id
  * @return string rejection_reason
  */
-function affwp_email_tag_rejection_reason( $affiliate_id ) {
+function affwp_email_tag_rejection_reason( $affiliate_id = 0 ) {
 	$reason = affwp_get_affiliate_meta( $affiliate_id, '_rejection_reason', true );
 	if( empty( $reason ) ) {
-		$reason = '';
+		$reason = __( 'No reason provided', 'affiliate-wp' );
 	}
 	return $reason;
 }
@@ -195,7 +195,7 @@ function affwp_email_tag_referral_rate( $affiliate_id = 0 ) {
  * @return string URL to the review page
  */
 function affwp_email_tag_review_url( $affiliate_id = 0 ) {
-	return affwp_admin_url( 'affiliates', array( 'affiliate_id' => absint( $affiliate_id ), 'action' => 'review_affiliate' ) );
+	return admin_url( 'admin.php?page=affiliate-wp-affiliates&affiliate_id=' . absint( $affiliate_id ) . '&action=review_affiliate' );
 }
 
 /**

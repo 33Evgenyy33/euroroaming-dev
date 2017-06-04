@@ -92,18 +92,14 @@ abstract class Affiliate_WP_DB {
 	 *
 	 * @access public
 	 *
-	 * @param  string       $column Column name. See get_columns().
-	 * @param  int|string   $row_id Row ID.
-	 * @return object|false Database query result object or false on failure.
+	 * @param  string      $column Column name. See get_columns().
+	 * @param  int|string  $row_id Row ID.
+	 * @return object|null         Database query result object or null on failure.
 	 */
 	public function get_by( $column, $row_id ) {
 		global $wpdb;
 
 		if ( ! array_key_exists( $column, $this->get_columns() ) || empty( $row_id ) ) {
-			return false;
-		}
-
-		if( empty( $column ) || empty( $row_id ) ) {
 			return false;
 		}
 
@@ -223,13 +219,6 @@ abstract class Affiliate_WP_DB {
 		// Set default values
 		$data = wp_parse_args( $data, $this->get_column_defaults() );
 
-		/**
-		 * Fires immediately before an item has been created in the database.
-		 *
-		 * The dynamic portion of the hook name, `$type`, refers to the object type.
-		 *
-		 * @param array $data Array of object data.
-		 */
 		do_action( 'affwp_pre_insert_' . $type, $data );
 
 		// Initialise column format array

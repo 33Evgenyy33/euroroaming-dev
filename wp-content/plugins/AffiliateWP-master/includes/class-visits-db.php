@@ -39,7 +39,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			$this->table_name  = $wpdb->prefix . 'affiliate_wp_visits';
 		}
 		$this->primary_key = 'visit_id';
-		$this->version     = '1.1';
+		$this->version     = '1.0';
 
 		// REST endpoints.
 		if ( version_compare( $wp_version, '4.4', '>=' ) ) {
@@ -70,7 +70,6 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			'url'          => '%s',
 			'referrer'     => '%s',
 			'campaign'     => '%s',
-			'context'      => '%s',
 			'ip'           => '%s',
 			'date'         => '%s',
 		);
@@ -82,8 +81,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			'referral_id'  => 0,
 			'date'         => date( 'Y-m-d H:i:s' ),
 			'referrer'     => ! empty( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '',
-			'campaign'     => ! empty( $_REQUEST['campaign'] )    ? $_REQUEST['campaign']    : '',
-			'context'      => ! empty( $_REQUEST['context'] )     ? $_REQUEST['context']     : ''
+			'campaign'     => ! empty( $_REQUEST['campaign'] )    ? $_REQUEST['campaign']    : ''
 		);
 	}
 
@@ -110,12 +108,6 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 	 *                                          Accepts '=', '!=' or 'NOT EMPTY'. If 'EMPTY' or 'NOT EMPTY', `$campaign`
 	 *                                          will be ignored and visits will simply be queried based on whether
 	 *                                          the campaign column is empty or not. Default '='.
-	 *     @type string|array $context          Context or array of contexts under which the visit was generated.
-	 *                                          Default empty.
-	 *     @type string       $context_compare  Comparison operator to use when querying for visits by context. Accepts
-	 *                                          '=', '!=', or 'NOT EMPTY'. If 'EMPTY' or 'NOT EMPTY', `$context`
-	 *                                          will be ignored and visits will simply be queried based on whether the
-	 *                                          context column is empty or not. Default '='.
 	 *     @type string       $orderby          Column to order results by. Accepts any valid referrals table column.
 	 *                                          Default 'referral_id'.
 	 *     @type string       $order            How to order results. Accepts 'ASC' (ascending) or 'DESC' (descending).
@@ -136,8 +128,6 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			'referral_status'  => '',
 			'campaign'         => '',
 			'campaign_compare' => '=',
-			'context'          => '',
-			'context_compare'  => '=',
 			'order'            => 'DESC',
 			'orderby'          => 'visit_id',
 			'fields'           => '',
@@ -241,52 +231,6 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 		}
 
-		// Visits context comparison.
-		if ( empty( $args['context_compare'] ) ) {
-			$context_compare = '=';
-		} else {
-			if ( 'NOT EMPTY' === $args['context_compare'] ) {
-				$context_compare = '!=';
-
-				// Cancel out context value for comparison purposes.
-				$args['context'] = '';
-			} elseif ( 'EMPTY' === $args['context_compare'] ) {
-				$context_compare = '=';
-
-				// Cancel out context value for comparison purposes.
-				$args['context'] = '';
-			} else {
-				$context_compare = $args['context_compare'];
-			}
-		}
-
-		// Visits context.
-		if( ! empty( $args['context'] )
-			|| ( empty( $args['context'] ) && '=' !== $context_compare )
-			|| ( empty( $args['context'] ) && '=' === $context_compare && 'EMPTY' === $args['context_compare'] )
-		) {
-
-			$where .= empty( $where ) ? "WHERE " : "AND ";
-
-			if( is_array( $args['context'] ) ) {
-
-				if ( '!=' === $context_compare ) {
-					$where .= "`context` NOT IN('" . join("', '", array_map( 'esc_sql', $args['context'] ) ) . "') ";
-				} else {
-					$where .= "`context` IN('" . join("', '", array_map( 'esc_sql', $args['context'] ) ) . "') ";
-				}
-
-			} else {
-
-				if ( empty( $args['context'] ) ) {
-					$where .= "`context` {$context_compare} '' ";
-				} else {
-					$where .= "`context` {$context_compare} '{$args['context']}' ";
-				}
-			}
-
-		}
-
 		// visits for specific referral status
 		if ( ! empty( $args['referral_status'] ) ) {
 
@@ -376,8 +320,7 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 		$last_changed = wp_cache_get( 'last_changed', $this->cache_group );
 		if ( ! $last_changed ) {
-			$last_changed = microtime();
-			wp_cache_set( 'last_changed', $last_changed, $this->cache_group );
+			wp_cache_set( 'last_changed', microtime(), $this->cache_group );
 		}
 
 		$cache_key = "{$key}:{$last_changed}";
@@ -428,11 +371,8 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 		}
 
-		if ( ! empty( $data['context'] ) ) {
-			$data['context'] = sanitize_key( substr( $data['context'], 0, 50 ) );
-		}
-
 		$visit_id = $this->insert( $data, 'visit' );
+
 
 		affwp_increase_affiliate_visit_count( $data['affiliate_id'] );
 
@@ -461,10 +401,6 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 
 		if ( ! empty( $data['campaign'] ) ) {
 			$data['campaign'] = substr( $data['campaign'], 0, 50 );
-		}
-
-		if ( ! empty( $data['context'] ) ) {
-			$data['context'] = sanitize_key( substr( $data['context'], 0, 50 ) );
 		}
 
 		if ( ! empty( $data['affiliate_id'] ) ) {
@@ -503,7 +439,6 @@ class Affiliate_WP_Visits_DB extends Affiliate_WP_DB {
 			url mediumtext NOT NULL,
 			referrer mediumtext NOT NULL,
 			campaign varchar(50) NOT NULL,
-			context varchar(50) NOT NULL,
 			ip tinytext NOT NULL,
 			date datetime NOT NULL,
 			PRIMARY KEY  (visit_id),

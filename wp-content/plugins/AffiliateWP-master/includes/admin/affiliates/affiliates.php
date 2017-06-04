@@ -26,10 +26,7 @@ function affwp_affiliates_admin() {
 		$action = $_GET['action'];
 	}
 
-	$affiliate_id = isset( $_REQUEST['affiliate_id'] ) ? absint( $_REQUEST['affiliate_id'] ) : 0;
-	$affiliate    = affwp_get_affiliate( $affiliate_id );
-
-	if ( 'view_affiliate' === $action && $affiliate ) {
+	if ( 'view_affiliate' === $action ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/view.php';
 
@@ -37,15 +34,15 @@ function affwp_affiliates_admin() {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/new.php';
 
-	} elseif ( 'edit_affiliate' === $action && $affiliate  ) {
+	} elseif ( 'edit_affiliate' === $action ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/edit.php';
 
-	} elseif ( 'review_affiliate' === $action && $affiliate  ) {
+	} elseif ( 'review_affiliate' === $action ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/review.php';
 
-	} elseif ( 'delete' === $action && $affiliate  ) {
+	} elseif ( 'delete' === $action ) {
 
 		include AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/delete.php';
 
@@ -60,17 +57,8 @@ function affwp_affiliates_admin() {
 				<a href="<?php echo esc_url( add_query_arg( array( 'affwp_notice' => false, 'action' => 'add_affiliate' ) ) ); ?>" class="page-title-action"><?php _e( 'Add New', 'affiliate-wp' ); ?></a>
 				<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'affiliate-wp-reports', 'tab' => 'affiliates' ) ) ); ?>" class="page-title-action"><?php _ex( 'Reports', 'affiliates', 'affiliate-wp' ); ?></a>
 			</h1>
-			<?php
-
-			/**
-			 * Fires at the top of the admin affiliates page.
-			 *
-			 * Use this hook to add content to this section of AffiliateWP.
-			 */
-			do_action( 'affwp_affiliates_page_top' );
-
-			?>
-			<form id="affwp-affiliates-filter" method="get" action="<?php echo esc_url( affwp_admin_url() ); ?>">
+			<?php do_action( 'affwp_affiliates_page_top' ); ?>
+			<form id="affwp-affiliates-filter" method="get" action="<?php echo admin_url( 'admin.php?page=affiliate-wp' ); ?>">
 				<?php $affiliates_table->search_box( __( 'Search', 'affiliate-wp' ), 'affwp-affiliates' ); ?>
 
 				<input type="hidden" name="page" value="affiliate-wp-affiliates" />
@@ -78,14 +66,7 @@ function affwp_affiliates_admin() {
 				<?php $affiliates_table->views() ?>
 				<?php $affiliates_table->display() ?>
 			</form>
-			<?php
-			/**
-			 * Fires at the bottom of the admin affiliates page.
-			 *
-			 * Use this hook to add content to this section of AffiliateWP.
-			 */
-			do_action( 'affwp_affiliates_page_bottom' );
-			?>
+			<?php do_action( 'affwp_affiliates_page_bottom' ); ?>
 		</div>
 <?php
 

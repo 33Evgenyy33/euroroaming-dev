@@ -40,41 +40,39 @@ class Endpoints extends Controller {
 
 		// /affiliates/
 		register_rest_route( $this->namespace, '/' . $this->rest_base, array(
-			array(
-				'methods'  => \WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_items' ),
-				'args'     => $this->get_collection_params(),
-				'permission_callback' => function( $request ) {
-					return current_user_can( 'manage_affiliates' );
-				},
-			),
-			'schema' => array( $this, 'get_public_item_schema' ),
+			'methods'  => \WP_REST_Server::READABLE,
+			'callback' => array( $this, 'get_items' ),
+			'args'     => $this->get_collection_params(),
+			'permission_callback' => function( $request ) {
+				return current_user_can( 'manage_affiliates' );
+			}
 		) );
 
 		// /affiliates/ID
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>\d+)', array(
-			array(
-				'methods'  => \WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_item' ),
-				'args'     => array(
-					'user' => array(
-						'description'       => __( 'Whether to include a modified user object in the response.', 'affiliate-wp' ),
-						'validate_callback' => function( $param, $request, $key ) {
-							return is_string( $param );
-						}
-					),
-					'meta' => array(
-						'description'       => __( 'Whether to include the affiliate meta in the response.', 'affiliate-wp' ),
-						'validate_callback' => function( $param, $request, $key ) {
-							return is_string( $param );
-						}
-					),
+			'methods'  => \WP_REST_Server::READABLE,
+			'callback' => array( $this, 'get_item' ),
+			'args'     => array(
+				'id' => array(
+					'required'          => true,
+					'validate_callback' => function( $param, $request, $key ) {
+						return is_numeric( $param );
+					}
 				),
-				'permission_callback' => function( $request ) {
-					return current_user_can( 'manage_affiliates' );
-				},
+				'user' => array(
+					'validate_callback' => function( $param, $request, $key ) {
+						return is_string( $param );
+					}
+				),
+				'meta' => array(
+					'validate_callback' => function( $param, $request, $key ) {
+						return is_string( $param );
+					}
+				),
 			),
-			'schema' => array( $this, 'get_public_item_schema' ),
+			'permission_callback' => function( $request ) {
+				return current_user_can( 'manage_affiliates' );
+			}
 		) );
 
 		$this->register_field( 'id', array(
@@ -276,106 +274,4 @@ class Endpoints extends Controller {
 
 		return $params;
 	}
-
-	/**
-	 * Retrieves the schema for a single affiliate, conforming to JSON Schema.
-	 *
-	 * @access public
-	 * @since  2.0
-	 *
-	 * @return array Item schema data.
-	 */
-	public function get_item_schema() {
-
-		$schema = array(
-			'$schema'    => 'http://json-schema.org/schema#',
-			'title'      => $this->get_object_type(),
-			'type'       => 'object',
-			// Base properties for every affiliate.
-			'properties' => array(
-				'affiliate_id' => array(
-					'description' => __( 'The unique affiliate ID.', 'affiliate-wp' ),
-					'type'        => 'integer',
-				),
-				'user_id'         => array(
-					'description' => __( 'ID for the user account associated with the affiliate.', 'affiliate-wp' ),
-					'type'        => 'integer',
-				),
-				'rate'            => array(
-					'description' => __( 'The affiliate rate.', 'affiliate-wp' ),
-					'type'        => 'object',
-					'properties'  => array(
-						'raw'       => array(
-							'description' => __( 'The affiliate rate, as it exists in the database', 'affiliate-wp' ),
-							'type'        => 'string',
-						),
-						'inherited' => array(
-							'description' => __( 'The affiliate rate, as inherited from global settings.', 'affiliate-wp' ),
-							'type'        => 'string',
-						),
-					),
-				),
-				'rate_type'       => array(
-					'description' => __( 'The affiliate rate type', 'affiliate-wp' ),
-					'type'        => 'object',
-					'properties'  => array(
-						'raw'       => array(
-							'description' => __( 'The affiliate rate type, as it exists in the database', 'affiliate-wp' ),
-							'type'        => 'string',
-						),
-						'inherited' => array(
-							'description' => __( 'The affiliate rate type, as inherited from global settings.', 'affiliate-wp' ),
-							'type'        => 'string',
-						),
-					),
-				),
-				'account_email'   => array(
-					'description' => __( 'The affiliate account email. Synced with the associated user account.', 'affiliatewp-rest-api' ),
-					'type'        => 'string',
-					'readonly'    => true,
-				),
-				'payment_email'   => array(
-					'description' => __( 'The affiliate payment email address.', 'affiliate-wp' ),
-					'type'        => 'object',
-					'properties'  => array(
-						'raw'       => array(
-							'description' => __( 'The affiliate payment email address, as it exists in the database', 'affiliate-wp' ),
-							'type'        => 'string',
-						),
-						'inherited' => array(
-							'description' => __( 'The affiliate payment email address, as inherited from the user email address.', 'affiliate-wp' ),
-							'type'        => 'string',
-						)
-					),
-				),
-				'status'          => array(
-					'description' => __( 'The affiliate status.', 'affiliate-wp' ),
-					'type'        => 'string',
-				),
-				'unpaid_earnings' => array(
-					'description' => __( 'Unpaid affiliate earnings.', 'affiliate-wp' ),
-					'type'        => 'float',
-				),
-				'earnings'        => array(
-					'description' => __( 'Affiliate earnings.', 'affiliate-wp' ),
-					'type'        => 'float',
-				),
-				'referrals'       => array(
-					'description' => __( 'The number of paid referrals associated with the affiliate.', 'affiliate-wp' ),
-					'type'        => 'integer',
-				),
-				'visits'          => array(
-					'description' => __( 'The number of visits associated with the affiliate.', 'affiliate-wp' ),
-					'type'        => 'integer',
-				),
-				'date_registered' => array(
-					'description' => __( 'The date the affiliate was registered.', 'affiliate-wp' ),
-					'type'        => 'string',
-				),
-			),
-		);
-
-		return $this->add_additional_fields_schema( $schema );
-	}
-
 }

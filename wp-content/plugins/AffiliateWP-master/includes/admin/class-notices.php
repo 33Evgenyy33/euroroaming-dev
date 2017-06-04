@@ -15,8 +15,6 @@ class Affiliate_WP_Admin_Notices {
 	public function __construct() {
 
 		add_action( 'admin_notices', array( $this, 'show_notices' ) );
-		add_action( 'admin_notices', array( $this, 'upgrade_notices' ) );
-
 		add_action( 'affwp_dismiss_notices', array( $this, 'dismiss_notices' ) );
 	}
 
@@ -37,7 +35,7 @@ class Affiliate_WP_Admin_Notices {
 
 		if( empty( $integrations ) && ! get_user_meta( get_current_user_id(), '_affwp_no_integrations_dismissed', true ) ) {
 			echo '<div class="error">';
-				echo '<p>' . sprintf( __( 'There are currently no AffiliateWP <a href="%s">integrations</a> enabled. If you are using AffiliateWP without any integrations, you may disregard this message.', 'affiliate-wp' ), affwp_admin_url( 'settings', array( 'tab' => 'integrations' ) ) ) . '</p>';
+				echo '<p>' . sprintf( __( 'There are currently no AffiliateWP <a href="%s">integrations</a> enabled. If you are using AffiliateWP without any integrations, you may disregard this message.', 'affiliate-wp' ), admin_url( 'admin.php?page=affiliate-wp-settings&tab=integrations' ) ) . '</p>';
 				echo '<p><a href="' . wp_nonce_url( add_query_arg( array( 'affwp_action' => 'dismiss_notices', 'affwp_notice' => 'no_integrations' ) ), 'affwp_dismiss_notice', 'affwp_dismiss_notice_nonce' ) . '">' . _x( 'Dismiss Notice', 'Integrations', 'affiliate-wp' ) . '</a></p>';
 			echo '</div>';
 		}
@@ -60,7 +58,7 @@ class Affiliate_WP_Admin_Notices {
 					}
 
 					$migrate          = new Affiliate_WP_Migrate_Users;
-					$total_affiliates = (int) $migrate::get_items_total( 'affwp_migrate_users_current_count' );
+					$total_affiliates = (int) $migrate::get_items_total( 'affwp_migrate_users_total_count' );
 
 					/*
 					 * If $total_affiliates is 0 and we know 'affiliate_added' has been fired,
@@ -77,7 +75,7 @@ class Affiliate_WP_Admin_Notices {
 						'affiliate-wp'
 					), number_format_i18n( $total_affiliates ) );
 
-					$migrate::clear_items_total( 'affwp_migrate_users_current_count' );
+					$migrate::clear_items_total( 'affwp_migrate_users_total_count' );
 
 					break;
 
@@ -92,7 +90,7 @@ class Affiliate_WP_Admin_Notices {
 
 					$message = __( 'Affiliate updated successfully', 'affiliate-wp' );
 
-					$message .= '<p>'. sprintf( __( '<a href="%s">Back to Affiliates</a>', 'affiliate-wp' ), esc_url( affwp_admin_url( 'affiliates' ) ) ) .'</p>';
+					$message .= '<p>'. sprintf( __( '<a href="%s">Back to Affiliates</a>', 'affiliate-wp' ), admin_url( 'admin.php?page=affiliate-wp-affiliates' ) ) .'</p>';
 
 					break;
 
@@ -220,18 +218,12 @@ class Affiliate_WP_Admin_Notices {
 
 					break;
 
-				case 'payout_created' :
-
-					$message = sprintf( __( 'A payout has been created.', 'affiliate-wp' ) );
-
-					break;
-
 				// Creatives.
 				case 'creative_updated' :
 
 					$message = __( 'Creative updated successfully', 'affiliate-wp' );
 
-					$message .= '<p>'. sprintf( __( '<a href="%s">Back to Creatives</a>', 'affiliate-wp' ), esc_url( affwp_admin_url( 'creatives' ) ) ) .'</p>';
+					$message .= '<p>'. sprintf( __( '<a href="%s">Back to Creatives</a>', 'affiliate-wp' ), admin_url( 'admin.php?page=affiliate-wp-creatives' ) ) .'</p>';
 
 					break;
 
@@ -408,37 +400,14 @@ class Affiliate_WP_Admin_Notices {
 				$notice_query_args['affwp_notice'] = 'invalid_license';
 
 				echo '<div class="notice notice-info">';
-					echo '<p>' . sprintf( __( 'Please <a href="%s">enter and activate</a> your license key for AffiliateWP to enable automatic updates.', 'affiliate-wp' ), esc_url( affwp_admin_url( 'settings' ) ) ) . '</p>';
+					echo '<p>' . sprintf( __( 'Please <a href="%s">enter and activate</a> your license key for AffiliateWP to enable automatic updates.', 'affiliate-wp' ), admin_url( 'admin.php?page=affiliate-wp-settings' ) ) . '</p>';
 					echo '<p><a href="' . wp_nonce_url( add_query_arg( $notice_query_args ), 'affwp_dismiss_notice', 'affwp_dismiss_notice_nonce' ) . '">' . _x( 'Dismiss Notice', 'License', 'affiliate-wp' ) . '</a></p>';
 				echo '</div>';
 
 			}
 
 		}
-	}
 
-	/**
-	 * Displays upgrade notices.
-	 *
-	 * @access public
-	 * @since  2.0
-	 */
-	public function upgrade_notices() {
-
-		if ( true === version_compare( AFFILIATEWP_VERSION, '2.0', '<' ) || false === affwp_has_upgrade_completed( 'upgrade_v20_recount_unpaid_earnings' ) ) :
-
-			// Enqueue admin JS for the batch processor.
-			affwp_enqueue_admin_js();
-			?>
-			<div class="notice notice-info is-dismissible">
-				<p><?php _e( 'Your database needs to be upgraded following the latest AffiliateWP update.', 'affiliate-wp-' ); ?></p>
-				<form method="post" class="affwp-batch-form" data-batch_id="recount-affiliate-stats-upgrade" data-nonce="<?php echo esc_attr( wp_create_nonce( 'recount-affiliate-stats-upgrade_step_nonce' ) ); ?>">
-					<p>
-						<?php submit_button( __( 'Upgrade Database', 'affiliate-wp' ), 'secondary', 'v20-recount-unpaid-earnings', false ); ?>
-					</p>
-				</form>
-			</div>
-		<?php endif;
 	}
 
 	/**
@@ -469,12 +438,11 @@ class Affiliate_WP_Admin_Notices {
 					/**
 					 * Fires once a notice has been flagged for dismissal.
 					 *
-					 * @since 1.8 as 'affwp_dismiss_notices'
-					 * @since 2.0.4 Renamed to 'affwp_dismiss_notices_default' to avoid a dynamic hook conflict.
+					 * @since 1.8
 					 *
 					 * @param string $notice Notice value via $_GET['affwp_notice'].
 					 */
-					do_action( 'affwp_dismiss_notices_default', $notice );
+					do_action( 'affwp_dismiss_notices', $notice );
 					break;
 			}
 
@@ -482,6 +450,5 @@ class Affiliate_WP_Admin_Notices {
 			exit;
 		}
 	}
-
 }
 new Affiliate_WP_Admin_Notices;

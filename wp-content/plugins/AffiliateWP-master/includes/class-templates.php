@@ -50,15 +50,7 @@ class Affiliate_WP_Templates {
 	 * @uses get_template_part()
 	 */
 	public function get_template_part( $slug, $name = null, $load = true ) {
-
-		/**
-		 * Fires when executing the requested template code for a given template part.
-		 *
-		 * The dynamic portion of the hook name, `$slug`, refers to the template part slug.
-		 *
-		 * @param string $slug The slug of the template part.
-		 * @param string $name The name of the template part.
-		 */
+		// Execute code for this part
 		do_action( 'get_template_part_' . $slug, $slug, $name );
 
 		// Setup possible parts

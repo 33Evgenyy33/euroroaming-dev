@@ -57,8 +57,6 @@ function affwp_remove_query_args( $query_args ) {
 		$query_args[] = 'filter_to';
 	}
 
-	$query_args[] = 'affwp_notice';
-
 	return $query_args;
 }
 add_filter( 'removable_query_args', 'affwp_remove_query_args' );

@@ -320,7 +320,7 @@ class Sub_Commands extends Base {
 				$creatives = wp_list_pluck( $creatives, 'creative_id' );
 			} else {
 				$creatives = array_map( function( $creative ) {
-					$creative->ID = $creative->creative_id;
+					$creative->ID = $affiliate->creative_id;
 
 					return $creative;
 				}, $creatives );

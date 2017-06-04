@@ -41,50 +41,26 @@ function affwp_referrals_admin() {
 				<button class="page-title-action affwp-referrals-export-toggle" style="display:none"><?php _e( 'Close', 'affiliate-wp' ); ?></button>
 			</h1>
 
-			<?php
-			/**
-			 * Fires at the top of the referrals list-table admin screen.
-			 */
-			do_action( 'affwp_referrals_page_top' );
-			?>
+			<?php do_action( 'affwp_referrals_page_top' ); ?>
 
 			<div id="affwp-referrals-export-wrap">
 
-				<?php
-				/**
-				 * Fires in the action buttons area of the referrals list-table admin screen.
-				 */
-				do_action( 'affwp_referrals_page_buttons' );
-				?>
+				<?php do_action( 'affwp_referrals_page_buttons' ); ?>
 
-				<form id="affwp-referrals-export-form" style="display:none;" class="affwp-batch-form" data-batch_id="generate-payouts" data-nonce="<?php echo esc_attr( wp_create_nonce( 'generate-payouts_step_nonce' ) ); ?>" data-ays="<?php esc_attr_e( 'Are you sure you want to generate the payout file? All included referrals will be marked as Paid.', 'affiliate-wp' ); ?>">
-					<h2><?php _e( 'Generate Payout File', 'affiliate-wp' ); ?></h2>
+				<form id="affwp-referrals-export-form" style="display:none;" action="<?php echo admin_url( 'admin.php?page=affiliate-wp-referrals' ); ?>" method="post">
 					<p>
-						<span class="affwp-ajax-search-wrap">
-							<input type="text" name="user_name" id="user_name" class="affwp-user-search" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>" />
-						</span>
-
 						<input type="text" class="affwp-datepicker" autocomplete="off" name="from" placeholder="<?php _e( 'From - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
 						<input type="text" class="affwp-datepicker" autocomplete="off" name="to" placeholder="<?php _e( 'To - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
 						<input type="text" class="affwp-text" name="minimum" placeholder="<?php esc_attr_e( 'Minimum amount', 'affiliate-wp' ); ?>"/>
-					</p>
-					<p><?php printf( __( 'This will mark all unpaid referrals in this timeframe as paid. To export referrals with a status other than <em>unpaid</em>, go to the <a href="%s">Tools &rarr; Export</a> page.', 'affiliate-wp' ), esc_url( affwp_admin_url( 'tools', array( 'tab' => 'export_import' ) ) ) ); ?></p>
-					<p><?php _e( 'To generate a payout for a specific affiliate, enter the affiliate&#8217;s login name, first name, or last name. Leave blank to generate a payout for any affiliates.', 'affiliate-wp' ); ?></p>
-					<p>
-						<?php
-						/**
-						 * Fires just prior to the Generate CSV File button in the referrals list table
-						 * admin screen.
-						 */
-						do_action( 'affwp_referrals_page_csv_export_form' );
-
-						submit_button( __( 'Generate CSV File', 'affiliate-wp' ), 'secondary', 'generate-payouts-submit', false );
-						?>
+						<input type="hidden" name="affwp_action" value="generate_referral_payout"/>
+						<?php do_action( 'affwp_referrals_page_csv_export_form' ); ?>
+						<input type="submit" value="<?php _e( 'Generate CSV File', 'affiliate-wp' ); ?>" class="button-secondary"/>
+						<p><?php printf( __( 'This will mark all unpaid referrals in this timeframe as paid. To export referrals with a status other than <em>unpaid</em>, go to the <a href="%s">Tools &rarr; Export</a> page.', 'affiliate-wp' ), admin_url( 'admin.php?page=affiliate-wp-tools&tab=export_import' ) ); ?></p>
 					</p>
 				</form>
 
 			</div>
-			<form id="affwp-referrals-filter-form" method="get" action="<?php echo esc_url( affwp_admin_url( 'referrals' ) ); ?>">
+			<form id="affwp-referrals-filter-form" method="get" action="<?php echo admin_url( 'admin.php?page=affiliate-wp-referrals' ); ?>">
 
 				<?php $referrals_table->search_box( __( 'Search', 'affiliate-wp' ), 'affwp-referrals' ); ?>
 
@@ -93,12 +69,7 @@ function affwp_referrals_admin() {
 				<?php $referrals_table->views() ?>
 				<?php $referrals_table->display() ?>
 			</form>
-			<?php
-			/**
-			 * Fires at the bottom of the referrals list table admin screen.
-			 */
-			do_action( 'affwp_referrals_page_bottom' );
-			?>
+			<?php do_action( 'affwp_referrals_page_bottom' ); ?>
 		</div>
 	<?php
 	}

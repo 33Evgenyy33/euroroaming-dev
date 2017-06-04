@@ -77,15 +77,6 @@ final class Visit extends Base_Object {
 	public $campaign;
 
 	/**
-	 * Visit context.
-	 *
-	 * @since  2.0.2
-	 * @access public
-	 * @var    string
-	 */
-	public $context;
-
-	/**
 	 * Visit IP address (IPv4).
 	 *
 	 * @since 1.9

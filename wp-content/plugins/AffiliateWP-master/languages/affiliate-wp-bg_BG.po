@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AffiliateWP\n"
 "Report-Msgid-Bugs-To: https://affiliatewp.com/support/\n"
-"POT-Creation-Date: 2017-02-17 03:04:25+00:00\n"
+"POT-Creation-Date: 2016-11-15 22:08:30+00:00\n"
 "PO-Revision-Date: 2015-04-09 09:59-0600\n"
 "Last-Translator: Chris Christoff <chriscct7@gmail.com>\n"
 "Language-Team: Vladislav Gerasimov\n"
@@ -19,415 +19,184 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: affiliate-wp.php:271 affiliate-wp.php:283
+#: affiliate-wp.php:253 affiliate-wp.php:265
 msgid "Cheatin&#8217; huh?"
 msgstr "Мамиш, а?"
 
-#: affiliate-wp.php:295
+#: affiliate-wp.php:277
 msgid ""
 "Your version of PHP is below the minimum version of PHP required by "
 "AffiliateWP. Please contact your host and request that your version be "
 "upgraded to 5.3 or later."
 msgstr ""
 
-#: includes/REST/class-rest.php:62 includes/admin/tools/tools.php:523
+#: includes/REST/class-rest.php:62
 msgid "Nonce verification failed"
 msgstr ""
 
-#: includes/REST/class-rest.php:62 includes/REST/class-rest.php:68
-#: includes/REST/class-rest.php:81 includes/REST/class-rest.php:84
-#: includes/admin/AFFWP_Plugin_Updater.php:402
+#: includes/REST/class-rest.php:62 includes/REST/class-rest.php:66
+#: includes/REST/class-rest.php:79 includes/REST/class-rest.php:82
+#: includes/admin/AFFWP_Plugin_Updater.php:358
 #: includes/admin/affiliates/actions.php:20
-#: includes/admin/affiliates/actions.php:69
-#: includes/admin/affiliates/actions.php:73
-#: includes/admin/affiliates/actions.php:77
-#: includes/admin/affiliates/actions.php:124
-#: includes/admin/affiliates/actions.php:155
-#: includes/admin/affiliates/actions.php:159
+#: includes/admin/affiliates/actions.php:52
+#: includes/admin/affiliates/actions.php:56
+#: includes/admin/affiliates/actions.php:60
+#: includes/admin/affiliates/actions.php:107
+#: includes/admin/affiliates/actions.php:138
+#: includes/admin/affiliates/actions.php:142
 #: includes/admin/class-addon-updater.php:283
-#: includes/admin/class-notices.php:463 includes/admin/creatives/actions.php:16
+#: includes/admin/class-notices.php:414 includes/admin/creatives/actions.php:16
 #: includes/admin/creatives/actions.php:44
 #: includes/admin/creatives/actions.php:48
 #: includes/admin/creatives/actions.php:52
 #: includes/admin/creatives/actions.php:80
 #: includes/admin/referrals/actions.php:16
-#: includes/admin/tools/export/class-batch-export.php:198
-#: includes/admin/tools/export/class-export-settings.php:90
-#: includes/admin/tools/export/class-export.php:226
-#: includes/admin/tools/import/import.php:24
-#: includes/admin/tools/import/import.php:30 includes/admin/tools/tools.php:524
-#: includes/admin/tools/tools.php:532 includes/admin/tools/tools.php:542
+#: includes/admin/tools/export/class-export.php:173
+#: includes/admin/tools/import/import.php:23
+#: includes/admin/tools/import/import.php:29
 msgid "Error"
 msgstr "Грешка"
 
-#: includes/REST/class-rest.php:68
+#: includes/REST/class-rest.php:66
 #, fuzzy
 msgid "User ID Required"
 msgstr "Потребителски идент. номер"
 
 #. translators: 1: Generate, regenerate, or revoke
-#: includes/REST/class-rest.php:81 includes/REST/class-rest.php:84
+#: includes/REST/class-rest.php:79 includes/REST/class-rest.php:82
 #, fuzzy
 msgid "You do not have permission to %s API keys for this user."
 msgstr "Нямате права, за да експортнете данни"
 
-#: includes/REST/v1/class-affiliates-endpoints.php:61
-msgid "Whether to include a modified user object in the response."
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:67
-msgid "Whether to include the affiliate meta in the response."
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:219
-#: includes/REST/v1/class-referrals-endpoints.php:181
+#: includes/REST/v1/class-affiliates-endpoints.php:217
+#: includes/REST/v1/class-referrals-endpoints.php:183
 msgid "The affiliate ID or array of IDs to query for."
 msgstr ""
 
-#: includes/REST/v1/class-affiliates-endpoints.php:227
+#: includes/REST/v1/class-affiliates-endpoints.php:225
 msgid "The user ID or array of IDs to query payouts for."
 msgstr ""
 
-#: includes/REST/v1/class-affiliates-endpoints.php:235
+#: includes/REST/v1/class-affiliates-endpoints.php:233
 msgid "Affiliate ID or array of IDs to exclude from the query."
 msgstr ""
 
-#: includes/REST/v1/class-affiliates-endpoints.php:242
+#: includes/REST/v1/class-affiliates-endpoints.php:240
 msgid "Terms to search for affiliates. Accepts an affiliate ID or a string."
 msgstr ""
 
-#: includes/REST/v1/class-affiliates-endpoints.php:249
+#: includes/REST/v1/class-affiliates-endpoints.php:247
 msgid ""
 "The affiliate status. Accepts 'active', 'inactive', 'pending', or 'rejected'."
 msgstr ""
 
-#: includes/REST/v1/class-affiliates-endpoints.php:256
+#: includes/REST/v1/class-affiliates-endpoints.php:254
 msgid "Affiliates table column to order by."
 msgstr ""
 
-#: includes/REST/v1/class-affiliates-endpoints.php:263
+#: includes/REST/v1/class-affiliates-endpoints.php:261
 #, fuzzy
 msgid "The date array or string to query affiliate registrations within."
 msgstr "Известявай администраторите за регистрация на нови афилиейти"
 
-#: includes/REST/v1/class-affiliates-endpoints.php:274
+#: includes/REST/v1/class-affiliates-endpoints.php:272
 msgid "Use any get_affiliates() arguments to modify the response."
 msgstr ""
 
-#: includes/REST/v1/class-affiliates-endpoints.php:297
-#, fuzzy
-msgid "The unique affiliate ID."
-msgstr "Номер на афилиейт"
-
-#: includes/REST/v1/class-affiliates-endpoints.php:301
-msgid "ID for the user account associated with the affiliate."
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:305
-#, fuzzy
-msgid "The affiliate rate."
-msgstr "Ставка на афилиейта"
-
-#: includes/REST/v1/class-affiliates-endpoints.php:309
-msgid "The affiliate rate, as it exists in the database"
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:313
-#, fuzzy
-msgid "The affiliate rate, as inherited from global settings."
-msgstr "Вид ставка на афилиейтския реферал."
-
-#: includes/REST/v1/class-affiliates-endpoints.php:319
-#, fuzzy
-msgid "The affiliate rate type"
-msgstr "Вид ставка на афилиейтския реферал."
-
-#: includes/REST/v1/class-affiliates-endpoints.php:323
-msgid "The affiliate rate type, as it exists in the database"
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:327
-#, fuzzy
-msgid "The affiliate rate type, as inherited from global settings."
-msgstr "Вид ставка на афилиейтския реферал."
-
-#: includes/REST/v1/class-affiliates-endpoints.php:333
-#, fuzzy
-msgid "The affiliate account email. Synced with the associated user account."
-msgstr "Изпишете името на афилиейта, за да започне търсене на профила му."
-
-#: includes/REST/v1/class-affiliates-endpoints.php:338
-#, fuzzy
-msgid "The affiliate payment email address."
-msgstr "Вашият афилиейт профил не е активен"
-
-#: includes/REST/v1/class-affiliates-endpoints.php:342
-msgid "The affiliate payment email address, as it exists in the database"
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:346
-msgid ""
-"The affiliate payment email address, as inherited from the user email "
-"address."
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:352
-#, fuzzy
-msgid "The affiliate status."
-msgstr "Ставки на афилиейта:"
-
-#: includes/REST/v1/class-affiliates-endpoints.php:356
-#, fuzzy
-msgid "Unpaid affiliate earnings."
-msgstr "Отиди на AffiliateWP Настройки"
-
-#: includes/REST/v1/class-affiliates-endpoints.php:360
-#, fuzzy
-msgid "Affiliate earnings."
-msgstr "Отиди на AffiliateWP Настройки"
-
-#: includes/REST/v1/class-affiliates-endpoints.php:364
-msgid "The number of paid referrals associated with the affiliate."
-msgstr ""
-
-#: includes/REST/v1/class-affiliates-endpoints.php:368
-#, fuzzy
-msgid "The number of visits associated with the affiliate."
-msgstr "Няма регистрирани афилиейти"
-
-#: includes/REST/v1/class-affiliates-endpoints.php:372
-#, fuzzy
-msgid "The date the affiliate was registered."
-msgstr "Заявката е отхвърлена"
-
-#: includes/REST/v1/class-creatives-endpoints.php:166
+#: includes/REST/v1/class-creatives-endpoints.php:168
 msgid "The creative ID or array of IDs to query for."
 msgstr ""
 
-#: includes/REST/v1/class-creatives-endpoints.php:174
+#: includes/REST/v1/class-creatives-endpoints.php:176
 msgid "The creative status. Accepts 'active' or 'inactive'."
 msgstr ""
 
-#: includes/REST/v1/class-creatives-endpoints.php:181
+#: includes/REST/v1/class-creatives-endpoints.php:183
 msgid "Creatives table column to order by."
 msgstr ""
 
-#: includes/REST/v1/class-creatives-endpoints.php:192
+#: includes/REST/v1/class-creatives-endpoints.php:194
 msgid "Use any get_creatives() arguments to modify the response."
 msgstr ""
 
-#: includes/REST/v1/class-creatives-endpoints.php:215
-#, fuzzy
-msgid "The unique creative ID."
-msgstr "Текст за рекламата"
-
-#: includes/REST/v1/class-creatives-endpoints.php:219
-#, fuzzy
-msgid "Name of the creative."
-msgstr "Текст за рекламата"
-
-#: includes/REST/v1/class-creatives-endpoints.php:223
-#, fuzzy
-msgid "Description for the creative."
-msgstr "Текст за рекламата"
-
-#: includes/REST/v1/class-creatives-endpoints.php:227
-msgid "URL the creative points to."
-msgstr ""
-
-#: includes/REST/v1/class-creatives-endpoints.php:231
-#, fuzzy
-msgid "Text for the creative."
-msgstr "Текст за рекламата"
-
-#: includes/REST/v1/class-creatives-endpoints.php:235
-msgid "ID of the media library image associated with the creative"
-msgstr ""
-
-#: includes/REST/v1/class-creatives-endpoints.php:239
-#, fuzzy
-msgid "The creative status."
-msgstr "Нов реферал"
-
-#: includes/REST/v1/class-creatives-endpoints.php:243
-#, fuzzy
-msgid "The date the creative was created."
-msgstr "Рекламата е добавена успешно"
-
-#: includes/REST/v1/class-payouts-endpoints.php:178
+#: includes/REST/v1/class-payouts-endpoints.php:180
 msgid "The payout ID or array of IDs to query for."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:186
+#: includes/REST/v1/class-payouts-endpoints.php:188
 msgid "The affiliate ID or array of IDs to query payouts for."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:194
+#: includes/REST/v1/class-payouts-endpoints.php:196
 msgid "Referral ID or array of referral IDs to retrieve payouts for."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:201
+#: includes/REST/v1/class-payouts-endpoints.php:203
 msgid "Payout amount (float) or min/max range (array) to retrieve payouts for."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:208
+#: includes/REST/v1/class-payouts-endpoints.php:210
 msgid ""
 "Comparison operator used with 'amount'. Accepts '>', '<', '>=', '<=', '=', "
 "or '!='."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:215
+#: includes/REST/v1/class-payouts-endpoints.php:217
 msgid "ID or array of IDs for users who generated payouts. Default empty."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:222
+#: includes/REST/v1/class-payouts-endpoints.php:224
 msgid "The payout status. Accepts 'paid' or 'failed'."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:229
+#: includes/REST/v1/class-payouts-endpoints.php:231
 msgid "Payouts table column to order by."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:236
+#: includes/REST/v1/class-payouts-endpoints.php:238
 msgid "The date array or string to query payouts within."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:247
+#: includes/REST/v1/class-payouts-endpoints.php:249
 msgid "Use any get_payouts() arguments to modify the response."
 msgstr ""
 
-#: includes/REST/v1/class-payouts-endpoints.php:270
-msgid "The unique payout ID."
-msgstr ""
-
-#: includes/REST/v1/class-payouts-endpoints.php:274
-#, fuzzy
-msgid "The affiliate ID associated with the payout."
-msgstr "Сигурни ли сте, че искате да изтриете тази реклама?"
-
-#: includes/REST/v1/class-payouts-endpoints.php:278
-msgid "ID of the user who generated the payout."
-msgstr ""
-
-#: includes/REST/v1/class-payouts-endpoints.php:282
-msgid "The number of referrals associated with the affiliate."
-msgstr ""
-
-#: includes/REST/v1/class-payouts-endpoints.php:289
-#, fuzzy
-msgid "Total referrals amount for the payout."
-msgstr "Изключи рефералите за този продукт"
-
-#: includes/REST/v1/class-payouts-endpoints.php:293
-msgid "Method used to process the payout."
-msgstr ""
-
-#: includes/REST/v1/class-payouts-endpoints.php:297
-msgid "The payout status."
-msgstr ""
-
-#: includes/REST/v1/class-payouts-endpoints.php:301
-msgid "The date the payout was generated."
-msgstr ""
-
-#: includes/REST/v1/class-referrals-endpoints.php:173
+#: includes/REST/v1/class-referrals-endpoints.php:175
 msgid "The referral ID or array of IDs to query for."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:189
+#: includes/REST/v1/class-referrals-endpoints.php:191
 msgid "Reference information (product ID) for the referral."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:198
+#: includes/REST/v1/class-referrals-endpoints.php:200
 msgid "The context under which the referral was created (integration)."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:206
-#: includes/REST/v1/class-visits-endpoints.php:217
+#: includes/REST/v1/class-referrals-endpoints.php:208
+#: includes/REST/v1/class-visits-endpoints.php:207
 msgid "The associated campaign."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:214
+#: includes/REST/v1/class-referrals-endpoints.php:216
 msgid "The referral status or array of statuses."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:221
+#: includes/REST/v1/class-referrals-endpoints.php:223
 msgid "Referrals table column to order by."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:228
+#: includes/REST/v1/class-referrals-endpoints.php:230
 msgid "A referral ID or the search string to query for referrals with."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:236
+#: includes/REST/v1/class-referrals-endpoints.php:238
 msgid "The date array or string to query referrals within."
 msgstr ""
 
-#: includes/REST/v1/class-referrals-endpoints.php:247
+#: includes/REST/v1/class-referrals-endpoints.php:249
 msgid "Use any get_referrals() arguments to modify the response."
 msgstr ""
-
-#: includes/REST/v1/class-referrals-endpoints.php:270
-#, fuzzy
-msgid "The unique referral ID."
-msgstr "Брой реферали, например 15."
-
-#: includes/REST/v1/class-referrals-endpoints.php:274
-#, fuzzy
-msgid "ID for the affiliate account associated with the referral."
-msgstr "Заявката Ви е отхвърлена"
-
-#: includes/REST/v1/class-referrals-endpoints.php:278
-#, fuzzy
-msgid "ID for the visit associated with the referral."
-msgstr "Изберете състояние за реферала."
-
-#: includes/REST/v1/class-referrals-endpoints.php:282
-#, fuzzy
-msgid "Referral description."
-msgstr "Редактиране на Реферали"
-
-#: includes/REST/v1/class-referrals-endpoints.php:286
-#, fuzzy
-msgid "The referral status."
-msgstr "Състояния на рефералите:"
-
-#: includes/REST/v1/class-referrals-endpoints.php:290
-#, fuzzy
-msgid "Referral amount."
-msgstr "Ставка на реферала"
-
-#: includes/REST/v1/class-referrals-endpoints.php:294
-#, fuzzy
-msgid "Currency for the referral amount."
-msgstr "Ставка на реферала"
-
-#: includes/REST/v1/class-referrals-endpoints.php:298
-#, fuzzy
-msgid "Custom referral data."
-msgstr "Няма открити реферали."
-
-#: includes/REST/v1/class-referrals-endpoints.php:302
-msgid ""
-"Context under which the referral was generated (usually the ontegration)."
-msgstr ""
-
-#: includes/REST/v1/class-referrals-endpoints.php:306
-msgid "Campaign associated with the referral."
-msgstr ""
-
-#: includes/REST/v1/class-referrals-endpoints.php:310
-msgid "Referral reference (usually a link to a specific sale)."
-msgstr ""
-
-#: includes/REST/v1/class-referrals-endpoints.php:314
-msgid "Products associated with the referral."
-msgstr ""
-
-#: includes/REST/v1/class-referrals-endpoints.php:318
-#, fuzzy
-msgid "The date the referral was generated."
-msgstr "Брой реферали, например 15."
 
 #: includes/REST/v1/class-rest-controller.php:64
 msgid "object_type must be defined by the extending class: %s"
@@ -454,75 +223,29 @@ msgid ""
 "Scope under which the request is made; determines fields present in response."
 msgstr ""
 
-#: includes/REST/v1/class-visits-endpoints.php:175
+#: includes/REST/v1/class-visits-endpoints.php:176
 msgid "The visit ID or array of IDs to query visits for."
 msgstr ""
 
-#: includes/REST/v1/class-visits-endpoints.php:183
+#: includes/REST/v1/class-visits-endpoints.php:184
 msgid "The affiliate ID or array of IDs to query visits for."
 msgstr ""
 
-#: includes/REST/v1/class-visits-endpoints.php:191
+#: includes/REST/v1/class-visits-endpoints.php:192
 msgid "The referral ID or array of IDs to query visits for."
 msgstr ""
 
-#: includes/REST/v1/class-visits-endpoints.php:199
+#: includes/REST/v1/class-visits-endpoints.php:200
 msgid "The referral status or array of statuses to retrieve visits for."
 msgstr ""
 
-#: includes/REST/v1/class-visits-endpoints.php:207
-#, fuzzy
-msgid "The context under which the visit was created."
-msgstr "Настройките са успешно въведени"
-
-#: includes/REST/v1/class-visits-endpoints.php:225
+#: includes/REST/v1/class-visits-endpoints.php:215
 msgid "Visits table column to order by."
 msgstr ""
 
-#: includes/REST/v1/class-visits-endpoints.php:236
+#: includes/REST/v1/class-visits-endpoints.php:226
 msgid "Use any get_visits() arguments to modify the response."
 msgstr ""
-
-#: includes/REST/v1/class-visits-endpoints.php:259
-msgid "The unique visit ID."
-msgstr ""
-
-#: includes/REST/v1/class-visits-endpoints.php:263
-#, fuzzy
-msgid "ID for the affiliate account associated with the visit."
-msgstr "Вашият афилиейт профил не е активен"
-
-#: includes/REST/v1/class-visits-endpoints.php:267
-msgid "ID for the referral associated with the visit."
-msgstr ""
-
-#: includes/REST/v1/class-visits-endpoints.php:271
-#, fuzzy
-msgid "The visit URL."
-msgstr "URL адрес"
-
-#: includes/REST/v1/class-visits-endpoints.php:275
-#, fuzzy
-msgid "Visit referrer."
-msgstr "Редактирай Реферал"
-
-#: includes/REST/v1/class-visits-endpoints.php:279
-msgid "Campaign associated with the visit."
-msgstr ""
-
-#: includes/REST/v1/class-visits-endpoints.php:283
-#, fuzzy
-msgid "Context under which the visit was generated."
-msgstr "Настройките са успешно въведени"
-
-#: includes/REST/v1/class-visits-endpoints.php:287
-msgid "Visitor IP address."
-msgstr ""
-
-#: includes/REST/v1/class-visits-endpoints.php:291
-#, fuzzy
-msgid "The date the visit was generated."
-msgstr "Настройките са успешно въведени"
 
 #: includes/abstracts/class-affwp-reports-tab.php:115
 #, fuzzy
@@ -542,52 +265,52 @@ msgid "No data for the current date range."
 msgstr ""
 
 #: includes/abstracts/class-affwp-reports-tab.php:370
-#: includes/class-graph.php:365
+#: includes/class-graph.php:353
 msgid "Today"
 msgstr "Днес"
 
 #: includes/abstracts/class-affwp-reports-tab.php:371
-#: includes/class-graph.php:366
+#: includes/class-graph.php:354
 msgid "Yesterday"
 msgstr "Вчера"
 
 #: includes/abstracts/class-affwp-reports-tab.php:372
-#: includes/class-graph.php:367
+#: includes/class-graph.php:355
 msgid "This Week"
 msgstr "Тази седмица"
 
 #: includes/abstracts/class-affwp-reports-tab.php:373
-#: includes/class-graph.php:368
+#: includes/class-graph.php:356
 msgid "Last Week"
 msgstr "Минала седмица"
 
 #: includes/abstracts/class-affwp-reports-tab.php:374
-#: includes/class-graph.php:369
+#: includes/class-graph.php:357
 msgid "This Month"
 msgstr "Този месец"
 
 #: includes/abstracts/class-affwp-reports-tab.php:375
-#: includes/class-graph.php:370
+#: includes/class-graph.php:358
 msgid "Last Month"
 msgstr "Миналия месец"
 
 #: includes/abstracts/class-affwp-reports-tab.php:376
-#: includes/class-graph.php:371
+#: includes/class-graph.php:359
 msgid "This Quarter"
 msgstr "Това тримесечие"
 
 #: includes/abstracts/class-affwp-reports-tab.php:377
-#: includes/class-graph.php:372
+#: includes/class-graph.php:360
 msgid "Last Quarter"
 msgstr "Миналото тримесечие"
 
 #: includes/abstracts/class-affwp-reports-tab.php:378
-#: includes/class-graph.php:373
+#: includes/class-graph.php:361
 msgid "This Year"
 msgstr "Тази година"
 
 #: includes/abstracts/class-affwp-reports-tab.php:379
-#: includes/class-graph.php:374
+#: includes/class-graph.php:362
 msgid "Last Year"
 msgstr "Миналата година"
 
@@ -596,7 +319,7 @@ msgstr "Миналата година"
 msgid "%1$s to %2$s"
 msgstr ""
 
-#: includes/admin/AFFWP_Plugin_Updater.php:201
+#: includes/admin/AFFWP_Plugin_Updater.php:196
 #, fuzzy
 msgid ""
 "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
@@ -604,7 +327,7 @@ msgstr ""
 "Има налична нова версия на %1$s. <a target=\"_blank\" class=\"thickbox\" "
 "href=\"%2$s\">Виж детайли на версия %3$s</a>."
 
-#: includes/admin/AFFWP_Plugin_Updater.php:209
+#: includes/admin/AFFWP_Plugin_Updater.php:204
 #, fuzzy
 msgid ""
 "There is a new version of %1$s available. %2$sView version %3$s details%4$s "
@@ -614,7 +337,7 @@ msgstr ""
 "href=\"%2$s\">Виж детайлите на версия %3$s </a> или <a href=\"%4$s\">обнови "
 "сега</a>."
 
-#: includes/admin/AFFWP_Plugin_Updater.php:402
+#: includes/admin/AFFWP_Plugin_Updater.php:358
 #: includes/admin/class-addon-updater.php:283
 msgid "You do not have permission to install plugin updates"
 msgstr "Нямате права да инсталирате обновления за този плъгин"
@@ -658,30 +381,30 @@ msgid ""
 msgstr ""
 
 #: includes/admin/affiliates/actions.php:20
-#: includes/admin/affiliates/actions.php:124
-#: includes/admin/affiliates/actions.php:155
+#: includes/admin/affiliates/actions.php:107
+#: includes/admin/affiliates/actions.php:138
 msgid "You do not have permission to manage affiliates"
 msgstr "Нямате права, за да управлявате афилиейти"
 
-#: includes/admin/affiliates/actions.php:69
+#: includes/admin/affiliates/actions.php:52
 msgid "You do not have permission to delete affiliate accounts"
 msgstr "Нямате права, за да изтриете афилиетски профили"
 
-#: includes/admin/affiliates/actions.php:73
-#: includes/admin/affiliates/actions.php:159
-#: includes/admin/class-notices.php:463 includes/admin/creatives/actions.php:48
+#: includes/admin/affiliates/actions.php:56
+#: includes/admin/affiliates/actions.php:142
+#: includes/admin/class-notices.php:414 includes/admin/creatives/actions.php:48
 #: includes/admin/referrals/actions.php:20
 #: includes/admin/referrals/actions.php:51
 #: includes/admin/referrals/actions.php:82
 msgid "Security check failed"
 msgstr "Проверката за сигурност се провали"
 
-#: includes/admin/affiliates/actions.php:77
+#: includes/admin/affiliates/actions.php:60
 msgid "No affiliate IDs specified for deletion"
 msgstr "Не е избран идентификационен номер на афилиейта за изтриване"
 
 #: includes/admin/affiliates/affiliates.php:56 includes/admin/class-menu.php:11
-#: includes/admin/class-menu.php:14
+#: includes/admin/class-menu.php:13
 #: includes/admin/reports/tabs/class-affiliates-reports-tab.php:23
 msgid "Affiliates"
 msgstr "Афилиейти"
@@ -692,205 +415,185 @@ msgstr "Афилиейти"
 msgid "Add New"
 msgstr "Добави нов"
 
-#: includes/admin/affiliates/affiliates.php:71
+#: includes/admin/affiliates/affiliates.php:62
 #: includes/admin/payouts/payouts.php:50
-#: includes/admin/referrals/referrals.php:89
-#: includes/admin/visits/visits.php:53
+#: includes/admin/referrals/referrals.php:65
+#: includes/admin/visits/visits.php:46
 msgid "Search"
 msgstr "Търсене"
 
 #: includes/admin/affiliates/class-list-table.php:146
 #: includes/admin/creatives/class-list-table.php:98
 #: includes/admin/referrals/class-list-table.php:148
-#: includes/admin/visits/visits.php:63
+#: includes/admin/visits/visits.php:57
 msgid "All"
 msgstr "Всички"
 
 #: includes/admin/affiliates/class-list-table.php:147
-#: includes/admin/affiliates/edit.php:127 includes/admin/affiliates/new.php:45
+#: includes/admin/affiliates/new.php:41
 #: includes/admin/creatives/class-list-table.php:99
-#: includes/admin/creatives/edit.php:105 includes/admin/creatives/new.php:94
-#: includes/admin/tools/tools.php:287 includes/affiliate-functions.php:279
+#: includes/admin/creatives/edit.php:99 includes/admin/creatives/new.php:89
+#: includes/admin/tools/tools.php:271 includes/affiliate-functions.php:273
 msgid "Active"
 msgstr "Активни"
 
 #: includes/admin/affiliates/class-list-table.php:148
-#: includes/admin/affiliates/edit.php:128 includes/admin/affiliates/new.php:46
+#: includes/admin/affiliates/new.php:42
 #: includes/admin/creatives/class-list-table.php:100
-#: includes/admin/creatives/edit.php:106 includes/admin/creatives/new.php:95
-#: includes/affiliate-functions.php:282
+#: includes/admin/creatives/edit.php:100 includes/admin/creatives/new.php:90
+#: includes/affiliate-functions.php:276
 msgid "Inactive"
 msgstr "Неактивни"
 
 #: includes/admin/affiliates/class-list-table.php:149
-#: includes/admin/affiliates/edit.php:129 includes/admin/affiliates/new.php:47
+#: includes/admin/affiliates/new.php:43
 #: includes/admin/referrals/class-list-table.php:151
-#: includes/admin/referrals/edit.php:249 includes/admin/referrals/new.php:107
-#: includes/admin/tools/tools.php:288 includes/admin/tools/tools.php:314
-#: includes/affiliate-functions.php:285 includes/referral-functions.php:65
+#: includes/admin/referrals/edit.php:140 includes/admin/referrals/new.php:103
+#: includes/admin/tools/tools.php:272 includes/admin/tools/tools.php:301
+#: includes/affiliate-functions.php:279 includes/referral-functions.php:65
 msgid "Pending"
 msgstr "В изчакване"
 
 #: includes/admin/affiliates/class-list-table.php:150
-#: includes/admin/affiliates/edit.php:124
 #: includes/admin/referrals/class-list-table.php:152
-#: includes/admin/referrals/edit.php:250 includes/admin/referrals/new.php:108
-#: includes/admin/tools/tools.php:289 includes/admin/tools/tools.php:315
-#: includes/affiliate-functions.php:288 includes/referral-functions.php:64
+#: includes/admin/referrals/edit.php:141 includes/admin/referrals/new.php:104
+#: includes/admin/tools/tools.php:273 includes/admin/tools/tools.php:302
+#: includes/affiliate-functions.php:282 includes/referral-functions.php:64
 msgid "Rejected"
 msgstr "Отхвърлени"
 
 #: includes/admin/affiliates/class-list-table.php:166
-#: includes/admin/affiliates/review.php:29
+#: includes/admin/affiliates/review.php:22
 #: includes/admin/creatives/class-list-table.php:115
-#: includes/admin/creatives/edit.php:23 includes/admin/creatives/new.php:21
-#: includes/admin/tools/export/class-batch-export-affiliates.php:94
-#: includes/admin/tools/export/class-batch-export-referrals.php:145
-#: includes/admin/tools/export/class-export-affiliates.php:51
-#: includes/admin/tools/export/class-export-referrals.php:65
+#: includes/admin/creatives/edit.php:17 includes/admin/creatives/new.php:16
+#: includes/admin/tools/export/class-export-affiliates.php:49
 msgid "Name"
 msgstr "Име"
 
 #: includes/admin/affiliates/class-list-table.php:167
-#: includes/admin/affiliates/edit.php:52
-#: includes/admin/tools/export/class-batch-export-affiliates.php:92
-#: includes/admin/tools/export/class-batch-export-referrals.php:143
-#: includes/admin/tools/export/class-export-affiliates.php:49
-#: includes/admin/tools/export/class-export-referrals.php:63
+#: includes/admin/affiliates/edit.php:44 includes/admin/referrals/edit.php:28
+#: includes/admin/tools/export/class-export-affiliates.php:47
+#: includes/admin/tools/export/class-export-referrals.php:61
 msgid "Affiliate ID"
 msgstr "Номер на афилиейт"
 
 #: includes/admin/affiliates/class-list-table.php:168
-#: includes/admin/affiliates/edit.php:91
-#: includes/admin/affiliates/review.php:41
-#: includes/admin/settings/class-settings.php:488
+#: includes/admin/affiliates/edit.php:83
+#: includes/admin/affiliates/review.php:34
+#: includes/admin/settings/class-settings.php:449
 #: includes/admin/tools/class-rest-consumers-table.php:200
-#: includes/admin/tools/export/class-batch-export-affiliates.php:96
-#: includes/admin/tools/export/class-batch-export-referrals.php:147
-#: includes/admin/tools/export/class-export-affiliates.php:53
-#: includes/admin/tools/export/class-export-referrals.php:67
-#: templates/login.php:25 templates/login.php:26 templates/register.php:69
-#: templates/register.php:70
+#: includes/admin/tools/export/class-export-affiliates.php:51
+#: templates/login.php:15 templates/login.php:16 templates/register.php:59
+#: templates/register.php:60
 msgid "Username"
 msgstr "Потребителско име"
 
 #: includes/admin/affiliates/class-list-table.php:169
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:38
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:49
-#: includes/admin/tools/tools.php:153 templates/dashboard-tab-stats.php:44
+#: includes/admin/tools/tools.php:131 templates/dashboard-tab-stats.php:34
 msgid "Paid Earnings"
 msgstr "Платени печалби"
 
 #: includes/admin/affiliates/class-list-table.php:170
-#: includes/admin/reports/tabs/class-referrals-reports-tab.php:57
-#: includes/admin/tools/export/class-batch-export-affiliates.php:100
-#: templates/dashboard-tab-stats.php:43
-msgid "Unpaid Earnings"
-msgstr "Неплатени печалби"
-
-#: includes/admin/affiliates/class-list-table.php:171
-#: includes/admin/tools/export/class-batch-export-affiliates.php:97
-#: includes/admin/tools/export/class-export-affiliates.php:54
+#: includes/admin/tools/export/class-export-affiliates.php:52
 msgid "Rate"
 msgstr "Ставка"
 
-#: includes/admin/affiliates/class-list-table.php:172
+#: includes/admin/affiliates/class-list-table.php:171
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:65
-#: templates/dashboard-tab-stats.php:11
+#: templates/dashboard-tab-stats.php:8
 msgid "Unpaid Referrals"
 msgstr "Неплатени реферали"
 
-#: includes/admin/affiliates/class-list-table.php:173
-#: templates/dashboard-tab-stats.php:12
+#: includes/admin/affiliates/class-list-table.php:172
+#: templates/dashboard-tab-stats.php:9
 msgid "Paid Referrals"
 msgstr "Платени реферали"
 
-#: includes/admin/affiliates/class-list-table.php:174
-#: includes/admin/class-menu.php:17
+#: includes/admin/affiliates/class-list-table.php:173
+#: includes/admin/class-menu.php:16
 #: includes/admin/reports/tabs/class-visits-reports-tab.php:23
-#: includes/admin/tools/export/class-batch-export-affiliates.php:102
-#: includes/admin/tools/export/class-export-affiliates.php:58
-#: includes/admin/tools/tools.php:155 includes/admin/visits/visits.php:41
-#: templates/dashboard-tab-stats.php:13 templates/dashboard-tab-stats.php:74
+#: includes/admin/tools/export/class-export-affiliates.php:56
+#: includes/admin/tools/tools.php:133 includes/admin/visits/visits.php:41
+#: templates/dashboard-tab-stats.php:10 templates/dashboard-tab-stats.php:57
 #: templates/dashboard.php:86
 msgid "Visits"
 msgstr "Посещения"
 
-#: includes/admin/affiliates/class-list-table.php:175
+#: includes/admin/affiliates/class-list-table.php:174
 #: includes/admin/creatives/class-list-table.php:118
-#: includes/admin/creatives/edit.php:100 includes/admin/creatives/new.php:89
-#: includes/admin/payouts/view.php:115
+#: includes/admin/creatives/edit.php:94 includes/admin/creatives/new.php:84
+#: includes/admin/payouts/view.php:116
 #: includes/admin/referrals/class-list-table.php:174
-#: includes/admin/referrals/edit.php:242 includes/admin/referrals/new.php:100
-#: includes/admin/tools/export/class-batch-export-affiliates.php:104
-#: includes/admin/tools/export/class-batch-export-referrals.php:154
-#: includes/admin/tools/export/class-export-affiliates.php:60
-#: includes/admin/tools/export/class-export-referrals.php:74
+#: includes/admin/referrals/edit.php:133 includes/admin/referrals/new.php:96
+#: includes/admin/tools/export/class-export-affiliates.php:57
+#: includes/admin/tools/export/class-export-referrals.php:70
 #: templates/dashboard-tab-payouts.php:37
-#: templates/dashboard-tab-referrals.php:37
+#: templates/dashboard-tab-referrals.php:26
 msgid "Status"
 msgstr "Статус"
 
-#: includes/admin/affiliates/class-list-table.php:261
-#: includes/admin/affiliates/class-list-table.php:396
-#: includes/admin/payouts/class-list-table.php:272
-#: includes/admin/payouts/class-list-table.php:341
-#: includes/admin/payouts/view.php:92 includes/admin/referrals/edit.php:62
+#: includes/admin/affiliates/class-list-table.php:243
+#: includes/admin/affiliates/class-list-table.php:377
+#: includes/admin/payouts/class-list-table.php:273
+#: includes/admin/payouts/class-list-table.php:347
+#: includes/admin/payouts/view.php:93
 msgid "(user deleted)"
 msgstr "(потребителят е изтрит)"
 
-#: includes/admin/affiliates/class-list-table.php:278
-#: includes/admin/class-menu.php:19
-#: includes/admin/reports/class-reports-admin.php:89
-#: includes/admin/user-profile.php:51
+#: includes/admin/affiliates/class-list-table.php:260
+#: includes/admin/class-menu.php:18
+#: includes/admin/reports/class-reports-admin.php:97
+#: includes/admin/user-profile.php:49
 msgid "Reports"
 msgstr "Доклади"
 
-#: includes/admin/affiliates/class-list-table.php:288
+#: includes/admin/affiliates/class-list-table.php:270
 #, fuzzy
 msgid "Edit User"
 msgstr "Редактирай Реферал"
 
-#: includes/admin/affiliates/class-list-table.php:298
-#: includes/admin/affiliates/class-list-table.php:578
-#: includes/admin/creatives/class-list-table.php:236
+#: includes/admin/affiliates/class-list-table.php:280
+#: includes/admin/affiliates/class-list-table.php:487
+#: includes/admin/creatives/class-list-table.php:211
 msgid "Deactivate"
 msgstr "Деактивиране"
 
-#: includes/admin/affiliates/class-list-table.php:310
-#: includes/admin/overview/metaboxes/class-metabox-overview-registrations.php:83
+#: includes/admin/affiliates/class-list-table.php:292
+#: includes/admin/overview/metaboxes/class-metabox-overview-registrations.php:84
 msgid "Review"
 msgstr "Преглед"
 
-#: includes/admin/affiliates/class-list-table.php:320
-#: includes/admin/affiliates/class-list-table.php:575
-#: includes/admin/referrals/class-list-table.php:425
-#: includes/admin/referrals/class-list-table.php:598
+#: includes/admin/affiliates/class-list-table.php:302
+#: includes/admin/affiliates/class-list-table.php:484
+#: includes/admin/referrals/class-list-table.php:343
+#: includes/admin/referrals/class-list-table.php:491
 msgid "Accept"
 msgstr "Приеми"
 
-#: includes/admin/affiliates/class-list-table.php:330
-#: includes/admin/affiliates/class-list-table.php:576
-#: includes/admin/referrals/class-list-table.php:441
-#: includes/admin/referrals/class-list-table.php:599
+#: includes/admin/affiliates/class-list-table.php:312
+#: includes/admin/affiliates/class-list-table.php:485
+#: includes/admin/referrals/class-list-table.php:359
+#: includes/admin/referrals/class-list-table.php:492
 msgid "Reject"
 msgstr "Отхвърли"
 
-#: includes/admin/affiliates/class-list-table.php:342
-#: includes/admin/affiliates/class-list-table.php:577
-#: includes/admin/creatives/class-list-table.php:248
+#: includes/admin/affiliates/class-list-table.php:324
+#: includes/admin/affiliates/class-list-table.php:486
+#: includes/admin/creatives/class-list-table.php:223
 msgid "Activate"
 msgstr "Активирай"
 
-#: includes/admin/affiliates/class-list-table.php:354
-#: includes/admin/affiliates/class-list-table.php:579
-#: includes/admin/creatives/class-list-table.php:260
-#: includes/admin/referrals/class-list-table.php:465
-#: includes/admin/referrals/class-list-table.php:602
+#: includes/admin/affiliates/class-list-table.php:336
+#: includes/admin/affiliates/class-list-table.php:488
+#: includes/admin/creatives/class-list-table.php:235
+#: includes/admin/referrals/class-list-table.php:383
+#: includes/admin/referrals/class-list-table.php:495
 msgid "Delete"
 msgstr "Изтрий"
 
-#: includes/admin/affiliates/class-list-table.php:563
+#: includes/admin/affiliates/class-list-table.php:472
 msgid "No affiliates found."
 msgstr "Няма открити афилиейти"
 
@@ -898,14 +601,14 @@ msgstr "Няма открити афилиейти"
 msgid "Delete Affiliates"
 msgstr "Изтрий Афилиейти"
 
-#: includes/admin/affiliates/delete.php:43
+#: includes/admin/affiliates/delete.php:36
 #, fuzzy
 msgid "You have specified the following affiliate for deletion:"
 msgid_plural "You have specified the following affiliates for deletion:"
 msgstr[0] "Избрахте следните афилиейти за изтриване:"
 msgstr[1] "Избрахте следните афилиейти за изтриване:"
 
-#: includes/admin/affiliates/delete.php:62
+#: includes/admin/affiliates/delete.php:55
 #, fuzzy
 msgid "Deleting this affiliate will also delete their referral and visit data."
 msgid_plural ""
@@ -917,123 +620,111 @@ msgstr[1] ""
 "Изтриването на тези афилиейти ще изтрие техните реферали и данни за "
 "посещения."
 
-#: includes/admin/affiliates/delete.php:74
+#: includes/admin/affiliates/delete.php:67
 msgid "(The current user will not be deleted)"
 msgstr ""
 
-#: includes/admin/affiliates/delete.php:105
+#: includes/admin/affiliates/delete.php:91
 msgid "Confirm Deletion"
 msgstr ""
 
-#: includes/admin/affiliates/edit.php:16
+#: includes/admin/affiliates/edit.php:15
 msgid "Edit Affiliate"
 msgstr "Редактирай афилиейт"
 
-#: includes/admin/affiliates/edit.php:34
+#: includes/admin/affiliates/edit.php:26
 #, fuzzy
 msgid "Affiliate Name"
 msgstr "Име на афилиейт"
 
-#: includes/admin/affiliates/edit.php:40
+#: includes/admin/affiliates/edit.php:32
 msgid ""
 "The affiliate&#8217;s first and/or last name. Will be empty if no name is "
 "specified. This can be changed on the <a href=\"%1$s\" alt=\"%2$s\">user "
 "edit screen</a>."
 msgstr ""
 
-#: includes/admin/affiliates/edit.php:42 includes/admin/affiliates/edit.php:147
+#: includes/admin/affiliates/edit.php:34 includes/admin/affiliates/edit.php:117
 msgid "A link to the user edit screen for this user."
 msgstr ""
 
-#: includes/admin/affiliates/edit.php:57
+#: includes/admin/affiliates/edit.php:49
 #, fuzzy
 msgid "The affiliate&#8217;s ID. This cannot be changed."
 msgstr "Номер на афилиейта. Не може да бъде променян."
 
-#: includes/admin/affiliates/edit.php:65
+#: includes/admin/affiliates/edit.php:57
 #, fuzzy
 msgid "Affiliate URL"
 msgstr "URL адреси на Афилиейта"
 
-#: includes/admin/affiliates/edit.php:70
+#: includes/admin/affiliates/edit.php:62
 #, fuzzy
 msgid "The affiliate&#8217;s referral URL. This is based on global settings."
 msgstr "Вид ставка на афилиейтския реферал."
 
-#: includes/admin/affiliates/edit.php:78
+#: includes/admin/affiliates/edit.php:70
 msgid "User ID"
 msgstr "Потребителски идент. номер"
 
-#: includes/admin/affiliates/edit.php:83
+#: includes/admin/affiliates/edit.php:75
 #, fuzzy
 msgid "The affiliate&#8217;s user ID. This cannot be changed."
 msgstr "Идентификационен номер на Афилиейта. Не може да бъде променян."
 
-#: includes/admin/affiliates/edit.php:96
+#: includes/admin/affiliates/edit.php:88
 #, fuzzy
 msgid "The affiliate&#8217;s username. This cannot be changed."
 msgstr "Идентификационен номер на Афилиейта. Не може да бъде променян."
 
-#: includes/admin/affiliates/edit.php:104
+#: includes/admin/affiliates/edit.php:96
 #, fuzzy
 msgid "Registration Date"
 msgstr "Диаграма на регистрация на афилиейти"
 
-#: includes/admin/affiliates/edit.php:109
+#: includes/admin/affiliates/edit.php:101
 #, fuzzy
 msgid "The affiliate&#8217;s registration date. This cannot be changed."
 msgstr "Идентификационен номер на Афилиейта. Не може да бъде променян."
 
-#: includes/admin/affiliates/edit.php:117 includes/admin/affiliates/new.php:40
-#, fuzzy
-msgid "Affiliate Status"
-msgstr "Ставки на афилиейта:"
-
-#: includes/admin/affiliates/edit.php:131
-msgid ""
-"The status assigned to the affiliate&#8217;s account. Updating the status "
-"could trigger account related events, such as email notifications."
-msgstr ""
-
-#: includes/admin/affiliates/edit.php:139
+#: includes/admin/affiliates/edit.php:109
 #, fuzzy
 msgid "Website"
 msgstr "URL адрес"
 
-#: includes/admin/affiliates/edit.php:145
+#: includes/admin/affiliates/edit.php:115
 msgid ""
 "The affiliate&#8217;s website. Will be empty if no website is specified. "
 "This can be changed on the <a href=\"%1$s\" alt=\"%2$s\">user edit screen</"
 "a>."
 msgstr ""
 
-#: includes/admin/affiliates/edit.php:156 includes/admin/affiliates/new.php:57
-#: includes/admin/settings/class-settings.php:504
+#: includes/admin/affiliates/edit.php:126 includes/admin/affiliates/new.php:53
+#: includes/admin/settings/class-settings.php:465
 msgid "Referral Rate Type"
 msgstr "Тип комисион от реферала"
 
-#: includes/admin/affiliates/edit.php:161 includes/admin/affiliates/new.php:62
+#: includes/admin/affiliates/edit.php:131 includes/admin/affiliates/new.php:58
 msgid "Site Default"
 msgstr "По подразбиране от сайта"
 
-#: includes/admin/affiliates/edit.php:166 includes/admin/affiliates/new.php:67
+#: includes/admin/affiliates/edit.php:136 includes/admin/affiliates/new.php:63
 #, fuzzy
 msgid "The affiliate&#8217;s referral rate type."
 msgstr "Вид ставка на афилиейтския реферал."
 
-#: includes/admin/affiliates/edit.php:174 includes/admin/affiliates/new.php:75
-#: includes/admin/settings/class-settings.php:510
-#: includes/integrations/class-edd.php:648
+#: includes/admin/affiliates/edit.php:144 includes/admin/affiliates/new.php:71
+#: includes/admin/settings/class-settings.php:471
+#: includes/integrations/class-edd.php:656
 #: includes/integrations/class-memberpress.php:179
-#: includes/integrations/class-pmp.php:353
-#: includes/integrations/class-pms.php:49
-#: includes/integrations/class-woocommerce.php:533
+#: includes/integrations/class-pmp.php:361
+#: includes/integrations/class-woocommerce.php:540
 #: includes/integrations/class-zippycourses.php:76
 #: includes/integrations/extras/class-exchange-feature.php:31
 msgid "Referral Rate"
 msgstr "Ставка на реферала"
 
-#: includes/admin/affiliates/edit.php:179 includes/admin/affiliates/new.php:80
+#: includes/admin/affiliates/edit.php:149 includes/admin/affiliates/new.php:76
 #, fuzzy
 msgid ""
 "The affiliate&#8217;s referral rate, such as 20 for 20%. If left blank, the "
@@ -1042,11 +733,11 @@ msgstr ""
 "Ставка за реферал, например 20 за 20%. Ако оставите празно, ще бъде "
 "използвана ставката по подразбиране от сайта."
 
-#: includes/admin/affiliates/edit.php:187 templates/register.php:74
+#: includes/admin/affiliates/edit.php:157 templates/register.php:64
 msgid "Account Email"
 msgstr "Ел. поща на профила"
 
-#: includes/admin/affiliates/edit.php:192
+#: includes/admin/affiliates/edit.php:162
 #, fuzzy
 msgid ""
 "The affiliate&#8217;s account email. Updating this will change the email "
@@ -1055,17 +746,14 @@ msgstr ""
 "Ел. пощата на афилиейта. Обновяването ще промени ел. пощата в профилната "
 "страница на потребителя."
 
-#: includes/admin/affiliates/edit.php:200 includes/admin/affiliates/new.php:88
-#: includes/admin/settings/class-settings.php:801
-#: includes/admin/tools/export/class-batch-export-affiliates.php:95
-#: includes/admin/tools/export/class-batch-export-referrals.php:146
-#: includes/admin/tools/export/class-export-affiliates.php:52
-#: includes/admin/tools/export/class-export-referrals.php:66
-#: templates/register.php:79
+#: includes/admin/affiliates/edit.php:170 includes/admin/affiliates/new.php:84
+#: includes/admin/tools/export/class-export-affiliates.php:50
+#: includes/admin/tools/export/class-export-referrals.php:63
+#: templates/register.php:69
 msgid "Payment Email"
 msgstr "Електронна поща, обвързана с плащането"
 
-#: includes/admin/affiliates/edit.php:205 includes/admin/affiliates/new.php:93
+#: includes/admin/affiliates/edit.php:175 includes/admin/affiliates/new.php:89
 #, fuzzy
 msgid ""
 "Affiliate&#8217;s payment email for systems such as PayPal, Moneybookers, or "
@@ -1074,32 +762,22 @@ msgstr ""
 "Електронна поща за системи като PayPal, Moneybookers или други. Оставете "
 "празно, за да използвате мейла от регистрацията."
 
-#: includes/admin/affiliates/edit.php:213
+#: includes/admin/affiliates/edit.php:183
 #, fuzzy
 msgid "Promotion Methods"
 msgstr "Метод на промоция"
 
-#: includes/admin/affiliates/edit.php:218
+#: includes/admin/affiliates/edit.php:188
 #, fuzzy
 msgid "Promotion methods entered by the affiliate during registration."
 msgstr "Известявай администраторите за регистрация на нови афилиейти"
 
-#: includes/admin/affiliates/edit.php:226 includes/admin/affiliates/new.php:101
-#, fuzzy
-msgid "Affiliate Notes"
-msgstr "Ставки на афилиейта:"
-
-#: includes/admin/affiliates/edit.php:231 includes/admin/affiliates/new.php:106
-msgid ""
-"Enter any notes for this affiliate. Notes are only visible to the admin."
-msgstr ""
-
-#: includes/admin/affiliates/edit.php:240
-#: includes/admin/affiliates/review.php:93
+#: includes/admin/affiliates/edit.php:197
+#: includes/admin/affiliates/review.php:86
 msgid "Rejection Reason"
 msgstr ""
 
-#: includes/admin/affiliates/edit.php:272
+#: includes/admin/affiliates/edit.php:215
 msgid "Update Affiliate"
 msgstr "Обнови Афилиейт"
 
@@ -1107,7 +785,7 @@ msgstr "Обнови Афилиейт"
 msgid "New Affiliate"
 msgstr "Нов афилиейт"
 
-#: includes/admin/affiliates/new.php:18
+#: includes/admin/affiliates/new.php:13
 #, fuzzy
 msgid ""
 "Use this form to register a new affiliate. Each affiliate is tied directly "
@@ -1119,31 +797,36 @@ msgstr ""
 "съществува подобен потребителски профил, <a href=\"%s\" target=\"_blank"
 "\">създай нов</a>."
 
-#: includes/admin/affiliates/new.php:25
+#: includes/admin/affiliates/new.php:20
 msgid "User"
 msgstr "Потребител"
 
-#: includes/admin/affiliates/new.php:32
+#: includes/admin/affiliates/new.php:28
 msgid ""
 "Begin typing the name of the affiliate to perform a search for their "
 "associated user account."
 msgstr "Изпишете името на афилиейта, за да започне търсене на профила му."
 
-#: includes/admin/affiliates/new.php:49
+#: includes/admin/affiliates/new.php:36
+#, fuzzy
+msgid "Affiliate Status"
+msgstr "Ставки на афилиейта:"
+
+#: includes/admin/affiliates/new.php:45
 #, fuzzy
 msgid "The status assigned to the affiliate&#8217;s account."
 msgstr "Нямате права, за да изтриете афилиетски профили"
 
-#: includes/admin/affiliates/new.php:114
+#: includes/admin/affiliates/new.php:97
 #, fuzzy
 msgid "Welcome Email"
 msgstr "Ел. поща"
 
-#: includes/admin/affiliates/new.php:120
+#: includes/admin/affiliates/new.php:103
 msgid "Send welcome email after registering affiliate?"
 msgstr ""
 
-#: includes/admin/affiliates/new.php:144
+#: includes/admin/affiliates/new.php:117
 msgid "Add Affiliate"
 msgstr "Добави Афилиейт"
 
@@ -1155,28 +838,26 @@ msgstr "Прегледай Афилиейт"
 msgid "Go Back"
 msgstr "Назад"
 
-#: includes/admin/affiliates/review.php:53 templates/register.php:75
+#: includes/admin/affiliates/review.php:46 templates/register.php:65
 msgid "Email Address"
 msgstr "Електронна поща"
 
-#: includes/admin/affiliates/review.php:66
-#: includes/admin/class-upgrades.php:508
-#: includes/admin/settings/class-settings.php:800 includes/install.php:46
-#: templates/register.php:84 templates/register.php:85
+#: includes/admin/affiliates/review.php:59 templates/register.php:74
+#: templates/register.php:75
 msgid "Website URL"
 msgstr "URL адрес"
 
-#: includes/admin/affiliates/review.php:70
+#: includes/admin/affiliates/review.php:63
 #, fuzzy
 msgid "Affiliate&#8217;s Website URL"
 msgstr "URL адрес на уебсайта на Афилиейт"
 
-#: includes/admin/affiliates/review.php:80
+#: includes/admin/affiliates/review.php:73
 msgid "Promotion Method"
 msgstr "Метод на промоция"
 
-#: includes/admin/affiliates/review.php:98
-msgid "Leave blank if approving this affiliate."
+#: includes/admin/affiliates/review.php:91
+msgid "Leave blank if approving this affiliate"
 msgstr ""
 
 #: includes/admin/affiliates/screen-options.php:24
@@ -1187,72 +868,43 @@ msgstr ""
 msgid "Affiliate: #%d %s"
 msgstr "Афилиейт: #%d %s"
 
-#: includes/admin/affiliates/view.php:16
-#: includes/admin/tools/export/class-batch-export-affiliates.php:99
-#: includes/admin/tools/export/class-export-affiliates.php:56
+#: includes/admin/affiliates/view.php:11
+#: includes/admin/tools/export/class-export-affiliates.php:54
 msgid "Earnings"
 msgstr "Печалби"
 
-#: includes/admin/affiliates/view.php:23
+#: includes/admin/affiliates/view.php:18
 msgid "Total earnings"
 msgstr "Общо печалба"
 
-#: includes/admin/affiliates/view.php:24
+#: includes/admin/affiliates/view.php:19
 msgid "Total unpaid earnings"
 msgstr "Общо неплатена печалба"
 
-#: includes/admin/affiliates/view.php:25
+#: includes/admin/affiliates/view.php:20
 msgid "Total paid referrals"
 msgstr "Общо платени реферали"
 
-#: includes/admin/affiliates/view.php:26
+#: includes/admin/affiliates/view.php:21
 msgid "Total unpaid referrals"
 msgstr "Общо неплатени реферали"
 
-#: includes/admin/affiliates/view.php:27
+#: includes/admin/affiliates/view.php:22
 msgid "Total pending referrals"
 msgstr "Общо реферали в изчакване"
 
-#: includes/admin/affiliates/view.php:28
+#: includes/admin/affiliates/view.php:23
 msgid "Total rejected referrals"
 msgstr "Общо отхвърлени реферали"
 
-#: includes/admin/affiliates/view.php:29
+#: includes/admin/affiliates/view.php:24
 msgid "Total visits"
 msgstr "Общо посещения"
 
-#: includes/admin/affiliates/view.php:30
-#, fuzzy
-msgid "Conversion rate"
-msgstr "Коефициент на конверсии"
-
-#: includes/admin/affiliates/view.php:86
+#: includes/admin/affiliates/view.php:65
 #, fuzzy
 msgid "Recent Payouts"
 msgstr "Последни реферали"
-
-#: includes/admin/ajax-actions.php:93
-msgid "A batch process ID must be present to continue."
-msgstr ""
-
-#: includes/admin/ajax-actions.php:104
-msgid ""
-"You do not have permission to initiate this request. Contact an "
-"administrator for more information."
-msgstr ""
-
-#: includes/admin/ajax-actions.php:111
-msgid "%s is an invalid batch process ID."
-msgstr ""
-
-#: includes/admin/ajax-actions.php:120
-msgid "An invalid file path is registered for the %1$s batch process handler."
-msgstr ""
-
-#: includes/admin/ajax-actions.php:128
-msgid ""
-"%1$s is an invalid handler for the %2$s batch process. Please try again."
-msgstr ""
 
 #: includes/admin/class-addon-updater.php:189
 msgid ""
@@ -1272,258 +924,236 @@ msgstr ""
 "href=\"%2$s\">Виж детайлите на версия %3$s </a> или <a href=\"%4$s\">обнови "
 "сега</a>."
 
-#: includes/admin/class-menu.php:13 includes/admin/overview/overview.php:54
+#: includes/admin/class-menu.php:12 includes/admin/overview/overview.php:54
 #: includes/admin/referrals/contextual-help.php:37
 #: includes/admin/visits/contextual-help.php:37
 msgid "Overview"
 msgstr "Преглед"
 
-#: includes/admin/class-menu.php:15
+#: includes/admin/class-menu.php:14
 #: includes/admin/payouts/class-list-table.php:151
 #: includes/admin/referrals/referrals.php:37
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:23
-#: includes/admin/tools/export/class-batch-export-affiliates.php:101
-#: includes/admin/tools/export/class-batch-export-payouts.php:146
-#: includes/admin/tools/export/class-export-affiliates.php:57
-#: includes/admin/tools/tools.php:154 templates/dashboard-tab-referrals.php:7
+#: includes/admin/tools/export/class-export-affiliates.php:55
+#: includes/admin/tools/tools.php:132 templates/dashboard-tab-referrals.php:3
 #: templates/dashboard.php:74
 msgid "Referrals"
 msgstr "Реферали"
 
-#: includes/admin/class-menu.php:16 includes/admin/payouts/payouts.php:37
+#: includes/admin/class-menu.php:15 includes/admin/payouts/payouts.php:37
 #: templates/dashboard.php:80
 msgid "Payouts"
 msgstr ""
 
-#: includes/admin/class-menu.php:18 includes/admin/creatives/creatives.php:43
+#: includes/admin/class-menu.php:17 includes/admin/creatives/creatives.php:43
 #: templates/dashboard-tab-creatives.php:3 templates/dashboard.php:92
 msgid "Creatives"
 msgstr "Реклами"
 
-#: includes/admin/class-menu.php:20
+#: includes/admin/class-menu.php:19
 msgid "Tools"
 msgstr "Инструменти"
 
-#: includes/admin/class-menu.php:21 templates/dashboard.php:98
+#: includes/admin/class-menu.php:20 templates/dashboard.php:98
 msgid "Settings"
 msgstr "Настройки"
 
-#: includes/admin/class-menu.php:22 includes/admin/tools/migration.php:17
+#: includes/admin/class-menu.php:21 includes/admin/tools/migration.php:17
 msgid "AffiliateWP Migration"
 msgstr "AffiliateWP Миграция"
 
-#: includes/admin/class-menu.php:23
+#: includes/admin/class-menu.php:22
 msgid "Add-ons"
 msgstr ""
 
-#: includes/admin/class-notices.php:49
+#: includes/admin/class-notices.php:38
 msgid ""
 "There are currently no AffiliateWP <a href=\"%s\">integrations</a> enabled. "
 "If you are using AffiliateWP without any integrations, you may disregard "
 "this message."
 msgstr ""
 
-#: includes/admin/class-notices.php:57
-#: includes/admin/settings/class-settings.php:311
+#: includes/admin/class-notices.php:46
+#: includes/admin/settings/class-settings.php:281
 msgid "Settings updated."
 msgstr "Настройките са обновени."
 
-#: includes/admin/class-notices.php:82
+#: includes/admin/class-notices.php:63
 #, fuzzy
 msgid "%d affiliate was added successfully."
 msgid_plural "%d affiliates were added successfully"
 msgstr[0] "Афилиейтът е обновен успешно"
 msgstr[1] "Афилиейтът е обновен успешно"
 
-#: includes/admin/class-notices.php:95
+#: includes/admin/class-notices.php:76
 #, fuzzy
 msgid "Affiliate wasn&#8217;t added, please try again."
 msgstr "Афилиейтът не беше добавен. Моля, опитайте отново."
 
-#: includes/admin/class-notices.php:102
+#: includes/admin/class-notices.php:83
 msgid "Affiliate updated successfully"
 msgstr "Афилиейтът е обновен успешно"
 
-#: includes/admin/class-notices.php:104
+#: includes/admin/class-notices.php:85
 msgid "<a href=\"%s\">Back to Affiliates</a>"
 msgstr "<a href=\"%s\">Назад към Афилиейти</a>"
 
-#: includes/admin/class-notices.php:110
+#: includes/admin/class-notices.php:91
 msgid "Affiliate update failed, please try again"
 msgstr "Обновяването се провали. Моля, опитайте отново"
 
-#: includes/admin/class-notices.php:117
+#: includes/admin/class-notices.php:98
 msgid "Affiliate account(s) deleted successfully"
 msgstr "Афилиейтът е изтрит успешно"
 
-#: includes/admin/class-notices.php:123
+#: includes/admin/class-notices.php:104
 msgid "Affiliate deletion failed, please try again"
 msgstr "Изтриването се провали. Моля, опитайте отново"
 
-#: includes/admin/class-notices.php:130
+#: includes/admin/class-notices.php:111
 msgid "Affiliate account activated"
 msgstr "Профилът е активиран"
 
-#: includes/admin/class-notices.php:136
+#: includes/admin/class-notices.php:117
 msgid "Affiliate account deactivated"
 msgstr "Профилът е деактивиран"
 
-#: includes/admin/class-notices.php:142
+#: includes/admin/class-notices.php:123
 msgid "Affiliate request was accepted"
 msgstr "Заявката е одобрена"
 
-#: includes/admin/class-notices.php:148
+#: includes/admin/class-notices.php:129
 msgid "Affiliate request was rejected"
 msgstr "Заявката е отхвърлена"
 
-#: includes/admin/class-notices.php:162
+#: includes/admin/class-notices.php:143
 #, fuzzy
 msgid "%d affiliate from WP Affiliate was added successfully."
 msgid_plural "%d affiliates from WP Affiliate were added successfully"
 msgstr[0] "Афилиейтът е обновен успешно"
 msgstr[1] "Афилиейтът е обновен успешно"
 
-#: includes/admin/class-notices.php:183
+#: includes/admin/class-notices.php:164
 #, fuzzy
 msgid "%d affiliate from Affiliates Pro was added successfully."
 msgid_plural "%d affiliates from Affiliates Pro were added successfully"
 msgstr[0] "Афилиейтът е обновен успешно"
 msgstr[1] "Афилиейтът е обновен успешно"
 
-#: includes/admin/class-notices.php:196
+#: includes/admin/class-notices.php:177
 msgid "Affiliate stats have been recounted!"
 msgstr "Статистиката е обновена!"
 
-#: includes/admin/class-notices.php:203
+#: includes/admin/class-notices.php:184
 msgid "Referral added successfully"
 msgstr "Рефералът е добавен успешно"
 
-#: includes/admin/class-notices.php:209
+#: includes/admin/class-notices.php:190
 msgid "Referral updated successfully"
 msgstr "Рефералът е обновен успешно"
 
-#: includes/admin/class-notices.php:215
+#: includes/admin/class-notices.php:196
 msgid "Referral update failed, please try again"
 msgstr "Обновяването се провали. Моля. опитайте отново"
 
-#: includes/admin/class-notices.php:221
+#: includes/admin/class-notices.php:202
 msgid "Referral deleted successfully"
 msgstr "Рефералът е изтрит успешно"
 
-#: includes/admin/class-notices.php:227
+#: includes/admin/class-notices.php:208
 msgid "Referral deletion failed, please try again"
 msgstr "Изтриването се провали. Моля, опитайте отново"
 
-#: includes/admin/class-notices.php:234
-#, fuzzy
-msgid "A payout has been created."
-msgstr "Нов реферал"
-
-#: includes/admin/class-notices.php:241
+#: includes/admin/class-notices.php:216
 msgid "Creative updated successfully"
 msgstr "Афилиейтът е обновен успешно"
 
-#: includes/admin/class-notices.php:243
+#: includes/admin/class-notices.php:218
 msgid "<a href=\"%s\">Back to Creatives</a>"
 msgstr "<a href=\"%s\">Назад към Реклами</a>"
 
-#: includes/admin/class-notices.php:249
+#: includes/admin/class-notices.php:224
 msgid "Creative added successfully"
 msgstr "Рекламата е добавена успешно"
 
-#: includes/admin/class-notices.php:255
+#: includes/admin/class-notices.php:230
 msgid "Creative deleted successfully"
 msgstr "Рекламата е изтрита успешно"
 
-#: includes/admin/class-notices.php:261
+#: includes/admin/class-notices.php:236
 msgid "Creative activated"
 msgstr "Деактивиране"
 
-#: includes/admin/class-notices.php:267
+#: includes/admin/class-notices.php:242
 msgid "Creative deactivated"
 msgstr "Рекламата е деактивирана"
 
-#: includes/admin/class-notices.php:274
+#: includes/admin/class-notices.php:249
 msgid "Settings successfully imported"
 msgstr "Настройките са успешно въведени"
 
-#: includes/admin/class-notices.php:282
+#: includes/admin/class-notices.php:257
 #, fuzzy
 msgid ""
 "Your license key expired on %s. Please <a href=\"%s\" target=\"_blank"
 "\">renew your license key</a>."
 msgstr "Съгласявам се с <a href=\"%s\" target=\"_blank\">Общите условия</a>"
 
-#: includes/admin/class-notices.php:294
+#: includes/admin/class-notices.php:269
 msgid ""
 "Your license key has been disabled. Please <a href=\"%s\" target=\"_blank"
 "\">contact support</a> for more information."
 msgstr ""
 
-#: includes/admin/class-notices.php:305
+#: includes/admin/class-notices.php:280
 msgid ""
 "Invalid license. Please <a href=\"%s\" target=\"_blank\">visit your account "
 "page</a> and verify it."
 msgstr ""
 
-#: includes/admin/class-notices.php:317
+#: includes/admin/class-notices.php:292
 msgid ""
 "Your %s is not active for this URL. Please <a href=\"%s\" target=\"_blank"
 "\">visit your account page</a> to manage your license key URLs."
 msgstr ""
 
-#: includes/admin/class-notices.php:328
+#: includes/admin/class-notices.php:303
 msgid "This appears to be an invalid license key for %s."
 msgstr ""
 
-#: includes/admin/class-notices.php:337
+#: includes/admin/class-notices.php:312
 msgid ""
 "Your license key has reached its activation limit. <a href=\"%s\">View "
 "possible upgrades</a> now."
 msgstr ""
 
-#: includes/admin/class-notices.php:346
+#: includes/admin/class-notices.php:321
 msgid "The API keys were successfully generated."
 msgstr ""
 
-#: includes/admin/class-notices.php:352
+#: includes/admin/class-notices.php:327
 msgid "The API keys could not be generated."
 msgstr ""
 
-#: includes/admin/class-notices.php:359
+#: includes/admin/class-notices.php:334
 msgid "The API keys were successfully regenerated."
 msgstr ""
 
-#: includes/admin/class-notices.php:365
+#: includes/admin/class-notices.php:340
 msgid "The API keys were successfully revoked."
 msgstr ""
 
-#: includes/admin/class-notices.php:411
+#: includes/admin/class-notices.php:386
 msgid ""
 "Your license key for AffiliateWP has expired. Please renew your license to "
 "re-enable automatic updates."
 msgstr ""
 
-#: includes/admin/class-notices.php:420
+#: includes/admin/class-notices.php:395
 msgid ""
 "Please <a href=\"%s\">enter and activate</a> your license key for "
 "AffiliateWP to enable automatic updates."
 msgstr ""
-
-#: includes/admin/class-notices.php:444
-msgid ""
-"Your database needs to be upgraded following the latest AffiliateWP update."
-msgstr ""
-
-#: includes/admin/class-notices.php:447
-msgid "Upgrade Database"
-msgstr ""
-
-#: includes/admin/class-upgrades.php:507
-#: includes/admin/settings/class-settings.php:799 includes/install.php:45
-#: templates/register.php:64 templates/register.php:65
-msgid "Your Name"
-msgstr "Вашето име"
 
 #: includes/admin/creatives/actions.php:16
 #: includes/admin/creatives/actions.php:80
@@ -1539,8 +1169,8 @@ msgid "No creative IDs specified for deletion"
 msgstr "Не са избрани реклами за изтриване"
 
 #: includes/admin/creatives/class-list-table.php:116
-#: includes/admin/creatives/edit.php:49 includes/admin/creatives/new.php:47
-#: templates/dashboard-tab-visits.php:29
+#: includes/admin/creatives/edit.php:43 includes/admin/creatives/new.php:42
+#: templates/dashboard-tab-visits.php:25
 msgid "URL"
 msgstr "URL"
 
@@ -1549,31 +1179,27 @@ msgid "Shortcode"
 msgstr "Shortcode"
 
 #: includes/admin/creatives/class-list-table.php:119
-msgid "Image Preview"
-msgstr ""
-
-#: includes/admin/creatives/class-list-table.php:120
 #: includes/admin/payouts/class-list-table.php:156
 #: includes/admin/referrals/class-list-table.php:173
 msgid "Actions"
 msgstr "Действия"
 
-#: includes/admin/creatives/class-list-table.php:224
-#: includes/admin/referrals/class-list-table.php:456
-#: includes/admin/user-profile.php:62
+#: includes/admin/creatives/class-list-table.php:199
+#: includes/admin/referrals/class-list-table.php:374
+#: includes/admin/user-profile.php:51
 msgid "Edit"
 msgstr "Редакция"
 
-#: includes/admin/creatives/class-list-table.php:289
+#: includes/admin/creatives/class-list-table.php:264
 msgid "No creatives found."
 msgstr "Няма открити реклами."
 
 #: includes/admin/creatives/delete.php:10
-#: includes/admin/creatives/delete.php:47
+#: includes/admin/creatives/delete.php:33
 msgid "Delete Creative"
 msgstr "Изтрий Реклама"
 
-#: includes/admin/creatives/delete.php:23
+#: includes/admin/creatives/delete.php:16
 msgid "Are you sure you want to delete this creative?"
 msgstr "Сигурни ли сте, че искате да изтриете тази реклама?"
 
@@ -1581,49 +1207,47 @@ msgstr "Сигурни ли сте, че искате да изтриете та
 msgid "Edit Creative"
 msgstr "Редактирай Реклама"
 
-#: includes/admin/creatives/edit.php:28 includes/admin/creatives/new.php:26
+#: includes/admin/creatives/edit.php:22 includes/admin/creatives/new.php:21
 msgid "The name of this creative. For your identification only."
 msgstr "Името на тази реклама. Единствено видимо за вас."
 
-#: includes/admin/creatives/edit.php:36 includes/admin/creatives/new.php:34
+#: includes/admin/creatives/edit.php:30 includes/admin/creatives/new.php:29
 #: includes/admin/referrals/class-list-table.php:171
-#: includes/admin/referrals/edit.php:203 includes/admin/referrals/new.php:61
-#: includes/admin/tools/export/class-batch-export-referrals.php:150
-#: includes/admin/tools/export/class-export-referrals.php:70
+#: includes/admin/referrals/edit.php:94 includes/admin/referrals/new.php:57
+#: includes/admin/tools/export/class-export-referrals.php:66
 #: includes/integrations/extras/class-ninja-forms-action-add-referral.php:77
-#: templates/dashboard-tab-referrals.php:36
+#: templates/dashboard-tab-referrals.php:25
 msgid "Description"
 msgstr "Описание"
 
-#: includes/admin/creatives/edit.php:41 includes/admin/creatives/new.php:39
-#, fuzzy
+#: includes/admin/creatives/edit.php:35 includes/admin/creatives/new.php:34
 msgid ""
-"An optional description for this creative. This is visible to affiliates and "
-"is displayed below the creative."
+"An optional description for this creative. This is displayed below the "
+"creative for affiliates."
 msgstr "Описание по избор за рекламата, Изписва се под рекламата за афилиейти."
 
-#: includes/admin/creatives/edit.php:54 includes/admin/creatives/new.php:52
+#: includes/admin/creatives/edit.php:48 includes/admin/creatives/new.php:47
 #, fuzzy
 msgid ""
-"The URL this creative should link to. Based on your Referral Settings, the "
-"affiliate&#8217;s ID or username will be automatically appended."
+"Where the creative should link to. The affiliate&#8217;s referral ID will be "
+"automatically appended."
 msgstr ""
 "Накъде трябва да води рекламата. Номерът на афилиейтския реферал ще бъде "
 "добавен автоматично."
 
-#: includes/admin/creatives/edit.php:62 includes/admin/creatives/new.php:60
+#: includes/admin/creatives/edit.php:56 includes/admin/creatives/new.php:55
 msgid "Text"
 msgstr "Текст"
 
-#: includes/admin/creatives/edit.php:67 includes/admin/creatives/new.php:65
+#: includes/admin/creatives/edit.php:61 includes/admin/creatives/new.php:60
 msgid "Text for this creative."
 msgstr "Текст за рекламата"
 
-#: includes/admin/creatives/edit.php:75 includes/admin/creatives/new.php:73
+#: includes/admin/creatives/edit.php:69 includes/admin/creatives/new.php:68
 msgid "Image"
 msgstr "Снимка"
 
-#: includes/admin/creatives/edit.php:81
+#: includes/admin/creatives/edit.php:75
 msgid ""
 "Select your image. You can also enter an image URL if your image is hosted "
 "elsewhere."
@@ -1631,11 +1255,11 @@ msgstr ""
 "Изберете вашата снимка/картинка. Можете да въведете и URL адрес, ако "
 "снимката се намира на друго място."
 
-#: includes/admin/creatives/edit.php:108 includes/admin/creatives/new.php:97
+#: includes/admin/creatives/edit.php:102 includes/admin/creatives/new.php:92
 msgid "Select the status of the creative."
 msgstr "Изберете състояние за рекламата."
 
-#: includes/admin/creatives/edit.php:126
+#: includes/admin/creatives/edit.php:113
 msgid "Update Creative"
 msgstr "Обнови Реклама"
 
@@ -1643,14 +1267,14 @@ msgstr "Обнови Реклама"
 msgid "New Creative"
 msgstr "Нова Реклама"
 
-#: includes/admin/creatives/new.php:14
+#: includes/admin/creatives/new.php:9
 msgid ""
 "Use this screen to add a new creative, such as a text link or image banner."
 msgstr ""
 "Използвайте тази страница, за да добавите нови реклами под формата на "
 "текстови линкове или банери."
 
-#: includes/admin/creatives/new.php:79
+#: includes/admin/creatives/new.php:74
 msgid ""
 "Select an image if you would like an image banner. You can also enter an "
 "image URL if your image is hosted elsewhere."
@@ -1658,7 +1282,7 @@ msgstr ""
 "Изберете снимка, ако желаете банер. Можете да въведете и URL адрес, ако "
 "снимката се намира на друго място."
 
-#: includes/admin/creatives/new.php:114
+#: includes/admin/creatives/new.php:104
 msgid "Add Creative"
 msgstr "Добави Реклама"
 
@@ -1679,7 +1303,7 @@ msgid "Recent Referral Visits"
 msgstr "Скорошни посещения от реферали"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-recent-referral-visits.php:81
-#: templates/dashboard-tab-visits.php:49
+#: templates/dashboard-tab-visits.php:45
 #, fuzzy
 msgid "Visit converted: %s"
 msgstr "Конвертирани"
@@ -1700,11 +1324,11 @@ msgstr "Все още няма записани реферали"
 msgid "Latest Affiliate Registrations"
 msgstr "Последни афилиейт регистрации"
 
-#: includes/admin/overview/metaboxes/class-metabox-overview-registrations.php:85
+#: includes/admin/overview/metaboxes/class-metabox-overview-registrations.php:87
 msgid "View Report"
 msgstr "Вижте Доклад"
 
-#: includes/admin/overview/metaboxes/class-metabox-overview-registrations.php:93
+#: includes/admin/overview/metaboxes/class-metabox-overview-registrations.php:95
 msgid "No affiliate registrations yet"
 msgstr "Все още няма регистрирани афилиейти"
 
@@ -1714,71 +1338,66 @@ msgstr "Общо"
 
 #: includes/admin/payouts/class-list-table.php:130
 #: includes/admin/referrals/class-list-table.php:149
-#: includes/admin/referrals/edit.php:248 includes/admin/referrals/new.php:106
-#: includes/admin/tools/tools.php:312 includes/admin/tools/tools.php:338
-#: includes/referral-functions.php:62
+#: includes/admin/referrals/edit.php:139 includes/admin/referrals/new.php:102
+#: includes/admin/tools/tools.php:299 includes/referral-functions.php:62
 msgid "Paid"
 msgstr "Платени"
 
 #: includes/admin/payouts/class-list-table.php:131
-#: includes/admin/tools/tools.php:339 includes/payout-functions.php:134
+#: includes/payout-functions.php:134
 msgid "Failed"
 msgstr ""
 
 #: includes/admin/payouts/class-list-table.php:148
-#: includes/admin/tools/export/class-batch-export-payouts.php:144
+#: includes/admin/referrals/edit.php:42
 msgid "Payout ID"
 msgstr ""
 
 #: includes/admin/payouts/class-list-table.php:150
 #: includes/admin/payouts/view.php:34
 #: includes/admin/referrals/class-list-table.php:169
-#: includes/admin/referrals/edit.php:44 includes/admin/referrals/new.php:21
-#: includes/admin/tools/export/class-batch-export-payouts.php:145
+#: includes/admin/referrals/new.php:16
 #: includes/admin/visits/class-list-table.php:105
-#: includes/integrations/class-lifterlms.php:672
-#: includes/integrations/class-lifterlms.php:698
+#: includes/integrations/class-lifterlms.php:678
+#: includes/integrations/class-lifterlms.php:704
 #: includes/integrations/class-memberpress.php:259
 msgid "Affiliate"
 msgstr "Афилиейт"
 
 #: includes/admin/payouts/class-list-table.php:152
-#: includes/admin/payouts/view.php:72
-#: includes/admin/tools/export/class-batch-export-payouts.php:148
+#: includes/admin/payouts/view.php:73
 #, fuzzy
 msgid "Generated By"
 msgstr "Основен URL"
 
 #: includes/admin/payouts/class-list-table.php:153
-#: includes/admin/payouts/view.php:103
-#: includes/admin/tools/export/class-batch-export-payouts.php:149
-#: templates/dashboard-tab-payouts.php:36
+#: includes/admin/payouts/view.php:104 templates/dashboard-tab-payouts.php:36
 #, fuzzy
 msgid "Payout Method"
 msgstr "Метод на промоция"
 
-#: includes/admin/payouts/class-list-table.php:366
-#: includes/admin/payouts/view.php:107
+#: includes/admin/payouts/class-list-table.php:372
+#: includes/admin/payouts/view.php:108
 msgid "(none)"
 msgstr ""
 
-#: includes/admin/payouts/class-list-table.php:422
+#: includes/admin/payouts/class-list-table.php:428
 #, fuzzy
 msgid "View"
 msgstr "Виж %s"
 
-#: includes/admin/payouts/class-list-table.php:432
-#: includes/admin/payouts/class-list-table.php:526
+#: includes/admin/payouts/class-list-table.php:438
+#: includes/admin/payouts/class-list-table.php:532
 msgid "Retry Payment"
 msgstr ""
 
-#: includes/admin/payouts/class-list-table.php:513
+#: includes/admin/payouts/class-list-table.php:519
 #, fuzzy
 msgid "No payouts found."
 msgstr "Няма посещения."
 
 #: includes/admin/payouts/payouts.php:39
-#: includes/admin/reports/class-reports-admin.php:58
+#: includes/admin/reports/class-reports-admin.php:60
 #, fuzzy
 msgid "Manage Referrals"
 msgstr "Неплатени реферали"
@@ -1792,25 +1411,23 @@ msgstr "Все още няма записани реферали"
 msgid "Payout: #%d"
 msgstr ""
 
-#: includes/admin/payouts/view.php:60
+#: includes/admin/payouts/view.php:61
 #: includes/admin/referrals/class-list-table.php:168
-#: includes/admin/referrals/edit.php:130 includes/admin/referrals/new.php:36
-#: includes/admin/tools/export/class-batch-export-referrals.php:148
-#: includes/admin/tools/export/class-batch-generate-payouts.php:216
-#: includes/admin/tools/export/class-export-referrals-payout.php:73
-#: includes/admin/tools/export/class-export-referrals.php:68
-#: includes/integrations/class-lifterlms.php:667
-#: includes/integrations/class-lifterlms.php:694
+#: includes/admin/referrals/edit.php:65 includes/admin/referrals/new.php:32
+#: includes/admin/tools/export/class-export-referrals-payout.php:62
+#: includes/admin/tools/export/class-export-referrals.php:64
+#: includes/integrations/class-lifterlms.php:673
+#: includes/integrations/class-lifterlms.php:700
 #: templates/dashboard-tab-payouts.php:35
-#: templates/dashboard-tab-referrals.php:35
+#: templates/dashboard-tab-referrals.php:24
 msgid "Amount"
 msgstr "Количество"
 
-#: includes/admin/payouts/view.php:132
+#: includes/admin/payouts/view.php:133
 msgid "Payout Date"
 msgstr ""
 
-#: includes/admin/payouts/view.php:167
+#: includes/admin/payouts/view.php:168
 #, fuzzy
 msgid "Referrals Paid"
 msgstr "Реферали"
@@ -1830,77 +1447,66 @@ msgid "You do not have permission to manage referrals"
 msgstr "Нямате права, за да управлявате реферали"
 
 #: includes/admin/referrals/class-list-table.php:150
-#: includes/admin/referrals/edit.php:247 includes/admin/referrals/new.php:105
-#: includes/admin/tools/tools.php:313 includes/referral-functions.php:63
+#: includes/admin/referrals/edit.php:138 includes/admin/referrals/new.php:101
+#: includes/admin/tools/tools.php:300 includes/referral-functions.php:63
 msgid "Unpaid"
 msgstr "Неплатени"
 
 #: includes/admin/referrals/class-list-table.php:170
-#: includes/admin/referrals/edit.php:216 includes/admin/referrals/new.php:74
-#: includes/admin/tools/export/class-batch-export-referrals.php:152
-#: includes/admin/tools/export/class-export-referrals.php:72
-#: includes/integrations/class-lifterlms.php:677
-#: includes/integrations/class-lifterlms.php:702
+#: includes/admin/referrals/edit.php:107 includes/admin/referrals/new.php:70
+#: includes/admin/tools/export/class-export-referrals.php:68
+#: includes/integrations/class-lifterlms.php:683
+#: includes/integrations/class-lifterlms.php:708
 msgid "Reference"
 msgstr "Референция"
 
 #: includes/admin/referrals/class-list-table.php:172
-#: includes/admin/referrals/edit.php:147 includes/admin/referrals/new.php:49
-#: includes/admin/tools/export/class-batch-export-referrals.php:155
-#: includes/admin/tools/export/class-export-referrals.php:75
-#: includes/admin/tools/export/class-export.php:84
-#: includes/admin/visits/class-list-table.php:110
+#: includes/admin/referrals/edit.php:82 includes/admin/referrals/new.php:45
+#: includes/admin/tools/export/class-export-referrals.php:71
+#: includes/admin/tools/export/class-export.php:70
+#: includes/admin/visits/class-list-table.php:109
 #: templates/dashboard-tab-payouts.php:34
-#: templates/dashboard-tab-referrals.php:38
-#: templates/dashboard-tab-visits.php:32
+#: templates/dashboard-tab-referrals.php:27
+#: templates/dashboard-tab-visits.php:28
 msgid "Date"
 msgstr "Дата"
 
-#: includes/admin/referrals/class-list-table.php:393
-#: includes/admin/referrals/class-list-table.php:601
+#: includes/admin/referrals/class-list-table.php:311
+#: includes/admin/referrals/class-list-table.php:494
 msgid "Mark as Unpaid"
 msgstr "Отбележи като неплатено"
 
-#: includes/admin/referrals/class-list-table.php:409
-#: includes/admin/referrals/class-list-table.php:600
+#: includes/admin/referrals/class-list-table.php:327
+#: includes/admin/referrals/class-list-table.php:493
 msgid "Mark as Paid"
 msgstr "Отбележи като платено"
 
-#: includes/admin/referrals/class-list-table.php:508
+#: includes/admin/referrals/class-list-table.php:426
 msgid "No referrals found."
 msgstr "Няма открити реферали."
 
-#: includes/admin/referrals/class-list-table.php:535
+#: includes/admin/referrals/class-list-table.php:450
 msgid "Bulk Actions"
 msgstr "Масови действия"
 
-#: includes/admin/referrals/class-list-table.php:554
+#: includes/admin/referrals/class-list-table.php:462
 msgid "Apply"
 msgstr "Приложи"
 
-#: includes/admin/referrals/class-list-table.php:568
-#: includes/admin/referrals/referrals.php:64 includes/admin/tools/tools.php:150
-#: includes/admin/tools/tools.php:306 includes/admin/tools/tools.php:333
-#: includes/admin/visits/visits.php:55
-msgid "Affiliate name"
-msgstr "Име на афилиейт"
-
-#: includes/admin/referrals/class-list-table.php:574
-#: includes/admin/referrals/referrals.php:67 includes/admin/tools/tools.php:308
-#: includes/admin/tools/tools.php:335 includes/admin/visits/visits.php:58
-#: includes/class-graph.php:420
+#: includes/admin/referrals/class-list-table.php:471
+#: includes/admin/referrals/referrals.php:52 includes/admin/tools/tools.php:295
+#: includes/admin/visits/visits.php:52 includes/class-graph.php:408
 msgid "From - mm/dd/yyyy"
 msgstr "От - мм/дд/гггг"
 
-#: includes/admin/referrals/class-list-table.php:575
-#: includes/admin/referrals/referrals.php:68 includes/admin/tools/tools.php:309
-#: includes/admin/tools/tools.php:336 includes/admin/visits/visits.php:59
-#: includes/class-graph.php:422
+#: includes/admin/referrals/class-list-table.php:472
+#: includes/admin/referrals/referrals.php:53 includes/admin/tools/tools.php:296
+#: includes/admin/visits/visits.php:53 includes/class-graph.php:410
 msgid "To - mm/dd/yyyy"
 msgstr "До - мм/дд/гггг"
 
-#: includes/admin/referrals/class-list-table.php:582
-#: includes/admin/visits/visits.php:67 includes/class-graph.php:427
+#: includes/admin/referrals/class-list-table.php:476
+#: includes/admin/visits/visits.php:61 includes/class-graph.php:415
 msgid "Filter"
 msgstr "Филтър"
 
@@ -1988,7 +1594,7 @@ msgid "You can enter the referral context prefixed by &#8220;context:&#8221;"
 msgstr "Можете да въведете контекста на реферала с представката 'context:'"
 
 #: includes/admin/referrals/contextual-help.php:59
-#: includes/admin/visits/contextual-help.php:60
+#: includes/admin/visits/contextual-help.php:58
 #, fuzzy
 msgid ""
 "You can enter the affiliate&#8217;s ID number prefixed by &#8220;affiliate:"
@@ -1997,7 +1603,7 @@ msgstr ""
 "Можете да въведете номера на афилиейта, като го добавите след 'affiliate:'"
 
 #: includes/admin/referrals/contextual-help.php:60
-#: includes/admin/visits/contextual-help.php:61
+#: includes/admin/visits/contextual-help.php:59
 #, fuzzy
 msgid "You can enter a URL campaign prefixed by &#8220;campaign:&#8221;"
 msgstr "Можете да въведете контекста на реферала с представката 'context:'"
@@ -2027,84 +1633,38 @@ msgstr ""
 "масово плащане (PayPal's Mass Payment system), така че лесно можете да "
 "платите на всичките си афилиейти през PayPal наведнъж."
 
-#: includes/admin/referrals/edit.php:12
+#: includes/admin/referrals/edit.php:16
 msgid "Edit Referral"
 msgstr "Редактирай Реферал"
 
-#: includes/admin/referrals/edit.php:31
-#: includes/admin/visits/class-list-table.php:106
-msgid "Referral ID"
-msgstr "Номер на реферал"
-
-#: includes/admin/referrals/edit.php:36
-#, fuzzy
-msgid "The referral ID. This cannot be changed."
-msgstr "Номер на афилиейта. Не може да бъде променян."
-
-#. translators: 1: Affiliate link, 2: Affiliate ID
-#. translators: 1: Payout link with total, 2: Payout ID
-#: includes/admin/referrals/edit.php:54 includes/admin/referrals/edit.php:92
-msgid "%1$s (ID: #%2$s)"
-msgstr ""
-
-#: includes/admin/referrals/edit.php:67
+#: includes/admin/referrals/edit.php:33
 #, fuzzy
 msgid ""
-"The name and ID of the affiliate who generated this referral. This "
-"association cannot be changed."
+"The affiliate&#8217;s ID this referral belongs to. This value cannot be "
+"changed."
 msgstr ""
 "Номерът на афилиейта, на който рефералът принадлежи. Стойността не може да "
 "бъде променяна."
 
-#: includes/admin/referrals/edit.php:75
-#, fuzzy
-msgid "Payout"
-msgstr "Последни реферали"
-
-#. translators: 1: Payout total amount with view link
-#: includes/admin/referrals/edit.php:84
-#, fuzzy
-msgid "Total: %1$s"
-msgstr "Общо"
-
-#. translators: 1: Pay Out action link
-#: includes/admin/referrals/edit.php:106
-msgid "None | %1$s"
+#. translators: 1: View payout link, 2: payout amount
+#: includes/admin/referrals/edit.php:49
+msgid "%1$s | Total: %2$s"
 msgstr ""
 
-#: includes/admin/referrals/edit.php:107
-msgid "Pay Out"
-msgstr ""
-
-#: includes/admin/referrals/edit.php:116 includes/admin/referrals/edit.php:168
-#: includes/admin/settings/class-settings.php:580
-msgid "None"
-msgstr ""
-
-#: includes/admin/referrals/edit.php:136
+#: includes/admin/referrals/edit.php:71
 msgid ""
 "The referral amount cannot be changed once it has been included in a payout."
 msgstr ""
 
-#: includes/admin/referrals/edit.php:138 includes/admin/referrals/new.php:41
+#: includes/admin/referrals/edit.php:73 includes/admin/referrals/new.php:37
 msgid "The amount of the referral, such as 15."
 msgstr "Брой реферали, например 15."
 
-#: includes/admin/referrals/edit.php:159
-#, fuzzy
-msgid "Visit"
-msgstr "Посещения"
-
-#. translators: 1: Visit link, 2: Visit ID
-#: includes/admin/referrals/edit.php:174
-msgid "URL: %1$s (ID: #%2$s)"
-msgstr ""
-
-#: includes/admin/referrals/edit.php:208 includes/admin/referrals/new.php:66
+#: includes/admin/referrals/edit.php:99 includes/admin/referrals/new.php:62
 msgid "Enter a description for this referral."
 msgstr "Добавете описание за този реферал."
 
-#: includes/admin/referrals/edit.php:221 includes/admin/referrals/new.php:79
+#: includes/admin/referrals/edit.php:112 includes/admin/referrals/new.php:75
 msgid ""
 "Enter a reference for this referral (optional). Usually this would be the "
 "transaction ID of the associated purchase."
@@ -2112,32 +1672,30 @@ msgstr ""
 "Въведете референция за този реферал (по избор). Обикновено това е номерът на "
 "транзакция за съответната поръчка."
 
-#: includes/admin/referrals/edit.php:229 includes/admin/referrals/new.php:87
-#: includes/admin/tools/export/class-batch-export-referrals.php:153
-#: includes/admin/tools/export/class-export-referrals.php:73
-#: includes/admin/visits/class-list-table.php:107
+#: includes/admin/referrals/edit.php:120 includes/admin/referrals/new.php:83
+#: includes/admin/tools/export/class-export-referrals.php:69
 msgid "Context"
 msgstr "Контекст"
 
-#: includes/admin/referrals/edit.php:234
+#: includes/admin/referrals/edit.php:125
 #, fuzzy
 msgid ""
-"Context for this referral (optional). Usually this is used to identify the "
-"payment system or integration that was used for the transaction."
+"Context for this referral (optional). Usually this is used to help identify "
+"the payment system that was used for the transaction."
 msgstr ""
 "Въведете контекст за този реферал (по избор). Обикновено се използва за "
 "идентифициране на системата за разплащане, използвана за транзакцията."
 
-#: includes/admin/referrals/edit.php:253
+#: includes/admin/referrals/edit.php:144
 msgid ""
 "The referral status cannot be changed once it has been included in a payout."
 msgstr ""
 
-#: includes/admin/referrals/edit.php:255 includes/admin/referrals/new.php:110
+#: includes/admin/referrals/edit.php:146 includes/admin/referrals/new.php:106
 msgid "Select the status of the referral."
 msgstr "Изберете състояние за реферала."
 
-#: includes/admin/referrals/edit.php:276
+#: includes/admin/referrals/edit.php:160
 msgid "Update Referral"
 msgstr "Обнови Реферал"
 
@@ -2145,14 +1703,14 @@ msgstr "Обнови Реферал"
 msgid "New Referral"
 msgstr "Нов реферал"
 
-#: includes/admin/referrals/new.php:14
+#: includes/admin/referrals/new.php:9
 msgid ""
 "Use this screen to manually create a new referral record for an affiliate."
 msgstr ""
 "Използвайте този екран за ръчно въвеждане на нов запис на реферал за "
 "афилиейт."
 
-#: includes/admin/referrals/new.php:28
+#: includes/admin/referrals/new.php:24
 msgid ""
 "Enter the name of the affiliate or enter a partial name or email to perform "
 "a search."
@@ -2160,7 +1718,7 @@ msgstr ""
 "Въведете името на афилиейта или част от името или ел. поща, за да се извърши "
 "търсене."
 
-#: includes/admin/referrals/new.php:92
+#: includes/admin/referrals/new.php:88
 msgid ""
 "Enter a context for this referral (optional). Usually this is used to help "
 "identify the payment system that was used for the transaction."
@@ -2168,13 +1726,12 @@ msgstr ""
 "Въведете контекст за този реферал (по избор). Обикновено се използва за "
 "идентифициране на системата за разплащане, използвана за транзакцията."
 
-#: includes/admin/referrals/new.php:127
+#: includes/admin/referrals/new.php:118
 #: includes/integrations/extras/class-ninja-forms-action-add-referral.php:43
 msgid "Add Referral"
 msgstr "Добавете реферал"
 
 #: includes/admin/referrals/referrals.php:40
-#: includes/admin/referrals/referrals.php:61
 msgid "Generate Payout File"
 msgstr "Генерирайте файл за плащане"
 
@@ -2182,19 +1739,15 @@ msgstr "Генерирайте файл за плащане"
 msgid "Close"
 msgstr "Затвори"
 
-#: includes/admin/referrals/referrals.php:60
-msgid ""
-"Are you sure you want to generate the payout file? All included referrals "
-"will be marked as Paid."
-msgstr ""
-"Сигурни ли сте, че искате да генерирате файл за плащане? Всички включени "
-"реферали ще бъдат маркирани като платени."
-
-#: includes/admin/referrals/referrals.php:69
+#: includes/admin/referrals/referrals.php:54
 msgid "Minimum amount"
 msgstr "Минимално количество"
 
-#: includes/admin/referrals/referrals.php:71
+#: includes/admin/referrals/referrals.php:57
+msgid "Generate CSV File"
+msgstr "Създай CSV файл"
+
+#: includes/admin/referrals/referrals.php:58
 msgid ""
 "This will mark all unpaid referrals in this timeframe as paid. To export "
 "referrals with a status other than <em>unpaid</em>, go to the <a href=\"%s"
@@ -2203,20 +1756,6 @@ msgstr ""
 "Това ще отбележи всички неплатени реферали за периода като платени. За да "
 "експортнете реферали с различен статус от <em>неплатено</em>, отидете на <a "
 "href=\"%s\">Инструменти &rarr; Експорт</a> страницата."
-
-#: includes/admin/referrals/referrals.php:72
-#, fuzzy
-msgid ""
-"To generate a payout for a specific affiliate, enter the affiliate&#8217;s "
-"login name, first name, or last name. Leave blank to generate a payout for "
-"any affiliates."
-msgstr ""
-"За да търсите афилиейт, въведете потребителско име, малко име, фамилия. "
-"Оставете празно за експортване на рефералите за всички афилиейти."
-
-#: includes/admin/referrals/referrals.php:81
-msgid "Generate CSV File"
-msgstr "Създай CSV файл"
 
 #: includes/admin/referrals/screen-options.php:24
 #, fuzzy
@@ -2227,17 +1766,17 @@ msgstr "Все още няма записани реферали"
 msgid "Affiliate Registrations"
 msgstr "Афилиейт регистрации"
 
-#: includes/admin/reports/class-reports-admin.php:65
+#: includes/admin/reports/class-reports-admin.php:69
 #, fuzzy
 msgid "Manage Affiliates"
 msgstr "Добавяне на Афилиейти"
 
-#: includes/admin/reports/class-reports-admin.php:70
+#: includes/admin/reports/class-reports-admin.php:76
 #, fuzzy
 msgid "View Payouts"
 msgstr "Последни реферали"
 
-#: includes/admin/reports/class-reports-admin.php:77
+#: includes/admin/reports/class-reports-admin.php:85
 #, fuzzy
 msgid "Manage Visits"
 msgstr "Търсене на посещения"
@@ -2253,35 +1792,35 @@ msgstr "Експорт на Афилиейти"
 msgid "All Time"
 msgstr ""
 
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:71
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:135
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:72
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:137
 #, fuzzy
 msgid "Affiliate #%d"
 msgstr "Афилиейт: #%d %s"
 
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:75
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:84
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:76
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:85
 #, fuzzy
 msgid "Top Earning Affiliate"
 msgstr "Редактирай афилиейт"
 
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:99
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:100
 #, fuzzy
 msgid "New Affiliates"
 msgstr "Нов афилиейт"
 
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:139
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:141
 #, fuzzy
 msgid "%d referral"
 msgid_plural "%d referrals"
 msgstr[0] "Добавете реферал"
 msgstr[1] "Добавете реферал"
 
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:153
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:155
 msgid "Highest Converting Affiliate"
 msgstr ""
 
-#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:178
+#: includes/admin/reports/tabs/class-affiliates-reports-tab.php:180
 #, fuzzy
 msgid "Average Payout"
 msgstr "Ставка на реферала"
@@ -2290,40 +1829,45 @@ msgstr "Ставка на реферала"
 msgid "Campaigns"
 msgstr ""
 
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:53
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:63
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:54
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:64
 msgid "Best Converting Campaign (All Time)"
 msgstr ""
 
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:54
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:100
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:148
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:55
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:102
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:151
 msgid "n/a"
 msgstr ""
 
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:55
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:101
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:149
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:56
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:103
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:152
 msgid "Affiliate: <a href=\"%1$s\">%2$s</a> | Visits: %3$d"
 msgstr ""
 
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:96
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:109
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:98
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:111
 msgid "Best Converting Campaign (%s)"
 msgstr ""
 
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:97
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:110
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:145
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:158
-#: includes/class-graph.php:375
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:99
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:112
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:148
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:161
+#: includes/class-graph.php:363
 msgid "Custom"
 msgstr "Персонализирай"
 
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:144
-#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:157
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:147
+#: includes/admin/reports/tabs/class-campaigns-reports-tab.php:160
 msgid "Most Active Campaign (%s)"
 msgstr ""
+
+#: includes/admin/reports/tabs/class-referrals-reports-tab.php:57
+#: templates/dashboard-tab-stats.php:33
+msgid "Unpaid Earnings"
+msgstr "Неплатени печалби"
 
 #: includes/admin/reports/tabs/class-referrals-reports-tab.php:81
 #, fuzzy
@@ -2341,9 +1885,7 @@ msgid "Successful Conversions"
 msgstr "Успешни конверсии"
 
 #: includes/admin/reports/tabs/class-visits-reports-tab.php:73
-#: includes/admin/tools/export/class-batch-export-affiliates.php:103
-#: includes/admin/tools/export/class-export-affiliates.php:59
-#: templates/dashboard-tab-stats.php:14 templates/dashboard-tab-stats.php:77
+#: templates/dashboard-tab-stats.php:11 templates/dashboard-tab-stats.php:60
 msgid "Conversion Rate"
 msgstr "Коефициент на конверсии"
 
@@ -2357,15 +1899,15 @@ msgstr ""
 msgid "Direct Traffic"
 msgstr "Директен трафик"
 
-#: includes/admin/settings/class-settings.php:436
+#: includes/admin/settings/class-settings.php:402
 msgid "License Settings"
 msgstr "Настройки Лиценз"
 
-#: includes/admin/settings/class-settings.php:441
+#: includes/admin/settings/class-settings.php:407
 msgid "License Key"
 msgstr "Код за лиценза"
 
-#: includes/admin/settings/class-settings.php:442
+#: includes/admin/settings/class-settings.php:408
 msgid ""
 "Please enter your license key. An active license key is needed for automatic "
 "plugin updates and <a href=\"%s\" target=\"_blank\">support</a>."
@@ -2373,143 +1915,134 @@ msgstr ""
 "Моля въведете кода за лиценза. За автоматични обновявания и <a href=\"%s\" "
 "target=\"_blank\">помощ</a> е необходим активен код за лиценза."
 
-#: includes/admin/settings/class-settings.php:447
+#: includes/admin/settings/class-settings.php:413
 msgid "Pages"
 msgstr "Страници"
 
-#: includes/admin/settings/class-settings.php:452 includes/install.php:32
+#: includes/admin/settings/class-settings.php:418 includes/install.php:32
 msgid "Affiliate Area"
 msgstr "Зона за Афилиейти"
 
-#: includes/admin/settings/class-settings.php:453
+#: includes/admin/settings/class-settings.php:419
 msgid "This is the page where affiliates will manage their affiliate account."
 msgstr "Това е страницата, в която афилиейтите ще управляват своя профил."
 
-#: includes/admin/settings/class-settings.php:459
+#: includes/admin/settings/class-settings.php:425
 msgid "Terms of Use"
 msgstr "Общи условия"
 
-#: includes/admin/settings/class-settings.php:460
+#: includes/admin/settings/class-settings.php:426
 msgid "Select the page that shows the terms of use for Affiliate Registration"
 msgstr ""
 "Изберете страницата, на която да се показват Общите условия при "
 "регистрацията на афилиейти"
 
-#: includes/admin/settings/class-settings.php:466
+#: includes/admin/settings/class-settings.php:432
 msgid "Referral Settings"
 msgstr "Настройки на реферали"
 
-#: includes/admin/settings/class-settings.php:471
+#: includes/admin/settings/class-settings.php:437
 msgid "Referral Variable"
 msgstr "Реферал вариация"
 
-#: includes/admin/settings/class-settings.php:472
+#: includes/admin/settings/class-settings.php:438
 msgid "The URL variable for referral URLs. For example: <strong>%s</strong>."
 msgstr ""
 "URL вариацията за  URL-ите на рефералите. Например: <strong>%s</strong>."
 
-#: includes/admin/settings/class-settings.php:477
+#: includes/admin/settings/class-settings.php:443
 #, fuzzy
 msgid "Default Referral Format"
 msgstr "Ставка за конкретен продукт"
 
-#: includes/admin/settings/class-settings.php:478
+#: includes/admin/settings/class-settings.php:444
 msgid ""
 "Show referral URLs to affiliates with either their affiliate ID or Username "
 "appended.<br/> For example: <strong>%s or %s</strong>."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:487
-#: includes/admin/tools/export/class-export.php:83
+#: includes/admin/settings/class-settings.php:448
+#: includes/admin/tools/export/class-export.php:69
 msgid "ID"
 msgstr "Номер"
 
-#: includes/admin/settings/class-settings.php:494
+#: includes/admin/settings/class-settings.php:455
 #, fuzzy
 msgid "Pretty Affiliate URLs"
 msgstr "URL адреси на Афилиейта"
 
-#: includes/admin/settings/class-settings.php:495
+#: includes/admin/settings/class-settings.php:456
 #, fuzzy
 msgid ""
-"Show pretty affiliate referral URLs to affiliates. For example: <strong>%s "
-"or %s</strong>"
+"Show pretty affiliate referrals to affiliates. For example: <strong>%s or "
+"%s</strong>"
 msgstr ""
 "URL вариацията за  URL-ите на рефералите. Например: <strong>%s</strong>."
 
-#: includes/admin/settings/class-settings.php:499
+#: includes/admin/settings/class-settings.php:460
 #, fuzzy
 msgid "Credit Last Referrer"
 msgstr "Редактирай Реферал"
 
-#: includes/admin/settings/class-settings.php:500
+#: includes/admin/settings/class-settings.php:461
 msgid "Credit the last affiliate who referred the customer."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:505
-#, fuzzy
-msgid ""
-"Choose a referral rate type. Referrals can be based on either a percentage "
-"or a flat rate amount."
+#: includes/admin/settings/class-settings.php:466
+msgid "Should referrals be based on a percentage or flat rate amounts?"
 msgstr "Рефералите ще бъдат отчитани на процент или плоска ставка?"
 
-#: includes/admin/settings/class-settings.php:511
-#, fuzzy
+#: includes/admin/settings/class-settings.php:472
 msgid ""
-"The default referral rate. A percentage if the Referral Rate Type is set to "
-"Percentage, a flat amount otherwise. Referral rates can also be set for each "
-"individual affiliate."
+"Default referral rate. A percentage if Referral Rate Type is Percentage, a "
+"flat amount otherwise. Rates can be set for each affiliate individually as "
+"well."
 msgstr ""
 "Ставка по подразбиране. Процент, ако Ставката на реферала е процент или "
 "Плоска ставка в другия случай. Ставките също могат да бъдат настройвани за "
 "всеки афилиейт поотделно."
 
-#: includes/admin/settings/class-settings.php:518
+#: includes/admin/settings/class-settings.php:479
 msgid "Exclude Shipping"
 msgstr "Изключи Доставка"
 
-#: includes/admin/settings/class-settings.php:519
-#, fuzzy
-msgid "Exclude shipping costs from referral calculations."
+#: includes/admin/settings/class-settings.php:480
+msgid "Should shipping costs be excluded from referral calculations?"
 msgstr ""
 "Трябва ли разходите за доставка да бъдат изключени от калкулациите за "
 "реферала?"
 
-#: includes/admin/settings/class-settings.php:523
+#: includes/admin/settings/class-settings.php:484
 msgid "Exclude Tax"
 msgstr "Изключи данък"
 
-#: includes/admin/settings/class-settings.php:524
-#, fuzzy
-msgid "Exclude taxes from referral calculations."
+#: includes/admin/settings/class-settings.php:485
+msgid "Should taxes be excluded from referral calculations?"
 msgstr "Трябва ли данъците да бъдат изключени от изчисленията за реферали?"
 
-#: includes/admin/settings/class-settings.php:528
+#: includes/admin/settings/class-settings.php:489
 msgid "Cookie Expiration"
 msgstr "Срок на годност на Бисквитките"
 
-#: includes/admin/settings/class-settings.php:529
-#, fuzzy
-msgid "Enter how many days the referral tracking cookie should be valid for."
+#: includes/admin/settings/class-settings.php:490
+msgid "How many days should the referral tracking cookie be valid for?"
 msgstr "Колко дни трябва да въде валидна проследяващата бисквитка за реферала?"
 
-#: includes/admin/settings/class-settings.php:535
+#: includes/admin/settings/class-settings.php:496
 msgid "Currency Settings"
 msgstr "Настройки на валутата"
 
-#: includes/admin/settings/class-settings.php:536
+#: includes/admin/settings/class-settings.php:497
 msgid "Configure the currency options"
 msgstr "Конфигурирайте опциите за валута"
 
-#: includes/admin/settings/class-settings.php:540
-#: includes/admin/tools/export/class-batch-export-referrals.php:149
-#: includes/admin/tools/export/class-batch-generate-payouts.php:217
-#: includes/admin/tools/export/class-export-referrals-payout.php:74
-#: includes/admin/tools/export/class-export-referrals.php:69
+#: includes/admin/settings/class-settings.php:501
+#: includes/admin/tools/export/class-export-referrals-payout.php:63
+#: includes/admin/tools/export/class-export-referrals.php:65
 msgid "Currency"
 msgstr "Валута"
 
-#: includes/admin/settings/class-settings.php:541
+#: includes/admin/settings/class-settings.php:502
 msgid ""
 "Choose your currency. Note that some payment gateways have currency "
 "restrictions."
@@ -2517,79 +2050,44 @@ msgstr ""
 "Изберете Вашата валута. Имайте предвид, че някои портали за плащане работят "
 "само с някои валути."
 
-#: includes/admin/settings/class-settings.php:546
-#, fuzzy
-msgid "Currency Symbol Position"
+#: includes/admin/settings/class-settings.php:507
+msgid "Currency Position"
 msgstr "Позиция на валутата"
 
-#: includes/admin/settings/class-settings.php:547
-#, fuzzy
-msgid "Choose the location of the currency symbol."
+#: includes/admin/settings/class-settings.php:508
+msgid "Choose the location of the currency sign."
 msgstr "Изберете позицията на знака за валута."
 
-#: includes/admin/settings/class-settings.php:550
+#: includes/admin/settings/class-settings.php:511
 msgid "Before - $10"
 msgstr "Отпред - $10"
 
-#: includes/admin/settings/class-settings.php:551
+#: includes/admin/settings/class-settings.php:512
 msgid "After - 10$"
 msgstr "Отзад - 10$"
 
-#: includes/admin/settings/class-settings.php:555
+#: includes/admin/settings/class-settings.php:516
 msgid "Thousands Separator"
 msgstr "Делител за хиляди"
 
-#: includes/admin/settings/class-settings.php:556
+#: includes/admin/settings/class-settings.php:517
 msgid "The symbol (usually , or .) to separate thousands"
 msgstr "Символът (обикновено , или .) за разделяне на хиляди"
 
-#: includes/admin/settings/class-settings.php:562
+#: includes/admin/settings/class-settings.php:523
 msgid "Decimal Separator"
 msgstr "Делител за десетици"
 
-#: includes/admin/settings/class-settings.php:563
+#: includes/admin/settings/class-settings.php:524
 msgid "The symbol (usually , or .) to separate decimal points"
 msgstr "Символът (обикновено , или .) за разделяне на десетици"
 
-#: includes/admin/settings/class-settings.php:569
-#, fuzzy
-msgid "Affiliate Form Settings"
-msgstr "Отиди на AffiliateWP Настройки"
-
-#: includes/admin/settings/class-settings.php:573
-#, fuzzy
-msgid "Affiliate Area Forms"
-msgstr "Зона за Афилиейти"
-
-#: includes/admin/settings/class-settings.php:574
-msgid ""
-"Select which form(s) to show on the Affiliate Area page. The affiliate "
-"registration form will only show if <a href=\"%s\">Allow Affiliate "
-"Registration</a> is enabled."
-msgstr ""
-
-#: includes/admin/settings/class-settings.php:577
-#, fuzzy
-msgid "Affiliate Registration Form and Affiliate Login Form"
-msgstr ""
-"При грешка във формата за регистрация данните остават попълнени в полетата"
-
-#: includes/admin/settings/class-settings.php:578
-#, fuzzy
-msgid "Affiliate Registration Form Only"
-msgstr "Регистрация на Афилиейт"
-
-#: includes/admin/settings/class-settings.php:579
-#, fuzzy
-msgid "Affiliate Login Form Only"
-msgstr "Афилиейтски купон?"
-
-#: includes/admin/settings/class-settings.php:596
-#: includes/admin/settings/display-settings.php:61
+#: includes/admin/settings/class-settings.php:535
+#: includes/admin/settings/display-settings.php:60
 msgid "Integrations"
 msgstr "Интеграция"
 
-#: includes/admin/settings/class-settings.php:597
+#: includes/admin/settings/class-settings.php:536
 #, fuzzy
 msgid ""
 "Choose the integrations to enable. If you are not using any of these, you "
@@ -2602,132 +2100,133 @@ msgstr ""
 "следене и създаване на реферали. Обърнете се към <a href=\"%s\" target="
 "\"_blank\">документацията</a> за помощ."
 
-#: includes/admin/settings/class-settings.php:613
+#: includes/admin/settings/class-settings.php:546
 #, fuzzy
 msgid "Disable All Emails"
 msgstr "Изключи реферали"
 
-#: includes/admin/settings/class-settings.php:614
-#, fuzzy
-msgid "Disable all email notifications."
-msgstr "Включи известия при нови реферали"
+#: includes/admin/settings/class-settings.php:547
+msgid "Should all email notifications be disabled?"
+msgstr ""
 
-#: includes/admin/settings/class-settings.php:618
+#: includes/admin/settings/class-settings.php:551
 msgid "Logo"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:619
+#: includes/admin/settings/class-settings.php:552
 msgid "Upload or choose a logo to be displayed at the top of emails."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:623
+#: includes/admin/settings/class-settings.php:556
 msgid "Email Template"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:624
+#: includes/admin/settings/class-settings.php:557
 msgid "Choose a template to use for email messages."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:629
+#: includes/admin/settings/class-settings.php:562
 #, fuzzy
 msgid "From Name"
 msgstr "Вашето име"
 
-#: includes/admin/settings/class-settings.php:630
-msgid "The name that emails come from. This is usually your site name."
+#: includes/admin/settings/class-settings.php:563
+msgid ""
+"The name emails are said to come from. This should probably be your site "
+"name."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:635
+#: includes/admin/settings/class-settings.php:568
 #, fuzzy
 msgid "From Email"
 msgstr "Ел. поща"
 
-#: includes/admin/settings/class-settings.php:636
+#: includes/admin/settings/class-settings.php:569
 msgid ""
-"The email address to send emails from. This will act as the \"from\" and "
-"\"reply-to\" address."
+"Email to send emails from. This will act as the \"from\" and \"reply-to\" "
+"address."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:641
+#: includes/admin/settings/class-settings.php:574
 #, fuzzy
 msgid "Notify Admin"
 msgstr "Извести Администраторите"
 
-#: includes/admin/settings/class-settings.php:642
+#: includes/admin/settings/class-settings.php:575
 #, fuzzy
-msgid "Notify site admin of new affiliate registrations."
+msgid "Notify site admin of new affiliate registrations?"
 msgstr "Известявай администраторите за регистрация на нови афилиейти"
 
-#: includes/admin/settings/class-settings.php:646
+#: includes/admin/settings/class-settings.php:579
 msgid "Registration Email Subject"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:647
+#: includes/admin/settings/class-settings.php:580
 msgid ""
 "Enter the subject line for the registration email sent to admins when new "
 "affiliates register."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:649
+#: includes/admin/settings/class-settings.php:582
 #: includes/emails/actions.php:41
 msgid "New Affiliate Registration"
 msgstr "Регистрация на нов афилиейт"
 
-#: includes/admin/settings/class-settings.php:652
+#: includes/admin/settings/class-settings.php:585
 msgid "Registration Email Content"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:653
+#: includes/admin/settings/class-settings.php:586
 msgid ""
 "Enter the email to send when a new affiliate registers. HTML is accepted. "
 "Available template tags:"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:655
+#: includes/admin/settings/class-settings.php:588
 msgid "A new affiliate has registered on your site, %s"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:655
+#: includes/admin/settings/class-settings.php:588
 #, fuzzy
 msgid "Name: "
 msgstr "Име: %s"
 
-#: includes/admin/settings/class-settings.php:658
+#: includes/admin/settings/class-settings.php:591
 #, fuzzy
 msgid "Application Accepted Email Subject"
 msgstr "Заявката Ви е приета"
 
-#: includes/admin/settings/class-settings.php:659
+#: includes/admin/settings/class-settings.php:592
 msgid ""
 "Enter the subject line for accepted application emails sent to affiliates "
 "when their account is approved."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:661
+#: includes/admin/settings/class-settings.php:594
 #: includes/emails/actions.php:114
 msgid "Affiliate Application Accepted"
 msgstr "Заявката Ви е приета"
 
-#: includes/admin/settings/class-settings.php:664
+#: includes/admin/settings/class-settings.php:597
 #, fuzzy
 msgid "Application Accepted Email Content"
 msgstr "Заявката Ви е приета"
 
-#: includes/admin/settings/class-settings.php:665
+#: includes/admin/settings/class-settings.php:598
 msgid ""
 "Enter the email to send when an application is accepted. HTML is accepted. "
 "Available template tags:"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:667
-#: includes/admin/settings/class-settings.php:679
+#: includes/admin/settings/class-settings.php:600
+#: includes/admin/settings/class-settings.php:612
 #, fuzzy
 msgid "Congratulations {name}!"
 msgstr ""
 "Поздравления %s!\n"
 "\n"
 
-#: includes/admin/settings/class-settings.php:667
+#: includes/admin/settings/class-settings.php:600
 #: includes/emails/actions.php:119
 #, fuzzy
 msgid "Your affiliate application on %s has been accepted!"
@@ -2735,53 +2234,53 @@ msgstr ""
 "Вашата заявка на %s беше приета!\n"
 "\n"
 
-#: includes/admin/settings/class-settings.php:667
+#: includes/admin/settings/class-settings.php:600
 #, fuzzy
 msgid "Log into your affiliate area at"
 msgstr ""
 "Можете да влезете във Вашия профил от %s\n"
 "\n"
 
-#: includes/admin/settings/class-settings.php:670
+#: includes/admin/settings/class-settings.php:603
 #, fuzzy
 msgid "New Referral Email Subject"
 msgstr "Нов реферал"
 
-#: includes/admin/settings/class-settings.php:671
+#: includes/admin/settings/class-settings.php:604
 msgid ""
 "Enter the subject line for new referral emails sent when affiliates earn "
 "referrals."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:673
+#: includes/admin/settings/class-settings.php:606
 #: includes/emails/actions.php:247
 msgid "Referral Awarded!"
 msgstr "Рефералът е възнаграден!"
 
-#: includes/admin/settings/class-settings.php:676
+#: includes/admin/settings/class-settings.php:609
 #, fuzzy
 msgid "New Referral Email Content"
 msgstr "Нов реферал"
 
-#: includes/admin/settings/class-settings.php:677
+#: includes/admin/settings/class-settings.php:610
 msgid ""
 "Enter the email to send on new referrals. HTML is accepted. Available "
 "template tags:"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:679
+#: includes/admin/settings/class-settings.php:612
 #, fuzzy
 msgid "You have been awarded a new referral of"
 msgstr ""
 "Бяхте възнаградени за нов реферал от %s на %s!\n"
 "\n"
 
-#: includes/admin/settings/class-settings.php:679
+#: includes/admin/settings/class-settings.php:612
 #, fuzzy
 msgid "on %s!"
 msgstr "Версия %s"
 
-#: includes/admin/settings/class-settings.php:679
+#: includes/admin/settings/class-settings.php:612
 #, fuzzy
 msgid ""
 "Log into your affiliate area to view your earnings or disable these "
@@ -2791,126 +2290,119 @@ msgstr ""
 "известията: %s\n"
 "\n"
 
-#: includes/admin/settings/class-settings.php:693
+#: includes/admin/settings/class-settings.php:620
 #, fuzzy
 msgid "Allow Affiliate Registration"
 msgstr "Позволи регистриране на Афилиейти"
 
-#: includes/admin/settings/class-settings.php:694
-#, fuzzy
-msgid "Allow users to register affiliate accounts for themselves."
+#: includes/admin/settings/class-settings.php:621
+msgid "Should affiliates be able to register accounts for themselves?"
 msgstr "Да могат ли афилиейтите сами да си създават профили?"
 
-#: includes/admin/settings/class-settings.php:698
+#: includes/admin/settings/class-settings.php:625
 #, fuzzy
 msgid "Require Approval"
 msgstr "Изисква одобрение"
 
-#: includes/admin/settings/class-settings.php:699
-#, fuzzy
+#: includes/admin/settings/class-settings.php:626
 msgid ""
-"Require that Pending affiliate accounts must be approved before they can "
-"begin earning referrals."
+"Require that site admins approve affiliates before they can begin earning "
+"referrals?"
 msgstr ""
 "Изисква администраторът да одобри афилиейтите преди да започнат да печелят "
 "реферали"
 
-#: includes/admin/settings/class-settings.php:703
+#: includes/admin/settings/class-settings.php:630
 msgid "Auto Register New Users"
 msgstr "Автоматично регистриране на нови потребители"
 
-#: includes/admin/settings/class-settings.php:704
-#, fuzzy
-msgid "Automatically register new users as affiliates."
+#: includes/admin/settings/class-settings.php:631
+msgid "Automatically register new users as affiliates?"
 msgstr "Автоматично регистрирай нови потребители като афилиейти?"
 
-#: includes/admin/settings/class-settings.php:708
+#: includes/admin/settings/class-settings.php:635
 msgid "Logout Link"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:709
+#: includes/admin/settings/class-settings.php:636
 msgid "Add a logout link to the Affiliate Area."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:713
+#: includes/admin/settings/class-settings.php:640
 #, fuzzy
 msgid "Default Referral URL"
 msgstr "Ставка за конкретен продукт"
 
-#: includes/admin/settings/class-settings.php:714
+#: includes/admin/settings/class-settings.php:641
 msgid ""
-"The default referral URL shown in the Affiliate Area. Also changes the URL "
-"shown in the Referral URL Generator and the {referral_url} email tag."
+"The default referral URL shown in the affiliate area. Also changes the URL "
+"shown in the referral URL generator and {referral_url} email tag."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:718
+#: includes/admin/settings/class-settings.php:645
 msgid "Enable reCAPTCHA"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:719
+#: includes/admin/settings/class-settings.php:646
 msgid ""
-"Prevent bots from registering affiliate accounts using Google reCAPTCHA."
+"Would you like to prevent bots from registering affiliate accounts using "
+"Google reCAPTCHA?"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:723
+#: includes/admin/settings/class-settings.php:650
 msgid "reCAPTCHA Site Key"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:724
+#: includes/admin/settings/class-settings.php:651
 msgid "This is used to identify your site to Google reCAPTCHA."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:728
+#: includes/admin/settings/class-settings.php:655
 msgid "reCAPTCHA Secret Key"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:729
+#: includes/admin/settings/class-settings.php:656
 msgid ""
 "This is used for communication between your site and Google reCAPTCHA. Be "
 "sure to keep it a secret."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:733
-#, fuzzy
-msgid "Reject Unpaid Referrals on Refund"
+#: includes/admin/settings/class-settings.php:660
+msgid "Reject Unpaid Referrals on Refund?"
 msgstr "Отхвърли неплатилите реферали?"
 
-#: includes/admin/settings/class-settings.php:734
-#, fuzzy
+#: includes/admin/settings/class-settings.php:661
 msgid ""
-"Automatically reject Unpaid referrals when the originating purchase is "
-"refunded or revoked."
+"Should unpaid referrals get automatically rejected when the originating "
+"purchase is refunded or revoked?"
 msgstr ""
 "Трябва ли неплатилите реферали да бъдат отхвърляни автоматично, когато "
 "плащането на покупката им е възстановено или оттеглено?"
 
-#: includes/admin/settings/class-settings.php:738
-#, fuzzy
-msgid "Use Fallback Referral Tracking Method"
+#: includes/admin/settings/class-settings.php:665
+msgid "Use Fallback Referral Tracking Method?"
 msgstr "Използвайте Аварийния проследяващ метод за реферали?"
 
-#: includes/admin/settings/class-settings.php:739
-#, fuzzy
+#: includes/admin/settings/class-settings.php:666
 msgid ""
 "The method used to track referral links can fail on sites that have jQuery "
-"errors. Enable Fallback Tracking if referrals are not being tracked properly."
+"errors. Check this if referrals are not getting tracked properly."
 msgstr ""
 "Методът за проследяване на линкове от реферали може да се провали на някои "
 "сайтове, които имат jQuery грешки. Отметнете това, ако рефералите не се "
 "проследяват правилно."
 
-#: includes/admin/settings/class-settings.php:743
-#, fuzzy
-msgid "Ignore Referrals with Zero Amount"
-msgstr "Ставка на реферала"
+#: includes/admin/settings/class-settings.php:670
+msgid "Ignore Zero Referrals?"
+msgstr "Игнорирайте нулевите реферали?"
 
-#: includes/admin/settings/class-settings.php:744
-#, fuzzy
+#: includes/admin/settings/class-settings.php:671
 msgid ""
-"Ignore referrals with a zero amount. This can be useful for multi-price "
-"products that start at zero, or if a discount was used which resulted in a "
-"zero amount. NOTE: If this setting is enabled and a visit results in a zero "
-"referral, the visit will be considered not converted."
+"Check this box if you would like AffiliateWP to completely ignore referrals "
+"for a zero total amount. This can be useful for multi-price products that "
+"start at zero, or if a discount was used, which resulted in a zero amount. "
+"Please note: if this setting is enabled and a visit results in a zero "
+"referral, then the visit would be considered not converted."
 msgstr ""
 "Отметнете, ако искате  AffiliateWP да занули напълно рефералите, платили "
 "нулева цена за продуктите. Може да бъде полезно за продукти с няколко цени, "
@@ -2918,73 +2410,38 @@ msgstr ""
 "нула. Моля, забележете, че ако тази настройка е активирана, то посещението "
 "се приема за нулев реферал и то няма да бъде счетено за конвертирано."
 
-#: includes/admin/settings/class-settings.php:748
-msgid "Enable Debug Mode"
+#: includes/admin/settings/class-settings.php:675
+msgid "Enable Debug Mode?"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:749
+#: includes/admin/settings/class-settings.php:676
 msgid ""
-"Enable debug mode. This will turn on error logging for the referral process "
-"to help identify issues."
+"Check this box to enable debug mode. This will turn on error logging for the "
+"referral process to help identify problems."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:753
-#, fuzzy
-msgid "Referral URL Blacklist"
-msgstr "Посещения на URL на реферали"
-
-#: includes/admin/settings/class-settings.php:754
-msgid ""
-"URLs placed here will be blocked from generating referrals. Enter one URL "
-"per line. NOTE: This will only apply to new visits after the URL has been "
-"saved."
-msgstr ""
-
-#: includes/admin/settings/class-settings.php:758
-msgid "Opt into Beta Versions"
-msgstr ""
-
-#: includes/admin/settings/class-settings.php:759
-msgid ""
-"Receive update notifications for beta releases. When beta versions are "
-"available, an update notification will be shown on your Plugins page.\n"
-msgstr ""
-
-#: includes/admin/settings/class-settings.php:764
-#, fuzzy
-msgid "Remove Data on Uninstall"
+#: includes/admin/settings/class-settings.php:680
+msgid "Remove Data on Uninstall?"
 msgstr "Премахни данните при деинсталация?"
 
-#: includes/admin/settings/class-settings.php:765
-msgid "Remove all saved data for AffiliateWP when the plugin is deleted."
-msgstr ""
-
-#: includes/admin/settings/class-settings.php:795
-#, fuzzy
-msgid "Required Registration Fields"
-msgstr "Модерирай Регистрации"
-
-#: includes/admin/settings/class-settings.php:796
+#: includes/admin/settings/class-settings.php:681
 msgid ""
-"Select which fields should be required for affiliate registration. The "
-"<strong>Username</strong>, <strong>Account Email</strong> and "
-"<strong>Password</strong> form fields are always required."
+"Check this box if you would like AffiliateWP to completely remove all of its "
+"data when the plugin is deleted."
 msgstr ""
+"Отметнете, ако искате  AffiliateWP да премахне напълно всички данни след "
+"изтриване на плъгина."
 
-#: includes/admin/settings/class-settings.php:802 templates/register.php:89
-msgid "How will you promote us?"
-msgstr "Как ще ни промотирате?"
-
-#: includes/admin/settings/class-settings.php:830
+#: includes/admin/settings/class-settings.php:708
 #, fuzzy
 msgid "Application Pending Email Subject"
 msgstr "Заявката Ви е приета"
 
-#: includes/admin/settings/class-settings.php:831
+#: includes/admin/settings/class-settings.php:709
 msgid "Enter the subject line for pending affiliate application emails."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:833
+#: includes/admin/settings/class-settings.php:711
 #: includes/emails/actions.php:165
 #, fuzzy
 msgid "Your Affiliate Application Is Being Reviewed"
@@ -2992,43 +2449,43 @@ msgstr ""
 "Вашата заявка на %s беше приета!\n"
 "\n"
 
-#: includes/admin/settings/class-settings.php:836
+#: includes/admin/settings/class-settings.php:714
 #, fuzzy
 msgid "Application Pending Email Content"
 msgstr "Заявката Ви е приета"
 
-#: includes/admin/settings/class-settings.php:837
+#: includes/admin/settings/class-settings.php:715
 msgid ""
 "Enter the email to send when an application is pending. HTML is accepted. "
 "Available template tags:"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:839
+#: includes/admin/settings/class-settings.php:717
 msgid "Hi {name}!"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:839
+#: includes/admin/settings/class-settings.php:717
 #: includes/emails/actions.php:170
 msgid "Thanks for your recent affiliate registration on {site_name}."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:839
+#: includes/admin/settings/class-settings.php:717
 #: includes/emails/actions.php:171
 msgid ""
 "We&#8217;re currently reviewing your affiliate application and will be in "
 "touch soon!"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:842
+#: includes/admin/settings/class-settings.php:720
 #, fuzzy
 msgid "Application Rejection Email Subject"
 msgstr "Заявката Ви е приета"
 
-#: includes/admin/settings/class-settings.php:843
+#: includes/admin/settings/class-settings.php:721
 msgid "Enter the subject line for rejected affiliate application emails."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:845
+#: includes/admin/settings/class-settings.php:723
 #: includes/emails/actions.php:204
 #, fuzzy
 msgid "Your Affiliate Application Has Been Rejected"
@@ -3036,55 +2493,41 @@ msgstr ""
 "Вашата заявка на %s беше приета!\n"
 "\n"
 
-#: includes/admin/settings/class-settings.php:848
+#: includes/admin/settings/class-settings.php:726
 #, fuzzy
 msgid "Application Rejection Email Content"
 msgstr "Заявката Ви е приета"
 
-#: includes/admin/settings/class-settings.php:849
+#: includes/admin/settings/class-settings.php:727
 msgid ""
 "Enter the email to send when an application is rejected. HTML is accepted. "
 "Available template tags:"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:851
+#: includes/admin/settings/class-settings.php:729
 msgid "Hi {name},"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:851
+#: includes/admin/settings/class-settings.php:729
 #: includes/emails/actions.php:209
 msgid ""
 "We regret to inform you that your recent affiliate registration on "
 "{site_name} was rejected."
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:1021
-#, fuzzy
-msgid ""
-"Your license key is globally defined via <code>AFFILIATEWP_LICENSE_KEY</"
-"code> set in <code>wp-config.php</code>.<br />It cannot be modified from "
-"this screen."
-msgstr ""
-"Моля въведете кода за лиценза. За автоматични обновявания и <a href=\"%s\" "
-"target=\"_blank\">помощ</a> е необходим активен код за лиценза."
-
-#: includes/admin/settings/class-settings.php:1023
-msgid "Deactivate your license key to make changes to this setting."
-msgstr ""
-
-#: includes/admin/settings/class-settings.php:1034
+#: includes/admin/settings/class-settings.php:894
 msgid "Deactivate License"
 msgstr "Деактивирай лиценз"
 
-#: includes/admin/settings/class-settings.php:1035
+#: includes/admin/settings/class-settings.php:895
 msgid "Your license is valid!"
 msgstr "Вашият лиценз е валиден!"
 
-#: includes/admin/settings/class-settings.php:1038
+#: includes/admin/settings/class-settings.php:898
 msgid "Renew Your License"
 msgstr "Подновете лиценза"
 
-#: includes/admin/settings/class-settings.php:1039
+#: includes/admin/settings/class-settings.php:899
 msgid ""
 "Your license has expired, renew today to continue getting updates and "
 "support!"
@@ -3092,21 +2535,21 @@ msgstr ""
 "Вашият лиценз е изтекъл. Моля, подновете го днес, за да продължите да "
 "получавате обновявания и помощ!"
 
-#: includes/admin/settings/class-settings.php:1041
+#: includes/admin/settings/class-settings.php:901
 msgid "Activate License"
 msgstr "Активирайте лиценз"
 
-#: includes/admin/settings/class-settings.php:1140
+#: includes/admin/settings/class-settings.php:1000
 msgid ""
 "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
 "Функцията за обратно повикване, използвана за <strong>%s</strong>, липсва."
 
-#: includes/admin/settings/class-settings.php:1215
+#: includes/admin/settings/class-settings.php:1075
 msgid "Upload File"
 msgstr ""
 
-#: includes/admin/settings/class-settings.php:1233
+#: includes/admin/settings/class-settings.php:1093
 #, fuzzy
 msgid ""
 "Your license key is globally defined via <code>AFFILIATEWP_LICENSE_KEY</"
@@ -3117,38 +2560,31 @@ msgstr ""
 "Моля въведете кода за лиценза. За автоматични обновявания и <a href=\"%s\" "
 "target=\"_blank\">помощ</a> е необходим активен код за лиценза."
 
-#: includes/admin/settings/class-settings.php:1253
+#: includes/admin/settings/class-settings.php:1113
 msgid ""
 "Debug mode is globally enabled via <code>AFFILIATE_WP_DEBUG</code> set in "
 "<code>wp-config.php</code>. This setting cannot be modified from this screen."
 msgstr ""
 
-#: includes/admin/settings/display-settings.php:60
+#: includes/admin/settings/display-settings.php:59
 msgid "General"
 msgstr "Основни"
 
-#: includes/admin/settings/display-settings.php:62
+#: includes/admin/settings/display-settings.php:61
 #, fuzzy
 msgid "Emails"
 msgstr "Ел. поща"
 
-#: includes/admin/settings/display-settings.php:63
+#: includes/admin/settings/display-settings.php:62
 msgid "Misc"
 msgstr "Други"
-
-#: includes/admin/tools/class-batch-recount-affiliate-stats.php:156
-#, fuzzy
-msgid "%s affiliate&#8217;s was successfully processed."
-msgid_plural "%s affiliates&#8217; were successfully processed."
-msgstr[0] "Афилиейтът е обновен успешно"
-msgstr[1] "Афилиейтът е обновен успешно"
 
 #: includes/admin/tools/class-rest-consumers-table.php:42
 msgid "API Key"
 msgstr ""
 
 #: includes/admin/tools/class-rest-consumers-table.php:43
-#: includes/admin/tools/tools.php:85
+#: includes/admin/tools/tools.php:68
 msgid "API Keys"
 msgstr ""
 
@@ -3177,96 +2613,43 @@ msgstr ""
 msgid "Secret Key"
 msgstr ""
 
-#: includes/admin/tools/class-rest-consumers-table.php:228
+#: includes/admin/tools/class-rest-consumers-table.php:231
 #, fuzzy
 msgid "Enter username"
 msgstr "Невалидно потребителско име"
 
-#: includes/admin/tools/class-rest-consumers-table.php:230
+#: includes/admin/tools/class-rest-consumers-table.php:234
 msgid "Generate New API Keys"
 msgstr ""
 
-#: includes/admin/tools/export/class-batch-export-affiliates.php:93
-#: includes/admin/tools/export/class-batch-export-referrals.php:144
-#: includes/admin/tools/export/class-batch-generate-payouts.php:215
-#: includes/admin/tools/export/class-export-affiliates.php:50
-#: includes/admin/tools/export/class-export-referrals-payout.php:72
-#: includes/admin/tools/export/class-export-referrals.php:64
+#: includes/admin/tools/export/class-export-affiliates.php:48
+#: includes/admin/tools/export/class-export-referrals-payout.php:61
+#: includes/admin/tools/export/class-export-referrals.php:62
 msgid "Email"
 msgstr "Ел. поща"
 
-#: includes/admin/tools/export/class-batch-export-affiliates.php:98
-#: includes/admin/tools/export/class-export-affiliates.php:55
+#: includes/admin/tools/export/class-export-affiliates.php:53
 msgid "Rate Type"
 msgstr "Вид на ставката"
 
-#: includes/admin/tools/export/class-batch-export-affiliates.php:105
-#: includes/admin/tools/export/class-export-affiliates.php:61
+#: includes/admin/tools/export/class-export-affiliates.php:58
 msgid "Date Registered"
 msgstr "Дата на регистрация"
 
-#: includes/admin/tools/export/class-batch-export-affiliates.php:117
-#, fuzzy
-msgid "No valid affiliate status was selected for export."
-msgstr "Не е избран идентификационен номер на афилиейта за изтриване"
-
-#: includes/admin/tools/export/class-batch-export-affiliates.php:187
-#, fuzzy
-msgid "%s affiliate was successfully exported."
-msgid_plural "%s affiliates were successfully exported."
-msgstr[0] "Афилиейтът е обновен успешно"
-msgstr[1] "Афилиейтът е обновен успешно"
-
-#: includes/admin/tools/export/class-batch-export-payouts.php:163
-msgid "No valid payout status was selected for export."
-msgstr ""
-
-#: includes/admin/tools/export/class-batch-export-payouts.php:274
-#, fuzzy
-msgid "%s payout log was successfully exported."
-msgid_plural "%s payout logs were successfully exported."
-msgstr[0] "Рекламата е добавена успешно"
-msgstr[1] "Рекламата е добавена успешно"
-
-#: includes/admin/tools/export/class-batch-export-referrals.php:151
-#: includes/admin/tools/export/class-export-referrals.php:71
-#: templates/dashboard-tab-stats.php:73
+#: includes/admin/tools/export/class-export-referrals.php:67
+#: templates/dashboard-tab-stats.php:56
 msgid "Campaign"
 msgstr ""
 
-#: includes/admin/tools/export/class-batch-export-referrals.php:167
-msgid "No valid referral status was selected for export."
-msgstr ""
-
-#: includes/admin/tools/export/class-batch-export-referrals.php:247
-#, fuzzy
-msgid "%s referral was successfully exported."
-msgid_plural "%s referrals were successfully exported."
-msgstr[0] "Рефералът е добавен успешно"
-msgstr[1] "Рефералът е добавен успешно"
-
-#: includes/admin/tools/export/class-batch-export.php:197
-#: includes/admin/tools/export/class-export-settings.php:90
-#: includes/admin/tools/export/class-export.php:226
+#: includes/admin/tools/export/class-export.php:173
 msgid "You do not have permission to export data."
 msgstr "Нямате права, за да експортнете данни"
 
-#: includes/admin/tools/export/class-batch-generate-payouts.php:296
-msgid "No unpaid referrals were found matching your criteria."
-msgstr ""
-
-#: includes/admin/tools/export/class-batch-generate-payouts.php:299
-#, fuzzy
-msgid "A payout log for %s affiliate was successfully generated."
-msgid_plural "A payout log for %s affiliates was successfully generated."
-msgstr[0] "Афилиейтът е обновен успешно"
-msgstr[1] "Афилиейтът е обновен успешно"
-
-#: includes/admin/tools/import/import.php:24
+#: includes/admin/tools/import/import.php:23
 msgid "Please upload a valid .json file"
 msgstr "Моля, качете валиден .json файл"
 
-#: includes/admin/tools/import/import.php:30
+#: includes/admin/tools/import/import.php:29
 msgid "Please upload a file to import"
 msgstr "Моля, качете файл за импортване"
 
@@ -3282,48 +2665,53 @@ msgstr ""
 msgid "Step %d running"
 msgstr "Стъпка %d в процес"
 
-#: includes/admin/tools/tools.php:82
+#: includes/admin/tools/tools.php:67
 msgid "Export / Import"
 msgstr "Експорт / Импорт"
 
-#: includes/admin/tools/tools.php:88
+#: includes/admin/tools/tools.php:69
 msgid "Recount Stats"
 msgstr "Преизчисли статистика"
 
-#: includes/admin/tools/tools.php:89
+#: includes/admin/tools/tools.php:70
 msgid "Migration Assistant"
 msgstr "Асистент по миграцията"
 
-#: includes/admin/tools/tools.php:92
+#: includes/admin/tools/tools.php:71
 msgid "System Info"
 msgstr ""
 
-#: includes/admin/tools/tools.php:96
+#: includes/admin/tools/tools.php:74
 #, fuzzy
 msgid "Debug Assistant"
 msgstr "Асистент по миграцията"
 
-#: includes/admin/tools/tools.php:144
+#: includes/admin/tools/tools.php:122
 msgid "Recount Affiliate Stats"
 msgstr "Преизчисли статистиката за Афилиейти"
 
-#: includes/admin/tools/tools.php:146
+#: includes/admin/tools/tools.php:124
 msgid "Use this tool to recount affiliate statistics."
 msgstr ""
 "Използвайте този инструмент за преизчисляване статистиката на афилиейти."
 
-#: includes/admin/tools/tools.php:157
+#: includes/admin/tools/tools.php:128 includes/admin/tools/tools.php:292
+#: includes/admin/visits/visits.php:48
+msgid "Affiliate name"
+msgstr "Име на афилиейт"
+
+#: includes/admin/tools/tools.php:135
 #, fuzzy
 msgid ""
 "Enter the name of the affiliate or begin typing to perform a search based on "
 "the affiliate&#8217;s name."
 msgstr "Въведете името на афилиейт, за да започне търсене по име."
 
-#: includes/admin/tools/tools.php:162
+#: includes/admin/tools/tools.php:140
 msgid "Recount"
 msgstr "Преизчисли"
 
-#: includes/admin/tools/tools.php:200
+#: includes/admin/tools/tools.php:178
 msgid ""
 "These tools assist in migrating affiliate and referral data from existing "
 "platforms."
@@ -3331,11 +2719,11 @@ msgstr ""
 "Тези инструменти помагат за мигриране на афилиейти и реферали от "
 "съществуващи платформи."
 
-#: includes/admin/tools/tools.php:205
+#: includes/admin/tools/tools.php:183
 msgid "User Accounts"
 msgstr "Потребителски профили"
 
-#: includes/admin/tools/tools.php:208
+#: includes/admin/tools/tools.php:186
 #, fuzzy
 msgid ""
 "Use this tool to create affiliate accounts for each of your existing "
@@ -3344,35 +2732,35 @@ msgstr ""
 "Използвай този инструмент за създаване на афилиейтски профили на вече "
 "съществуващи WordPress  потребители."
 
-#: includes/admin/tools/tools.php:209
+#: includes/admin/tools/tools.php:187
 msgid ""
 "<strong>NOTE:</strong> Users that already have affiliate accounts will be "
 "skipped. Duplicate accounts will not be created."
 msgstr ""
 
-#: includes/admin/tools/tools.php:211
+#: includes/admin/tools/tools.php:189
 msgid "Select User Roles"
 msgstr ""
 
-#: includes/admin/tools/tools.php:221
+#: includes/admin/tools/tools.php:202
 #, fuzzy
 msgid "Create Affiliate Accounts for Users"
 msgstr "Създай Афилиейтски профили"
 
-#: includes/admin/tools/tools.php:226
+#: includes/admin/tools/tools.php:207
 msgid ""
 "<strong>NOTE:</strong> WordPress 4.4 or newer is required to use the User "
 "Accounts migration tool. <a href=\"%s\" aria-label=\"Update WordPress now"
 "\">Update WordPress now</a>."
 msgstr ""
 
-#: includes/admin/tools/tools.php:228
+#: includes/admin/tools/tools.php:209
 msgid ""
 "<strong>NOTE:</strong> WordPress 4.4 or newer is required to use the User "
 "Accounts migration tool."
 msgstr ""
 
-#: includes/admin/tools/tools.php:237
+#: includes/admin/tools/tools.php:218
 #, fuzzy
 msgid ""
 "Use this tool to migrate existing affiliate / referral data from Affiliates "
@@ -3381,10 +2769,9 @@ msgstr ""
 "Използвай за мигриране на съществуващи данни от Affiliates Pro към "
 "AffiliateWP."
 
-#: includes/admin/tools/tools.php:238
-#, fuzzy
+#: includes/admin/tools/tools.php:219
 msgid ""
-"<strong>NOTE:</strong> This tool should only ever be used on a fresh "
+"<strong>NOTE:</strong> this tool should only ever be used on a fresh "
 "install. If you have already collected affiliate or referral data, do not "
 "use this tool."
 msgstr ""
@@ -3392,11 +2779,11 @@ msgstr ""
 "при нова инсталация. Ако вече имате събрани афилиейти и/или реферали, моля "
 "не го използвайте."
 
-#: includes/admin/tools/tools.php:244
+#: includes/admin/tools/tools.php:225
 msgid "Migrate Data from Affiliates Pro"
 msgstr "Мигрирайте данни от Affiliates Pro"
 
-#: includes/admin/tools/tools.php:253
+#: includes/admin/tools/tools.php:234
 #, fuzzy
 msgid ""
 "Use this tool to migrate existing affiliate accounts from WP Affiliate to "
@@ -3405,36 +2792,36 @@ msgstr ""
 "Използвай този инструмент за мигриране на съществуващи профили на афилиейти "
 "от WP Affiliate към AffiliateWP."
 
-#: includes/admin/tools/tools.php:256
+#: includes/admin/tools/tools.php:240
 msgid "Migrate Data from WP Affiliate"
 msgstr "Мигрирай данни от WP Affiliate"
 
-#: includes/admin/tools/tools.php:280
+#: includes/admin/tools/tools.php:264
 msgid "Export Affiliates"
 msgstr "Експорт на Афилиейти"
 
-#: includes/admin/tools/tools.php:282
+#: includes/admin/tools/tools.php:266
 msgid "Export affiliates to a CSV file."
 msgstr "Експортирай афилиейти в CSV файл."
 
-#: includes/admin/tools/tools.php:286 includes/admin/tools/tools.php:311
+#: includes/admin/tools/tools.php:270 includes/admin/tools/tools.php:298
 msgid "All Statuses"
 msgstr "Всички статуси"
 
-#: includes/admin/tools/tools.php:293 includes/admin/tools/tools.php:320
-#: includes/admin/tools/tools.php:344 includes/admin/tools/tools.php:358
+#: includes/admin/tools/tools.php:279 includes/admin/tools/tools.php:309
+#: includes/admin/tools/tools.php:323
 msgid "Export"
 msgstr "Експорт"
 
-#: includes/admin/tools/tools.php:300
+#: includes/admin/tools/tools.php:286
 msgid "Export Referrals"
 msgstr "Експортване на Реферали"
 
-#: includes/admin/tools/tools.php:302
+#: includes/admin/tools/tools.php:288
 msgid "Export referrals to a CSV file."
 msgstr "Експортване на реферали в CSV файл."
 
-#: includes/admin/tools/tools.php:317 includes/admin/tools/tools.php:341
+#: includes/admin/tools/tools.php:304
 #, fuzzy
 msgid ""
 "To search for an affiliate, enter the affiliate&#8217;s login name, first "
@@ -3443,21 +2830,11 @@ msgstr ""
 "За да търсите афилиейт, въведете потребителско име, малко име, фамилия. "
 "Оставете празно за експортване на рефералите за всички афилиейти."
 
-#: includes/admin/tools/tools.php:327
-#, fuzzy
-msgid "Export Payouts"
-msgstr "Общо посещения"
-
-#: includes/admin/tools/tools.php:329
-#, fuzzy
-msgid "Export payouts to a CSV file."
-msgstr "Експортирай афилиейти в CSV файл."
-
-#: includes/admin/tools/tools.php:351
+#: includes/admin/tools/tools.php:316
 msgid "Export Settings"
 msgstr "Експортване на настройки"
 
-#: includes/admin/tools/tools.php:353
+#: includes/admin/tools/tools.php:318
 msgid ""
 "Export the AffiliateWP settings for this site as a .json file. This allows "
 "you to easily import the configuration into another site."
@@ -3465,11 +2842,11 @@ msgstr ""
 "Експортнете настройките на AffiliateWP за този сайт като .json файл. Това ще "
 "позволи лесното импортиране на конфиграцията в друг сайт."
 
-#: includes/admin/tools/tools.php:365
+#: includes/admin/tools/tools.php:330
 msgid "Import Settings"
 msgstr "Импортване на настройки"
 
-#: includes/admin/tools/tools.php:367
+#: includes/admin/tools/tools.php:332
 msgid ""
 "Import the AffiliateWP settings from a .json file. This file can be obtained "
 "by exporting the settings on another site using the form above."
@@ -3478,47 +2855,26 @@ msgstr ""
 "разполагате след експортирането на настройките от друг сайт, използвайки "
 "формата по-горе."
 
-#: includes/admin/tools/tools.php:375
+#: includes/admin/tools/tools.php:340
 msgid "Import"
 msgstr "Импорт"
 
-#: includes/admin/tools/tools.php:399
+#: includes/admin/tools/tools.php:368
 msgid ""
 "To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
 msgstr ""
 
-#: includes/admin/tools/tools.php:454
+#: includes/admin/tools/tools.php:423
 msgid "Debug Log"
 msgstr ""
 
-#: includes/admin/tools/tools.php:457
-#, fuzzy
-msgid "Use this tool to help debug various operations in AffiliateWP."
+#: includes/admin/tools/tools.php:426
+msgid "Use this tool to help debug referral tracking."
 msgstr ""
-"Използвай този инструмент за мигриране на съществуващи профили на афилиейти "
-"от WP Affiliate към AffiliateWP."
 
-#: includes/admin/tools/tools.php:459
+#: includes/admin/tools/tools.php:428
 msgid "Clear Debug Log"
-msgstr ""
-
-#: includes/admin/tools/tools.php:531
-#, fuzzy
-msgid "Invalid batch ID."
-msgstr "Невалидна ел. поща"
-
-#: includes/admin/tools/tools.php:541
-msgid "Invalid batch export class."
-msgstr ""
-
-#: includes/admin/tools/upgrades/class-batch-upgrade-recount-affiliate-stats.php:38
-#, fuzzy
-msgid "Your database has been successfully upgraded. %s"
-msgstr "Рефералът е добавен успешно"
-
-#: includes/admin/tools/upgrades/class-batch-upgrade-recount-affiliate-stats.php:39
-msgid "Dismiss Notice"
 msgstr ""
 
 #: includes/admin/user-profile.php:22
@@ -3536,81 +2892,48 @@ msgstr "Дата на регистрация"
 msgid "Affiliate Actions"
 msgstr "Отиди на AffiliateWP Настройки"
 
-#: includes/admin/user-profile.php:71 templates/register.php:146
+#: includes/admin/user-profile.php:53 templates/register.php:124
 msgid "Register"
 msgstr "Регистрирайте се"
 
-#: includes/admin/user-profile.php:80 includes/class-register.php:506
+#: includes/admin/user-profile.php:62 includes/class-register.php:424
 #, fuzzy
 msgid "Disable Affiliate Email"
 msgstr "Изключи реферали"
 
-#: includes/admin/user-profile.php:82 includes/class-register.php:508
+#: includes/admin/user-profile.php:64 includes/class-register.php:426
 msgid "Disable the application accepted email sent to the affiliate."
 msgstr ""
-
-#: includes/admin/utilities/class-batch-migrate-users.php:109
-msgid "No user roles were selected for migration."
-msgstr ""
-
-#: includes/admin/utilities/class-batch-migrate-users.php:167
-#, fuzzy
-msgid "%s affiliate was added successfully."
-msgid_plural "%s affiliates were added successfully."
-msgstr[0] "Афилиейтът е обновен успешно"
-msgstr[1] "Афилиейтът е обновен успешно"
-
-#: includes/admin/utilities/class-batch-migrate-wp-affiliate.php:209
-#, fuzzy
-msgid "%s affiliate was successfully converted."
-msgid_plural "%s affiliates were successfully converted."
-msgstr[0] "Афилиейтът е обновен успешно"
-msgstr[1] "Афилиейтът е обновен успешно"
-
-#: includes/admin/utilities/class-batch-process-registry.php:151
-msgid "A batch process class must be specified."
-msgstr ""
-
-#: includes/admin/utilities/class-batch-process-registry.php:155
-msgid "No batch class handler file has been supplied."
-msgstr ""
-
-#: includes/admin/utilities/class-batch-process-registry.php:160
-msgid "An invalid batch class handler file has been supplied."
-msgstr ""
-
-#: includes/admin/utilities/class-batch-process.php:143
-#, fuzzy
-msgid "%s item was successfully processed."
-msgid_plural "%s items were successfully processed."
-msgstr[0] "Настройките са успешно въведени"
-msgstr[1] "Настройките са успешно въведени"
 
 #: includes/admin/visits/class-list-table.php:103
 msgid "Landing Page"
 msgstr "Страница, на която да води"
 
 #: includes/admin/visits/class-list-table.php:104
-#: templates/dashboard-tab-visits.php:30
+#: templates/dashboard-tab-visits.php:26
 msgid "Referring URL"
 msgstr "URL за рефериране"
 
-#: includes/admin/visits/class-list-table.php:108
+#: includes/admin/visits/class-list-table.php:106
+msgid "Referral ID"
+msgstr "Номер на реферал"
+
+#: includes/admin/visits/class-list-table.php:107
 msgid "IP"
 msgstr "IP адрес"
 
-#: includes/admin/visits/class-list-table.php:109
-#: includes/admin/visits/visits.php:64 templates/dashboard-tab-stats.php:76
-#: templates/dashboard-tab-visits.php:31
+#: includes/admin/visits/class-list-table.php:108
+#: includes/admin/visits/visits.php:58 templates/dashboard-tab-stats.php:59
+#: templates/dashboard-tab-visits.php:27
 msgid "Converted"
 msgstr "Конвертирани"
 
-#: includes/admin/visits/class-list-table.php:258
-#: templates/dashboard-tab-visits.php:46
+#: includes/admin/visits/class-list-table.php:172
+#: templates/dashboard-tab-visits.php:42
 msgid "Direct traffic"
 msgstr "Директен трафик"
 
-#: includes/admin/visits/class-list-table.php:298
+#: includes/admin/visits/class-list-table.php:197
 msgid "No visits found."
 msgstr "Няма посещения."
 
@@ -3653,19 +2976,10 @@ msgstr ""
 "посещение, ако има такова."
 
 #: includes/admin/visits/contextual-help.php:44
-#, fuzzy
-msgid ""
-"<strong>Context</strong>: this is the context of how the visit was "
-"generated, if set."
-msgstr ""
-"<strong>Афилиейт</strong>: това е афилиейтът, към когото ще се брои "
-"посещението."
-
-#: includes/admin/visits/contextual-help.php:45
 msgid "<strong>IP</strong>: this is the IP address of the visitor."
 msgstr "<strong>IP</strong> - това е IP адресът на посетителя."
 
-#: includes/admin/visits/contextual-help.php:46
+#: includes/admin/visits/contextual-help.php:45
 msgid ""
 "<strong>Converted</strong>: this is a Yes / No status for whether the visit "
 "turned into a successful converstion."
@@ -3673,20 +2987,20 @@ msgstr ""
 "<strong>Конвертирани</strong>: това е Да / Не статус дали посещението се е "
 "превърнало в успешна конверсия."
 
-#: includes/admin/visits/contextual-help.php:51
+#: includes/admin/visits/contextual-help.php:50
 msgid "Searching Visits"
 msgstr "Търсене на посещения"
 
-#: includes/admin/visits/contextual-help.php:53
+#: includes/admin/visits/contextual-help.php:52
 msgid "Visit records can be searched in several different ways:"
 msgstr "Записи на посещения могат да се търсят по няколко начина:"
 
-#: includes/admin/visits/contextual-help.php:55
+#: includes/admin/visits/contextual-help.php:54
 msgid "You can enter an IP address to find all visits from a specific IP"
 msgstr ""
 "Можете да въведете IP адрес за да откриете всички посещения на конкретно IP"
 
-#: includes/admin/visits/contextual-help.php:56
+#: includes/admin/visits/contextual-help.php:55
 msgid ""
 "You can enter a complete URL to find all visits that landed on or came from "
 "a specific URL"
@@ -3694,7 +3008,7 @@ msgstr ""
 "Можете да въведете URL адрес, за да видите всички посещения, които идват от "
 "конкретен URL адрес"
 
-#: includes/admin/visits/contextual-help.php:57
+#: includes/admin/visits/contextual-help.php:56
 msgid ""
 "You can enter a partial URL to find all visits that landed on or came from a "
 "specific site"
@@ -3702,52 +3016,47 @@ msgstr ""
 "Можете да въведете част от URL адрес, за да откриете всички посещения или да "
 "видите от кой конкретен сайт идват."
 
-#: includes/admin/visits/contextual-help.php:58
+#: includes/admin/visits/contextual-help.php:57
 #, fuzzy
 msgid ""
 "You can enter the referral&#8217;s ID number prefixed by &#8220;referral:"
 "&#8221;"
 msgstr "Можете да въведете номерът на реферала с представката  'referral:'"
 
-#: includes/admin/visits/contextual-help.php:59
-#, fuzzy
-msgid "You can enter a visit context prefixed by &#8220;context:&#8221;"
-msgstr "Можете да въведете контекста на реферала с представката 'context:'"
-
 #: includes/admin/visits/screen-options.php:24
 msgid "Number of visits per page:"
 msgstr ""
 
-#: includes/admin/visits/visits.php:61
+#: includes/admin/visits/visits.php:55
 msgid "Filter by status"
 msgstr ""
 
-#: includes/admin/visits/visits.php:65
+#: includes/admin/visits/visits.php:59
 #, fuzzy
 msgid "Unconverted"
 msgstr "Конвертирани"
 
-#: includes/affiliate-functions.php:459
+#: includes/affiliate-functions.php:453
 msgid "Percentage (%)"
 msgstr "Процент (%)"
 
-#: includes/affiliate-functions.php:460
+#: includes/affiliate-functions.php:454
 msgid "Flat %s"
 msgstr "Плоска ставка%s"
 
-#: includes/class-login.php:59 includes/class-register.php:90
+#: includes/class-login.php:56 includes/class-register.php:86
 msgid "Invalid username"
 msgstr "Невалидно потребителско име"
 
-#: includes/class-login.php:69
+#: includes/class-login.php:66
 msgid "No such user"
 msgstr "Няма такъв потребител"
 
-#: includes/class-login.php:73 includes/class-register.php:226
+#: includes/class-login.php:70 includes/class-register.php:219
 msgid "Please enter a password"
 msgstr "Въведете парола"
 
-#: includes/class-login.php:80
+#: includes/class-login.php:77
 msgid "Incorrect username or password"
 msgstr "Некоректни потребителско име или парола"
 
@@ -3767,84 +3076,74 @@ msgstr "Отхвърлени печалби от реферали"
 msgid "Paid Referral Earnings"
 msgstr "Платени печалби от реферали"
 
-#: includes/class-register.php:77
+#: includes/class-register.php:73
 #, fuzzy
 msgid "Please enter a valid website URL"
 msgstr "Въведете URL на уебсайт"
 
-#: includes/class-register.php:83
+#: includes/class-register.php:79
 msgid "Username already taken"
 msgstr "Потребителското име вече се използва"
 
-#: includes/class-register.php:88
+#: includes/class-register.php:84
 msgid "Invalid username. Only lowercase letters (a-z) and numbers are allowed"
 msgstr ""
 
-#: includes/class-register.php:95 includes/class-register.php:217
+#: includes/class-register.php:91 includes/class-register.php:210
 msgid "Invalid username. Must be between 1 and 60 characters."
 msgstr ""
 
-#: includes/class-register.php:99
+#: includes/class-register.php:95
 msgid "Invalid username. Usernames must include at least one letter"
 msgstr ""
 
-#: includes/class-register.php:103
+#: includes/class-register.php:99
 msgid "Email address already taken"
 msgstr "Мейлът вече се използва"
 
-#: includes/class-register.php:107
-#, fuzzy
-msgid "Invalid account email"
-msgstr "Невалидна поща за плащане"
+#: includes/class-register.php:103
+msgid "Invalid email"
+msgstr "Невалидна ел. поща"
 
-#: includes/class-register.php:111
+#: includes/class-register.php:107
 msgid "Invalid payment email"
 msgstr "Невалидна поща за плащане"
 
-#: includes/class-register.php:115
+#: includes/class-register.php:111
 msgid "Passwords do not match"
 msgstr "Паролите не съвпадат"
 
-#: includes/class-register.php:138
+#: includes/class-register.php:134
 msgid "Please agree to our terms of use"
 msgstr "Моля, приемете общите условия"
 
-#: includes/class-register.php:142
+#: includes/class-register.php:138
 msgid "Please verify that you are not a robot"
 msgstr ""
 
-#: includes/class-register.php:146
+#: includes/class-register.php:142
 #, fuzzy
 msgid "Nice try honey bear, don&#8217;t touch our honey"
 msgstr "Добър опит, Мечо! Не пипай нашия медец!"
 
-#: includes/class-register.php:150
+#: includes/class-register.php:146
 msgid "You are already registered as an affiliate"
 msgstr "Вече сте регистрирани като афилиейт"
 
-#: includes/class-register.php:212
+#: includes/class-register.php:205
 msgid "Please enter your name"
 msgstr "Въведете име"
 
-#: includes/class-register.php:222
+#: includes/class-register.php:215
 msgid "Please enter a website URL"
 msgstr "Въведете URL на уебсайт"
 
-#: includes/class-register.php:272
-#, fuzzy
-msgid "Please enter your payment email"
-msgstr "Въведете име"
-
-#: includes/class-register.php:279
-msgid "Please tell us how you will promote us"
-msgstr ""
-
-#: includes/class-register.php:499
+#: includes/class-register.php:417
 #, fuzzy
 msgid "Add as Affiliate"
 msgstr "Добави Афилиейт"
 
-#: includes/class-register.php:501
+#: includes/class-register.php:419
 #, fuzzy
 msgid "Add the user as an affiliate."
 msgstr "Автоматично регистриране на Потребителите като Афилиейти"
@@ -3857,84 +3156,84 @@ msgstr "Конвертирани посещения"
 msgid "Unconverted Visits"
 msgstr "Неконвертирани посещения"
 
-#: includes/cli/class-affiliate-sub-commands.php:139
+#: includes/cli/class-affiliate-sub-commands.php:138
 msgid "A valid username must be specified as the first argument."
 msgstr ""
 
-#: includes/cli/class-affiliate-sub-commands.php:144
+#: includes/cli/class-affiliate-sub-commands.php:143
 msgid ""
 "A user with the ID or username \"%s\" does not exist. See wp help user "
 "create for registering new users."
 msgstr ""
 
-#: includes/cli/class-affiliate-sub-commands.php:150
+#: includes/cli/class-affiliate-sub-commands.php:149
 msgid "An affiliate already exists for this user account."
 msgstr ""
 
-#: includes/cli/class-affiliate-sub-commands.php:167
+#: includes/cli/class-affiliate-sub-commands.php:166
 #, fuzzy
 msgid "An affiliate with the username \"%s\" has been created."
 msgstr ""
 "Вашата заявка на %s беше приета!\n"
 "\n"
 
-#: includes/cli/class-affiliate-sub-commands.php:169
+#: includes/cli/class-affiliate-sub-commands.php:168
 #, fuzzy
 msgid "The affiliate account could not be added."
 msgstr "Вашият афилиейт профил не е активен"
 
-#: includes/cli/class-affiliate-sub-commands.php:215
-#: includes/cli/class-affiliate-sub-commands.php:219
-#: includes/cli/class-affiliate-sub-commands.php:275
-#: includes/cli/class-affiliate-sub-commands.php:279
+#: includes/cli/class-affiliate-sub-commands.php:214
+#: includes/cli/class-affiliate-sub-commands.php:218
+#: includes/cli/class-affiliate-sub-commands.php:274
+#: includes/cli/class-affiliate-sub-commands.php:278
 #: includes/cli/class-referral-sub-commands.php:205
-#: includes/cli/class-visit-sub-commands.php:248
+#: includes/cli/class-visit-sub-commands.php:234
 msgid "A valid affiliate username or ID is required to proceed."
 msgstr ""
 
-#: includes/cli/class-affiliate-sub-commands.php:231
+#: includes/cli/class-affiliate-sub-commands.php:230
 #, fuzzy
 msgid "The affiliate was updated successfully."
 msgstr "Афилиейтът е обновен успешно"
 
-#: includes/cli/class-affiliate-sub-commands.php:233
+#: includes/cli/class-affiliate-sub-commands.php:232
 #, fuzzy
 msgid "The affiliate account could not be updated."
 msgstr "Вашият афилиейт профил не е активен"
 
-#: includes/cli/class-affiliate-sub-commands.php:288
+#: includes/cli/class-affiliate-sub-commands.php:287
 #, fuzzy
 msgid ""
 "Are you sure you want to delete this affiliate, all its data and its "
 "associated user account?"
 msgstr "Сигурни ли сте, че искате да изтриете тази реклама?"
 
-#: includes/cli/class-affiliate-sub-commands.php:290
+#: includes/cli/class-affiliate-sub-commands.php:289
 #, fuzzy
 msgid "Are you sure you want to delete this affiliate and all its data?"
 msgstr "Сигурни ли сте, че искате да изтриете тази реклама?"
 
-#: includes/cli/class-affiliate-sub-commands.php:293
+#: includes/cli/class-affiliate-sub-commands.php:292
 #, fuzzy
 msgid "Are you sure you want to delete this affiliate?"
 msgstr "Сигурни ли сте, че искате да изтриете тази реклама?"
 
-#: includes/cli/class-affiliate-sub-commands.php:310
+#: includes/cli/class-affiliate-sub-commands.php:309
 msgid ""
 "The affiliate and its associated user account have been successfully deleted."
 msgstr ""
 
-#: includes/cli/class-affiliate-sub-commands.php:313
+#: includes/cli/class-affiliate-sub-commands.php:312
 #, fuzzy
 msgid "The affiliate account has been successfully deleted."
 msgstr "Афилиейтът е изтрит успешно"
 
-#: includes/cli/class-affiliate-sub-commands.php:316
+#: includes/cli/class-affiliate-sub-commands.php:315
 #, fuzzy
 msgid "The affiliate account could not be deleted."
 msgstr "Заявката Ви е отхвърлена"
 
-#: includes/cli/class-affiliate-sub-commands.php:393
+#: includes/cli/class-affiliate-sub-commands.php:391
 #, fuzzy
 msgid "Number of affiliates: %d"
 msgstr "Няма открити афилиейти"
@@ -4186,13 +3485,13 @@ msgid "Number of payouts: %d"
 msgstr ""
 
 #: includes/cli/class-referral-sub-commands.php:120
-#: includes/cli/class-visit-sub-commands.php:124
+#: includes/cli/class-visit-sub-commands.php:120
 msgid ""
 "A valid affiliate username or ID must be specified as the first argument."
 msgstr ""
 
 #: includes/cli/class-referral-sub-commands.php:124
-#: includes/cli/class-visit-sub-commands.php:128
+#: includes/cli/class-visit-sub-commands.php:124
 msgid ""
 "An affiliate with the ID or username \"%s\" does not exist. See wp affwp "
 "affiliate create for adding affiliates."
@@ -4225,7 +3524,7 @@ msgstr "Рефералът е обновен успешно"
 msgid "The referral could not be updated"
 msgstr "Нов реферал"
 
-#: includes/cli/class-referral-sub-commands.php:254 includes/scripts.php:109
+#: includes/cli/class-referral-sub-commands.php:254 includes/scripts.php:64
 #, fuzzy
 msgid "Are you sure you want to delete this referral?"
 msgstr "Сигурни ли сте, че искате да изтриете тази реклама?"
@@ -4245,67 +3544,67 @@ msgstr "Нов реферал"
 msgid "Number of referrals: %d"
 msgstr "Все още няма записани реферали"
 
-#: includes/cli/class-visit-sub-commands.php:135
+#: includes/cli/class-visit-sub-commands.php:131
 msgid "A URL must be specified as the second argument to proceed."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:145
+#: includes/cli/class-visit-sub-commands.php:141
 msgid "An invalid referral ID was specified. Using 0 (none) instead."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:165
+#: includes/cli/class-visit-sub-commands.php:154
 msgid "A valid date string must be supplied. Using the current time."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:179
+#: includes/cli/class-visit-sub-commands.php:168
 #, fuzzy
 msgid "The visit was successfully created."
 msgstr "Настройките са успешно въведени"
 
-#: includes/cli/class-visit-sub-commands.php:181
+#: includes/cli/class-visit-sub-commands.php:170
 #, fuzzy
 msgid "The visit could not be created."
 msgstr "Нов реферал"
 
-#: includes/cli/class-visit-sub-commands.php:236
-#: includes/cli/class-visit-sub-commands.php:239
-#: includes/cli/class-visit-sub-commands.php:304
-#: includes/cli/class-visit-sub-commands.php:307
+#: includes/cli/class-visit-sub-commands.php:222
+#: includes/cli/class-visit-sub-commands.php:225
+#: includes/cli/class-visit-sub-commands.php:289
+#: includes/cli/class-visit-sub-commands.php:292
 msgid "A valid visit ID is required to proceed."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:259
+#: includes/cli/class-visit-sub-commands.php:245
 msgid "A valid new date string must be supplied. Using the original date."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:277
+#: includes/cli/class-visit-sub-commands.php:262
 #, fuzzy
 msgid "The visit was updated successfully."
 msgstr "Афилиейтът е обновен успешно"
 
-#: includes/cli/class-visit-sub-commands.php:279
+#: includes/cli/class-visit-sub-commands.php:264
 msgid "The visit could not be updated."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:311
+#: includes/cli/class-visit-sub-commands.php:296
 #, fuzzy
 msgid "Are you sure you want to delete this visit?"
 msgstr "Сигурни ли сте, че искате да изтриете тази реклама?"
 
-#: includes/cli/class-visit-sub-commands.php:316
+#: includes/cli/class-visit-sub-commands.php:301
 msgid "The visit has been successfully deleted."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:318
+#: includes/cli/class-visit-sub-commands.php:303
 msgid "The visit could not be deleted."
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:396
+#: includes/cli/class-visit-sub-commands.php:380
 #, fuzzy
 msgid "Number of visits: %d"
 msgstr "Няма посещения."
 
-#: includes/creative-functions.php:34 includes/creative-functions.php:65
+#: includes/creative-functions.php:32 includes/creative-functions.php:64
 msgid "Creative"
 msgstr "Реклама"
 
@@ -4462,60 +3761,8 @@ msgstr "Все още няма записани реферали"
 msgid "(no campaign)"
 msgstr ""
 
-#: includes/integrations/class-caldera-forms.php:74
-#, fuzzy
-msgid "Total"
-msgstr "Общо"
-
-#: includes/integrations/class-caldera-forms.php:75
-msgid ""
-"This total will be used to calculate the referral amount. For example, if "
-"the referral rate is 10% and the total here is $100, the referral will be "
-"created at $10."
-msgstr ""
-
-#: includes/integrations/class-caldera-forms.php:247
-#: includes/integrations/class-give.php:247
-#: includes/integrations/class-ninja-forms.php:196
-#, fuzzy
-msgid "Allow Referrals"
-msgstr "Реферали"
-
-#: includes/integrations/class-caldera-forms.php:252
-#: includes/integrations/class-gravityforms.php:286
-#, fuzzy
-msgid "Enable affiliate referral creation for this form"
-msgstr "Вид ставка на афилиейтския реферал."
-
-#: includes/integrations/class-contactform7.php:95
-msgid "Contact Form 7"
-msgstr ""
-
-#: includes/integrations/class-contactform7.php:114
-#, fuzzy
-msgid "Enable referrals on all Contact Form 7 forms"
-msgstr "Вид ставка на афилиейтския реферал."
-
-#: includes/integrations/class-contactform7.php:115
-msgid ""
-"Check this box to enable referrals on all Contact Form 7 forms.<ul><li>%3$s "
-"Once enabled, referrals will be generated for all valid Contact Form 7 forms."
-"</li><li>%2$s <a href=\"%1$s\" target=\"_blank\">Documentation for this "
-"integration</a></li></ul>"
-msgstr ""
-
-#: includes/integrations/class-contactform7.php:130
-#, fuzzy
-msgid "Enable referrals for specific Contact Form 7 forms"
-msgstr "Вид ставка на афилиейтския реферал."
-
-#: includes/integrations/class-contactform7.php:187
-msgid "Form ID: "
-msgstr ""
-
 #: includes/integrations/class-edd.php:382
-#: includes/integrations/class-give.php:169
-#: includes/integrations/class-gravityforms.php:144
+#: includes/integrations/class-gravityforms.php:121
 #: includes/integrations/class-jigoshop.php:94
 #: includes/integrations/class-pmp.php:158
 #: includes/integrations/class-shopp.php:80
@@ -4527,18 +3774,16 @@ msgstr "Реферал номер #%d за %s записан за %s"
 
 #: includes/integrations/class-edd.php:503
 #: includes/integrations/class-pmp.php:257
-#: includes/integrations/class-pms.php:105
 #: includes/integrations/class-rcp.php:236
-#: includes/integrations/class-woocommerce.php:356
+#: includes/integrations/class-woocommerce.php:355
 msgid "Affiliate Discount?"
 msgstr "Остъпка за афилиейт?"
 
-#: includes/integrations/class-edd.php:509
+#: includes/integrations/class-edd.php:510
 #: includes/integrations/class-jigoshop.php:173
 #: includes/integrations/class-memberpress.php:285
-#: includes/integrations/class-pmp.php:263
-#: includes/integrations/class-pms.php:107
-#: includes/integrations/class-rcp.php:242
+#: includes/integrations/class-pmp.php:264
+#: includes/integrations/class-rcp.php:243
 #: includes/integrations/class-woocommerce.php:361
 msgid ""
 "If you would like to connect this discount to an affiliate, enter the name "
@@ -4547,11 +3792,11 @@ msgstr ""
 "Ако искате да свържете тази отстъпка с афилиейт, въведете името, на което "
 "принадлежи."
 
-#: includes/integrations/class-edd.php:593
+#: includes/integrations/class-edd.php:601
 msgid "Adjust EDD Commissions"
 msgstr "Настройте EDD Commissions"
 
-#: includes/integrations/class-edd.php:594
+#: includes/integrations/class-edd.php:602
 msgid ""
 "Should AffiliateWP adjust the commission amounts recorded for purchases that "
 "include affiliate referrals? This will subtract the referral amount from the "
@@ -4561,39 +3806,39 @@ msgstr ""
 "които включват афилиейтски реферали? Тази опция ще извади рефералите от "
 "общото количество."
 
-#: includes/integrations/class-edd.php:614
+#: includes/integrations/class-edd.php:622
 #, fuzzy
 msgid "Disable Renewal Referrals"
 msgstr "Изключи реферали"
 
-#: includes/integrations/class-edd.php:615
+#: includes/integrations/class-edd.php:623
 msgid ""
 "Should AffiliateWP prevent referral commissions from being recorded on "
 "renewal purchases with EDD Software Licensing?"
 msgstr ""
 
-#: includes/integrations/class-edd.php:620
+#: includes/integrations/class-edd.php:628
 #, fuzzy
 msgid "Disable Referrals on Upgrades"
 msgstr "Изключи рефералите за този продукт"
 
-#: includes/integrations/class-edd.php:621
+#: includes/integrations/class-edd.php:629
 msgid ""
 "Should AffiliateWP prevent referral commissions from being recorded on "
 "license upgrade purchases with EDD Software Licensing?"
 msgstr ""
 
-#: includes/integrations/class-edd.php:642
+#: includes/integrations/class-edd.php:650
 #: includes/integrations/class-zippycourses.php:70
 msgid "Affiliate Rates:"
 msgstr "Ставки на афилиейта:"
 
-#: includes/integrations/class-edd.php:655
+#: includes/integrations/class-edd.php:663
 #: includes/integrations/class-zippycourses.php:83
 msgid "Disable referrals on this %s"
 msgstr "Изключи реферали за това %s"
 
-#: includes/integrations/class-edd.php:659
+#: includes/integrations/class-edd.php:667
 #: includes/integrations/class-memberpress.php:190
 #: includes/integrations/class-zippycourses.php:87
 #, fuzzy
@@ -4608,7 +3853,7 @@ msgstr ""
 msgid "Affiliate coupon?"
 msgstr "Афилиейтски купон?"
 
-#: includes/integrations/class-exchange.php:311
+#: includes/integrations/class-exchange.php:312
 msgid ""
 "If you would like to connect this coupon to an affiliate, enter the name of "
 "the affiliate it belongs to."
@@ -4644,50 +3889,27 @@ msgstr "Реферал номер #%d за %s записан за %s"
 msgid "AffiliateWP: Referral #%d for %s for %s rejected"
 msgstr "Реферал Номер %d за %s за %s отхвърлен"
 
-#: includes/integrations/class-give.php:127
-#, fuzzy
-msgid "Custom Amount"
-msgstr "Количество"
-
-#: includes/integrations/class-give.php:248
-#, fuzzy
-msgid "Enable affiliate referral creation for this donation form"
-msgstr "Вид ставка на афилиейтския реферал."
-
-#: includes/integrations/class-give.php:253
-#: includes/integrations/class-memberpress.php:157
-#: includes/integrations/class-rcp.php:345
-#: includes/integrations/class-rcp.php:376
-#: includes/integrations/class-woocommerce.php:498
-msgid "Affiliate Rate"
-msgstr "Ставка на афилиейта"
-
-#: includes/integrations/class-give.php:254
-#, fuzzy
-msgid ""
-"This setting will be used to calculate affiliate earnings per-donation. "
-"Leave blank to use default affiliate rates."
-msgstr ""
-"Тези настройки ще се използват за калкулиране на афилиейтските печалби. "
-"Оставете празно за използване на ставките по подразбиране."
-
-#: includes/integrations/class-gravityforms.php:166
+#: includes/integrations/class-gravityforms.php:143
 #: includes/integrations/class-sproutinvoices.php:76
 msgid "Referral #%d for %s for %s rejected"
 msgstr "Реферал Номер %d за %s за %s отхвърлен"
 
-#: includes/integrations/class-gravityforms.php:290
-#: includes/integrations/class-wpforms.php:37
+#: includes/integrations/class-gravityforms.php:238
+#, fuzzy
+msgid "Enable affiliate referral creation for this form"
+msgstr "Вид ставка на афилиейтския реферал."
+
+#: includes/integrations/class-gravityforms.php:242
 #, fuzzy
 msgid "Allow referrals"
 msgstr "Изключи реферали"
 
-#: includes/integrations/class-gravityforms.php:321
+#: includes/integrations/class-gravityforms.php:273
 #, fuzzy
 msgid "Affiliate Coupon"
 msgstr "Афилиейтски купон?"
 
-#: includes/integrations/class-gravityforms.php:324
+#: includes/integrations/class-gravityforms.php:276
 msgid ""
 "To connect this coupon to an affiliate, enter the username of the affiliate. "
 "Anytime this coupon is redeemed, the connected affiliate will receive a "
@@ -4749,33 +3971,33 @@ msgstr "Рефералът е обновен успешно"
 msgid "LifterLMS Referral failed to be created."
 msgstr "Нов реферал"
 
-#: includes/integrations/class-lifterlms.php:436
+#: includes/integrations/class-lifterlms.php:437
 msgid "Search for an affiliate by username or email."
 msgstr ""
 
-#: includes/integrations/class-lifterlms.php:444
+#: includes/integrations/class-lifterlms.php:445
 #, fuzzy
 msgid "Affiliate Discount"
 msgstr "Остъпка за афилиейт?"
 
-#: includes/integrations/class-lifterlms.php:445
+#: includes/integrations/class-lifterlms.php:446
 msgid "Connect this coupon with an affiliate."
 msgstr ""
 
-#: includes/integrations/class-lifterlms.php:664
-#: includes/integrations/class-lifterlms.php:690
+#: includes/integrations/class-lifterlms.php:670
+#: includes/integrations/class-lifterlms.php:696
 #, fuzzy
 msgid "Referral Details"
 msgstr "Настройки на реферали"
 
-#: includes/integrations/class-lifterlms.php:744
-#: includes/integrations/class-pmp.php:362
-#: includes/integrations/class-rcp.php:386
+#: includes/integrations/class-lifterlms.php:750
+#: includes/integrations/class-pmp.php:370
+#: includes/integrations/class-rcp.php:408
 #, fuzzy
 msgid "Disable Referrals"
 msgstr "Изключи реферали"
 
-#: includes/integrations/class-lifterlms.php:745
+#: includes/integrations/class-lifterlms.php:751
 #, fuzzy
 msgid ""
 "Check this box to prevent orders for this %s from generating referral "
@@ -4784,34 +4006,46 @@ msgstr ""
 "Това ще предотврати създаване на рефералски комисиони за афилиейти за този "
 "продукт."
 
-#: includes/integrations/class-lifterlms.php:753
+#: includes/integrations/class-lifterlms.php:759
 #, fuzzy
 msgid "Enable %s Referral Rate"
 msgstr "Ставка на реферала"
 
-#: includes/integrations/class-lifterlms.php:754
+#: includes/integrations/class-lifterlms.php:760
 msgid "Check this box to enable %s referral rate overrides"
 msgstr ""
 
-#: includes/integrations/class-lifterlms.php:762
+#: includes/integrations/class-lifterlms.php:768
 #, fuzzy
 msgid "%s Referral Rate"
 msgstr "Ставка на реферала"
 
-#: includes/integrations/class-lifterlms.php:763
+#: includes/integrations/class-lifterlms.php:769
 #, fuzzy
 msgid "Enter a referral rate for this %s"
 msgstr "Вид ставка на афилиейтския реферал."
 
-#: includes/integrations/class-lifterlms.php:870
+#: includes/integrations/class-lifterlms.php:876
 #, fuzzy
 msgid "Referral #%d rejected"
 msgstr "Реферал Номер %d за %s за %s отхвърлен"
+
+#: includes/integrations/class-memberpress.php:157
+#: includes/integrations/class-rcp.php:367
+#: includes/integrations/class-rcp.php:398
+#: includes/integrations/class-woocommerce.php:505
+msgid "Affiliate Rate"
+msgstr "Ставка на афилиейта"
 
 #: includes/integrations/class-memberpress.php:186
 #, fuzzy
 msgid "Disable referrals on this membership"
 msgstr "Изключи реферали за това %s"
+
+#: includes/integrations/class-ninja-forms.php:196
+#, fuzzy
+msgid "Allow Referrals"
+msgstr "Реферали"
 
 #: includes/integrations/class-ninja-forms.php:197
 #, fuzzy
@@ -4823,13 +4057,13 @@ msgstr "Вид ставка на афилиейтския реферал."
 msgid "Pending PayPal referral"
 msgstr "Общо реферали в изчакване"
 
-#: includes/integrations/class-pmp.php:348
+#: includes/integrations/class-pmp.php:356
 #: includes/integrations/class-zippycourses.php:55
 #, fuzzy
 msgid "Affiliate Settings"
 msgstr "Отиди на AffiliateWP Настройки"
 
-#: includes/integrations/class-pmp.php:357
+#: includes/integrations/class-pmp.php:365
 #, fuzzy
 msgid ""
 "The membership-level referral rate, such as 20 for 20%%. Affiliate-level "
@@ -4839,22 +4073,12 @@ msgstr ""
 "Ставка за реферал, например 20 за 20%. Ако оставите празно, ще бъде "
 "използвана ставката по подразбиране от сайта."
 
-#: includes/integrations/class-pmp.php:364
+#: includes/integrations/class-pmp.php:372
 msgid "Check to disable per-membership referrals."
 msgstr ""
 
-#: includes/integrations/class-pms.php:51
-#, fuzzy
-msgid ""
-"This rate will be used to calculate affiliate earnings when members register "
-"their account with this subscription. Leave blank to use the site default "
-"referral rate."
-msgstr ""
-"Тези настройки ще се използват за калкулиране на афилиейтските печалби. "
-"Оставете празно за използване на ставките по подразбиране."
-
-#: includes/integrations/class-rcp.php:349
-#: includes/integrations/class-rcp.php:380
+#: includes/integrations/class-rcp.php:371
+#: includes/integrations/class-rcp.php:402
 #, fuzzy
 msgid ""
 "This rate will be used to calculate affiliate earnings when members "
@@ -4863,22 +4087,22 @@ msgstr ""
 "Тези настройки ще се използват за калкулиране на афилиейтските печалби. "
 "Оставете празно за използване на ставките по подразбиране."
 
-#: includes/integrations/class-rcp.php:391
+#: includes/integrations/class-rcp.php:413
 #, fuzzy
 msgid "Disable referrals on this subscription level."
 msgstr "Изключи рефералите за този продукт"
 
 #: includes/integrations/class-woocommerce.php:239
-#: includes/integrations/class-woocommerce.php:449
+#: includes/integrations/class-woocommerce.php:456
 msgid "(Variation ID %d)"
 msgstr ""
 
-#: includes/integrations/class-woocommerce.php:494
+#: includes/integrations/class-woocommerce.php:501
 #, fuzzy
 msgid "Configure affiliate rates for this product"
 msgstr "Изключи рефералите за този продукт"
 
-#: includes/integrations/class-woocommerce.php:500
+#: includes/integrations/class-woocommerce.php:507
 #: includes/integrations/extras/class-exchange-feature.php:27
 msgid ""
 "These settings will be used to calculate affiliate earnings per-sale. Leave "
@@ -4887,11 +4111,11 @@ msgstr ""
 "Тези настройки ще се използват за калкулиране на афилиейтските печалби. "
 "Оставете празно за използване на ставките по подразбиране."
 
-#: includes/integrations/class-woocommerce.php:504
+#: includes/integrations/class-woocommerce.php:511
 msgid "Disable referrals"
 msgstr "Изключи реферали"
 
-#: includes/integrations/class-woocommerce.php:505
+#: includes/integrations/class-woocommerce.php:512
 msgid ""
 "This will prevent orders of this product from generating referral "
 "commissions for affiliates."
@@ -4899,16 +4123,16 @@ msgstr ""
 "Това ще предотврати създаване на рефералски комисиони за афилиейти за този "
 "продукт."
 
-#: includes/integrations/class-woocommerce.php:531
+#: includes/integrations/class-woocommerce.php:538
 msgid "Configure affiliate rates for this product variation"
 msgstr ""
 
-#: includes/integrations/class-woocommerce.php:534
+#: includes/integrations/class-woocommerce.php:541
 #, fuzzy
 msgid "Referral rate (optional)"
 msgstr "Редактиране на Реферали"
 
-#: includes/integrations/class-woocommerce.php:536
+#: includes/integrations/class-woocommerce.php:543
 #, fuzzy
 msgid "Disable referrals for this product variation"
 msgstr "Изключи рефералите за този продукт"
@@ -4930,10 +4154,6 @@ msgstr "Общо посещения"
 #, fuzzy
 msgid "Customer Email"
 msgstr "Ел. поща"
-
-#: includes/integrations/extras/contactform7-functions.php:225
-msgid "Redirecting to Paypal..."
-msgstr ""
 
 #: includes/misc-functions.php:26
 msgid "US Dollars"
@@ -5068,88 +4288,91 @@ msgid "New Zealand Dollar"
 msgstr "Новозеландски долар"
 
 #: includes/misc-functions.php:58
-#, fuzzy
-msgid "Pakistani Rupee"
-msgstr "Индийска рупия"
-
-#: includes/misc-functions.php:59
 msgid "Paraguayan Guaraní"
 msgstr "Парагвайски гуарани"
 
-#: includes/misc-functions.php:60
+#: includes/misc-functions.php:59
 msgid "Philippine Pesos"
 msgstr "Филиписнко песо"
 
-#: includes/misc-functions.php:61
+#: includes/misc-functions.php:60
 msgid "Polish Zloty"
 msgstr "Полска злота"
 
-#: includes/misc-functions.php:62
+#: includes/misc-functions.php:61
 msgid "Pounds Sterling"
 msgstr "Британска лира"
 
-#: includes/misc-functions.php:63
+#: includes/misc-functions.php:62
 msgid "Romanian Leu"
 msgstr "Румънска лея"
 
-#: includes/misc-functions.php:64
+#: includes/misc-functions.php:63
 msgid "Russian Ruble"
 msgstr "Руска рубла"
 
-#: includes/misc-functions.php:65
+#: includes/misc-functions.php:64
 msgid "Saudi Arabian Riyal"
 msgstr ""
 
-#: includes/misc-functions.php:66
+#: includes/misc-functions.php:65
 msgid "Singapore Dollar"
 msgstr "Сингапурски долар"
 
-#: includes/misc-functions.php:67
+#: includes/misc-functions.php:66
 #, fuzzy
 msgid "South African Rand"
 msgstr "Южноафрикански ранд"
 
-#: includes/misc-functions.php:68
+#: includes/misc-functions.php:67
 msgid "South Korean Won"
 msgstr "Южнокорейски вон"
 
-#: includes/misc-functions.php:69
+#: includes/misc-functions.php:68
 msgid "Swedish Krona"
 msgstr "Шведска крона"
 
-#: includes/misc-functions.php:70
+#: includes/misc-functions.php:69
 msgid "Swiss Franc"
 msgstr "Швейцарски франк"
 
-#: includes/misc-functions.php:71
+#: includes/misc-functions.php:70
 msgid "Taiwan New Dollars"
 msgstr "Нов тайландски долар"
 
-#: includes/misc-functions.php:72
+#: includes/misc-functions.php:71
 msgid "Thai Baht"
 msgstr "Тайландски бат"
 
-#: includes/misc-functions.php:73
+#: includes/misc-functions.php:72
 msgid "Tunisian Dinar"
 msgstr ""
 
-#: includes/misc-functions.php:74
+#: includes/misc-functions.php:73
 msgid "Turkish Lira"
 msgstr "Турска лира"
 
-#: includes/misc-functions.php:75
+#: includes/misc-functions.php:74
 msgid "United Arab Emirates Dirham"
 msgstr "Обединени Арабски Емирства дирхам"
 
-#: includes/misc-functions.php:76
+#: includes/misc-functions.php:75
 msgid "Ukrainian Hryvnia"
 msgstr ""
 
-#: includes/misc-functions.php:77
+#: includes/misc-functions.php:76
 msgid "Vietnamese Dong"
 msgstr "Виетнамски донг"
 
-#: includes/scripts.php:139
+#: includes/scripts.php:63
+msgid ""
+"Are you sure you want to generate the payout file? All included referrals "
+"will be marked as Paid."
+msgstr ""
+"Сигурни ли сте, че искате да генерирате файл за плащане? Всички включени "
+"реферали ще бъдат маркирани като платени."
+
+#: includes/scripts.php:128
 #, fuzzy
 msgid "Please enter a valid URL for this site"
 msgstr "Въведете URL на уебсайт"
@@ -5158,11 +4381,11 @@ msgstr "Въведете URL на уебсайт"
 msgid "Copy and paste the following:"
 msgstr "Копирайте и поставете следното:"
 
-#: templates/dashboard-tab-creatives.php:54
+#: templates/dashboard-tab-creatives.php:44
 msgid "Sorry, there are currently no creatives available."
 msgstr "Съжаляваме! За момента няма налични реклами"
 
-#: templates/dashboard-tab-graphs.php:6
+#: templates/dashboard-tab-graphs.php:3
 msgid "Referral Graphs"
 msgstr "Графика за Реферали"
 
@@ -5175,87 +4398,87 @@ msgstr "Ставка на реферала"
 msgid "None of your referrals have been paid out yet."
 msgstr ""
 
-#: templates/dashboard-tab-referrals.php:70
+#: templates/dashboard-tab-referrals.php:48
 msgid "You have not made any referrals yet."
 msgstr "Все още нямате реферали."
 
-#: templates/dashboard-tab-settings.php:10
+#: templates/dashboard-tab-settings.php:9
 msgid "Profile Settings"
 msgstr "Настройки на профила"
 
-#: templates/dashboard-tab-settings.php:15
+#: templates/dashboard-tab-settings.php:14
 msgid "Your payment email"
 msgstr "Вашата поща за плащане"
 
-#: templates/dashboard-tab-settings.php:21
+#: templates/dashboard-tab-settings.php:20
 msgid "Enable New Referral Notifications"
 msgstr "Включи известия при нови реферали"
 
-#: templates/dashboard-tab-settings.php:36
+#: templates/dashboard-tab-settings.php:28
 msgid "Save Profile Settings"
 msgstr "Запази настройките"
 
-#: templates/dashboard-tab-stats.php:6 templates/dashboard.php:62
+#: templates/dashboard-tab-stats.php:3 templates/dashboard.php:62
 msgid "Statistics"
 msgstr "Статистика"
 
-#: templates/dashboard-tab-stats.php:45
+#: templates/dashboard-tab-stats.php:35
 msgid "Commission Rate"
 msgstr "Комисион"
 
-#: templates/dashboard-tab-stats.php:75
+#: templates/dashboard-tab-stats.php:58
 msgid "Unique Links"
 msgstr ""
 
-#: templates/dashboard-tab-stats.php:85
+#: templates/dashboard-tab-stats.php:68
 msgid "None set"
 msgstr ""
 
-#: templates/dashboard-tab-stats.php:94
+#: templates/dashboard-tab-stats.php:77
 msgid "You have no referrals or visits that included a campaign name."
 msgstr ""
 
-#: templates/dashboard-tab-urls.php:6
+#: templates/dashboard-tab-urls.php:3
 msgid "Referral URL Generator"
 msgstr "Генератор на URL за реферали"
 
-#: templates/dashboard-tab-urls.php:17
+#: templates/dashboard-tab-urls.php:8
 #, fuzzy
 msgid "Your affiliate ID is: <strong>%s</strong>"
 msgstr "Номерът на Вашия афилиейт партньор е: <strong>%d</strong>"
 
-#: templates/dashboard-tab-urls.php:19
+#: templates/dashboard-tab-urls.php:10
 #, fuzzy
 msgid "Your affiliate username is: <strong>%s</strong>"
 msgstr "Номерът на Вашия афилиейт партньор е: <strong>%d</strong>"
 
-#: templates/dashboard-tab-urls.php:22
+#: templates/dashboard-tab-urls.php:13
 msgid "Your referral URL is: <strong>%s</strong>"
 msgstr "Вашият URL за реферали е: <strong>%s</strong>"
 
-#: templates/dashboard-tab-urls.php:23
+#: templates/dashboard-tab-urls.php:14
 msgid ""
 "Enter any URL from this website in the form below to generate a referral "
 "link!"
 msgstr "Въведете URL от сайта, за да се генерира линк за реферали!"
 
-#: templates/dashboard-tab-urls.php:27
+#: templates/dashboard-tab-urls.php:18
 msgid "Page URL"
 msgstr "URL на страницата"
 
-#: templates/dashboard-tab-urls.php:32
+#: templates/dashboard-tab-urls.php:23
 msgid "Campaign Name (optional)"
 msgstr ""
 
-#: templates/dashboard-tab-urls.php:37
+#: templates/dashboard-tab-urls.php:28
 msgid "Referral URL"
 msgstr "URL за реферал"
 
-#: templates/dashboard-tab-urls.php:39
+#: templates/dashboard-tab-urls.php:30
 msgid "(now copy this referral link and share it anywhere)"
 msgstr "(копирайте този линк и го споделяйте)"
 
-#: templates/dashboard-tab-urls.php:45
+#: templates/dashboard-tab-urls.php:36
 msgid "Generate URL"
 msgstr "Основен URL"
 
@@ -5270,7 +4493,7 @@ msgid ""
 "referral."
 msgstr ""
 
-#: templates/dashboard-tab-visits.php:62
+#: templates/dashboard-tab-visits.php:58
 msgid "You have not received any visits yet."
 msgstr "Все още нямате посещения."
 
@@ -5302,26 +4525,24 @@ msgstr "Графики"
 msgid "Log out"
 msgstr ""
 
-#: templates/login.php:15
-#, fuzzy
-msgid "Log into your account"
+#: templates/login.php:10
+msgid "Log into Your Account"
 msgstr "Влезте в профила си"
 
-#: templates/login.php:30 templates/register.php:96
+#: templates/login.php:20 templates/register.php:86
 msgid "Password"
 msgstr "Парола"
 
-#: templates/login.php:36
+#: templates/login.php:26
 msgid "Remember Me"
 msgstr "Запомни ме"
 
-#: templates/login.php:44
-msgid "Log In"
-msgstr ""
+#: templates/login.php:34
+msgid "Login"
+msgstr "Вход"
 
-#: templates/login.php:48
-#, fuzzy
-msgid "Lost your password?"
+#: templates/login.php:38
+msgid "Lost Password?"
 msgstr "Забравена парола?"
 
 #: templates/no-access.php:2
@@ -5334,20 +4555,27 @@ msgstr ""
 msgid "The affiliate area is available only for registered affiliates."
 msgstr "Достъпно е само за регистрирани афилиейти."
 
-#: templates/register.php:54
-#, fuzzy
-msgid "Register a new affiliate account"
+#: templates/register.php:49
+msgid "Register a New Affiliate Account"
 msgstr "Регистрирайте нов афилиейт профил"
 
-#: templates/register.php:80
+#: templates/register.php:54 templates/register.php:55
+msgid "Your Name"
+msgstr "Вашето име"
+
+#: templates/register.php:70
 msgid "Payment Email Address"
 msgstr "Електронна поща за плащане"
 
-#: templates/register.php:101
+#: templates/register.php:79
+msgid "How will you promote us?"
+msgstr "Как ще ни промотирате?"
+
+#: templates/register.php:91
 msgid "Confirm Password"
 msgstr "Потвърдете паролата"
 
-#: templates/register.php:119
+#: templates/register.php:104
 msgid "Agree to our <a href=\"%s\" target=\"_blank\">Terms of Use</a>"
 msgstr "Съгласявам се с <a href=\"%s\" target=\"_blank\">Общите условия</a>"
 
@@ -5361,22 +4589,22 @@ msgctxt "affiliates"
 msgid "Reports"
 msgstr "Доклади"
 
-#: includes/admin/affiliates/delete.php:54
+#: includes/admin/affiliates/delete.php:47
 msgctxt "Affiliate ID, affiliate name"
 msgid "ID #%d: %s"
 msgstr "Идентиф. номер #%d: %s"
 
-#: includes/admin/class-notices.php:50
+#: includes/admin/class-notices.php:39
 msgctxt "Integrations"
 msgid "Dismiss Notice"
 msgstr ""
 
-#: includes/admin/class-notices.php:412 includes/admin/class-notices.php:421
+#: includes/admin/class-notices.php:387 includes/admin/class-notices.php:396
 msgctxt "License"
 msgid "Dismiss Notice"
 msgstr ""
 
-#: includes/admin/creatives/delete.php:29
+#: includes/admin/creatives/delete.php:22
 msgctxt "Creative ID, creative name"
 msgid "Creative ID #%d: %s"
 msgstr "Реклама номер #%d: %s"
@@ -5446,56 +4674,56 @@ msgstr "Действия"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:54
 #, fuzzy
-msgctxt "Paid earnings column table header"
-msgid "Paid earnings"
+msgctxt "Paid Earnings column table header"
+msgid "Paid Earnings"
 msgstr "Платени печалби"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:55
 #, fuzzy
-msgctxt "Paid earnings this month column table header"
-msgid "Paid earnings this month"
+msgctxt "Paid Earnings This Month column table header"
+msgid "Paid Earnings This Month"
 msgstr "Платени печалби този месец"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:56
 #, fuzzy
-msgctxt "Paid earnings today column table header"
-msgid "Paid earnings today"
+msgctxt "Paid Earnings Today column table header"
+msgid "Paid Earnings Today"
 msgstr "Платени печалби днес"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:80
 #, fuzzy
-msgctxt "Unpaid referrals column table header"
-msgid "Unpaid referrals"
+msgctxt "Unpaid Referrals column table header"
+msgid "Unpaid Referrals"
 msgstr "Неплатени реферали"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:81
 #, fuzzy
-msgctxt "Unpaid referrals this month column table header"
-msgid "Unpaid referrals this month"
+msgctxt "Unpaid Referrals This Month column table header"
+msgid "Unpaid Referrals This Month"
 msgstr "Неплатени реферали този месец"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:82
 #, fuzzy
-msgctxt "Unpaid referrals today column table header"
-msgid "Unpaid referrals today"
+msgctxt "Unpaid Referrals Today column table header"
+msgid "Unpaid Referrals Today"
 msgstr "Неплатени реферали днес"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:105
 #, fuzzy
-msgctxt "Unpaid earnings column table header"
-msgid "Unpaid earnings"
+msgctxt "Unpaid Earnings column table header"
+msgid "Unpaid Earnings"
 msgstr "Неплатени печалби"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:106
 #, fuzzy
-msgctxt "Unpaid earnings this month"
-msgid "Unpaid earnings this month"
+msgctxt "Unpaid Earnings This Month"
+msgid "Unpaid Earnings This Month"
 msgstr "Неплатени печалби този месец"
 
 #: includes/admin/overview/metaboxes/class-metabox-overview-totals.php:107
 #, fuzzy
-msgctxt "Unpaid earnings today column table header"
-msgid "Unpaid earnings today"
+msgctxt "Unpaid Earnings Today column table header"
+msgid "Unpaid Earnings Today"
 msgstr "Неплатени печалби днес"
 
 #: includes/admin/payouts/class-list-table.php:129
@@ -5505,25 +4733,28 @@ msgid "All"
 msgstr "Всички"
 
 #: includes/admin/payouts/class-list-table.php:149
-#: includes/admin/tools/export/class-batch-export-payouts.php:147
 #, fuzzy
 msgctxt "payout"
 msgid "Amount"
 msgstr "Количество"
 
 #: includes/admin/payouts/class-list-table.php:154
-#: includes/admin/tools/export/class-batch-export-payouts.php:150
 #, fuzzy
 msgctxt "payout"
 msgid "Status"
 msgstr "Статус"
 
 #: includes/admin/payouts/class-list-table.php:155
-#: includes/admin/tools/export/class-batch-export-payouts.php:151
 #, fuzzy
 msgctxt "payout"
 msgid "Date"
 msgstr "Дата"
+
+#: includes/admin/referrals/edit.php:52
+#, fuzzy
+msgctxt "payout"
+msgid "View"
+msgstr "Виж %s"
 
 #: includes/payout-functions.php:133 includes/payout-functions.php:137
 #, fuzzy
@@ -5531,29 +4762,18 @@ msgctxt "payout"
 msgid "Paid"
 msgstr "Платени"
 
-#: includes/admin/payouts/class-list-table.php:328
-#: includes/admin/payouts/view.php:78
+#: includes/admin/payouts/class-list-table.php:333
+#: includes/admin/payouts/view.php:79
 msgctxt "payout owner"
 msgid "(none)"
 msgstr ""
 
-#: includes/admin/payouts/class-list-table.php:335
-#: includes/admin/payouts/view.php:86
+#: includes/admin/payouts/class-list-table.php:341
+#: includes/admin/payouts/view.php:87
 #, fuzzy
 msgctxt "payout owner ID"
 msgid "(User ID: %d)"
 msgstr "Потребителски идент. номер"
-
-#. translators: 1: Visit date
-#: includes/admin/referrals/edit.php:184
-msgctxt "visit"
-msgid "Date: %1$s (%2$s)"
-msgstr ""
-
-#: includes/admin/referrals/edit.php:193
-msgctxt "visit"
-msgid "None"
-msgstr ""
 
 #: includes/admin/referrals/referrals.php:39
 #, fuzzy
@@ -5561,24 +4781,19 @@ msgctxt "referrals"
 msgid "Reports"
 msgstr "Доклади"
 
-#: includes/admin/visits/class-list-table.php:234
-msgctxt "visit context"
-msgid "None"
-msgstr ""
-
 #: includes/admin/visits/visits.php:42
 #, fuzzy
 msgctxt "visits"
 msgid "Reports"
 msgstr "Доклади"
 
-#: includes/class-graph.php:419
+#: includes/class-graph.php:407
 #, fuzzy
 msgctxt "date filter"
 msgid "From"
 msgstr "От"
 
-#: includes/class-graph.php:421
+#: includes/class-graph.php:409
 #, fuzzy
 msgctxt "date filter"
 msgid "To"
@@ -5640,44 +4855,11 @@ msgctxt "show pretty referral URLs"
 msgid "Disabled"
 msgstr ""
 
-#: includes/cli/class-visit-sub-commands.php:437
+#: includes/cli/class-visit-sub-commands.php:421
 #, fuzzy
 msgctxt "direct traffic"
 msgid "Direct"
 msgstr "Директен трафик"
-
-#, fuzzy
-#~ msgctxt "payout"
-#~ msgid "View"
-#~ msgstr "Виж %s"
-
-#~ msgid "Ignore Zero Referrals?"
-#~ msgstr "Игнорирайте нулевите реферали?"
-
-#~ msgid ""
-#~ "Check this box if you would like AffiliateWP to completely remove all of "
-#~ "its data when the plugin is deleted."
-#~ msgstr ""
-#~ "Отметнете, ако искате  AffiliateWP да премахне напълно всички данни след "
-#~ "изтриване на плъгина."
-
-#~ msgid "Login"
-#~ msgstr "Вход"
-
-#, fuzzy
-#~ msgctxt "Paid Earnings column table header"
-#~ msgid "Paid Earnings"
-#~ msgstr "Платени печалби"
-
-#, fuzzy
-#~ msgctxt "Unpaid Referrals column table header"
-#~ msgid "Unpaid Referrals"
-#~ msgstr "Неплатени реферали"
-
-#, fuzzy
-#~ msgctxt "Unpaid Earnings column table header"
-#~ msgid "Unpaid Earnings"
-#~ msgstr "Неплатени печалби"
 
 #~ msgid "Affiliate added successfully"
 #~ msgstr "Афилиейтът е добавен успешно"
@@ -5791,6 +4973,9 @@ msgstr "Директен трафик"
 #~ "нови афилиейти към AffiliateWP. Просто въведете потребителското име, "
 #~ "въведете ставка и натиснете Добави Афилиейт!"
 
+#~ msgid "Affiliate Registration"
+#~ msgstr "Регистрация на Афилиейт"
+
 #~ msgid ""
 #~ "When enabled, affiliates can register themselves via the Affiliate Area. "
 #~ "If they already have a user account on your site, they can register by "
@@ -5801,6 +4986,9 @@ msgstr "Директен трафик"
 #~ "Афилиейти. Ако вече имат профил в сайта, то могат да се регистрират "
 #~ "просто чрез съгласяване с Общите условия. Също така ако желаят, могат да "
 #~ "създадат и нов профил."
+
+#~ msgid "Moderate Registrations"
+#~ msgstr "Модерирай Регистрации"
 
 #~ msgid ""
 #~ "Affiliate registrations can be moderated and require that a site admin "
@@ -6083,6 +5271,10 @@ msgstr "Директен трафик"
 #~ msgstr ""
 #~ "Формата за регистриране на афилийети сега включва полета, включващи как "
 #~ "вашите афилиейти ще промотират продуктите и услугите ви."
+
+#~ msgid "Registration Form Retains Values on Error"
+#~ msgstr ""
+#~ "При грешка във формата за регистрация данните остават попълнени в полетата"
 
 #~ msgid ""
 #~ "When there's an error on the affiliate registration form, it no longer "

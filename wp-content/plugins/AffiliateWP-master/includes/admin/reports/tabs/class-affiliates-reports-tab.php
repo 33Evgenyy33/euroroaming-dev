@@ -64,10 +64,11 @@ class Tab extends Reports\Tab {
 			$name = affwp_get_affiliate_name( $affiliate->ID );
 
 			$data_link = sprintf( '<a href="%1$s">%2$s</a>',
-				esc_url( affwp_admin_url( 'affiliates', array(
+				esc_url( add_query_arg( array(
+					'page'         => 'affiliate-wp-affiliates',
 					'affiliate_id' => $affiliate->ID,
 					'action'       => 'view_affiliate',
-				) ) ),
+				), admin_url( 'admin.php ') ) ),
 				empty( $name ) ? sprintf( __( 'Affiliate #%d', 'affiliate-wp' ), $affiliate->ID ) : $name
 			);
 
@@ -127,11 +128,12 @@ class Tab extends Reports\Tab {
 		if ( ! empty( $highest_converter ) && $affiliate = affwp_get_affiliate( $highest_converter ) ) {
 			$name       = affwp_get_affiliate_name( $affiliate->ID );
 			$data_link  = sprintf( '<a href="%1$s">%2$s</a>',
-				esc_url( affwp_admin_url( 'referrals', array(
+				esc_url( add_query_arg( array(
+					'page'         => 'affiliate-wp-referrals',
 					'affiliate_id' => $affiliate->ID,
 					'orderby'      => 'status',
 					'order'        => 'ASC',
-				) ) ),
+				), admin_url( 'admin.php ') ) ),
 				empty( $name ) ? sprintf( __( 'Affiliate #%d', 'affiliate-wp' ), $affiliate->ID ) : $name
 			);
 

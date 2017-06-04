@@ -16,19 +16,12 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/migration.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/class-recount.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/class-rest-consumers-table.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/system-info.php';
-
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/interfaces/interface-base-exporter.php';
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/interfaces/interface-csv-exporter.php';
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/interfaces/interface-base-importer.php';
-
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/import/import.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/export.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-affiliates.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-referrals.php';
 require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-referrals-payout.php';
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/export/class-export-settings.php';
-require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/tools/import/class-import-settings.php';
 
 /**
  * Options Page
@@ -54,15 +47,7 @@ function affwp_tools_admin() {
 			?>
 		</h2>
 		<div id="tab_container">
-			<?php
-			/**
-			 * Fires in the Tools screen tab.
-			 *
-			 * The dynamic portion of the hook name, `$active_tab`, refers to the slug of
-			 * the currently active tools tab.
-			 */
-			do_action( 'affwp_tools_tab_' . $active_tab );
-			?>
+			<?php do_action( 'affwp_tools_tab_' . $active_tab ); ?>
 		</div><!-- #tab_container-->
 	</div><!-- .wrap -->
 	<?php
@@ -80,20 +65,13 @@ function affwp_get_tools_tabs() {
 
 	$tabs                  = array();
 	$tabs['export_import'] = __( 'Export / Import', 'affiliate-wp' );
-
-	if ( current_user_can( 'manage_consumers' ) ) {
-		$tabs['api_keys'] = __( 'API Keys', 'affiliate-wp' );
-	}
-
+	$tabs['api_keys']      = __( 'API Keys', 'affiliate-wp' );
 	$tabs['recount']       = __( 'Recount Stats', 'affiliate-wp' );
 	$tabs['migration']     = __( 'Migration Assistant', 'affiliate-wp' );
-
-	if ( current_user_can( 'manage_affiliate_options' ) ) {
-		$tabs['system_info'] = __( 'System Info', 'affiliate-wp' );
-	}
+	$tabs['system_info']   = __( 'System Info', 'affiliate-wp' );
 
 	if( affiliate_wp()->settings->get( 'debug_mode', false ) ) {
-		$tabs['debug'] = __( 'Debug Assistant', 'affiliate-wp' );
+		$tabs['debug']     = __( 'Debug Assistant', 'affiliate-wp' );
 	}
 
 	/**
@@ -144,22 +122,22 @@ function affwp_recount_tab() {
 				<h3><span><?php _e( 'Recount Affiliate Stats', 'affiliate-wp' ); ?></span></h3>
 				<div class="inside">
 					<p><?php _e( 'Use this tool to recount affiliate statistics.', 'affiliate-wp' ); ?></p>
-					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="recount-affiliate-stats" data-nonce="<?php echo esc_attr( wp_create_nonce( 'recount-affiliate-stats_step_nonce' ) ); ?>">
+					<form method="post" enctype="multipart/form-data" action="<?php echo admin_url( 'admin.php?page=affiliate-wp-tools&tab=recount' ); ?>">
 						<p>
 							<span class="affwp-ajax-search-wrap">
 								<input type="text" name="user_name" id="user_name" class="affwp-user-search" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>"/>
 							</span>
 							<select name="recount_type">
 								<option value="earnings"><?php _e( 'Paid Earnings', 'affiliate-wp' ); ?></option>
-								<option value="unpaid-earnings"><?php _e( 'Unpaid Earnings', 'affiliate-wp' ); ?></option>
 								<option value="referrals"><?php _e( 'Referrals', 'affiliate-wp' ); ?></option>
 								<option value="visits"><?php _e( 'Visits', 'affiliate-wp' ); ?></option>
 							</select>
 							<div class="description"><?php _e( 'Enter the name of the affiliate or begin typing to perform a search based on the affiliate&#8217;s name.', 'affiliate-wp' ); ?></div>
 						</p>
 						<p>
+							<input type="hidden" name="user_id" id="user_id" value="0"/>
 							<input type="hidden" name="affwp_action" value="recount_stats"/>
-							<?php submit_button( __( 'Recount', 'affiliate-wp' ), 'secondary', 'recount-stats-submit', false ); ?>
+							<?php submit_button( __( 'Recount', 'affiliate-wp' ), 'secondary', 'submit', false ); ?>
 						</p>
 					</form>
 				</div><!-- .inside -->
@@ -207,7 +185,7 @@ function affwp_migration_tab() {
 					<?php if ( $tool_is_compatible ) : ?>
 						<p><?php _e( 'Use this tool to create affiliate accounts for each of your existing WordPress user accounts that belong to the selected roles below.', 'affiliate-wp' ); ?></p>
 						<p><?php _e( '<strong>NOTE:</strong> Users that already have affiliate accounts will be skipped. Duplicate accounts will not be created.', 'affiliate-wp' ); ?></p>
-						<form method="post" id="affiliate-wp-migrate-user-accounts" class="affwp-batch-form" data-batch_id="migrate-users" data-nonce="<?php echo esc_attr( wp_create_nonce( 'migrate-users_step_nonce' ) ); ?>">
+						<form method="get" id="affiliate-wp-migrate-user-accounts">
 							<h4><span><?php _e( 'Select User Roles', 'affiliate-wp' ); ?></span></h4>
 							<?php foreach ( $roles as $role => $data ) : ?>
 								<?php $has_users = ! empty( $data['count'] ); ?>
@@ -217,6 +195,9 @@ function affwp_migration_tab() {
 								</label>
 								<br>
 							<?php endforeach; ?>
+							<input type="hidden" name="type" value="users"/>
+							<input type="hidden" name="part" value="affiliates"/>
+							<input type="hidden" name="page" value="affiliate-wp-migrate"/>
 							<p>
 								<input type="submit" value="<?php _e( 'Create Affiliate Accounts for Users', 'affiliate-wp' ); ?>" class="button" />
 							</p>
@@ -235,7 +216,7 @@ function affwp_migration_tab() {
 				<h3><span>Affiliates Pro</span></h3>
 				<div class="inside">
 					<p><?php _e( 'Use this tool to migrate existing affiliate / referral data from Affiliates Pro to AffiliateWP.', 'affiliate-wp' ); ?></p>
-					<p><?php _e( '<strong>NOTE:</strong> This tool should only ever be used on a fresh install. If you have already collected affiliate or referral data, do not use this tool.', 'affiliate-wp' ); ?></p>
+					<p><?php _e( '<strong>NOTE:</strong> this tool should only ever be used on a fresh install. If you have already collected affiliate or referral data, do not use this tool.', 'affiliate-wp' ); ?></p>
 					<form method="get">
 						<input type="hidden" name="type" value="affiliates-pro"/>
 						<input type="hidden" name="part" value="affiliates"/>
@@ -251,7 +232,10 @@ function affwp_migration_tab() {
 				<h3><span>WP Affiliate</span></h3>
 				<div class="inside">
 					<p><?php _e( 'Use this tool to migrate existing affiliate accounts from WP Affiliate to AffiliateWP.', 'affiliate-wp' ); ?></p>
-					<form method="get" class="affwp-batch-form" data-batch_id="migrate-wp-affiliate" data-nonce="<?php echo esc_attr( wp_create_nonce( 'migrate-wp-affiliate_step_nonce' ) ); ?>">
+					<form method="get">
+						<input type="hidden" name="type" value="wp-affiliate"/>
+						<input type="hidden" name="part" value="affiliates"/>
+						<input type="hidden" name="page" value="affiliate-wp-migrate"/>
 						<p>
 							<input type="submit" value="<?php _e( 'Migrate Data from WP Affiliate', 'affiliate-wp' ); ?>" class="button"/>
 						</p>
@@ -280,7 +264,7 @@ function affwp_export_import_tab() {
 				<h3><span><?php _e( 'Export Affiliates', 'affiliate-wp' ); ?></span></h3>
 				<div class="inside">
 					<p><?php _e( 'Export affiliates to a CSV file.', 'affiliate-wp' ); ?></p>
-					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="export-affiliates" data-nonce="<?php echo esc_attr( wp_create_nonce( 'export-affiliates_step_nonce' ) ); ?>">
+					<form method="post" enctype="multipart/form-data" action="<?php echo admin_url( 'admin.php?page=affiliate-wp-tools&tab=export_import' ); ?>">
 						<p>
 							<select name="status" id="status">
 								<option value="0"><?php _e( 'All Statuses', 'affiliate-wp' ); ?></option>
@@ -290,7 +274,9 @@ function affwp_export_import_tab() {
 							</select>
 						</p>
 						<p>
-							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'export-affiliates-submit', false ); ?>
+							<input type="hidden" name="affwp_action" value="export_affiliates" />
+							<?php wp_nonce_field( 'affwp_export_affiliates_nonce', 'affwp_export_affiliates_nonce' ); ?>
+							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'submit', false ); ?>
 						</p>
 					</form>
 				</div><!-- .inside -->
@@ -300,10 +286,11 @@ function affwp_export_import_tab() {
 				<h3><span><?php _e( 'Export Referrals', 'affiliate-wp' ); ?></span></h3>
 				<div class="inside">
 					<p><?php _e( 'Export referrals to a CSV file.', 'affiliate-wp' ); ?></p>
-					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="export-referrals" data-nonce="<?php echo esc_attr( wp_create_nonce( 'export-referrals_step_nonce' ) ); ?>">
+					<form method="post" enctype="multipart/form-data" action="<?php echo admin_url( 'admin.php?page=affiliate-wp-tools&tab=export_import' ); ?>">
 						<p>
 							<span class="affwp-ajax-search-wrap">
 								<input type="text" name="user_name" id="user_name" class="affwp-user-search" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>" />
+								<input type="hidden" name="user_id" id="user_id" value=""/>
 							</span>
 							<input type="text" class="affwp-datepicker" autocomplete="off" name="start_date" placeholder="<?php _e( 'From - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
 							<input type="text" class="affwp-datepicker" autocomplete="off" name="end_date" placeholder="<?php _e( 'To - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
@@ -317,31 +304,9 @@ function affwp_export_import_tab() {
 							<div class="description"><?php _e( 'To search for an affiliate, enter the affiliate&#8217;s login name, first name, or last name. Leave blank to export referrals for all affiliates.', 'affiliate-wp' ); ?></div>
 						</p>
 						<p>
-							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'export-referrals-submit', false ); ?>
-						</p>
-					</form>
-				</div><!-- .inside -->
-			</div><!-- .postbox -->
-
-			<div class="postbox">
-				<h3><span><?php _e( 'Export Payouts', 'affiliate-wp' ); ?></span></h3>
-				<div class="inside">
-					<p><?php _e( 'Export payouts to a CSV file.', 'affiliate-wp' ); ?></p>
-					<form method="post" enctype="multipart/form-data" class="affwp-batch-form" data-batch_id="export-payouts" data-nonce="<?php echo esc_attr( wp_create_nonce( 'export-payouts_step_nonce' ) ); ?>">
-						<p>
-							<span class="affwp-ajax-search-wrap">
-								<input type="text" name="user_name" id="user_name" class="affwp-user-search" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>" />
-							</span>
-							<input type="text" class="affwp-datepicker" autocomplete="off" name="start_date" placeholder="<?php _e( 'From - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
-							<input type="text" class="affwp-datepicker" autocomplete="off" name="end_date" placeholder="<?php _e( 'To - mm/dd/yyyy', 'affiliate-wp' ); ?>"/>
-							<select name="status" id="status">
-								<option value="paid"><?php _e( 'Paid', 'affiliate-wp' ); ?></option>
-								<option value="unpaid"><?php _e( 'Failed', 'affiliate-wp' ); ?></option>
-							</select>
-							<div class="description"><?php _e( 'To search for an affiliate, enter the affiliate&#8217;s login name, first name, or last name. Leave blank to export referrals for all affiliates.', 'affiliate-wp' ); ?></div>
-						</p>
-						<p>
-							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'export-payouts-submit', false ); ?>
+							<input type="hidden" name="affwp_action" value="export_referrals" />
+							<?php wp_nonce_field( 'affwp_export_referrals_nonce', 'affwp_export_referrals_nonce' ); ?>
+							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'submit', false ); ?>
 						</p>
 					</form>
 				</div><!-- .inside -->
@@ -351,11 +316,11 @@ function affwp_export_import_tab() {
 				<h3><span><?php _e( 'Export Settings', 'affiliate-wp' ); ?></span></h3>
 				<div class="inside">
 					<p><?php _e( 'Export the AffiliateWP settings for this site as a .json file. This allows you to easily import the configuration into another site.', 'affiliate-wp' ); ?></p>
-					<form method="post" action="<?php echo esc_url( affwp_admin_url( 'tools', array( 'tab' => 'export_import' ) ) ); ?>">
+					<form method="post" action="<?php echo admin_url( 'admin.php?page=affiliate-wp-tools&tab=export_import' ); ?>">
 						<p><input type="hidden" name="affwp_action" value="export_settings" /></p>
 						<p>
 							<?php wp_nonce_field( 'affwp_export_nonce', 'affwp_export_nonce' ); ?>
-							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'export-settings-submit', false ); ?>
+							<?php submit_button( __( 'Export', 'affiliate-wp' ), 'secondary', 'submit', false ); ?>
 						</p>
 					</form>
 				</div><!-- .inside -->
@@ -365,14 +330,14 @@ function affwp_export_import_tab() {
 				<h3><span><?php _e( 'Import Settings', 'affiliate-wp' ); ?></span></h3>
 				<div class="inside">
 					<p><?php _e( 'Import the AffiliateWP settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.', 'affiliate-wp' ); ?></p>
-					<form method="post" enctype="multipart/form-data" action="<?php echo esc_url( affwp_admin_url( 'tools', array( 'tab' => 'export_import' ) ) ); ?>">
+					<form method="post" enctype="multipart/form-data" action="<?php echo admin_url( 'admin.php?page=affiliate-wp-tools&tab=export_import' ); ?>">
 						<p>
 							<input type="file" name="import_file"/>
 						</p>
 						<p>
 							<input type="hidden" name="affwp_action" value="import_settings" />
 							<?php wp_nonce_field( 'affwp_import_nonce', 'affwp_import_nonce' ); ?>
-							<?php submit_button( __( 'Import', 'affiliate-wp' ), 'secondary', 'import-settings-submit', false ); ?>
+							<?php submit_button( __( 'Import', 'affiliate-wp' ), 'secondary', 'submit', false ); ?>
 						</p>
 					</form>
 				</div><!-- .inside -->
@@ -393,14 +358,18 @@ function affwp_system_info_tab() {
 		return;
 	}
 
-	$action_url = affwp_admin_url( 'tools', array( 'tab' => 'system_info' ) );
+	$action_url = add_query_arg( array(
+		'page' => 'affiliate-wp-tools',
+		'tab'  => 'system_info'
+	), admin_url( 'admin.php' ) );
+
 	?>
 	<form action="<?php echo esc_url( $action_url ); ?>" method="post" dir="ltr">
 		<textarea readonly="readonly" onclick="this.focus(); this.select()" id="affwp-system-info-textarea" name="affwp-sysinfo" title="<?php esc_attr_e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'affiliate-wp' ); ?>">
 			<?php echo affwp_tools_system_info_report(); ?>
 		</textarea>
 		<p class="submit">
-			<input type="hidden" name="affwp_action" value="download_sysinfo" />
+			<input type="hidden" name="affwp-action" value="download_sysinfo" />
 			<?php submit_button( 'Download System Info File', 'primary', 'affwp-download-sysinfo', false ); ?>
 		</p>
 	</form>
@@ -445,7 +414,9 @@ add_action( 'admin_init', 'affwp_tools_sysinfo_download' );
  * @return      void
  */
 function affwp_debug_tab() {
-	?>
+
+	$logs = new Affiliate_WP_Logging;
+?>
 	<div id="affwp-dashboard-widgets-wrap">
 		<div class="metabox-holder">
 			<div class="postbox">
@@ -453,7 +424,7 @@ function affwp_debug_tab() {
 				<div class="inside">
 					<form id="affwp-debug-log" method="post">
 						<p><?php _e( 'Use this tool to help debug referral tracking.', 'affiliate-wp' ); ?></p>
-						<textarea class="large-text" rows="15"><?php echo esc_textarea( affiliate_wp()->utils->logs->get_log() ); ?></textarea>
+						<textarea class="large-text" rows="15"><?php echo esc_textarea( $logs->get_log() ); ?></textarea>
 						<input type="submit" class="button" name="affwp-clear-debug-log" value="<?php _e( 'Clear Debug Log', 'affiliate-wp' ); ?>"/>
 						<?php wp_nonce_field( 'affwp-clear-debug' ); ?>
 					</form>
@@ -483,11 +454,10 @@ function affwp_clear_debug_log() {
 
 	check_admin_referer( 'affwp-clear-debug' );
 
-	// Clear the debug log.
-	affiliate_wp()->utils->logs->clear_log();
+	$logs = new Affiliate_WP_Logging;
+	$logs->clear_log();
 
-	wp_safe_redirect( affwp_admin_url( 'tools', array( 'tab' => 'debug' ) ) );
-	exit;
+	wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-tools&tab=debug' ) ); exit;
 
 }
 add_action( 'admin_init', 'affwp_clear_debug_log' );
@@ -498,10 +468,6 @@ add_action( 'admin_init', 'affwp_clear_debug_log' );
  * @since 1.9
  */
 function affwp_rest_api_keys_tab() {
-	if ( ! current_user_can( 'manage_consumers' ) ) {
-		return;
-	}
-
 	$keys_table = new \AffWP\REST\Admin\Consumers_Table;
 	$keys_table->prepare_items();
 
@@ -509,41 +475,3 @@ function affwp_rest_api_keys_tab() {
 	$keys_table->display();
 }
 add_action( 'affwp_tools_tab_api_keys', 'affwp_rest_api_keys_tab' );
-
-/**
- * Processes a batch export download request.
- *
- * @since 2.0
- */
-function affwp_process_batch_export_download() {
-	if( ! wp_verify_nonce( $_REQUEST['nonce'], 'affwp-batch-export' ) ) {
-		wp_die(
-			__( 'Nonce verification failed', 'affiliate-wp' ),
-			__( 'Error', 'affiliate-wp' ),
-			array( 'response' => 403 )
-		);
-	}
-
-	if ( empty( $_REQUEST['batch_id'] ) || false === $batch = affiliate_wp()->utils->batch->get( $_REQUEST['batch_id'] ) ) {
-		wp_die(
-			__( 'Invalid batch ID.', 'affiliate-wp' ),
-			__( 'Error', 'affiliate-wp' ),
-			array( 'response' => 403 )
-		);
-	}
-
-	require_once $batch['file'];
-
-	if ( empty( $batch['class'] ) || ( ! empty( $batch['class'] ) && ! class_exists( $batch['class'] ) ) ) {
-		wp_die(
-			__( 'Invalid batch export class.', 'affiliate-wp' ),
-			__( 'Error', 'affiliate-wp' ),
-			array( 'response' => 403 )
-		);
-	}
-
-	$export = new $batch['class']( $step = 0 );
-	$export->export();
-
-}
-add_action( 'affwp_download_batch_export', 'affwp_process_batch_export_download' );

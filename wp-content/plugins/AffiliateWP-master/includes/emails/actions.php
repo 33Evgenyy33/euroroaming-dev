@@ -55,7 +55,7 @@ function affwp_notify_on_registration( $affiliate_id = 0, $status = '', $args = 
 		}
 
 		if( affiliate_wp()->settings->get( 'require_approval' ) ) {
-			$message .= sprintf( __( 'Review pending applications: %s', 'affiliate-wp' ), affwp_admin_url( 'affiliates', array( 'status' => 'pending' ) ) ) . "\n\n";
+			$message .= sprintf( __( 'Review pending applications: %s', 'affiliate-wp' ), admin_url( 'admin.php?page=affiliate-wp-affiliates&status=pending' ) ) . "\n\n";
 		}
 
 	}
@@ -114,28 +114,39 @@ function affwp_notify_on_approval( $affiliate_id = 0, $status = '', $old_status 
 	$subject      = affiliate_wp()->settings->get( 'accepted_subject', __( 'Affiliate Application Accepted', 'affiliate-wp' ) );
 	$message      = affiliate_wp()->settings->get( 'accepted_email', '' );
 
+    $user_id = affwp_get_affiliate_user_id( $affiliate_id );
+    $all_meta_for_user = get_user_meta( $user_id,'promocod_partner', true );
+
 	if( empty( $message ) ) {
 		$message  = sprintf( __( 'Congratulations %s!', 'affiliate-wp' ), affiliate_wp()->affiliates->get_affiliate_name( $affiliate_id ) ) . "\n\n";
 		$message .= sprintf( __( 'Your affiliate application on %s has been accepted!', 'affiliate-wp' ), home_url() ) . "\n\n";
 		$message .= sprintf( __( 'Log into your affiliate area at %s', 'affiliate-wp' ), affiliate_wp()->login->get_login_url() ) . "\n\n";
-	}
+        $message .= 'Ваш логин: ' . $email . "\n\n";
+        $message .= 'Ваш пароль: ' . $all_meta_for_user . "\n\n";
+
+        $cabinet_url = '<a href="https://euroroaming.ru/affiliate-area/"  target="_blank">https://euroroaming.ru/affiliate-area/</a>';
+        $instruction_url = '<a href="https://euroroaming.ru/wp-content/uploads/2016/10/Kabinet-partnera-promokod.3.pdf"  target="_blank">https://euroroaming.ru/wp-content/uploads/2016/10/Kabinet-partnera-promokod.3.pdf</a>';
+
+        $message .= sprintf('Сыылка для входа в личный кабинет %s', $cabinet_url ) . "\n\n";
+        $message .= sprintf('Инструкция по работе с личным кабинетом %s', $instruction_url) . "\n\n";
+    }
 
 	// $args is setup for backwards compatibility with < 1.6
 	$args         = array( 'affiliate_id' => $affiliate_id );
 	$subject      = apply_filters( 'affwp_application_accepted_subject', $subject, $args );
 	$message      = apply_filters( 'affwp_application_accepted_email', $message, $args );
-	$user_id      = affwp_get_affiliate_user_id( $affiliate_id );
+    $user_id      = affwp_get_affiliate_user_id( $affiliate_id );
 
-	/**
-	 * Filters whether to notify an affiliate upon approval of their application.
-	 *
-	 * @since 1.6
-	 *
-	 * @param bool $notify Whether to notify the affiliate upon approval. Default true.
-	 */
-	if ( apply_filters( 'affwp_notify_on_approval', true ) && ! get_user_meta( $user_id, 'affwp_disable_affiliate_email', true ) ) {
-		$emails->send( $email, $subject, $message );
-	}
+    /**
+     * Filters whether to notify an affiliate upon approval of their application.
+     *
+     * @since 1.6
+     *
+     * @param bool $notify Whether to notify the affiliate upon approval. Default true.
+     */
+    if ( apply_filters( 'affwp_notify_on_approval', true ) && ! get_user_meta( $user_id, 'affwp_disable_affiliate_email', true ) ) {
+        $emails->send( $email, $subject, $message );
+    }
 
 }
 add_action( 'affwp_set_affiliate_status', 'affwp_notify_on_approval', 10, 3 );

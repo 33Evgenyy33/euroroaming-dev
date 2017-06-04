@@ -4,7 +4,7 @@
  * Process the add referral request
  *
  * @since 1.2
- * @return void|false
+ * @return void
  */
 function affwp_process_add_referral( $data ) {
 
@@ -21,10 +21,10 @@ function affwp_process_add_referral( $data ) {
 	}
 
 	if ( affwp_add_referral( $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_added' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-referrals&affwp_notice=referral_added' ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_add_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-referrals&affwp_notice=referral_add_failed' ) );
 		exit;
 	}
 
@@ -52,10 +52,10 @@ function affwp_process_update_referral( $data ) {
 	}
 
 	if ( affiliate_wp()->referrals->update_referral( $data['referral_id'], $data ) ) {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_updated' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-referrals&affwp_notice=referral_updated' ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_update_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-referrals&affwp_notice=referral_update_failed' ) );
 		exit;
 	}
 
@@ -83,10 +83,10 @@ function affwp_process_delete_referral( $data ) {
 	}
 
 	if ( affwp_delete_referral( $data['referral_id'] ) ) {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_deleted' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-referrals&affwp_notice=referral_deleted' ) );
 		exit;
 	} else {
-		wp_safe_redirect( affwp_admin_url( 'referrals', array( 'affwp_notice' => 'referral_delete_failed' ) ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=affiliate-wp-referrals&affwp_notice=referral_delete_failed' ) );
 		exit;
 	}
 
@@ -102,11 +102,6 @@ add_action( 'affwp_process_delete_referral', 'affwp_process_delete_referral' );
 function affwp_generate_referral_payout_file( $data ) {
 
 	$export = new Affiliate_WP_Referral_Payout_Export;
-
-	if ( ! empty( $data['user_name'] ) && $affiliate = affwp_get_affiliate( $data['user_name'] ) ) {
-		$export->affiliate_id = $affiliate->ID;
-	}
-
 	$export->date = array(
 		'start' => $data['from'],
 		'end'   => $data['to'] . ' 23:59:59'

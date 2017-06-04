@@ -37,8 +37,8 @@ function affwp_referrals_contextual_help() {
 		'title'	    => __( 'Overview', 'affiliate-wp' ),
 		'content'	=>
 			'<p>' . __( "This screen provides access to your site&#8217;s referral history.", 'affiliate-wp' ) . '</p>' .
-			'<p>' . __( "<strong>Reference</strong>: this refers to the order number (or similar) that created this referral.", 'affiliate-wp' ) . '</p>' .
-			'<p>' . __( "Referral statuses:", 'affiliate-wp' ) . '</p>' .
+			'<p>' . __( "<strong>Reference</strong>: this refers to the order number (or similar) that created this referral.", 'affiliate-wp' ) . '</p>' . 
+			'<p>' . __( "Referral statuses:", 'affiliate-wp' ) . '</p>' . 
 			'<ul>' .
 				'<li>' . __( '<strong>Paid</strong> - this is a referral that has been paid to the affiliate', 'affiliate-wp' ) . '</li>' .
 				'<li>' . __( '<strong>Unpaid</strong> - this is a referral that has been accepted but not yet paid to the affiliate', 'affiliate-wp' ) . '</li>' .
@@ -69,11 +69,6 @@ function affwp_referrals_contextual_help() {
 			'<p>' . __( 'The CSV file generated is structured properly for PayPal&#8217;s Mass Payment system so you can easily payout all of your affiliates at once via PayPal.', 'affiliate-wp' ) . '</p>'
 	) );
 
-	/**
-	 * Fires in the contextual help area of the referral admin screen.
-	 *
-	 * @param string $screen The current screen.
-	 */
 	do_action( 'affwp_referrals_contextual_help', $screen );
 }
 add_action( 'load-affiliates_page_affiliate-wp-referrals', 'affwp_referrals_contextual_help' );

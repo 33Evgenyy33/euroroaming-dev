@@ -84,9 +84,9 @@ class Most_Valuable_Affiliates extends Meta_Box implements Meta_Box\Base {
 				<?php foreach( $affiliates as $affiliate  ) : ?>
 					<tr>
 						<td><?php echo affiliate_wp()->affiliates->get_affiliate_name( $affiliate->affiliate_id ); ?></td>
-						<td><?php echo affwp_currency_filter( affwp_format_amount( $affiliate->earnings ) ); ?></td>
-						<td><?php echo affwp_format_amount( absint( $affiliate->referrals ), false ); ?></td>
-						<td><?php echo affwp_format_amount( absint( $affiliate->visits ), false ); ?></td>
+						<td><?php echo affwp_currency_filter( $affiliate->earnings ); ?></td>
+						<td><?php echo absint( $affiliate->referrals ); ?></td>
+						<td><?php echo absint( $affiliate->visits ); ?></td>
 					</tr>
 				<?php endforeach; ?>
 			<?php else : ?>

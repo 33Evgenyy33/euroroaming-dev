@@ -24,8 +24,6 @@ class Affiliate_WP_Recount {
 			return;
 		}
 
-		$data = affiliate_wp()->utils->process_request_data( $data, 'user_name' );
-
 		$user_id      = ! empty( $data['user_id'] ) ? absint( $data['user_id'] ) : false;
 		$affiliate_id = affwp_get_affiliate_id( $user_id );
 
@@ -55,8 +53,7 @@ class Affiliate_WP_Recount {
 
 		}
 
-		wp_redirect( affwp_admin_url( 'tools', array( 'tab' => 'recount', 'affwp_notice' => 'stats_recounted' ) ) );
-		exit;
+		wp_redirect( admin_url( 'admin.php?page=affiliate-wp-tools&tab=recount&affwp_notice=stats_recounted' ) ); exit;
 	}
 
 	/**

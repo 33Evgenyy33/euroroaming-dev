@@ -45,10 +45,6 @@ class Affiliate_WP_Gravity_Forms extends Affiliate_WP_Base {
 	 */
 	public function add_pending_referral( $entry, $form ) {
 
-		// Get affiliate ID
-		$affiliate_id = $this->affiliate_id;
-
-		// Block referral if form does not allow them
 		if ( ! rgar( $form, 'affwp_allow_referrals' ) ) {
 			return;
 		}
@@ -56,27 +52,8 @@ class Affiliate_WP_Gravity_Forms extends Affiliate_WP_Base {
 		// Check if an affiliate coupon was included
 		$this->maybe_check_coupons( $form, $entry );
 
-		// Block referral if not referred or affiliate ID is empty
-		if ( ! $this->was_referred() && empty( $affiliate_id ) ) {
+		if( ! $this->was_referred() && empty( $this->affiliate_id ) ) {
 			return;
-		}
-
-		// Get all emails from submitted form
-		$emails = $this->get_emails( $entry, $form );
-
-		// Block referral if any of the affiliate's emails have been submitted
-		if ( $emails ) {
-			foreach ( $emails as $customer_email ) {
-				if ( $this->is_affiliate_email( $customer_email, $affiliate_id ) ) {
-
-					if ( $this->debug ) {
-						$this->log( 'Referral not created because affiliate\'s own account was used.' );
-					}
-
-					return false;
-
-				}
-			}
 		}
 
 		// Do some craziness to determine the price (this should be easy but is not)
@@ -244,31 +221,6 @@ class Affiliate_WP_Gravity_Forms extends Affiliate_WP_Base {
 			}
 
 		}
-
-	}
-
-	/**
-	 * Get all emails from form
-	 *
-	 * @since 2.0
-	 * @access public
-	 * @return array $emails all emails submitted via email fields
-	 */
-	public function get_emails( $entry, $form ) {
-
-		$email_fields = GFCommon::get_email_fields( $form );
-
-		$emails = array();
-
-		if ( $email_fields ) {
-			foreach ( $email_fields as $email_field ) {
-				if ( ! empty( $entry[ $email_field->id ] ) ) {
-					$emails[] = $entry[ $email_field->id ];
-				}
-			}
-		}
-
-		return $emails;
 
 	}
 

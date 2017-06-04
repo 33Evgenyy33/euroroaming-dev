@@ -8,12 +8,7 @@ $default_rate = affwp_abs_number_round( $default_rate );
 
 	<form method="post" id="affwp_add_affiliate">
 
-		<?php
-		/**
-		 * Fires at the top of the new-affiliate admin screen, just inside of the form element.
-		 */
-		do_action( 'affwp_new_affiliate_top' );
-		?>
+		<?php do_action( 'affwp_new_affiliate_top' ); ?>
 
 		<p><?php printf( __( 'Use this form to register a new affiliate. Each affiliate is tied directly to a user account, so if the user account for the affiliate does not yet exist, <a href="%s" target="_blank">create one</a>.', 'affiliate-wp' ), admin_url( 'user-new.php' ) ); ?></p>
 
@@ -28,6 +23,7 @@ $default_rate = affwp_abs_number_round( $default_rate );
 				<td>
 					<span class="affwp-ajax-search-wrap">
 						<input type="text" name="user_name" id="user_name" class="affwp-user-search" data-affwp-status="none" autocomplete="off" />
+						<input type="hidden" name="user_id" id="user_id" value="" />
 					</span>
 					<p class="description"><?php _e( 'Begin typing the name of the affiliate to perform a search for their associated user account.', 'affiliate-wp' ); ?></p>
 				</td>
@@ -95,19 +91,6 @@ $default_rate = affwp_abs_number_round( $default_rate );
 
 			</tr>
 
-			<tr class="form-row">
-
-				<th scope="row">
-					<label for="notes"><?php _e( 'Affiliate Notes', 'affiliate-wp' ); ?></label>
-				</th>
-
-				<td>
-					<textarea name="notes" rows="5" cols="50" id="notes" class="large-text"></textarea>
-					<p class="description"><?php _e( 'Enter any notes for this affiliate. Notes are only visible to the admin.', 'affiliate-wp' ); ?></p>
-				</td>
-
-			</tr>
-
 			<tr class="form-row" id="affwp-welcome-email-row">
 
 				<th scope="row">
@@ -123,21 +106,11 @@ $default_rate = affwp_abs_number_round( $default_rate );
 
 			</tr>
 
-			<?php
-			/**
-			 * Fires at the end of the new-affiliate admin screen form area, below form fields.
-			 */
-			do_action( 'affwp_new_affiliate_end' );
-			?>
+			<?php do_action( 'affwp_new_affiliate_end' ); ?>
 
 		</table>
 
-		<?php
-		/**
-		 * Fires at the bottom of the new-affiliate admin screen, prior to the submit button.
-		 */
-		do_action( 'affwp_new_affiliate_bottom' );
-		?>
+		<?php do_action( 'affwp_new_affiliate_bottom' ); ?>
 
 		<input type="hidden" name="affwp_action" value="add_affiliate" />
 

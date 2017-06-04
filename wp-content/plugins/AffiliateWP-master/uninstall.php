@@ -24,11 +24,8 @@ if( $affiliate_wp_settings->get( 'uninstall_on_delete' ) ) {
 	// Remove the affiliate area page
 	wp_delete_post( $affiliate_wp_settings->get( 'affiliates_page' ) );
 
-	// Remove all plugin settings.
+	// Remove all plugin settings
 	delete_option( 'affwp_settings' );
-
-	// Remove other options.
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'affwp\_%';" );
 
 	// Remove all capabilities and roles
 	$caps = new Affiliate_WP_Capabilities;
@@ -36,12 +33,9 @@ if( $affiliate_wp_settings->get( 'uninstall_on_delete' ) ) {
 
 	// Remove all database tables
 	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_affiliates" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_affiliatemeta" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_creatives" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_payouts" );
 	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_referrals" );
-	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_rest_consumers" );
 	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_visits" );
+	$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "affiliate_wp_creatives" );
 	$wpdb->query( "DROP VIEW " . $wpdb->prefix . "affiliate_wp_campaigns" );
 
 }

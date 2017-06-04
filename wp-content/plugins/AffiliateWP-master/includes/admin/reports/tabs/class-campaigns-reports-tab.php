@@ -43,11 +43,12 @@ class Tab extends Reports\Tab {
 		if ( ! empty( $top_campaign[0] ) ) {
 			$campaign = $top_campaign[0];
 
-			$affiliate_link = affwp_admin_url( 'referrals', array(
+			$affiliate_link = add_query_arg( array(
+				'page'         => 'affiliate-wp-referrals',
 				'affiliate_id' => $campaign->affiliate_id,
 				'orderby'      => 'status',
 				'order'        => 'ASC',
-			) );
+			), admin_url( 'admin.php ') );
 
 			$this->register_tile( 'best_converting_campaign', array(
 				'label'           => __( 'Best Converting Campaign (All Time)', 'affiliate-wp' ),
@@ -86,11 +87,12 @@ class Tab extends Reports\Tab {
 		if ( ! empty( $top_campaign_date ) ) {
 			$campaign = $top_campaign_date;
 
-			$affiliate_link = affwp_admin_url( 'referrals', array(
+			$affiliate_link = add_query_arg( array(
+				'page'         => 'affiliate-wp-referrals',
 				'affiliate_id' => $campaign->affiliate_id,
 				'orderby'      => 'status',
 				'order'        => 'ASC',
-			) );
+			), admin_url( 'admin.php ') );
 
 			$this->register_tile( 'best_converting_campaign_date', array(
 				'label'           => sprintf( __( 'Best Converting Campaign (%s)', 'affiliate-wp' ),
@@ -134,11 +136,12 @@ class Tab extends Reports\Tab {
 		if ( ! empty( $most_active_campaign_date ) ) {
 			$campaign = $most_active_campaign_date;
 
-			$affiliate_link = affwp_admin_url( 'referrals', array(
+			$affiliate_link = add_query_arg( array(
+				'page'         => 'affiliate-wp-referrals',
 				'affiliate_id' => $campaign->affiliate_id,
 				'orderby'      => 'status',
 				'order'        => 'ASC',
-			) );
+			), admin_url( 'admin.php ') );
 
 			$this->register_tile( 'most_active_campaign', array(
 				'label'           => sprintf( __( 'Most Active Campaign (%s)', 'affiliate-wp' ),

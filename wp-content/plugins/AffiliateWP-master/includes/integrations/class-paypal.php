@@ -10,7 +10,7 @@ class Affiliate_WP_PayPal extends Affiliate_WP_Base {
 	 */
 	public function init() {
 
-		$this->context = 'paypal';
+		$this->context = 'paypal'; 
 
 		add_action( 'wp_footer', array( $this, 'scripts' ) );
 		add_action( 'wp_ajax_affwp_maybe_insert_paypal_referral', array( $this, 'maybe_insert_referral' ) );
@@ -137,9 +137,10 @@ class Affiliate_WP_PayPal extends Affiliate_WP_Base {
 			'subscr_payment',
 			'express_checkout',
 			'recurring_payment',
+			'subscr_payment'
 		);
 
-		if( ! empty( $ipn_data['txn_type'] ) && ! in_array( $ipn_data['txn_type'], $to_process ) ) {
+		if( ! in_array( $ipn_data['txn_type'], $to_process ) ) {
 			return;
 		}
 
@@ -199,6 +200,19 @@ class Affiliate_WP_PayPal extends Affiliate_WP_Base {
 			die( 'Missing visit or referral data' );
 		}
 
+		if( 'pending' !== $referral->status ) {
+
+			if( $this->debug ) {
+
+				$this->log( 'Referral has status other than Pending during process_ipn()' );
+
+			}
+
+			die( 'Referral not pending' );
+		}
+
+		$visit->set( 'referral_id', $referral->ID, true );
+
 		if( $this->debug ) {
 
 			$this->log( 'Referral ID (' . $referral->ID . ') successfully retrieved during process_ipn()' );
@@ -206,19 +220,6 @@ class Affiliate_WP_PayPal extends Affiliate_WP_Base {
 		}
 
 		if( 'completed' === strtolower( $ipn_data['payment_status'] ) ) {
-
-			if( 'pending' !== $referral->status ) {
-
-				if( $this->debug ) {
-
-					$this->log( 'Referral has status other than Pending during process_ipn()' );
-
-				}
-
-				die( 'Referral not pending' );
-			}
-
-			$visit->set( 'referral_id', $referral->ID, true );
 
 			$reference   = sanitize_text_field( $ipn_data['txn_id'] );
 			$description = ! empty( $ipn_data['item_name'] ) ? sanitize_text_field( $ipn_data['item_name'] ) : sanitize_text_field( $ipn_data['payer_email'] );
@@ -266,26 +267,11 @@ class Affiliate_WP_PayPal extends Affiliate_WP_Base {
 
 			}
 
-		} elseif ( 'refunded' === strtolower( $ipn_data['payment_status'] ) || 'reversed' === strtolower( $ipn_data['payment_status'] ) ) {
-
-			if( ! affiliate_wp()->settings->get( 'revoke_on_refund' ) ) {
-
-				if ( $this->debug ) {
-
-					$this->log( 'Referral not rejected because revoke on refund is not enabled' );
-
-				}
-
-				return;
-			}
-
-			$this->reject_referral( $referral->reference );
-
 		} else {
 
 			if ( $this->debug ) {
 
-				$this->log( 'Payment status in IPN data not Complete, Refunded, or Reversed' );
+				$this->log( 'Payment status in IPN data not Complete' );
 
 			}
 
@@ -304,7 +290,7 @@ class Affiliate_WP_PayPal extends Affiliate_WP_Base {
 
 		$verified = false;
 		$endpoint = array_key_exists( 'test_ipn', $post_data ) ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
-		$args     = wp_unslash( array_merge( array( 'cmd' => '_notify-validate' ), $post_data ) );
+		$args     = array_merge( array( 'cmd' => '_notify-validate' ),  $post_data );
 
 		if( $this->debug ) {
 

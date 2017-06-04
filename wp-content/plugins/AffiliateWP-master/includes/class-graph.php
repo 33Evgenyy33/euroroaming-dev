@@ -152,7 +152,7 @@ class Affiliate_WP_Graph {
 		// Use minified libraries if SCRIPT_DEBUG is turned off
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 		wp_enqueue_script( 'jquery-flot', AFFILIATEWP_PLUGIN_URL . 'assets/js/jquery.flot' . $suffix . '.js' );
-
+		
 		if( $this->load_resize_script() ) {
 			wp_enqueue_script( 'jquery-flot-resize', AFFILIATEWP_PLUGIN_URL . 'assets/js/jquery.flot.resize' . $suffix . '.js' );
 		}
@@ -164,7 +164,7 @@ class Affiliate_WP_Graph {
 	 * @since 1.1
 	 */
 	public function load_resize_script() {
-
+			
 		$ret = true;
 
 		// The DMS theme is known to cause some issues with the resize script
@@ -337,20 +337,8 @@ class Affiliate_WP_Graph {
 	 * @since 1.0
 	 */
 	public function display() {
-		/**
-		 * Fires just prior to the graph output.
-		 *
-		 * @param stdClass $graph The graph object.
-		 */
 		do_action( 'affwp_before_graph', $this );
-
 		echo $this->build_graph();
-
-		/**
-		 * Fires immediately after the graph output.
-		 *
-		 * @param stdClass $graph The graph object.
-		 */
 		do_action( 'affwp_after_graph', $this );
 	}
 
@@ -393,9 +381,9 @@ class Affiliate_WP_Graph {
 					<?php $tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'graphs'; ?>
 					<input type="hidden" name="page_id" value="<?php echo esc_attr( get_the_ID() ); ?>"/>
 				<?php endif; ?>
-
+				
 				<input type="hidden" name="tab" value="<?php echo esc_attr( $tab ); ?>"/>
-
+				
 				<?php if( isset( $_GET['affiliate_id'] ) ) : ?>
 				<input type="hidden" name="affiliate_id" value="<?php echo absint( $_GET['affiliate_id'] ); ?>"/>
 				<input type="hidden" name="action" value="view_affiliate"/>

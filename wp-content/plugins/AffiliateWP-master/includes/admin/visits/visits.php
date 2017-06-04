@@ -41,19 +41,13 @@ function affwp_visits_admin() {
 			<?php _e( 'Visits', 'affiliate-wp' ); ?>
 			<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'affiliate-wp-reports', 'tab' => 'visits' ) ) ); ?>" class="page-title-action"><?php _ex( 'Reports', 'visits', 'affiliate-wp' ); ?></a>
 		</h1>
-		<?php
-		/**
-		 * Fires at the top of the Visits admin screen (outside the form element).
-		 */
-		do_action( 'affwp_visits_page_top' );
-
-		?>
-
-		<form id="affwp-visits-filter" method="get" action="<?php echo esc_url( affwp_admin_url() ); ?>">
+		<?php do_action( 'affwp_affiliates_page_top' ); ?>
+		<form id="affwp-visits-filter" method="get" action="<?php echo admin_url( 'admin.php?page=affiliate-wp' ); ?>">
 			<?php $visits_table->search_box( __( 'Search', 'affiliate-wp' ), 'affwp-affiliates' ); ?>
 			<span class="affwp-ajax-search-wrap">
 				<input type="text" name="user_name" id="user_name" class="affwp-user-search" value="<?php echo esc_attr( $affiliate_name ); ?>" data-affwp-status="any" autocomplete="off" placeholder="<?php _e( 'Affiliate name', 'affiliate-wp' ); ?>" />
 			</span>
+			<input type="hidden" name="user_id" id="user_id" value=""/>
 			<input type="hidden" name="page" value="affiliate-wp-visits" />
 			<input type="text" class="affwp-datepicker" autocomplete="off" name="filter_from" placeholder="<?php esc_attr_e( 'From - mm/dd/yyyy', 'affiliate-wp' ); ?>" value="<?php echo esc_attr( $from ); ?>"/>
 			<input type="text" class="affwp-datepicker" autocomplete="off" name="filter_to" placeholder="<?php esc_attr_e( 'To - mm/dd/yyyy', 'affiliate-wp' ); ?>" value="<?php echo esc_attr( $to ); ?>"/>
@@ -68,14 +62,7 @@ function affwp_visits_admin() {
 			<?php $visits_table->views() ?>
 			<?php $visits_table->display() ?>
 		</form>
-		<?php
-
-		/**
-		 * Fires at the bottom of the Visits admin screen.
-		 */
-		do_action( 'affwp_visits_page_bottom' );
-
-		?>
+		<?php do_action( 'affwp_affiliates_page_bottom' ); ?>
 	</div>
 <?php
 

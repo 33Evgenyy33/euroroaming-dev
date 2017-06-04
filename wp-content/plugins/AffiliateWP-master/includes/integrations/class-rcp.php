@@ -237,6 +237,7 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 					</th>
 					<td>
 						<span class="affwp-ajax-search-wrap">
+							<input type="hidden" name="user_id" id="user_id" value="<?php echo esc_attr( $user_id ); ?>" />
 							<input type="text" name="user_name" id="user_name" value="<?php echo esc_attr( $user_name ); ?>" class="affwp-user-search" data-affwp-status="active" autocomplete="off" style="width: 300px;" />
 						</span>
 						<p class="description"><?php _e( 'If you would like to connect this discount to an affiliate, enter the name of the affiliate it belongs to.', 'affiliate-wp' ); ?></p>
@@ -259,11 +260,32 @@ class Affiliate_WP_RCP extends Affiliate_WP_Base {
 			return;
 		}
 
-		$data = affiliate_wp()->utils->process_request_data( $_POST, 'user_name' );
+		// Get the user ID. Always retrieve the user ID from the posted user_name field
+		if ( ! empty( $_POST['user_name'] ) ) {
 
-		$affiliate_id = affwp_get_affiliate_id( $data['user_id'] );
+			// get user
+			$user = get_user_by( 'login', $_POST['user_name'] );
 
-		update_user_meta( $data['user_id'], 'affwp_discount_rcp_' . $discount_id, $affiliate_id );
+			// If user exists
+			if ( $user ) {
+				// Make sure they are a valid affiliate
+				if ( affwp_is_affiliate( $user->ID ) ) {
+					$user_id = absint( $user->ID );
+				}
+
+			} else {
+				// No user ID
+				$user_id = '';
+			}
+
+		} else {
+			// No user ID
+			$user_id = '';
+		}
+
+		$affiliate_id = affwp_get_affiliate_id( $user_id );
+
+		update_user_meta( $user_id, 'affwp_discount_rcp_' . $discount_id, $affiliate_id );
 
 	}
 
